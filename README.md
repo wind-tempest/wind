@@ -63,4 +63,4 @@ Must support Multiboot2/Limine.
 
 ## License
 
-Licensed under the [AGPL (version 3)](LICENSE).
+This OS/Kernel is released under the GNU Affero General Public License (v3). Please see [LICENSE](LICENSE).
