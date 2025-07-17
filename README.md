@@ -4,12 +4,12 @@
 
 <!-- Badges -->
 <p align="center">
-  <a href="https://www.gnu.org/licenses/agpl-3.0"><img src="https://img.shields.io/badge/license-AGPLv3-blue.svg" alt="License: AGPL v3"></a>
-  <a href="docs/Main.md"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
-  <img src="https://img.shields.io/badge/platform-x86__64-lightgrey.svg" alt="Platform: x86_64">
   <a href="https://github.com/wind-tempest/wind/blob/master/src/">
     <img src="https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=" alt="Most used language: C">
   </a>
+  <a href="https://www.gnu.org/licenses/agpl-3.0"><img src="https://img.shields.io/badge/license-AGPLv3-blue.svg" alt="License: AGPL v3"></a>
+  <a href="docs/Main.md"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
+  <img src="https://img.shields.io/badge/platform-x86__64-lightgrey.svg" alt="Platform: x86_64">
 </p>
 
 > A minimal OS for modern machines, built from scratch, built to last.
