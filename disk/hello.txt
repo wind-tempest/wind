@@ -1,0 +1,1 @@
+Hello! If can read this, then Wind/Tempest can read files from disk using EXT2 filesystem!

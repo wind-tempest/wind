@@ -1,0 +1,71 @@
+BasedOnStyle: LLVM
+
+IndentWidth: 8
+UseTab: Never
+TabWidth: 8
+IndentCaseLabels: true
+NamespaceIndentation: All
+IndentWrappedFunctionNames: true
+
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+AlignOperands: true
+AlignTrailingComments: true
+AlignAfterOpenBracket: Align
+
+ColumnLimit: 100
+MaxEmptyLinesToKeep: 1
+PenaltyReturnTypeOnItsOwnLine: 0
+
+BreakBeforeBraces: Allman
+BreakAfterReturnType: TopLevel
+AlwaysBreakAfterReturnType: TopLevel
+
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+
+DerivePointerAlignment: false
+PointerAlignment: Right
+
+SpaceAfterCStyleCast: true
+SpaceInEmptyParentheses: false
+
+SpaceBeforeParens: Custom
+SpaceBeforeParensOptions:
+  AfterFunctionDeclarationName: true
+  AfterFunctionDefinitionName: true
+  AfterControlStatements: true
+  AfterIfMacros: true
+  BeforeNonEmptyParentheses: false
+
+SpacesInParens: Custom
+SpacesInParensOptions:
+  InConditionalStatements: true
+  ExceptDoubleParentheses: false
+  InCStyleCasts: false
+  InEmptyParentheses: false
+  Other: false
+
+SpacesInContainerLiterals: false
+
+SortIncludes: true
+IncludeBlocks: Preserve
+IncludeCategories:
+  - Regex: ".*"
+    Priority: 0
+
+CommentPragmas: '^.*$'
+ReflowComments: true
+KeepEmptyLinesAtTheStartOfBlocks: true
+EmptyLineAfterAccessModifier: Always
+FixNamespaceComments: true
+SeparateDefinitionBlocks: Always
+Cpp11BracedListStyle: true
+
+BinPackArguments: false
+BinPackParameters: false
+
+BreakBeforeBinaryOperators: NonAssignment

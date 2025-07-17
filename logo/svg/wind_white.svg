@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="200"
+   height="200"
+   viewBox="0 0 2048 2048"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="wind_white.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   inkscape:export-filename="wind_white.png"
+   inkscape:export-xdpi="983.03998"
+   inkscape:export-ydpi="983.03998"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="4.04"
+     inkscape:cx="83.292079"
+     inkscape:cy="75.742574"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3"
+     inkscape:export-bgcolor="#00000000" />
+  <!-- Minimalist wind logo with alternating wave directions -->
+  <path
+     d="M 99.652368,495.16806 C 144.65126,588.0137 257.31694,663.0489 396.24995,706.14774 c 226.67418,70.31731 523.26962,55.62297 709.98855,-105.43183 227.5963,-196.31368 755.1988,165.95486 843.9591,-105.54785"
+     stroke="#000000"
+     stroke-width="70.0708"
+     fill="none"
+     stroke-linecap="round"
+     id="path1"
+     sodipodi:nodetypes="cssc"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="m 93.537518,1288.5084 c 146.399562,482.2356 695.093532,-34.3413 1126.658282,169.2643 368.6361,173.9168 551.2405,-73.9355 741.8979,-169.2643"
+     stroke="#000000"
+     stroke-width="70.0708"
+     fill="none"
+     stroke-linecap="round"
+     id="path2"
+     sodipodi:nodetypes="csc"
+     style="fill:#ffffff;stroke:#ffffff;stroke-opacity:1;fill-opacity:0" />
+  <path
+     d="m 97.535928,850.34362 c 50.553702,88.45657 137.464642,133.36558 216.921982,146.19957 591.0234,95.46231 461.7408,91.47281 804.06119,183.47711 280.1409,75.2925 495.1808,-158.0539 845.3577,-329.67668"
+     stroke="#000000"
+     stroke-width="70.0708"
+     fill="none"
+     stroke-linecap="round"
+     id="path3"
+     sodipodi:nodetypes="cssc"
+     style="fill:#ffffff;stroke:#ffffff;stroke-opacity:1;fill-opacity:0" />
+</svg>

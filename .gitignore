@@ -1,0 +1,8 @@
+# Ignore the IDE folders
+.vscode/
+.idea/
+
+# Ignore build folder
+build/
+isodir/
+./qemu.log
