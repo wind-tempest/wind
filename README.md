@@ -4,8 +4,8 @@
 
 <!-- Badges -->
 <p align="center">
-  <a href="https://github.com/wind-tempest/wind/blob/master/src/">
-    <img src="https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=" alt="Most used language: C">
+  <a href="https://github.com/wind-tempest/wind/tree/main/src">
+    <img src="https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=" alt="Most used language">
   </a>
   <a href="https://www.gnu.org/licenses/agpl-3.0"><img src="https://img.shields.io/badge/license-AGPLv3-blue.svg" alt="License: AGPL v3"></a>
   <a href="docs/Main.md"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
