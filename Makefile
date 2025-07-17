@@ -92,6 +92,9 @@ $(OBJDIR)/%.o: src/%.asm | $(OBJDIR)
 # Link ELF
 $(OUTDIR)/wind.elf: $(OBJS) linker.ld | $(OUTDIR)
 	$(CC) $(LDFLAGS) -T linker.ld $(OBJS) -o $@
+ifeq ($(MODE),Release)
+	strip --strip-debug $@
+endif
 
 # Create ISO
 $(ISO_PATH): $(OUTDIR)/wind.elf | $(ISODIR)/boot

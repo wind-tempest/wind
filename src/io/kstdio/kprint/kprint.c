@@ -112,8 +112,18 @@ int
 			width = width * 10 + (*p++ - '0');
 		}
 
-		char  temp[32];
+		char temp[32];
+		/* Handle length modifier for long long ("ll") */
+		int long_long = 0;
+		if ( *p == 'l' && *(p + 1) == 'l' )
+		{
+			long_long = 1;
+			p += 2; /* Skip the two 'l's */
+		}
+
 		char *t = temp;
+
+		/* Use long_long flag to choose value width */
 
 		switch ( *p )
 		{
@@ -133,24 +143,59 @@ int
 			}
 			case 'd':
 			{
-				int	     val = k_va_arg(args, int);
-				unsigned int uval;
-				if ( val < 0 )
+				if ( long_long )
 				{
-					*t++ = '-';
-					uval = (unsigned int) (-val);
+					long long	   val = k_va_arg(args, long long);
+					unsigned long long uval;
+					if ( val < 0 )
+					{
+						*t++ = '-';
+						uval = (unsigned long long) (-val);
+					}
+					else
+					{
+						uval = (unsigned long long) val;
+					}
+					t = kutoa(t,
+						  temp + sizeof(temp) - 1,
+						  (unsigned long) uval,
+						  10,
+						  0);
 				}
 				else
 				{
-					uval = (unsigned int) val;
+					int	     val = k_va_arg(args, int);
+					unsigned int uval;
+					if ( val < 0 )
+					{
+						*t++ = '-';
+						uval = (unsigned int) (-val);
+					}
+					else
+					{
+						uval = (unsigned int) val;
+					}
+					t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
 				}
-				t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
 				break;
 			}
 			case 'u':
 			{
-				unsigned int uval = k_va_arg(args, unsigned int);
-				t		  = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
+				if ( long_long )
+				{
+					unsigned long long uval =
+					    k_va_arg(args, unsigned long long);
+					t = kutoa(t,
+						  temp + sizeof(temp) - 1,
+						  (unsigned long) uval,
+						  10,
+						  0);
+				}
+				else
+				{
+					unsigned int uval = k_va_arg(args, unsigned int);
+					t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
+				}
 				break;
 			}
 			case 'x':
@@ -206,9 +251,9 @@ int
     ksnprintf (char *buffer, size_t size, const char *format, ...)
 {
 	va_list args;
-	va_start(args, format);
+	k_va_start(args, format);
 	int result = kvsnprintf(buffer, size, format, args);
-	va_end(args);
+	k_va_end(args);
 	return result;
 }
 
@@ -216,7 +261,7 @@ int
     kprintf (const char *format, ...)
 {
 	va_list args;
-	va_start(args, format);
+	k_va_start(args, format);
 	int count = 0;
 
 	for ( const char *p = format; *p; ++p )
@@ -250,7 +295,7 @@ int
 		{
 			case 's':
 			{
-				const char *s	= va_arg(args, const char *);
+				const char *s	= k_va_arg(args, const char *);
 				int	    len = 0;
 				const char *t	= s;
 				while ( *t++ )
@@ -286,7 +331,7 @@ int
 
 			case 'd':
 			{
-				int n = va_arg(args, int);
+				int n = k_va_arg(args, int);
 				if ( n < 0 )
 				{
 					kputchar('-');
@@ -308,7 +353,7 @@ int
 
 			case 'x':
 			{
-				unsigned int n = va_arg(args, unsigned int);
+				unsigned int n = k_va_arg(args, unsigned int);
 				kputhex((uint64_t) n);
 
 				unsigned int temp   = n;
@@ -324,7 +369,7 @@ int
 
 			case 'c':
 			{
-				char c = (char) va_arg(args, int);
+				char c = (char) k_va_arg(args, int);
 				kputchar(c);
 				count++;
 				break;
@@ -339,7 +384,7 @@ int
 
 			case 'u':
 			{
-				unsigned int n = va_arg(args, unsigned int);
+				unsigned int n = k_va_arg(args, unsigned int);
 				kputdec(n);
 
 				unsigned int temp   = n;
@@ -361,7 +406,7 @@ int
 		}
 	}
 
-	va_end(args);
+	k_va_end(args);
 	return count;
 }
 

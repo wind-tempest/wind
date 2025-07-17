@@ -1,4 +1,4 @@
-/* reboot.c */
+/* cpu.h */
 
 /*
  * Copyright (C) 2025 Wind/Tempest Foundation
@@ -19,20 +19,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "dlog.h"
-#include "kprint.h"
-#include "ksignal.h"
-#include "reboot.h"
+#pragma once
 
+extern char cpu_brand_string[49];
 void
-    kreboot (void)
-{
-	/* Wait until the keyboard controller is ready. */
-	while ( kinb(0x64) & 0x02 )
-		;
-	/* Send the reset command */
-	koutb(0x64, 0xFE);
-
-	/* If it fails, just warn the user. */
-	kerror("Keyboard controller didn't respond to reset.", NULL);
-}
+    cpu_init_brand_string (void);

@@ -19,6 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "cpu.h"
 #include "dlog.h"
 #include "drivers/ata/ata.h"
 #include "drivers/driver.h"
@@ -219,6 +220,9 @@ void
 	{
 		kputs("EXT2 mount failed\n");
 	}
+
+	/* Initialize CPU brand string */
+	cpu_init_brand();
 
 	/* Initialize keyboard before enabling interrupts */
 	keyboard_init();
