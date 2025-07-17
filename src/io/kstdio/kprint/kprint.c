@@ -1,23 +1,23 @@
-/* print.c */
+/* kprint.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-
-/* print.c */
 
 #include "drivers/driver.h"
 #include "kprint.h"
@@ -26,347 +26,347 @@
 #include "kutoa.h"
 
 typedef __builtin_va_list va_list;
-#define va_start(ap, last) __builtin_va_start(ap, last)
-#define va_arg(ap, type)   __builtin_va_arg(ap, type)
-#define va_end(ap)         __builtin_va_end(ap)
+#define k_va_start(ap, last) __builtin_va_start(ap, last)
+#define k_va_arg(ap, type)   __builtin_va_arg(ap, type)
+#define k_va_end(ap)	     __builtin_va_end(ap)
 
 /* I think this is... safe? */
 void
     kputhex (uint64_t n)
 {
-        const char *hex = "0123456789ABCDEF";
-        char        buf[17]; // 16 hex digits + null terminator
-        buf[16] = '\0';
+	const char *hex = "0123456789ABCDEF";
+	char	    buf[17]; // 16 hex digits + null terminator
+	buf[16] = '\0';
 
-        for ( int i = 15; i >= 0; --i )
-        {
-                buf[i] = hex[n & 0xF];
-                n >>= 4;
-        }
+	for ( int i = 15; i >= 0; --i )
+	{
+		buf[i] = hex[n & 0xF];
+		n >>= 4;
+	}
 
-        /* Skip leading zeros */
-        int start = 0;
-        while ( start < 15 && buf[start] == '0' )
-        {
-                start++;
-        }
+	/* Skip leading zeros */
+	int start = 0;
+	while ( start < 15 && buf[start] == '0' )
+	{
+		start++;
+	}
 
-        kputs(&buf[start]);
+	kputs(&buf[start]);
 }
 
 void
     kputdec (uint32_t n)
 {
-        if ( n == 0 )
-        {
-                kputchar('0');
-                return;
-        }
+	if ( n == 0 )
+	{
+		kputchar('0');
+		return;
+	}
 
-        char buf[11];
-        int  i = 0;
+	char buf[11];
+	int  i = 0;
 
-        while ( n > 0 )
-        {
-                buf[i++] = (char) ('0' + (n % 10));
-                n /= 10;
-        }
+	while ( n > 0 )
+	{
+		buf[i++] = (char) ('0' + (n % 10));
+		n /= 10;
+	}
 
-        while ( --i >= 0 )
-        {
-                kputchar(buf[i]);
-        }
+	while ( --i >= 0 )
+	{
+		kputchar(buf[i]);
+	}
 }
 
 void
     kputs (const char *s)
 {
-        video_puts(s);
-        kputchar('\n');
+	video_puts(s);
+	kputchar('\n');
 }
 
 int
     kvsnprintf (char *buffer, size_t size, const char *format, va_list args)
 {
-        char *out = buffer;
-        char *end = buffer + size - 1;
+	char *out = buffer;
+	char *end = buffer + size - 1;
 
-        for ( const char *p = format; *p && out < end; ++p )
-        {
-                if ( *p != '%' )
-                {
-                        *out++ = *p;
-                        continue;
-                }
-                ++p;
+	for ( const char *p = format; *p && out < end; ++p )
+	{
+		if ( *p != '%' )
+		{
+			*out++ = *p;
+			continue;
+		}
+		++p;
 
-                int left_align = 0;
-                if ( *p == '-' )
-                {
-                        left_align = 1;
-                        ++p;
-                }
-                int width = 0;
-                while ( *p >= '0' && *p <= '9' )
-                {
-                        width = width * 10 + (*p++ - '0');
-                }
+		int left_align = 0;
+		if ( *p == '-' )
+		{
+			left_align = 1;
+			++p;
+		}
+		int width = 0;
+		while ( *p >= '0' && *p <= '9' )
+		{
+			width = width * 10 + (*p++ - '0');
+		}
 
-                char  temp[32];
-                char *t = temp;
+		char  temp[32];
+		char *t = temp;
 
-                switch ( *p )
-                {
-                        case 's':
-                        {
-                                const char *s = va_arg(args, const char *);
-                                while ( *s && t < temp + sizeof(temp) - 1 )
-                                {
-                                        *t++ = *s++;
-                                }
-                                break;
-                        }
-                        case 'c':
-                        {
-                                *t++ = (char) va_arg(args, int);
-                                break;
-                        }
-                        case 'd':
-                        {
-                                int          val = va_arg(args, int);
-                                unsigned int uval;
-                                if ( val < 0 )
-                                {
-                                        *t++ = '-';
-                                        uval = (unsigned int) (-val);
-                                }
-                                else
-                                {
-                                        uval = (unsigned int) val;
-                                }
-                                t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
-                                break;
-                        }
-                        case 'u':
-                        {
-                                unsigned int uval = va_arg(args, unsigned int);
-                                t                 = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
-                                break;
-                        }
-                        case 'x':
-                        {
-                                unsigned int uval = va_arg(args, unsigned int);
-                                t                 = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 0);
-                                break;
-                        }
-                        case 'X':
-                        {
-                                unsigned int uval = va_arg(args, unsigned int);
-                                t                 = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 1);
-                                break;
-                        }
-                        case '%':
-                        {
-                                *t++ = '%';
-                                break;
-                        }
-                        default:
-                        {
-                                *t++ = '%';
-                                *t++ = *p;
-                                break;
-                        }
-                }
-                ++p;
+		switch ( *p )
+		{
+			case 's':
+			{
+				const char *s = k_va_arg(args, const char *);
+				while ( *s && t < temp + sizeof(temp) - 1 )
+				{
+					*t++ = *s++;
+				}
+				break;
+			}
+			case 'c':
+			{
+				*t++ = (char) k_va_arg(args, int);
+				break;
+			}
+			case 'd':
+			{
+				int	     val = k_va_arg(args, int);
+				unsigned int uval;
+				if ( val < 0 )
+				{
+					*t++ = '-';
+					uval = (unsigned int) (-val);
+				}
+				else
+				{
+					uval = (unsigned int) val;
+				}
+				t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
+				break;
+			}
+			case 'u':
+			{
+				unsigned int uval = k_va_arg(args, unsigned int);
+				t		  = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
+				break;
+			}
+			case 'x':
+			{
+				unsigned int uval = k_va_arg(args, unsigned int);
+				t		  = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 0);
+				break;
+			}
+			case 'X':
+			{
+				unsigned int uval = k_va_arg(args, unsigned int);
+				t		  = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 1);
+				break;
+			}
+			case '%':
+			{
+				*t++ = '%';
+				break;
+			}
+			default:
+			{
+				*t++ = '%';
+				*t++ = *p;
+				break;
+			}
+		}
+		++p;
 
-                size_t len = (size_t) (t - temp);
-                int    pad = width > (int) len ? width - (int) len : 0;
-                if ( !left_align )
-                {
-                        while ( pad-- > 0 && out < end )
-                                *out++ = ' ';
-                }
-                for ( size_t i = 0; i < len && out < end; ++i )
-                {
-                        *out++ = temp[i];
-                }
-                if ( left_align )
-                {
-                        while ( pad-- > 0 && out < end )
-                                *out++ = ' ';
-                }
-                --p;
-        }
+		size_t len = (size_t) (t - temp);
+		int    pad = width > (int) len ? width - (int) len : 0;
+		if ( !left_align )
+		{
+			while ( pad-- > 0 && out < end )
+				*out++ = ' ';
+		}
+		for ( size_t i = 0; i < len && out < end; ++i )
+		{
+			*out++ = temp[i];
+		}
+		if ( left_align )
+		{
+			while ( pad-- > 0 && out < end )
+				*out++ = ' ';
+		}
+		--p;
+	}
 
-        *out = '\0';
-        return (int) (out - buffer);
+	*out = '\0';
+	return (int) (out - buffer);
 }
 
 int
     ksnprintf (char *buffer, size_t size, const char *format, ...)
 {
-        va_list args;
-        va_start(args, format);
-        int result = kvsnprintf(buffer, size, format, args);
-        va_end(args);
-        return result;
+	va_list args;
+	va_start(args, format);
+	int result = kvsnprintf(buffer, size, format, args);
+	va_end(args);
+	return result;
 }
 
 int
     kprintf (const char *format, ...)
 {
-        va_list args;
-        va_start(args, format);
-        int count = 0;
+	va_list args;
+	va_start(args, format);
+	int count = 0;
 
-        for ( const char *p = format; *p; ++p )
-        {
-                if ( *p != '%' )
-                {
-                        kputchar(*p);
-                        count++;
-                        continue;
-                }
+	for ( const char *p = format; *p; ++p )
+	{
+		if ( *p != '%' )
+		{
+			kputchar(*p);
+			count++;
+			continue;
+		}
 
-                p++;
+		p++;
 
-                /* Field width and left alignment */
-                int left_align = 0;
-                int width      = 0;
+		/* Field width and left alignment */
+		int left_align = 0;
+		int width      = 0;
 
-                if ( *p == '-' )
-                {
-                        left_align = 1;
-                        p++;
-                }
+		if ( *p == '-' )
+		{
+			left_align = 1;
+			p++;
+		}
 
-                while ( *p >= '0' && *p <= '9' )
-                {
-                        width = width * 10 + (*p - '0');
-                        p++;
-                }
+		while ( *p >= '0' && *p <= '9' )
+		{
+			width = width * 10 + (*p - '0');
+			p++;
+		}
 
-                switch ( *p )
-                {
-                        case 's':
-                        {
-                                const char *s   = va_arg(args, const char *);
-                                int         len = 0;
-                                const char *t   = s;
-                                while ( *t++ )
-                                        len++;
+		switch ( *p )
+		{
+			case 's':
+			{
+				const char *s	= va_arg(args, const char *);
+				int	    len = 0;
+				const char *t	= s;
+				while ( *t++ )
+					len++;
 
-                                int pad = (width > len) ? (width - len) : 0;
+				int pad = (width > len) ? (width - len) : 0;
 
-                                if ( !left_align )
-                                {
-                                        for ( int i = 0; i < pad; ++i )
-                                        {
-                                                kputchar(' ');
-                                                count++;
-                                        }
-                                }
+				if ( !left_align )
+				{
+					for ( int i = 0; i < pad; ++i )
+					{
+						kputchar(' ');
+						count++;
+					}
+				}
 
-                                for ( int i = 0; i < len; ++i )
-                                {
-                                        kputchar(s[i]);
-                                        count++;
-                                }
+				for ( int i = 0; i < len; ++i )
+				{
+					kputchar(s[i]);
+					count++;
+				}
 
-                                if ( left_align )
-                                {
-                                        for ( int i = 0; i < pad; ++i )
-                                        {
-                                                kputchar(' ');
-                                                count++;
-                                        }
-                                }
-                                break;
-                        }
+				if ( left_align )
+				{
+					for ( int i = 0; i < pad; ++i )
+					{
+						kputchar(' ');
+						count++;
+					}
+				}
+				break;
+			}
 
-                        case 'd':
-                        {
-                                int n = va_arg(args, int);
-                                if ( n < 0 )
-                                {
-                                        kputchar('-');
-                                        count++;
-                                        n = -n;
-                                }
+			case 'd':
+			{
+				int n = va_arg(args, int);
+				if ( n < 0 )
+				{
+					kputchar('-');
+					count++;
+					n = -n;
+				}
 
-                                kputdec((uint32_t) n);
+				kputdec((uint32_t) n);
 
-                                int temp = n, digits = 1;
-                                while ( temp >= 10 )
-                                {
-                                        temp /= 10;
-                                        digits++;
-                                }
-                                count += digits;
-                                break;
-                        }
+				int temp = n, digits = 1;
+				while ( temp >= 10 )
+				{
+					temp /= 10;
+					digits++;
+				}
+				count += digits;
+				break;
+			}
 
-                        case 'x':
-                        {
-                                unsigned int n = va_arg(args, unsigned int);
-                                kputhex((uint64_t) n);
+			case 'x':
+			{
+				unsigned int n = va_arg(args, unsigned int);
+				kputhex((uint64_t) n);
 
-                                unsigned int temp   = n;
-                                int          digits = 1;
-                                while ( temp >= 16 )
-                                {
-                                        temp /= 16;
-                                        digits++;
-                                }
-                                count += digits;
-                                break;
-                        }
+				unsigned int temp   = n;
+				int	     digits = 1;
+				while ( temp >= 16 )
+				{
+					temp /= 16;
+					digits++;
+				}
+				count += digits;
+				break;
+			}
 
-                        case 'c':
-                        {
-                                char c = (char) va_arg(args, int);
-                                kputchar(c);
-                                count++;
-                                break;
-                        }
+			case 'c':
+			{
+				char c = (char) va_arg(args, int);
+				kputchar(c);
+				count++;
+				break;
+			}
 
-                        case '%':
-                        {
-                                kputchar('%');
-                                count++;
-                                break;
-                        }
+			case '%':
+			{
+				kputchar('%');
+				count++;
+				break;
+			}
 
-                        case 'u':
-                        {
-                                unsigned int n = va_arg(args, unsigned int);
-                                kputdec(n);
+			case 'u':
+			{
+				unsigned int n = va_arg(args, unsigned int);
+				kputdec(n);
 
-                                unsigned int temp   = n;
-                                int          digits = 1;
-                                while ( temp >= 10 )
-                                {
-                                        temp /= 10;
-                                        digits++;
-                                }
-                                count += digits;
-                                break;
-                        }
+				unsigned int temp   = n;
+				int	     digits = 1;
+				while ( temp >= 10 )
+				{
+					temp /= 10;
+					digits++;
+				}
+				count += digits;
+				break;
+			}
 
-                        default:
-                                kputchar('%');
-                                kputchar(*p);
-                                count += 2;
-                                break;
-                }
-        }
+			default:
+				kputchar('%');
+				kputchar(*p);
+				count += 2;
+				break;
+		}
+	}
 
-        va_end(args);
-        return count;
+	va_end(args);
+	return count;
 }
 
 void
     kputchar (int c)
 {
-        video_putchar((char) c);
+	video_putchar((char) c);
 }

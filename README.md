@@ -2,6 +2,16 @@
 
 # Wind / Tempest
 
+<!-- Badges -->
+<p align="center">
+  <a href="https://www.gnu.org/licenses/agpl-3.0"><img src="https://img.shields.io/badge/license-AGPLv3-blue.svg" alt="License: AGPL v3"></a>
+  <a href="docs/Main.md"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
+  <img src="https://img.shields.io/badge/platform-x86__64-lightgrey.svg" alt="Platform: x86_64">
+  <a href="https://github.com/wind-tempest/wind/blob/master/src/">
+    <img src="https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=" alt="Most used language: C">
+  </a>
+</p>
+
 > A minimal OS for modern machines, built from scratch, built to last.
 
 **Wind** is the operating system.  
@@ -14,8 +24,8 @@ You break it, you fix it.
 
 - **Boot:** Limine + Multiboot2  
 - **Display:** Framebuffer text & test patterns  
-- **Input:** Keyboard (US only)  
-- **Shell:** `inish` (basic commands)  
+- **Input:** Keyboard (US only for now)  
+- **Shell:** `inish` (basic commands)
 - **FS:** Ext2
 
 ## Docs

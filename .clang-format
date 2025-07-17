@@ -1,7 +1,7 @@
 BasedOnStyle: LLVM
 
 IndentWidth: 8
-UseTab: Never
+UseTab: Always
 TabWidth: 8
 IndentCaseLabels: true
 NamespaceIndentation: All

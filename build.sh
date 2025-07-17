@@ -54,7 +54,7 @@ while (( $# )); do
 done
 
 if $BUILD; then
-  # run_step "./scripts/header.sh"
+  run_step "./scripts/header.sh"
   run_step "./scripts/format.sh"
   run_step "./scripts/create_disk.sh"
   run_step "make"

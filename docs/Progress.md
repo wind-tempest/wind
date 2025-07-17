@@ -1,4 +1,4 @@
-# Wind/Tempest Status
+# Wind/Tempest Progress
 
 ## Basic Stuff (Done)
 - [x] Bootloader: Limine + Multiboot2

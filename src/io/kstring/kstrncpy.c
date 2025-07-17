@@ -1,7 +1,9 @@
-/* strncpy.c */
+/* kstrncpy.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,11 +12,11 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "kstddef.h"
@@ -23,10 +25,10 @@
 char *
     kstrncpy (char *dest, const char *src, size_t n)
 {
-        size_t i;
-        for ( i = 0; i < n && src[i] != '\0'; i++ )
-                dest[i] = src[i];
-        for ( ; i < n; i++ )
-                dest[i] = '\0';
-        return dest;
+	size_t i;
+	for ( i = 0; i < n && src[i] != '\0'; i++ )
+		dest[i] = src[i];
+	for ( ; i < n; i++ )
+		dest[i] = '\0';
+	return dest;
 }

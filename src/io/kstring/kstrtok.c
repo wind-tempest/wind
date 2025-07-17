@@ -1,7 +1,9 @@
-/* strtok.c */
+/* kstrtok.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,11 +12,11 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "kstddef.h"
@@ -26,44 +28,44 @@ static char *strtok_save = NULL;
 char *
     kstrtok (char *str, const char *delim)
 {
-        if ( str != NULL )
-        {
-                strtok_save = str;
-        }
-        else if ( strtok_save == NULL )
-        {
-                return NULL;
-        }
+	if ( str != NULL )
+	{
+		strtok_save = str;
+	}
+	else if ( strtok_save == NULL )
+	{
+		return NULL;
+	}
 
-        /* Skip leading delimiters */
-        while ( *strtok_save && kstrchr(delim, *strtok_save) )
-        {
-                strtok_save++;
-        }
+	/* Skip leading delimiters */
+	while ( *strtok_save && kstrchr(delim, *strtok_save) )
+	{
+		strtok_save++;
+	}
 
-        if ( *strtok_save == '\0' )
-        {
-                strtok_save = NULL;
-                return NULL;
-        }
+	if ( *strtok_save == '\0' )
+	{
+		strtok_save = NULL;
+		return NULL;
+	}
 
-        char *token_start = strtok_save;
+	char *token_start = strtok_save;
 
-        /* Find end of token */
-        while ( *strtok_save && !kstrchr(delim, *strtok_save) )
-        {
-                strtok_save++;
-        }
+	/* Find end of token */
+	while ( *strtok_save && !kstrchr(delim, *strtok_save) )
+	{
+		strtok_save++;
+	}
 
-        if ( *strtok_save != '\0' )
-        {
-                *strtok_save = '\0';
-                strtok_save++;
-        }
-        else
-        {
-                strtok_save = NULL;
-        }
+	if ( *strtok_save != '\0' )
+	{
+		*strtok_save = '\0';
+		strtok_save++;
+	}
+	else
+	{
+		strtok_save = NULL;
+	}
 
-        return token_start;
+	return token_start;
 }

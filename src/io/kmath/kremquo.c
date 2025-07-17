@@ -1,7 +1,9 @@
-/* remquo.c */
+/* kremquo.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,61 +12,61 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "kmath.h"
-#include "remquo.h"
+#include "kremquo.h"
 
 double
-    remquo (double x, double y, int *quo)
+    kremquo (double x, double y, int *quo)
 {
-        /* Handle special cases */
-        if ( isnan(x) || isnan(y) )
-        {
-                *quo = 0;
-                return nan("");
-        }
-        if ( isinf(x) )
-        {
-                *quo = 0;
-                return nan("");
-        }
-        if ( y == 0.0 )
-        {
-                *quo = 0;
-                return nan("");
-        }
-        if ( isinf(y) )
-        {
-                *quo = 0;
-                return x;
-        }
+	/* Handle special cases */
+	if ( kisnan(x) || kisnan(y) )
+	{
+		*quo = 0;
+		return knan("");
+	}
+	if ( kisinf(x) )
+	{
+		*quo = 0;
+		return knan("");
+	}
+	if ( y == 0.0 )
+	{
+		*quo = 0;
+		return knan("");
+	}
+	if ( kisinf(y) )
+	{
+		*quo = 0;
+		return x;
+	}
 
-        /* Calculate quotient */
-        *quo = (int) round(x / y);
+	/* Calculate quotient */
+	*quo = (int) kround(x / y);
 
-        /* Calculate remainder */
-        double r = x - *quo * y;
+	/* Calculate remainder */
+	double r = x - *quo * y;
 
-        /* Adjust to get remainder in the range [-|y|/2, |y|/2] */
-        if ( fabs(r) > fabs(y) / 2.0 )
-        {
-                if ( r > 0 )
-                {
-                        r -= fabs(y);
-                        (*quo)++;
-                }
-                else
-                {
-                        r += fabs(y);
-                        (*quo)--;
-                }
-        }
+	/* Adjust to get remainder in the range [-|y|/2, |y|/2] */
+	if ( kfabs(r) > kfabs(y) / 2.0 )
+	{
+		if ( r > 0 )
+		{
+			r -= kfabs(y);
+			(*quo)++;
+		}
+		else
+		{
+			r += kfabs(y);
+			(*quo)--;
+		}
+	}
 
-        return r;
+	return r;
 }

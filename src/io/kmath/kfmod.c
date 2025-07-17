@@ -1,7 +1,9 @@
-/* fmod.c */
+/* kfmod.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,32 +12,32 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "fmod.h"
+#include "kfmod.h"
 #include "kmath.h"
 
 double
-    fmod (double x, double y)
+    kfmod (double x, double y)
 {
-        if ( y == 0.0 )
-        {
-                /* Return NaN for division by zero */
-                return 0.0 / 0.0;
-        }
+	if ( y == 0.0 )
+	{
+		/* Return NaN for division by zero */
+		return 0.0 / 0.0;
+	}
 
-        if ( x == 0.0 )
-        {
-                return 0.0;
-        }
+	if ( x == 0.0 )
+	{
+		return 0.0;
+	}
 
-        /* Calculate remainder using: x - y * floor(x/y) */
-        double quotient = x / y;
-        double int_part = floor(quotient);
-        return x - y * int_part;
+	/* Calculate remainder using: x - y * floor(x/y) */
+	double quotient = x / y;
+	double int_part = kfloor(quotient);
+	return x - y * int_part;
 }

@@ -1,7 +1,9 @@
 /* video.h */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,38 +12,38 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "stdbool.h"
-#include "stdint.h"
+#include "kstdbool.h"
+#include "kstdint.h"
 
 extern uint32_t fb_width;
 extern uint32_t fb_height;
 extern uint32_t fb_pitch;
-extern uint8_t  fb_bpp;
+extern uint8_t	fb_bpp;
 
 /* Framebuffer information structure */
 struct framebuffer_info
 {
-        uint64_t addr;
-        uint32_t pitch;
-        uint32_t width;
-        uint32_t height;
-        uint8_t  bpp;
-        uint8_t  type;
-        uint8_t  red_mask_size;
-        uint8_t  red_mask_shift;
-        uint8_t  green_mask_size;
-        uint8_t  green_mask_shift;
-        uint8_t  blue_mask_size;
-        uint8_t  blue_mask_shift;
+	uint64_t addr;
+	uint32_t pitch;
+	uint32_t width;
+	uint32_t height;
+	uint8_t	 bpp;
+	uint8_t	 type;
+	uint8_t	 red_mask_size;
+	uint8_t	 red_mask_shift;
+	uint8_t	 green_mask_size;
+	uint8_t	 green_mask_shift;
+	uint8_t	 blue_mask_size;
+	uint8_t	 blue_mask_shift;
 };
 
 void

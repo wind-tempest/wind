@@ -1,7 +1,9 @@
-/* exp2.c */
+/* kexp2.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,11 +12,11 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "kexp2.h"
@@ -23,12 +25,12 @@
 double
     kexp2 (double x)
 {
-        /* Handle special cases */
-        if ( kisnan(x) )
-                return knan("");
-        if ( kisinf(x) )
-                return x > 0 ? INFINITY : 0.0;
+	/* Handle special cases */
+	if ( kisnan(x) )
+		return knan("");
+	if ( kisinf(x) )
+		return x > 0 ? K_INFINITY : 0.0;
 
-        /* Use the relationship: exp2(x) = exp(x * ln(2)) */
-        return kexp(x * M_LN2);
+	/* Use the relationship: exp2(x) = exp(x * ln(2)) */
+	return kexp(x * K_M_LN2);
 }

@@ -1,7 +1,9 @@
-/* stdarg.h */
+/* kstdarg.h */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,14 +12,18 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#ifdef _STDARG_H
+#error "Do NOT include <stdarg.h> before kstdarg.h! Use only kstdarg.h in this project."
+#endif
 
 /*
  * stdarg.h - Variable arguments handling (C99 standard)
@@ -36,8 +42,8 @@ extern "C"
  *----------------------------------------------------------------------------*/
 #if defined(__GNUC__)
 
-        /* va_list type built-in to the compiler */
-        typedef __builtin_va_list va_list;
+	/* va_list type built-in to the compiler */
+	typedef __builtin_va_list va_list;
 
 /* Initialize ap to point to first unnamed argument after last named parameter
  */

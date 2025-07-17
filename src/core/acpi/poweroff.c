@@ -1,7 +1,9 @@
 /* poweroff.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,24 +12,25 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "dlog.h"
+#include "ksignal.h"
 #include "poweroff.h"
-#include "print.h"
-#include "signal.h"
+#include "stddef.h"
 
 void
     poweroff (void)
 {
-        /* ACPI poweroff (works in QEMU, VirtualBox, and some real hardware) */
-        outw(0x604, 0x2000);
-        /* Fallback for Bochs/QEMU */
-        outw(0xB004, 0x2000);
-        /* Infinite loop if poweroff fails */
-        puts("Failed! ACPI didn't respond to poweroff.");
+	/* ACPI poweroff (works in QEMU, VirtualBox, and some real hardware) */
+	koutw(0x604, 0x2000);
+	/* Fallback for Bochs/QEMU */
+	koutw(0xB004, 0x2000);
+	/* Infinite loop if poweroff fails */
+	kerror("ACPI didn't respond to poweroff.", NULL);
 }

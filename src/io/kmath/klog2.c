@@ -1,7 +1,9 @@
-/* log2.c */
+/* klog2.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,25 +12,25 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "klog2.h"
 #include "kmath.h"
-#include "log2.h"
 
 double
-    log2 (double x)
+    klog2 (double x)
 {
-        /* Handle special cases */
-        if ( isnan(x) )
-                return nan("");
-        if ( x <= 0.0 )
-                return nan("");
+	/* Handle special cases */
+	if ( kisnan(x) )
+		return knan("");
+	if ( x <= 0.0 )
+		return knan("");
 
-        /* Use the relationship: log2(x) = ln(x) / ln(2) */
-        return log(x) / M_LN2;
+	/* Use the relationship: log2(x) = ln(x) / ln(2) */
+	return klog(x) / K_M_LN2;
 }

@@ -1,7 +1,9 @@
-/* round.c */
+/* kround.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,25 +12,25 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "kmath.h"
-#include "round.h"
+#include "kround.h"
 
 double
-    round (double x)
+    kround (double x)
 {
-        if ( x >= 0.0 )
-        {
-                return floor(x + 0.5);
-        }
-        else
-        {
-                return ceil(x - 0.5);
-        }
+	if ( x >= 0.0 )
+	{
+		return kfloor(x + 0.5);
+	}
+	else
+	{
+		return kceil(x - 0.5);
+	}
 }

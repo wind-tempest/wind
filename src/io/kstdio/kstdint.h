@@ -1,7 +1,9 @@
-/* stdint.h */
+/* kstdint.h */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,29 +12,33 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
+#ifdef _STDINT_H
+#error "Do NOT include <stdint.h> before kstdint.h! Use only kstdint.h in this project."
+#endif
+
 /* Int */
 typedef signed char int8_t;
-typedef short       int16_t;
-typedef int         int32_t;
+typedef short	    int16_t;
+typedef int	    int32_t;
 typedef long long   int64_t;
 
 /* Unsigned Int */
-typedef unsigned char      uint8_t;
-typedef unsigned short     uint16_t;
-typedef unsigned int       uint32_t;
+typedef unsigned char	   uint8_t;
+typedef unsigned short	   uint16_t;
+typedef unsigned int	   uint32_t;
 typedef unsigned long long uint64_t;
 
 /* Native sizes */
-typedef long long          intptr_t;
+typedef long long	   intptr_t;
 typedef unsigned long long uintptr_t;
 
 /* Maximum value for uintptr_t */

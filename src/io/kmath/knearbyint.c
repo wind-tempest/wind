@@ -1,7 +1,9 @@
-/* nearbyint.c */
+/* knearbyint.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,40 +12,40 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "kmath.h"
-#include "nearbyint.h"
+#include "knearbyint.h"
 
 double
-    nearbyint (double x)
+    knearbyint (double x)
 {
-        /* Handle special cases */
-        if ( isnan(x) )
-                return nan("");
-        if ( isinf(x) )
-                return x;
+	/* Handle special cases */
+	if ( kisnan(x) )
+		return knan("");
+	if ( kisinf(x) )
+		return x;
 
-        /* Round to nearest integer (same as rint for this implementation) */
-        if ( x >= 0.0 )
-        {
-                double frac = x - floor(x);
-                if ( frac < 0.5 )
-                        return floor(x);
-                else
-                        return ceil(x);
-        }
-        else
-        {
-                double frac = ceil(x) - x;
-                if ( frac < 0.5 )
-                        return ceil(x);
-                else
-                        return floor(x);
-        }
+	/* Round to nearest integer (same as rint for this implementation) */
+	if ( x >= 0.0 )
+	{
+		double frac = x - kfloor(x);
+		if ( frac < 0.5 )
+			return kfloor(x);
+		else
+			return kceil(x);
+	}
+	else
+	{
+		double frac = kceil(x) - x;
+		if ( frac < 0.5 )
+			return kceil(x);
+		else
+			return kfloor(x);
+	}
 }

@@ -1,7 +1,9 @@
-/* memcmp.c */
+/* kmemcmp.c */
 
 /*
- * This file is part of Wind/Tempest
+ * Copyright (C) 2025 Wind/Tempest Foundation
+ *
+ * This file is part of Wind/Tempest.
  *
  * Wind/Tempest is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -10,11 +12,11 @@
  *
  * Wind/Tempest is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "kmemcmp.h"
@@ -22,12 +24,12 @@
 int
     kmemcmp (const void *s1, const void *s2, unsigned long n)
 {
-        const unsigned char *a = (const unsigned char *) s1;
-        const unsigned char *b = (const unsigned char *) s2;
-        for ( unsigned long i = 0; i < n; ++i )
-        {
-                if ( a[i] != b[i] )
-                        return (int) a[i] - (int) b[i];
-        }
-        return 0;
+	const unsigned char *a = (const unsigned char *) s1;
+	const unsigned char *b = (const unsigned char *) s2;
+	for ( unsigned long i = 0; i < n; ++i )
+	{
+		if ( a[i] != b[i] )
+			return (int) a[i] - (int) b[i];
+	}
+	return 0;
 }

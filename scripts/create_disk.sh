@@ -28,7 +28,6 @@ echo "[*] Creating disk image ($SIZE) at $IMAGE_PATH"
 dd if=/dev/zero of="$IMAGE_PATH" bs="$SIZE" count=0 seek=1
 
 echo "[*] Formatting image with EXT2 filesystem"
-# Create a simple, legacy EXT2 filesystem that our minimal driver understands
 #  -O none     : disable all optional features (keeps it at revision 0)
 #  -b 1024     : 1 KiB block size (matches driver defaults)
 #  -I 128      : inode size 128 bytes (rev 0 standard)
@@ -36,24 +35,29 @@ echo "[*] Formatting image with EXT2 filesystem"
 # read-only driver can't handle. Keep 1 KiB block, 128-byte inodes.
 mkfs.ext2 -F -q -O ^has_journal -b 1024 -I 128 "$IMAGE_PATH"
 
-# Create test folder and file inside the disk image
+# Remove lost+found directory from the image
+if debugfs -R "ls /lost+found" "$IMAGE_PATH" >/dev/null 2>&1; then
+  echo "[*] Removing lost+found from disk image"
+  debugfs -w -R "rmdir /lost+found" "$IMAGE_PATH"
+fi
+
 MNT_DIR="build/mnt-$$"
 # If a folder named 'disk' exists at repository root, copy its contents into
 # the image (recursively) using debugfs. This avoids needing sudo/loop mounts.
 if [[ -d "disk" ]]; then
   echo "[*] Copying contents of ./disk into disk.img via debugfs"
-  # First create all directories inside the image
-  while IFS= read -r -d '' dir; do
-    rel="${dir#disk}"
-    [[ -z "$rel" ]] && continue  # skip base dir
+  # Iterate directories from shallowest to deepest to make sure parents exist first
+  # Create directories inside disk/ (but not disk/ itself)
+  find disk -mindepth 1 -type d -print0 | while IFS= read -r -d '' dir; do
+    rel="${dir#disk/}"
     debugfs -w -R "mkdir /$rel" "$IMAGE_PATH" >/dev/null 2>&1 || true
-  done < <(find disk -type d -print0)
+  done
 
-  # Then copy files
-  while IFS= read -r -d '' file; do
-    rel="${file#disk}"
+  # Copy files inside disk/ (but not disk/ itself)
+  find disk -type f -print0 | while IFS= read -r -d '' file; do
+    rel="${file#disk/}"
     debugfs -w -R "write $file /$rel" "$IMAGE_PATH" >/dev/null 2>&1
-  done < <(find disk -type f -print0)
+  done
 else
   echo "[*] No ./disk directory found; skipping copy step."
 fi

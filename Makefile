@@ -32,8 +32,8 @@ MODE ?= Release
 COMMON_CFLAGS   := -I$(SRC_DIR) -fno-pie -fno-stack-protector -ffreestanding -m64 \
                    -Wall -Wextra -Wpedantic -Wconversion -Werror \
                    -ffunction-sections -fdata-sections -Wundef -Wshadow
-COMMON_LDFLAGS  := -no-pie -fno-stack-protector -ffreestanding -m64 \
-                   -nostdlib -Wl,--gc-sections
+COMMON_LDFLAGS  := -no-pie -fno-stack-protector -ffreestanding -m64 -nostdinc -nostdlib \
+                   -Wl,--gc-sections
 
 # Auto-include all subdirs of src/io
 IO_DIRS := $(shell find $(SRC_DIR)/io -type d)
@@ -68,6 +68,9 @@ OBJS := $(C_OBJS) $(ASM_OBJS)
 .PHONY: all clean run
 
 all: $(ISO_PATH) $(DISK_PATH)
+
+$(DISK_PATH):
+	dd if=/dev/zero of=$(DISK_PATH) bs=1M count=64
 
 # Add support for parallel builds
 MAKEFLAGS += -j$(shell nproc)
