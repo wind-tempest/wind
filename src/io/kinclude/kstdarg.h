@@ -25,12 +25,6 @@
 #error "Do NOT include <stdarg.h> before kstdarg.h! Use only kstdarg.h in this project."
 #endif
 
-/*
- * stdarg.h - Variable arguments handling (C99 standard)
- * This header provides macros for functions with variable argument lists.
- * Supports GCC/Clang builtins on supported architectures (e.g., x86_64).
- */
-
 #ifdef __cplusplus
 extern "C"
 {
@@ -47,17 +41,17 @@ extern "C"
 
 /* Initialize ap to point to first unnamed argument after last named parameter
  */
-#define va_start(ap, last) __builtin_va_start((ap), (last))
+#define k_va_start(ap, last) __builtin_va_start((ap), (last))
 
 /* Retrieve next argument of given type */
-#define va_arg(ap, type) __builtin_va_arg((ap), type)
+#define k_va_arg(ap, type) __builtin_va_arg((ap), type)
 
 /* Clean up the va_list when done */
-#define va_end(ap) __builtin_va_end(ap)
+#define k_va_end(ap) __builtin_va_end(ap)
 
 /* Copy state of one va_list to another */
-#ifndef va_copy
-#define va_copy(dest, src) __builtin_va_copy((dest), (src))
+#ifndef k_va_copy
+#define k_va_copy(dest, src) __builtin_va_copy((dest), (src))
 #endif
 
 #else

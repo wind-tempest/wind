@@ -4,7 +4,7 @@
 
 - QEMU (for testing in virtual environment)
 - NASM (for compiling .ASM files)
-- GCC (for compiling .C files)
+- Clang (for compiling .C files)
 - Make (for compiling using the automatic way)
 
 ## Building

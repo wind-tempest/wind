@@ -44,7 +44,7 @@ int
 		return 0;
 
 	va_list args;
-	va_start(args, format);
+	k_va_start(args, format);
 	int count = 0;
 
 	for ( const char *p = format; *p; ++p )
@@ -77,7 +77,7 @@ int
 		{
 			case 's':
 			{
-				const char *s	= va_arg(args, const char *);
+				const char *s	= k_va_arg(args, const char *);
 				int	    len = 0;
 				const char *t	= s;
 				while ( *t++ )
@@ -110,7 +110,7 @@ int
 
 			case 'd':
 			{
-				int   n = va_arg(args, int);
+				int   n = k_va_arg(args, int);
 				char  buf[12];
 				char *ptr = buf;
 
@@ -130,7 +130,7 @@ int
 
 			case 'x':
 			{
-				unsigned int n = va_arg(args, unsigned int);
+				unsigned int n = k_va_arg(args, unsigned int);
 				char	     buf[12];
 				char	    *end_ptr = kutoa(buf, buf + sizeof(buf) - 1, n, 16, 0);
 				*end_ptr	     = '\0';
@@ -147,7 +147,7 @@ int
 					if ( *(p + 1) == 'x' )
 					{
 						p++; /* Skip 'x' */
-						uint64_t n = va_arg(args, uint64_t);
+						uint64_t n = k_va_arg(args, uint64_t);
 						char	 buf[20];
 						char	*end_ptr =
 						    kutoa(buf,
@@ -167,7 +167,7 @@ int
 
 			case 'c':
 			{
-				char c = (char) va_arg(args, int);
+				char c = (char) k_va_arg(args, int);
 				serial_write(c);
 				count++;
 				break;
@@ -191,7 +191,7 @@ int
 		}
 	}
 
-	va_end(args);
+	k_va_end(args);
 	return count;
 }
 

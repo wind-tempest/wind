@@ -3,7 +3,13 @@ set -euo pipefail
 IFS=$'\n\t'
 
 BUILD_PATH="build"
+TOOLS_PATH="tools"
 ISO_PATH="${BUILD_PATH}/out/wind.iso"
+
+# Ensure tools directory exists
+if [ ! -d "$TOOLS_PATH" ]; then
+    error_exit "Tools directory not found: $TOOLS_PATH"
+fi
 
 YELLOW="\e[33m"
 RED="\e[31m"
@@ -11,20 +17,20 @@ GREEN="\e[32m"
 RESET="\e[0m"
 
 log() {
-  echo -e "[$(date '+%H:%M:%S')] $*"
+	echo -e "[$(date '+%H:%M:%S')] $*"
 }
 
 error_exit() {
-  echo -e "${RED}[ERROR] $*${RESET}" >&2
-  exit 1
+	echo -e "${RED}[ERROR] $*${RESET}" >&2
+	exit 1
 }
 
 run_step() {
-  local cmd="$*"
-  log "➤ Running: $cmd"
-  if ! eval "$cmd"; then
-    error_exit "Step failed: $cmd"
-  fi
+	local cmd="$*"
+	log "➤ Running: $cmd"
+	if ! eval "$cmd"; then
+		error_exit "Step failed: $cmd"
+	fi
 }
 
 usage() {
@@ -54,15 +60,15 @@ while (( $# )); do
 done
 
 if $BUILD; then
-  run_step "./scripts/header.sh"
-  run_step "./scripts/format.sh"
-  run_step "./scripts/create_disk.sh"
-  run_step "make"
+	run_step "${TOOLS_PATH}/header.sh"
+	run_step "${TOOLS_PATH}/format.sh"
+	run_step "${TOOLS_PATH}/create_disk.sh"
+	run_step "make"
 fi
 
 if $RUN; then
-  log "Launching QEMU..."
-  make run
+	log "Launching QEMU..."
+	make run
 fi
 
 log "${GREEN}All done!${RESET}"

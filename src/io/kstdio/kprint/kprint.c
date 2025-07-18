@@ -25,11 +25,6 @@
 #include "kstdio.h"
 #include "kutoa.h"
 
-typedef __builtin_va_list va_list;
-#define k_va_start(ap, last) __builtin_va_start(ap, last)
-#define k_va_arg(ap, type)   __builtin_va_arg(ap, type)
-#define k_va_end(ap)	     __builtin_va_end(ap)
-
 /* I think this is... safe? */
 void
     kputhex (uint64_t n)
