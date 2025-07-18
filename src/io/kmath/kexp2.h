@@ -1,22 +1,36 @@
 /* kexp2.h */
 
 /*
- * Copyright (C) 2025 Wind/Tempest Foundation
+ * ---------------------------------------------------------------------------
+ *  Wind (operating system) / Tempest (kernel)
+ *  Copyright (C) 2025 Wind/Tempest Foundation <https://wind.infernointeractive.win>
+ * ---------------------------------------------------------------------------
+ *  This file is part of the Wind/Tempest project, an open-source operating system
+ *  and kernel designed to deliver performance, stability, and freedom to users.
  *
- * This file is part of Wind/Tempest.
+ *  - License:
+ *  This software is licensed under the GNU Affero General Public License (AGPL)
+ *  version 3 or any later version. You may redistribute and/or modify it under
+ *  the terms of the AGPL as published by the Free Software Foundation.
  *
- * Wind/Tempest is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  - Warranty Disclaimer:
+ *  Wind/Tempest is distributed in the hope that it will be useful, but WITHOUT
+ *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ *  details.
  *
- * Wind/Tempest is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
+ *  - Permissions:
+ *  > You may modify this file and include your own copyright notices below.
+ *  > Forks and contributions are welcome, as long as this license is respected.
  *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *  - Additional Information:
+ *  For more information about the project, visit:
+ *  https://wind.infernointeractive.win
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program. If not, see:
+ *  https://www.gnu.org/licenses/
+ * ---------------------------------------------------------------------------
  */
 
 #pragma once
