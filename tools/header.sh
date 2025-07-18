@@ -43,7 +43,7 @@ for file in $(find . -type f -name "*.c" -o -name "*.h"); do
 
     header=$(head -n 15 "$file")
 
-    if ! echo "$header" | grep -q "Wind/Tempest is free software"; then
+    if ! echo "$header" | grep -q "This file is part of the Wind/Tempest project"; then
         echo "Incorrect or missing header in: $file"
         headers_bad=true
 
