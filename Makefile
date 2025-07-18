@@ -47,14 +47,11 @@ endif
 
 DEPFLAGS := -MMD -MP
 
-C_SRCS := $(shell find $(SRC_DIR) -name '*.c')
-ASM_SRCS := \
-	src/boot.asm \
-	src/core/isr.asm \
-	src/core/irq.asm
+ASM_SRCS := $(shell find $(SRC_DIR) -name '*.asm')
+ASM_OBJS := $(patsubst $(SRC_DIR)/%.asm,$(OBJDIR)/%.o,$(ASM_SRCS))
 
+C_SRCS := $(shell find $(SRC_DIR) -name '*.c')
 C_OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJDIR)/%.o,$(C_SRCS))
-ASM_OBJS := $(patsubst src/%.asm,$(OBJDIR)/%.o,$(ASM_SRCS))
 OBJS := $(C_OBJS) $(ASM_OBJS)
 
 .PHONY: all clean run

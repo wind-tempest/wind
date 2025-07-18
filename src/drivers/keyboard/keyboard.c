@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "core/idt.h"
+#include "core/cpu/idt.h"
 #include "keyboard.h"
 #include "ksignal.h"
 #include "kstdio.h"

@@ -19,12 +19,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "cpu.h"
+#include "cpu/cpu.h"
+#include "cpu/idt.h"
 #include "dlog.h"
 #include "drivers/ata/ata.h"
 #include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
-#include "idt.h"
+#include "kernel.h"
 #include "kprint.h"
 #include "memory/memory.h"
 #include "shell/shell.h"

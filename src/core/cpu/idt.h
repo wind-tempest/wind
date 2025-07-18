@@ -1,4 +1,4 @@
-/* cpu.c */
+/* idt.h */
 
 /*
  * Copyright (C) 2025 Wind/Tempest Foundation
@@ -19,32 +19,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "kernel.h"
-#include <stddef.h>
-#include <stdint.h>
+#pragma once
 
-char cpu_brand_string[49] = "Unknown CPU";
-
-static inline void
-    cpuid (uint32_t eax, uint32_t ecx, uint32_t *regs)
-{
-	__asm__ volatile("cpuid"
-			 : "=a"(regs[0]), "=b"(regs[1]), "=c"(regs[2]), "=d"(regs[3])
-			 : "a"(eax), "c"(ecx));
-}
+#include "core/registers.h"
 
 void
-    cpu_init_brand (void)
-{
-	uint32_t regs[4];
-	char	*brand = cpu_brand_string;
-	for ( uint32_t i = 0; i < 3; ++i )
-	{
-		cpuid(0x80000002 + i, 0, regs);
-		for ( int j = 0; j < 4; ++j )
-		{
-			*(uint32_t *) (brand + i * 16 + j * 4) = regs[j];
-		}
-	}
-	cpu_brand_string[48] = '\0';
-}
+    idt_init (void);
+
+typedef void (*irq_handler_t)(registers_t *);
+void
+    register_irq_handler (int irq, irq_handler_t handler);

@@ -19,10 +19,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "core/panic/panic.h"
 #include "idt.h"
 #include "ksignal.h"
 #include "kstdio.h"
-#include "panic/panic.h"
 
 /* PIC (Programmable Interrupt Controller) ports. */
 #define PIC1_CMD  0x20
