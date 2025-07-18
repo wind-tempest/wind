@@ -115,7 +115,7 @@ uint32_t
 	uint8_t r = (rgb >> 16) & 0xFF;
 	uint8_t g = (rgb >> 8) & 0xFF;
 	uint8_t b = rgb & 0xFF;
-	return (b << 16) | (g << 8) | r;
+	return ((uint32_t) b << 16) | ((uint32_t) g << 8) | (uint32_t) r;
 }
 
 uint32_t

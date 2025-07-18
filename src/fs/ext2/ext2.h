@@ -21,8 +21,9 @@
 
 #pragma once
 
+#include "kstdbool.h"
+#include "kstddef.h"
 #include "kstdint.h"
-#include "stddef.h"
 
 #ifdef __cplusplus
 extern "C"

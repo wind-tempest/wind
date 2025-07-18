@@ -108,7 +108,7 @@ static void
 }
 
 int
-    getchar ()
+    getchar (void)
 {
 	/* Wait for a character to be available */
 	while ( kbd_buffer_head == kbd_buffer_tail )

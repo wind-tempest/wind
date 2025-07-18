@@ -21,5 +21,7 @@
 
 #pragma once
 
+#include "kstdbool.h"
+
 extern bool use_debug;
 extern bool enable_serial;

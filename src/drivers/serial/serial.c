@@ -52,7 +52,7 @@ void
 }
 
 static int
-    is_transmit_empty ()
+    is_transmit_empty (void)
 {
 	return kinb(PORT + 5) & 0x20;
 }

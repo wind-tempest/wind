@@ -35,7 +35,7 @@ volatile uint64_t *hpet = (volatile uint64_t *) 0xFED00000;
 #define PIT_COMMAND  0x43
 
 void
-    khpet_enable ()
+    khpet_enable (void)
 {
 	if ( (hpet[HPET_GEN_CONF / 8] & HPET_GEN_CONF_ENABLE) == 0 )
 	{

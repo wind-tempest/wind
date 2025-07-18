@@ -22,4 +22,4 @@
 #pragma once
 
 void
-    kcpu_relax ();
+    kcpu_relax (void);

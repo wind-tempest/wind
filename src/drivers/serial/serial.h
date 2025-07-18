@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include "kstdbool.h"
+
 extern bool is_serial_available;
 
 void

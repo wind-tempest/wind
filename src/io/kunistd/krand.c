@@ -33,7 +33,7 @@ static inline uint32_t
     krdtsc32 (void)
 {
 	uint32_t lo;
-	asm volatile("rdtsc" : "=a"(lo)::"edx");
+	__asm__ volatile("rdtsc" : "=a"(lo)::"edx");
 	return lo;
 }
 
