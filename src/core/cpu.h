@@ -23,4 +23,4 @@
 
 extern char cpu_brand_string[49];
 void
-    cpu_init_brand_string (void);
+    cpu_init_brand (void);

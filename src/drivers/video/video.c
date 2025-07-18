@@ -228,9 +228,7 @@ void
 		{
 			for ( uint32_t col = 0; col < FONT_WIDTH; col++ )
 			{
-				video_put_pixel(cursor_x + col,
-						cursor_y + row,
-						0x000000); // Black (RGB)
+				video_put_pixel(cursor_x + col, cursor_y + row, 0x000000);
 			}
 		}
 		return;

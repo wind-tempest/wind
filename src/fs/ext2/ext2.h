@@ -29,6 +29,8 @@ extern "C"
 {
 #endif
 
+	extern bool is_mounted;
+
 #define EXT2_SUPERBLOCK_OFFSET 1024 /* bytes from start of partition */
 #define EXT2_SUPER_MAGIC       0xEF53
 #define EXT2_N_BLOCKS	       15 /* Direct + indirect block ptrs */
