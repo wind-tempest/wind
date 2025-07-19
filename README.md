@@ -10,9 +10,11 @@
   <a href="https://www.gnu.org/licenses/agpl-3.0"><img src="https://img.shields.io/badge/license-AGPLv3-blue.svg" alt="License: AGPL v3"></a>
   <a href="docs/Main.md"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
   <img src="https://img.shields.io/badge/platform-x86__64-lightgrey.svg" alt="Platform: x86_64">
+  <a href="https://github.com/wind-tempest/wind/actions/workflows/build.yml">
+    <img src="https://github.com/wind-tempest/wind/actions/workflows/build.yml/badge.svg" alt="Build Status">
+  </a>
 </p>
 
-[![Build](https://github.com/wind-tempest/wind/actions/workflows/build.yml/badge.svg)](https://github.com/wind-tempest/wind/actions/workflows/build.yml)
 
 > A minimal OS for modern machines, built from scratch, built to last.
 
