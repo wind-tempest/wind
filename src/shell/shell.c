@@ -562,10 +562,7 @@ static void
 		return;
 	}
 	uint64_t size = (((uint64_t) file.inode.dir_acl_or_size_high) << 32) | file.inode.size_lo;
-	/* Convert size to decimal string because kprintf lacks %llu support */
-	char size_buf[32] = {0};
-	kutoa(size_buf, size_buf + sizeof(size_buf) - 1, size, 10, 0);
-	kprintf("%s: %s bytes\n", args, size_buf);
+	kprintf("%s: %llu bytes\n", args, size);
 }
 
 static void
