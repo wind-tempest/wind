@@ -34,8 +34,6 @@
  */
 
 #include "drivers/driver.h"
-#include "kprint.h"
-#include "kstdarg.h"
 #include "kstdio.h"
 #include "kutoa.h"
 
@@ -154,16 +152,16 @@ int
 			{
 				if ( long_long )
 				{
-					long long	   val = k_va_arg(args, long long);
-					unsigned long long uval;
+					int64_t	 val = k_va_arg(args, int64_t);
+					uint64_t uval;
 					if ( val < 0 )
 					{
 						*t++ = '-';
-						uval = (unsigned long long) (-val);
+						uval = (uint64_t) (-val);
 					}
 					else
 					{
-						uval = (unsigned long long) val;
+						uval = (uint64_t) val;
 					}
 					t = kutoa(t,
 						  temp + sizeof(temp) - 1,
@@ -192,13 +190,12 @@ int
 			{
 				if ( long_long )
 				{
-					unsigned long long uval =
-					    k_va_arg(args, unsigned long long);
-					t = kutoa(t,
-						  temp + sizeof(temp) - 1,
-						  (unsigned long) uval,
-						  10,
-						  0);
+					uint64_t uval = k_va_arg(args, uint64_t);
+					t	      = kutoa(t,
+						      temp + sizeof(temp) - 1,
+						      (unsigned long) uval,
+						      10,
+						      0);
 				}
 				else
 				{
