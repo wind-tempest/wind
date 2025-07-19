@@ -461,7 +461,6 @@ static void
 	}
 }
 
-/* Callback used by ext2_list to print each entry */
 static void
     ls_print_cb (const char *name, uint8_t file_type)
 {
@@ -498,7 +497,6 @@ static void
 	list_dir_path(path);
 }
 
-/* Change current working directory */
 static void
     cmd_cd (const char *args)
 {

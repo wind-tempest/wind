@@ -15,7 +15,6 @@
   </a>
 </p>
 
-
 > A minimal OS for modern machines, built from scratch, built to last.
 
 **Wind** is the operating system.  
