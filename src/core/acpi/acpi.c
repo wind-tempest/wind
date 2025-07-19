@@ -35,30 +35,34 @@
 
 #include "dlog.h"
 #include "ksignal.h"
-#include "ksleep.h"
 #include "kstddef.h"
 
-/* Define timeout for poweroff in milliseconds */
-#define POWEROFF_TIMEOUT_MS 5000
+/*
+	Ok, it's not really ACPI (this is legacy solution)
+	but it works for poweroff and reboot for now.
+	I will implement ACPI later because it is a bit more complex.
+*/
 
 void
     kpoweroff (void)
 {
-	koutw(0x604, 0x2000);  // Port 0x604
-	koutw(0xB004, 0x2000); // Port 0xB004
-
-	ksleep(POWEROFF_TIMEOUT_MS);
-	kerror("Legacy poweroff failed. System may not shut down.", NULL);
+	/* ACPI poweroff (works in QEMU, VirtualBox, and some real hardware) */
+	koutw(0x604, 0x2000);
+	/* Fallback for Bochs/QEMU */
+	koutw(0xB004, 0x2000);
+	/* Infinite loop if poweroff fails */
+	kerror("ACPI didn't respond to poweroff.", NULL);
 }
 
 void
     kreboot (void)
 {
+	/* Wait until the keyboard controller is ready. */
 	while ( kinb(0x64) & 0x02 )
-		;	   // Wait for keyboard controller ready
-	koutb(0x64, 0xFE); // Send reset command
+		;
+	/* Send the reset command */
+	koutb(0x64, 0xFE);
 
-	ksleep(POWEROFF_TIMEOUT_MS);
-	/* If reboot fails, log warning */
-	kerror("Legacy reboot failed. System may not restart.", NULL);
+	/* If it fails, just warn the user. */
+	kerror("Keyboard controller didn't respond to reset.", NULL);
 }

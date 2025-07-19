@@ -1,16 +1,14 @@
 # Wind/Tempest Progress
 
 ## Basic Stuff (Done)
-
 - [x] Bootloader: Limine + Multiboot2
 - [x] Basic VGA text mode (replaced with framebuffer)
 - [x] Basic shell
 - [x] Debugging tools (serial logging, asserts, etc.)
 
 ## Core Features (In Progress / Partially Done)
-
 - [x] LibC (minimal or musl-based)
-- [x] Memory management (paging, heap, allocators) (even though is a simple Memory Management)
+- [ ] Memory management (paging, heap, allocators)
 - [x] Timers (PIT + HPET)
 - [x] ACPI & Power management (shutdown, reboot, etc.)
 - [x] Filesystem support (ext2)
@@ -18,7 +16,6 @@
 - [x] Kernel Panic
 
 ## System Services & Architecture
-
 - [ ] Syscall interface
 - [ ] User-space binary loading (.ELF or custom)
 - [x] Privilege separation (rings, even if basic)
@@ -26,19 +23,16 @@
 - [ ] Package manager (experimental idea)
 
 ## Compatibility Layers
-
 - [ ] SoulDOS (DOS compatibility layer)
 - [ ] BIOS / V86 support (if applicable)
 
 ## Hardware Support
-
 - [x] x86_64 support (mostly stable)
 - [x] Drivers: video, serial, keyboard (more to come)
 - [ ] Networking stack
 - [ ] Sound support (optional/future)
 
 ## UI / UX
-
 - [ ] Simple GUI (framebuffer-based)
 - [ ] Input abstraction (mouse, advanced keyboard input)
 
