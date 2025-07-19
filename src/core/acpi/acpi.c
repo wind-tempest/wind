@@ -1,4 +1,4 @@
-/* poweroff.c */
+/* acpi.c */
 
 /*
  * ---------------------------------------------------------------------------
@@ -35,11 +35,16 @@
 
 #include "dlog.h"
 #include "ksignal.h"
-#include "poweroff.h"
-#include "stddef.h"
+#include "kstddef.h"
+
+/*
+	Ok, it's not really ACPI (this is legacy solution)
+	but it works for poweroff and reboot for now.
+	I will implement ACPI later because it is a bit more complex.
+*/
 
 void
-    poweroff (void)
+    kpoweroff (void)
 {
 	/* ACPI poweroff (works in QEMU, VirtualBox, and some real hardware) */
 	koutw(0x604, 0x2000);
@@ -47,4 +52,17 @@ void
 	koutw(0xB004, 0x2000);
 	/* Infinite loop if poweroff fails */
 	kerror("ACPI didn't respond to poweroff.", NULL);
+}
+
+void
+    kreboot (void)
+{
+	/* Wait until the keyboard controller is ready. */
+	while ( kinb(0x64) & 0x02 )
+		;
+	/* Send the reset command */
+	koutb(0x64, 0xFE);
+
+	/* If it fails, just warn the user. */
+	kerror("Keyboard controller didn't respond to reset.", NULL);
 }

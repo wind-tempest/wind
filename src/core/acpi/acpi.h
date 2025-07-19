@@ -35,5 +35,7 @@
 
 #pragma once
 
-#include "poweroff.h"
-#include "reboot.h"
+void
+    kpoweroff (void);
+void
+    kreboot (void);

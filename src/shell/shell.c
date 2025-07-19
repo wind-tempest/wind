@@ -34,7 +34,6 @@
  */
 
 #include "core/acpi/acpi.h"
-#include "core/acpi/reboot.h"
 #include "core/memory/memory.h"
 #include "core/panic/panic.h"
 #include "drivers/keyboard/keyboard.h"
@@ -334,7 +333,7 @@ static void
     cmd_poweroff (const char *args)
 {
 	(void) args;
-	poweroff();
+	kpoweroff();
 }
 
 static void
