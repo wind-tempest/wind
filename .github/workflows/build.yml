@@ -1,4 +1,4 @@
-name: Build Wind ISO
+name: Build
 
 on:
   push:

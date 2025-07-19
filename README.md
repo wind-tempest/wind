@@ -12,6 +12,8 @@
   <img src="https://img.shields.io/badge/platform-x86__64-lightgrey.svg" alt="Platform: x86_64">
 </p>
 
+[![Build](https://github.com/wind-tempest/wind/actions/workflows/build.yml/badge.svg)](https://github.com/wind-tempest/wind/actions/workflows/build.yml)
+
 > A minimal OS for modern machines, built from scratch, built to last.
 
 **Wind** is the operating system.  
