@@ -14,10 +14,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: ${{ runner.os }}-ccache-${{ hashFiles('**/*.c', '**/*.h', '**/*.asm') }}
+          restore-keys: |
+            ${{ runner.os }}-ccache-
+
       - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y clang nasm xorriso ccache
+        run: sudo apt install -y clang nasm xorriso ccache
 
       - name: Build project (Release)
         run: make MODE=Release
