@@ -8,7 +8,7 @@
 
 ## Core Features (In Progress / Partially Done)
 - [x] LibC (minimal or musl-based)
-- [ ] Memory management (paging, heap, allocators)
+- [x] Memory management (paging, heap, allocators) (basic but still functional)
 - [x] Timers (PIT + HPET)
 - [x] ACPI & Power management (shutdown, reboot, etc.)
 - [x] Filesystem support (ext2)

@@ -99,6 +99,7 @@ int
 {
 	char *out = buffer;
 	char *end = buffer + size - 1;
+
 	for ( const char *p = format; *p && out < end; ++p )
 	{
 		if ( *p != '%' )
@@ -107,6 +108,7 @@ int
 			continue;
 		}
 		++p;
+
 		int left_align = 0;
 		if ( *p == '-' )
 		{
@@ -116,51 +118,73 @@ int
 		int width = 0;
 		while ( *p >= '0' && *p <= '9' )
 		{
-			width = width * 10 + (*p - '0');
-			p++;
+			width = width * 10 + (*p++ - '0');
 		}
-		char  temp[32];
-		char *t		= temp;
-		int   long_long = 0;
+
+		char temp[32];
+		/* Handle length modifier for long long ("ll") */
+		int long_long = 0;
 		if ( *p == 'l' && *(p + 1) == 'l' )
 		{
 			long_long = 1;
-			p += 2;
+			p += 2; /* Skip the two 'l's */
 		}
+
+		char *t = temp;
+
+		/* Use long_long flag to choose value width */
+
 		switch ( *p )
 		{
+			case 's':
+			{
+				const char *s = k_va_arg(args, const char *);
+				while ( *s && t < temp + sizeof(temp) - 1 )
+				{
+					*t++ = *s++;
+				}
+				break;
+			}
+			case 'c':
+			{
+				*t++ = (char) k_va_arg(args, int);
+				break;
+			}
 			case 'd':
 			{
 				if ( long_long )
 				{
-					long long val = k_va_arg(args, long long);
-					uint64_t  uval;
+					long long	   val = k_va_arg(args, long long);
+					unsigned long long uval;
 					if ( val < 0 )
 					{
 						*t++ = '-';
-						uval = (uint64_t) (-val);
+						uval = (unsigned long long) (-val);
 					}
 					else
 					{
-						uval = (uint64_t) val;
+						uval = (unsigned long long) val;
 					}
-					t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
+					t = kutoa(t,
+						  temp + sizeof(temp) - 1,
+						  (unsigned long) uval,
+						  10,
+						  0);
 				}
 				else
 				{
-					int	 val = k_va_arg(args, int);
-					uint32_t uval;
+					int	     val = k_va_arg(args, int);
+					unsigned int uval;
 					if ( val < 0 )
 					{
 						*t++ = '-';
-						uval = (uint32_t) (-val);
+						uval = (unsigned int) (-val);
 					}
 					else
 					{
-						uval = (uint32_t) val;
+						uval = (unsigned int) val;
 					}
-					t = utoa(
-					    t, temp + sizeof(temp) - 1, (uint64_t) uval, 10, 0);
+					t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
 				}
 				break;
 			}
@@ -168,48 +192,38 @@ int
 			{
 				if ( long_long )
 				{
-					uint64_t uval = k_va_arg(args, unsigned long long);
-					t = utoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
+					unsigned long long uval =
+					    k_va_arg(args, unsigned long long);
+					t = kutoa(t,
+						  temp + sizeof(temp) - 1,
+						  (unsigned long) uval,
+						  10,
+						  0);
 				}
 				else
 				{
 					unsigned int uval = k_va_arg(args, unsigned int);
-					t		  = utoa(
-					    t, temp + sizeof(temp) - 1, (uint64_t) uval, 10, 0);
+					t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
 				}
 				break;
 			}
 			case 'x':
 			{
-				if ( long_long )
-				{
-					uint64_t uval = k_va_arg(args, unsigned long long);
-					t = utoa(t, temp + sizeof(temp) - 1, uval, 16, 0);
-				}
-				else
-				{
-					unsigned int uval = k_va_arg(args, unsigned int);
-					t		  = utoa(
-					    t, temp + sizeof(temp) - 1, (uint64_t) uval, 16, 0);
-				}
+				unsigned int uval = k_va_arg(args, unsigned int);
+				t		  = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 0);
 				break;
 			}
 			case 'X':
 			{
-				if ( long_long )
-				{
-					uint64_t uval = k_va_arg(args, unsigned long long);
-					t = utoa(t, temp + sizeof(temp) - 1, uval, 16, 1);
-				}
-				else
-				{
-					unsigned int uval = k_va_arg(args, unsigned int);
-					t		  = utoa(
-					    t, temp + sizeof(temp) - 1, (uint64_t) uval, 16, 1);
-				}
+				unsigned int uval = k_va_arg(args, unsigned int);
+				t		  = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 1);
 				break;
 			}
-			/* ...existing cases... */
+			case '%':
+			{
+				*t++ = '%';
+				break;
+			}
 			default:
 			{
 				*t++ = '%';
@@ -218,6 +232,7 @@ int
 			}
 		}
 		++p;
+
 		size_t len = (size_t) (t - temp);
 		int    pad = width > (int) len ? width - (int) len : 0;
 		if ( !left_align )
@@ -236,6 +251,7 @@ int
 		}
 		--p;
 	}
+
 	*out = '\0';
 	return (int) (out - buffer);
 }
@@ -408,23 +424,3 @@ void
 {
 	video_putchar((char) c);
 }
-
-break;
-}
-
-default:
-	kputchar('%');
-	kputchar(*p);
-	count += 2;
-	break;
-	}
-	}
-
-	k_va_end(args);
-	return count;
-	}
-
-	void kputchar (int c)
-	{
-		video_putchar((char) c);
-	}
