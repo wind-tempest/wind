@@ -6,3 +6,6 @@
 build/
 isodir/
 ./qemu.log
+
+# Ignore tools generated files
+analyzed/

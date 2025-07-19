@@ -48,8 +48,8 @@ double
 		return 0.0;
 
 	/* Use Newton's method for cube root */
-	double y     = kfabs(x);
-	double guess = y;
+	double y = kfabs(x);
+	double guess;
 
 	/* Initial guess */
 	if ( y > 1.0 )

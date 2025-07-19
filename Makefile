@@ -25,7 +25,7 @@ QEMU_COMMAND := qemu-system-x86_64 -cdrom $(ISO_PATH) \
 
 MODE ?= Release
 
-COMMON_CFLAGS   := -I$(SRC_DIR) -fno-pie -fno-stack-protector -ffreestanding -m64 \
+COMMON_CFLAGS   := -I$(SRC_DIR) -fno-pie -fno-stack-protector -ffreestanding -m64 -std=gnu23 \
                    -Wall -Wextra -Wpedantic -Wconversion -Werror \
                    -ffunction-sections -fdata-sections -Wundef -Wshadow -Wno-unused-command-line-argument
 
