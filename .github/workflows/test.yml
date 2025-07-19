@@ -25,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: sudo apt install -y clang nasm xorriso ccache
 
-      - name: Build project (Release)
-        run: make MODE=Release
+      - name: Build project (Release Mode)
+        run: time make MODE=Release
 
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
