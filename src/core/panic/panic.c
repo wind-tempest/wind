@@ -108,15 +108,15 @@ static const char *
  * recursive panics (e.g., if the panic handler itself triggers a fault),
  * which otherwise lead to double-/triple-faults and a silent reboot.
  */
-static bool panic_in_progress = false;
+static kbool panic_in_progress = kfalse;
 
 void
     panic (int code, registers_t *regs)
 {
-	panic_in_progress = true;
+	panic_in_progress = ktrue;
 	__asm__ volatile("cli");
 
-	bool video_ok = is_video_ready();
+	kbool video_ok = is_video_ready();
 	video_clear(0x000000);
 
 	const char *error_msg = get_panic_message(code);
@@ -186,7 +186,7 @@ void
 		PRINT_REG(int_no);
 		PRINT_REG(err_code);
 		/* Show the instruction pointer (RIP) as the stack top. */
-		uint64_t rip = *((uint64_t *) ((uint8_t *) regs + sizeof(registers_t)));
+		kuint64_t rip = *((kuint64_t *) ((kuint8_t *) regs + sizeof(registers_t)));
 		kitoa(buf, buf + 14, (long) rip, 16, 0);
 		serial_writes("  RIP = 0x");
 		serial_writes(buf);

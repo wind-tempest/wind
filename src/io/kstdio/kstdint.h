@@ -40,20 +40,20 @@
 #endif
 
 /* Int */
-typedef signed char int8_t;
-typedef short	    int16_t;
-typedef int	    int32_t;
-typedef long long   int64_t;
+typedef signed char kint8_t;
+typedef short	    kint16_t;
+typedef int	    kint32_t;
+typedef long long   kint64_t;
 
 /* Unsigned Int */
-typedef unsigned char	   uint8_t;
-typedef unsigned short	   uint16_t;
-typedef unsigned int	   uint32_t;
-typedef unsigned long long uint64_t;
+typedef unsigned char	   kuint8_t;
+typedef unsigned short	   kuint16_t;
+typedef unsigned int	   kuint32_t;
+typedef unsigned long long kuint64_t;
 
 /* Native sizes */
-typedef long long	   intptr_t;
-typedef unsigned long long uintptr_t;
+typedef long long	   kintptr_t;
+typedef unsigned long long kuintptr_t;
 
-/* Maximum value for uintptr_t */
-#define UINTPTR_MAX 18446744073709551615ULL
+/* Maximum value for kuintptr_t */
+#define KUINTPTR_MAX 18446744073709551615ULL

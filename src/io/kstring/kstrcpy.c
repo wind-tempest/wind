@@ -40,7 +40,7 @@
 char *
     kstrcpy (char *dest, const char *src)
 {
-	size_t len = kstrlen(src);
+	ksize_t len = kstrlen(src);
 	kmemcpy(dest, src, len + 1); // +1 for null terminator
 	return dest;
 }

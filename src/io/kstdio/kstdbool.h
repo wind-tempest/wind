@@ -35,6 +35,6 @@
 
 #pragma once
 
-#define bool  _Bool
-#define true  1
-#define false 0
+#define kbool  _Bool
+#define ktrue  1
+#define kfalse 0

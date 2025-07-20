@@ -45,8 +45,8 @@
 static unsigned char kbd_buffer[KBD_BUFFER_SIZE];
 static int	     kbd_buffer_head = 0;
 static int	     kbd_buffer_tail = 0;
-static bool	     shift_pressed   = false;
-static bool	     caps_lock	     = false;
+static kbool	     shift_pressed   = kfalse;
+static kbool	     caps_lock	     = kfalse;
 
 /* Scancode set 1 to ASCII mapping for US keyboard layout */
 unsigned char kbd_us[128] = {
@@ -84,12 +84,12 @@ static void
 
 	if ( scancode == 0x2A || scancode == 0x36 )
 	{
-		shift_pressed = true;
+		shift_pressed = ktrue;
 		return;
 	}
 	if ( scancode == 0xAA || scancode == 0xB6 )
 	{
-		shift_pressed = false;
+		shift_pressed = kfalse;
 		return;
 	}
 

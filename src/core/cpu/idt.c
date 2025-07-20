@@ -158,20 +158,20 @@ void
 /* IDT entry structure. */
 struct idt_entry
 {
-	uint16_t base_lo;
-	uint16_t sel;
-	uint8_t	 ist;
-	uint8_t	 flags;
-	uint16_t base_mid;
-	uint32_t base_hi;
-	uint32_t reserved;
+	kuint16_t base_lo;
+	kuint16_t sel;
+	kuint8_t  ist;
+	kuint8_t  flags;
+	kuint16_t base_mid;
+	kuint32_t base_hi;
+	kuint32_t reserved;
 } __attribute__((packed));
 
 /* IDT pointer structure. */
 struct idt_ptr
 {
-	uint16_t limit;
-	uint64_t base;
+	kuint16_t limit;
+	kuint64_t base;
 } __attribute__((packed));
 
 static struct idt_entry idt[256];
@@ -179,11 +179,11 @@ static struct idt_ptr	idtp;
 
 /* Set up an IDT entry. */
 static void
-    idt_set_gate (uint8_t num, uint64_t base, uint16_t sel, uint8_t flags)
+    idt_set_gate (kuint8_t num, kuint64_t base, kuint16_t sel, kuint8_t flags)
 {
-	idt[num].base_lo  = (uint16_t) (base & 0xFFFF);
-	idt[num].base_mid = (uint16_t) ((base >> 16) & 0xFFFF);
-	idt[num].base_hi  = (uint32_t) ((base >> 32) & 0xFFFFFFFF);
+	idt[num].base_lo  = (kuint16_t) (base & 0xFFFF);
+	idt[num].base_mid = (kuint16_t) ((base >> 16) & 0xFFFF);
+	idt[num].base_hi  = (kuint32_t) ((base >> 32) & 0xFFFFFFFF);
 	idt[num].sel	  = sel;
 	idt[num].ist	  = 0;
 	idt[num].flags	  = flags;
@@ -282,7 +282,7 @@ void
 {
 	/* Set up the IDT pointer. */
 	idtp.limit = (sizeof(struct idt_entry) * 256) - 1;
-	idtp.base  = (uint64_t) &idt;
+	idtp.base  = (kuint64_t) &idt;
 
 	/* Remap the PIC. */
 	koutb(PIC1_CMD, 0x11);
@@ -297,56 +297,56 @@ void
 	koutb(PIC2_DATA, 0x0);
 
 	/* Set up ISR entries. */
-	idt_set_gate(0, (uint64_t) isr0, 0x08, 0x8E);
-	idt_set_gate(1, (uint64_t) isr1, 0x08, 0x8E);
-	idt_set_gate(2, (uint64_t) isr2, 0x08, 0x8E);
-	idt_set_gate(3, (uint64_t) isr3, 0x08, 0x8E);
-	idt_set_gate(4, (uint64_t) isr4, 0x08, 0x8E);
-	idt_set_gate(5, (uint64_t) isr5, 0x08, 0x8E);
-	idt_set_gate(6, (uint64_t) isr6, 0x08, 0x8E);
-	idt_set_gate(7, (uint64_t) isr7, 0x08, 0x8E);
-	idt_set_gate(8, (uint64_t) isr8, 0x08, 0x8E);
-	idt_set_gate(9, (uint64_t) isr9, 0x08, 0x8E);
-	idt_set_gate(10, (uint64_t) isr10, 0x08, 0x8E);
-	idt_set_gate(11, (uint64_t) isr11, 0x08, 0x8E);
-	idt_set_gate(12, (uint64_t) isr12, 0x08, 0x8E);
-	idt_set_gate(13, (uint64_t) isr13, 0x08, 0x8E);
-	idt_set_gate(14, (uint64_t) isr14, 0x08, 0x8E);
-	idt_set_gate(15, (uint64_t) isr15, 0x08, 0x8E);
-	idt_set_gate(16, (uint64_t) isr16, 0x08, 0x8E);
-	idt_set_gate(17, (uint64_t) isr17, 0x08, 0x8E);
-	idt_set_gate(18, (uint64_t) isr18, 0x08, 0x8E);
-	idt_set_gate(19, (uint64_t) isr19, 0x08, 0x8E);
-	idt_set_gate(20, (uint64_t) isr20, 0x08, 0x8E);
-	idt_set_gate(21, (uint64_t) isr21, 0x08, 0x8E);
-	idt_set_gate(22, (uint64_t) isr22, 0x08, 0x8E);
-	idt_set_gate(23, (uint64_t) isr23, 0x08, 0x8E);
-	idt_set_gate(24, (uint64_t) isr24, 0x08, 0x8E);
-	idt_set_gate(25, (uint64_t) isr25, 0x08, 0x8E);
-	idt_set_gate(26, (uint64_t) isr26, 0x08, 0x8E);
-	idt_set_gate(27, (uint64_t) isr27, 0x08, 0x8E);
-	idt_set_gate(28, (uint64_t) isr28, 0x08, 0x8E);
-	idt_set_gate(29, (uint64_t) isr29, 0x08, 0x8E);
-	idt_set_gate(30, (uint64_t) isr30, 0x08, 0x8E);
-	idt_set_gate(31, (uint64_t) isr31, 0x08, 0x8E);
+	idt_set_gate(0, (kuint64_t) isr0, 0x08, 0x8E);
+	idt_set_gate(1, (kuint64_t) isr1, 0x08, 0x8E);
+	idt_set_gate(2, (kuint64_t) isr2, 0x08, 0x8E);
+	idt_set_gate(3, (kuint64_t) isr3, 0x08, 0x8E);
+	idt_set_gate(4, (kuint64_t) isr4, 0x08, 0x8E);
+	idt_set_gate(5, (kuint64_t) isr5, 0x08, 0x8E);
+	idt_set_gate(6, (kuint64_t) isr6, 0x08, 0x8E);
+	idt_set_gate(7, (kuint64_t) isr7, 0x08, 0x8E);
+	idt_set_gate(8, (kuint64_t) isr8, 0x08, 0x8E);
+	idt_set_gate(9, (kuint64_t) isr9, 0x08, 0x8E);
+	idt_set_gate(10, (kuint64_t) isr10, 0x08, 0x8E);
+	idt_set_gate(11, (kuint64_t) isr11, 0x08, 0x8E);
+	idt_set_gate(12, (kuint64_t) isr12, 0x08, 0x8E);
+	idt_set_gate(13, (kuint64_t) isr13, 0x08, 0x8E);
+	idt_set_gate(14, (kuint64_t) isr14, 0x08, 0x8E);
+	idt_set_gate(15, (kuint64_t) isr15, 0x08, 0x8E);
+	idt_set_gate(16, (kuint64_t) isr16, 0x08, 0x8E);
+	idt_set_gate(17, (kuint64_t) isr17, 0x08, 0x8E);
+	idt_set_gate(18, (kuint64_t) isr18, 0x08, 0x8E);
+	idt_set_gate(19, (kuint64_t) isr19, 0x08, 0x8E);
+	idt_set_gate(20, (kuint64_t) isr20, 0x08, 0x8E);
+	idt_set_gate(21, (kuint64_t) isr21, 0x08, 0x8E);
+	idt_set_gate(22, (kuint64_t) isr22, 0x08, 0x8E);
+	idt_set_gate(23, (kuint64_t) isr23, 0x08, 0x8E);
+	idt_set_gate(24, (kuint64_t) isr24, 0x08, 0x8E);
+	idt_set_gate(25, (kuint64_t) isr25, 0x08, 0x8E);
+	idt_set_gate(26, (kuint64_t) isr26, 0x08, 0x8E);
+	idt_set_gate(27, (kuint64_t) isr27, 0x08, 0x8E);
+	idt_set_gate(28, (kuint64_t) isr28, 0x08, 0x8E);
+	idt_set_gate(29, (kuint64_t) isr29, 0x08, 0x8E);
+	idt_set_gate(30, (kuint64_t) isr30, 0x08, 0x8E);
+	idt_set_gate(31, (kuint64_t) isr31, 0x08, 0x8E);
 
 	/* Set up IRQ entries. */
-	idt_set_gate(32, (uint64_t) irq0, 0x08, 0x8E);
-	idt_set_gate(33, (uint64_t) irq1, 0x08, 0x8E);
-	idt_set_gate(34, (uint64_t) irq2, 0x08, 0x8E);
-	idt_set_gate(35, (uint64_t) irq3, 0x08, 0x8E);
-	idt_set_gate(36, (uint64_t) irq4, 0x08, 0x8E);
-	idt_set_gate(37, (uint64_t) irq5, 0x08, 0x8E);
-	idt_set_gate(38, (uint64_t) irq6, 0x08, 0x8E);
-	idt_set_gate(39, (uint64_t) irq7, 0x08, 0x8E);
-	idt_set_gate(40, (uint64_t) irq8, 0x08, 0x8E);
-	idt_set_gate(41, (uint64_t) irq9, 0x08, 0x8E);
-	idt_set_gate(42, (uint64_t) irq10, 0x08, 0x8E);
-	idt_set_gate(43, (uint64_t) irq11, 0x08, 0x8E);
-	idt_set_gate(44, (uint64_t) irq12, 0x08, 0x8E);
-	idt_set_gate(45, (uint64_t) irq13, 0x08, 0x8E);
-	idt_set_gate(46, (uint64_t) irq14, 0x08, 0x8E);
-	idt_set_gate(47, (uint64_t) irq15, 0x08, 0x8E);
+	idt_set_gate(32, (kuint64_t) irq0, 0x08, 0x8E);
+	idt_set_gate(33, (kuint64_t) irq1, 0x08, 0x8E);
+	idt_set_gate(34, (kuint64_t) irq2, 0x08, 0x8E);
+	idt_set_gate(35, (kuint64_t) irq3, 0x08, 0x8E);
+	idt_set_gate(36, (kuint64_t) irq4, 0x08, 0x8E);
+	idt_set_gate(37, (kuint64_t) irq5, 0x08, 0x8E);
+	idt_set_gate(38, (kuint64_t) irq6, 0x08, 0x8E);
+	idt_set_gate(39, (kuint64_t) irq7, 0x08, 0x8E);
+	idt_set_gate(40, (kuint64_t) irq8, 0x08, 0x8E);
+	idt_set_gate(41, (kuint64_t) irq9, 0x08, 0x8E);
+	idt_set_gate(42, (kuint64_t) irq10, 0x08, 0x8E);
+	idt_set_gate(43, (kuint64_t) irq11, 0x08, 0x8E);
+	idt_set_gate(44, (kuint64_t) irq12, 0x08, 0x8E);
+	idt_set_gate(45, (kuint64_t) irq13, 0x08, 0x8E);
+	idt_set_gate(46, (kuint64_t) irq14, 0x08, 0x8E);
+	idt_set_gate(47, (kuint64_t) irq15, 0x08, 0x8E);
 
 	/* Load the IDT. */
 	__asm__ volatile("lidt %0" : : "m"(idtp));

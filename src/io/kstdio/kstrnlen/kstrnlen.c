@@ -36,10 +36,10 @@
 #include "kstddef.h"
 #include "kstrnlen.h"
 
-size_t
-    kstrnlen (const char *str, size_t maxlen)
+ksize_t
+    kstrnlen (const char *str, ksize_t maxlen)
 {
-	size_t len = 0;
+	ksize_t len = 0;
 	while ( len < maxlen && str[len] != '\0' )
 	{
 		len++;

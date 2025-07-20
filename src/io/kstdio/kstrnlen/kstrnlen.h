@@ -35,5 +35,5 @@
 
 #pragma once
 
-size_t
-    kstrnlen (const char *str, size_t maxlen);
+ksize_t
+    kstrnlen (const char *str, ksize_t maxlen);

@@ -38,7 +38,7 @@
 #include "kstddef.h"
 #include "kstdint.h"
 
-volatile uint64_t *hpet = (volatile uint64_t *) 0xFED00000;
+volatile kuint64_t *hpet = (volatile kuint64_t *) 0xFED00000;
 
 #define HPET_GEN_CONF	     0x10
 #define HPET_MAIN_COUNTER    0xF0
@@ -63,13 +63,13 @@ void
 {
 	koutb(PIT_COMMAND, 0x34);
 
-	uint16_t reload = 1193; /* ~1 ms (1193182 Hz / 1000) */
-	koutb(PIT_CHANNEL0, (uint8_t) (reload & 0xFF));
-	koutb(PIT_CHANNEL0, (uint8_t) ((reload >> 8) & 0xFF));
+	kuint16_t reload = 1193; /* ~1 ms (1193182 Hz / 1000) */
+	koutb(PIT_CHANNEL0, (kuint8_t) (reload & 0xFF));
+	koutb(PIT_CHANNEL0, (kuint8_t) ((reload >> 8) & 0xFF));
 
 	for ( int i = 0; i < ms; i++ )
 	{
-		uint8_t prev = 0xFF, curr = 0;
+		kuint8_t prev = 0xFF, curr = 0;
 		do
 		{
 			curr = kinb(PIT_CHANNEL0);
@@ -83,14 +83,14 @@ void
 void
     ksleep (int ms)
 {
-	if ( hpet != NULL )
+	if ( hpet != KNULL )
 	{
 		khpet_enable();
 
-		uint64_t period_fs = hpet[HPET_CAP_ID / 8] >> 32;
-		uint64_t start	   = hpet[HPET_MAIN_COUNTER / 8];
+		kuint64_t period_fs = hpet[HPET_CAP_ID / 8] >> 32;
+		kuint64_t start	    = hpet[HPET_MAIN_COUNTER / 8];
 
-		uint64_t ticks = (uint64_t) ms * 1000000000ULL / (period_fs / 1000);
+		kuint64_t ticks = (kuint64_t) ms * 1000000000ULL / (period_fs / 1000);
 
 		while ( (hpet[HPET_MAIN_COUNTER / 8] - start) < ticks )
 		{

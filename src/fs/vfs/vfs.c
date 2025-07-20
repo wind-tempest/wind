@@ -42,13 +42,13 @@
 static char cwd_path[256] = "/";
 
 void
-    vfs_getcwd (char *out, size_t size)
+    vfs_getcwd (char *out, ksize_t size)
 {
 	kstrncpy(out, cwd_path, size);
 }
 
 void
-    vfs_normalize_path (const char *path, char *out, size_t size)
+    vfs_normalize_path (const char *path, char *out, ksize_t size)
 {
 	if ( !path || *path == '\0' )
 	{
@@ -63,9 +63,9 @@ void
 		return;
 	}
 
-	char   tmp[256] = {0};
-	size_t pos	= 0;
-	tmp[pos++]	= '/';
+	char	tmp[256] = {0};
+	ksize_t pos	 = 0;
+	tmp[pos++]	 = '/';
 
 	const char *p = path + 1; /* skip leading '/' */
 	while ( *p )
@@ -79,7 +79,7 @@ void
 		const char *start = p;
 		while ( *p && *p != '/' )
 			++p;
-		size_t len = (size_t) (p - start);
+		ksize_t len = (ksize_t) (p - start);
 
 		char comp[256];
 		kmemcpy(comp, start, len);
@@ -118,7 +118,7 @@ void
 }
 
 void
-    vfs_resolve (const char *path, char *out, size_t size)
+    vfs_resolve (const char *path, char *out, ksize_t size)
 {
 	char temp[256] = {0};
 	if ( !path || *path == '\0' )

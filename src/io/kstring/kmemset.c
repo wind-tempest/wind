@@ -37,27 +37,27 @@
 #include "kstdint.h"
 
 void *
-    memset (void *s, int c, size_t n)
+    memset (void *s, int c, ksize_t n)
 {
 	if ( !s )
-		return NULL; // null-check for safety
+		return KNULL; // null-check for safety
 
 	unsigned char *byte_ptr = (unsigned char *) s;
-	size_t	       i	= 0;
+	ksize_t	       i	= 0;
 
 	/* Prepare the word-sized pattern */
-	uintptr_t pattern = (unsigned char) c;
+	kuintptr_t pattern = (unsigned char) c;
 	pattern |= pattern << 8;
 	pattern |= pattern << 16;
-#if UINTPTR_MAX > 0xffffffff
+#if KUINTPTR_MAX > 0xffffffff
 	pattern |= pattern << 32;
 #endif
 
 	/* Align to word boundary */
-	size_t	  align	   = sizeof(uintptr_t);
-	uintptr_t addr	   = (uintptr_t) byte_ptr;
-	size_t	  misalign = addr % align;
-	size_t	  to_align = misalign ? (align - misalign) : 0;
+	ksize_t	   align    = sizeof(kuintptr_t);
+	kuintptr_t addr	    = (kuintptr_t) byte_ptr;
+	ksize_t	   misalign = addr % align;
+	ksize_t	   to_align = misalign ? (align - misalign) : 0;
 
 	/* Fill byte-by-byte until aligned */
 	for ( ; i < n && to_align--; ++i )
@@ -66,9 +66,9 @@ void *
 	}
 
 	/* Fill word-by-word */
-	size_t	   words    = (n - i) / align;
-	uintptr_t *word_ptr = (uintptr_t *) (byte_ptr + i);
-	for ( size_t w = 0; w < words; ++w )
+	ksize_t	    words    = (n - i) / align;
+	kuintptr_t *word_ptr = (kuintptr_t *) (byte_ptr + i);
+	for ( ksize_t w = 0; w < words; ++w )
 	{
 		word_ptr[w] = pattern;
 	}

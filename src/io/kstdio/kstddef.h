@@ -35,9 +35,11 @@
 
 #pragma once
 
-#ifndef NULL
-#define NULL ((void *) 0)
+#include "kstdint.h"
+
+#ifndef KNULL
+#define KNULL ((void *) 0)
 #endif
 
-typedef unsigned long size_t;
-typedef long	      ptrdiff_t;
+typedef kuint64_t ksize_t;
+typedef long	  kptrdiff_t;

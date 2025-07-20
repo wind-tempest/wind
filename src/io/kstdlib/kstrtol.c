@@ -93,7 +93,7 @@ long
 	}
 
 	/* compute cutoff for overflow */
-	cutoff = neg ? LONG_MIN : LONG_MAX;
+	cutoff = neg ? KLONG_MIN : KLONG_MAX;
 	cutlim = (int) (cutoff % base);
 	cutoff /= base;
 	if ( cutlim < 0 )
@@ -120,9 +120,9 @@ long
 		{
 			if ( acc < cutoff || (acc == cutoff && c > cutlim) )
 			{
-				acc   = LONG_MIN;
-				errno = ERANGE;
-				neg   = 0; /* to avoid negating again */
+				acc    = KLONG_MIN;
+				kerrno = KERANGE;
+				neg    = 0; /* to avoid negating again */
 			}
 			else
 			{
@@ -134,9 +134,9 @@ long
 		{
 			if ( acc > cutoff || (acc == cutoff && c > cutlim) )
 			{
-				acc   = LONG_MAX;
-				errno = ERANGE;
-				neg   = 0; /* to avoid negating again */
+				acc    = KLONG_MAX;
+				kerrno = KERANGE;
+				neg    = 0; /* to avoid negating again */
 			}
 			else
 			{

@@ -156,7 +156,7 @@ static void
 	char *space = cmd;
 	while ( *space && *space != ' ' )
 		++space;
-	char *args = NULL;
+	char *args = KNULL;
 	if ( *space == ' ' )
 	{
 		*space = '\0';
@@ -164,7 +164,7 @@ static void
 		while ( *args == ' ' )
 			++args; /* skip extra spaces */
 	}
-	for ( size_t i = 0; i < NUM_COMMANDS; ++i )
+	for ( ksize_t i = 0; i < NUM_COMMANDS; ++i )
 	{
 		if ( kstrcmp(cmd, commands[i].name) == 0 )
 		{
@@ -184,13 +184,13 @@ void
 	kputs("Copyright (c) 2025, Russian95");
 	kputs("Type 'help' for a list of commands.");
 
-	while ( true )
+	while ( ktrue )
 	{
 		kprintf("\n$[user-not-implemented-yet] ");
 		cmd_ptr	       = 0;
 		input_overflow = 0;
 
-		while ( true )
+		while ( ktrue )
 		{
 			char c = (char) getchar();
 
@@ -208,7 +208,7 @@ void
 
 					if ( history_count < MAX_HISTORY )
 					{
-						size_t len = (size_t) kstrlen(cmd_buffer);
+						ksize_t len = (ksize_t) kstrlen(cmd_buffer);
 						if ( len >= CMD_BUFFER_SIZE )
 							len = CMD_BUFFER_SIZE - 1;
 						kmemcpy(command_history[history_count],
@@ -250,9 +250,9 @@ void
 static void
     cmd_clear (const char *args)
 {
-	uint32_t color = 0x000000;
+	kuint32_t color = 0x000000;
 
-	if ( args != NULL && *args != '\0' )
+	if ( args != KNULL && *args != '\0' )
 	{
 		int base = 0;
 		if ( args[0] == '#' )
@@ -261,13 +261,13 @@ static void
 			base = 16;
 		}
 
-		errno = 0;
+		kerrno = 0;
 		char *end;
 		long  val = kstrtol(args, &end, base);
 
-		if ( errno == 0 && end != args && val >= 0 && val <= 0xFFFFFF )
+		if ( kerrno == 0 && end != args && val >= 0 && val <= 0xFFFFFF )
 		{
-			color = (uint32_t) val;
+			color = (kuint32_t) val;
 		}
 	}
 	video_clear(color);
@@ -283,7 +283,7 @@ static void
 	const char *categories[10];
 	int	    num_categories = 0;
 
-	for ( size_t i = 0; i < NUM_COMMANDS; ++i )
+	for ( ksize_t i = 0; i < NUM_COMMANDS; ++i )
 	{
 		int found = 0;
 		for ( int j = 0; j < num_categories; ++j )
@@ -304,7 +304,7 @@ static void
 	for ( int cat = 0; cat < num_categories; ++cat )
 	{
 		kprintf("\n[%s]\n", categories[cat]);
-		for ( size_t i = 0; i < NUM_COMMANDS; ++i )
+		for ( ksize_t i = 0; i < NUM_COMMANDS; ++i )
 		{
 			if ( kstrcmp(commands[i].category, categories[cat]) == 0 )
 			{
@@ -374,12 +374,12 @@ static void
 		ksnprintf(info[3], sizeof(info[3]), "resolution: unknown");
 	}
 	memory_stats_t stats	= memory_get_stats();
-	uint64_t       total_kb = stats.total_physical_pages * 4096 / 1024;
-	uint64_t       used_kb	= stats.used_physical_pages * 4096 / 1024;
-	uint64_t       free_kb	= stats.free_physical_pages * 4096 / 1024;
-	uint64_t       total_mb = total_kb / 1024;
-	uint64_t       used_mb	= used_kb / 1024;
-	uint64_t       free_mb	= free_kb / 1024;
+	kuint64_t      total_kb = stats.total_physical_pages * 4096 / 1024;
+	kuint64_t      used_kb	= stats.used_physical_pages * 4096 / 1024;
+	kuint64_t      free_kb	= stats.free_physical_pages * 4096 / 1024;
+	kuint64_t      total_mb = total_kb / 1024;
+	kuint64_t      used_mb	= used_kb / 1024;
+	kuint64_t      free_mb	= free_kb / 1024;
 	if ( total_mb >= 1 )
 	{
 		ksnprintf(info[4],
@@ -423,9 +423,9 @@ static void
 		return;
 	}
 
-	uint32_t width_center  = fb_width / 2;
-	uint32_t height_center = fb_height / 2;
-	uint32_t color	       = k_u_rand32() & 0xFFFFFF;
+	kuint32_t width_center	= fb_width / 2;
+	kuint32_t height_center = fb_height / 2;
+	kuint32_t color		= k_u_rand32() & 0xFFFFFF;
 	video_draw_circle((int) width_center, (int) (height_center), 100, color);
 }
 
@@ -441,9 +441,9 @@ static void
 		return;
 	}
 
-	uint32_t width_center  = fb_width / 2;
-	uint32_t height_center = fb_height / 2;
-	uint32_t color	       = k_u_rand32() & 0xFFFFFF;
+	kuint32_t width_center	= fb_width / 2;
+	kuint32_t height_center = fb_height / 2;
+	kuint32_t color		= k_u_rand32() & 0xFFFFFF;
 	video_draw_square((int) width_center, (int) height_center, 100, color);
 }
 
@@ -463,7 +463,7 @@ static void
 
 /* Callback used by ext2_list to print each entry */
 static void
-    ls_print_cb (const char *name, uint8_t file_type)
+    ls_print_cb (const char *name, kuint8_t file_type)
 {
 	(void) file_type;
 	kputs(name);
@@ -483,7 +483,7 @@ static void
     cmd_ls (const char *args)
 {
 	/* If no path given use current working directory */
-	const char *path = (args && *args) ? args : NULL;
+	const char *path = (args && *args) ? args : KNULL;
 	char	    buf[256];
 	if ( !path )
 	{
@@ -563,7 +563,7 @@ static void
 		kprintf("fsize: cannot open %s (err %d)\n", path, rc);
 		return;
 	}
-	uint64_t size = (((uint64_t) file.inode.dir_acl_or_size_high) << 32) | file.inode.size_lo;
+	kuint64_t size = (((kuint64_t) file.inode.dir_acl_or_size_high) << 32) | file.inode.size_lo;
 	kprintf("%s: %llu bytes\n", args, size);
 }
 
@@ -605,22 +605,22 @@ static void
 		return;
 	}
 
-	uint8_t	 circle_diff = k_u_rand32() & 0xFF;
-	uint32_t circle_x    = fb_width / 2;
-	uint32_t circle_y    = fb_height / 2;
-	uint32_t color	     = k_u_rand32() & 0xFFFFFF;
+	kuint8_t  circle_diff = k_u_rand32() & 0xFF;
+	kuint32_t circle_x    = fb_width / 2;
+	kuint32_t circle_y    = fb_height / 2;
+	kuint32_t color	      = k_u_rand32() & 0xFFFFFF;
 	video_draw_circle((int) circle_x, (int) circle_y, 100, color);
 
 	/* First square: left */
-	color		   = k_u_rand32() & 0xFFFFFF;
-	uint32_t square1_x = circle_x - circle_diff;
-	uint32_t square1_y = circle_y;
+	color		    = k_u_rand32() & 0xFFFFFF;
+	kuint32_t square1_x = circle_x - circle_diff;
+	kuint32_t square1_y = circle_y;
 	video_draw_square((int) square1_x, (int) square1_y, 100, color);
 
 	/* Second square: right */
-	color		   = k_u_rand32() & 0xFFFFFF;
-	uint32_t square2_x = circle_x + circle_diff;
-	uint32_t square2_y = circle_y;
+	color		    = k_u_rand32() & 0xFFFFFF;
+	kuint32_t square2_x = circle_x + circle_diff;
+	kuint32_t square2_y = circle_y;
 	video_draw_square((int) square2_x, (int) square2_y, 100, color);
 
 	ksleep(5000);
@@ -647,7 +647,7 @@ static void
 static void
     cmd_panic (const char *args)
 {
-	if ( args == NULL || *args == '\0' )
+	if ( args == KNULL || *args == '\0' )
 	{
 		kputs("Usage: panic <error_code>");
 		kputs("Error codes: 0-15 (0=unknown, 1=div_by_zero, etc.)");
@@ -662,5 +662,5 @@ static void
 	}
 
 	/* Trigger the panic */
-	panic(code, NULL);
+	panic(code, KNULL);
 }

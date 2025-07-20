@@ -76,7 +76,7 @@ static inline void
 static int
     ata_poll (void)
 {
-	uint8_t status;
+	kuint8_t status;
 	/* Initial delay */
 	io_wait();
 	while ( (status = kinb(ATA_PRIMARY_IO + ATA_REG_STATUS)) & ATA_SR_BSY )
@@ -89,17 +89,17 @@ static int
 }
 
 int
-    ata_pio_read (uint64_t lba, uint32_t count, void *buf)
+    ata_pio_read (kuint64_t lba, kuint32_t count, void *buf)
 {
-	if ( count == 0 || buf == NULL )
+	if ( count == 0 || buf == KNULL )
 		return -1;
 	if ( lba > 0x0FFFFFFF ) /* 28-bit limit */
 		return -1;
 
-	uint8_t *ptr = (uint8_t *) buf;
-	for ( uint32_t i = 0; i < count; i++ )
+	kuint8_t *ptr = (kuint8_t *) buf;
+	for ( kuint32_t i = 0; i < count; i++ )
 	{
-		uint32_t cur_lba = (uint32_t) (lba + i);
+		kuint32_t cur_lba = (kuint32_t) (lba + i);
 
 		/* Select drive + LBA bits 24-27 */
 		koutb(ATA_PRIMARY_IO + ATA_REG_DRIVE, 0xE0 | ((cur_lba >> 24) & 0x0F));
@@ -107,9 +107,9 @@ int
 		/* Sector count */
 		koutb(ATA_PRIMARY_IO + ATA_REG_SECCOUNT, 1);
 		/* LBA low/mid/high */
-		koutb(ATA_PRIMARY_IO + ATA_REG_LBA_LO, (uint8_t) cur_lba);
-		koutb(ATA_PRIMARY_IO + ATA_REG_LBA_MID, (uint8_t) (cur_lba >> 8));
-		koutb(ATA_PRIMARY_IO + ATA_REG_LBA_HI, (uint8_t) (cur_lba >> 16));
+		koutb(ATA_PRIMARY_IO + ATA_REG_LBA_LO, (kuint8_t) cur_lba);
+		koutb(ATA_PRIMARY_IO + ATA_REG_LBA_MID, (kuint8_t) (cur_lba >> 8));
+		koutb(ATA_PRIMARY_IO + ATA_REG_LBA_HI, (kuint8_t) (cur_lba >> 16));
 
 		/* Issue READ SECTORS command */
 		koutb(ATA_PRIMARY_IO + ATA_REG_COMMAND, ATA_CMD_READ_SECTORS);
@@ -120,9 +120,9 @@ int
 		/* Transfer 256 words (512 bytes) */
 		for ( int w = 0; w < 256; w++ )
 		{
-			uint16_t data = kinw(ATA_PRIMARY_IO + ATA_REG_DATA);
-			ptr[0]	      = (uint8_t) data;
-			ptr[1]	      = (uint8_t) (data >> 8);
+			kuint16_t data = kinw(ATA_PRIMARY_IO + ATA_REG_DATA);
+			ptr[0]	       = (kuint8_t) data;
+			ptr[1]	       = (kuint8_t) (data >> 8);
 			ptr += 2;
 		}
 	}

@@ -37,9 +37,9 @@
 #include "stddef.h"
 
 int
-    kstrncmp (const char *s1, const char *s2, size_t n)
+    kstrncmp (const char *s1, const char *s2, ksize_t n)
 {
-	for ( size_t i = 0; i < n; i++ )
+	for ( ksize_t i = 0; i < n; i++ )
 	{
 		if ( s1[i] != s2[i] )
 		{

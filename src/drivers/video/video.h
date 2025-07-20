@@ -38,46 +38,46 @@
 #include "kstdbool.h"
 #include "kstdint.h"
 
-extern uint32_t fb_width;
-extern uint32_t fb_height;
-extern uint32_t fb_pitch;
-extern uint8_t	fb_bpp;
+extern kuint32_t fb_width;
+extern kuint32_t fb_height;
+extern kuint32_t fb_pitch;
+extern kuint8_t	 fb_bpp;
 
 /* Framebuffer information structure */
 struct framebuffer_info
 {
-	uint64_t addr;
-	uint32_t pitch;
-	uint32_t width;
-	uint32_t height;
-	uint8_t	 bpp;
-	uint8_t	 type;
-	uint8_t	 red_mask_size;
-	uint8_t	 red_mask_shift;
-	uint8_t	 green_mask_size;
-	uint8_t	 green_mask_shift;
-	uint8_t	 blue_mask_size;
-	uint8_t	 blue_mask_shift;
+	kuint64_t addr;
+	kuint32_t pitch;
+	kuint32_t width;
+	kuint32_t height;
+	kuint8_t  bpp;
+	kuint8_t  type;
+	kuint8_t  red_mask_size;
+	kuint8_t  red_mask_shift;
+	kuint8_t  green_mask_size;
+	kuint8_t  green_mask_shift;
+	kuint8_t  blue_mask_size;
+	kuint8_t  blue_mask_shift;
 };
 
 void
     video_init (struct framebuffer_info *fb_info);
-bool
+kbool
     is_video_ready (void);
-uint32_t
-    rgb_to_bgr (uint32_t rgb);
-uint32_t
+kuint32_t
+    rgb_to_bgr (kuint32_t rgb);
+kuint32_t
     hexstr_to_color (const char *hex);
 void
-    video_put_pixel (uint32_t x, uint32_t y, uint32_t rgb_color);
+    video_put_pixel (kuint32_t x, kuint32_t y, kuint32_t rgb_color);
 void
-    video_clear (uint32_t color);
+    video_clear (kuint32_t color);
 
 void
     video_putchar (char c);
 void
     video_puts (const char *s);
 void
-    video_draw_circle (int cx, int cy, int radius, uint32_t rgb_color);
+    video_draw_circle (int cx, int cy, int radius, kuint32_t rgb_color);
 void
-    video_draw_square (int cx, int cy, int size, uint32_t rgb_color);
+    video_draw_square (int cx, int cy, int size, kuint32_t rgb_color);

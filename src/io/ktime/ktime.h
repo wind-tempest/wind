@@ -46,21 +46,21 @@ extern "C"
 	/* BIOS time structure */
 	struct bios_time
 	{
-		uint8_t	 second;
-		uint8_t	 minute;
-		uint8_t	 hour;
-		uint8_t	 day;
-		uint8_t	 month;
-		uint16_t year;
-		uint8_t	 day_of_week;
+		kuint8_t  second;
+		kuint8_t  minute;
+		kuint8_t  hour;
+		kuint8_t  day;
+		kuint8_t  month;
+		kuint16_t year;
+		kuint8_t  day_of_week;
 	};
 
 	/* Function declarations */
 	void	    get_bios_time (struct bios_time *time);
-	void	    get_date_string (char *buffer, size_t buffer_size);
-	void	    get_time_string (char *buffer, size_t buffer_size);
-	void	    get_datetime_string (char *buffer, size_t buffer_size);
-	const char *get_day_of_week_string (uint8_t day_of_week);
+	void	    get_date_string (char *buffer, ksize_t buffer_size);
+	void	    get_time_string (char *buffer, ksize_t buffer_size);
+	void	    get_datetime_string (char *buffer, ksize_t buffer_size);
+	const char *get_day_of_week_string (kuint8_t day_of_week);
 	void	    print_current_datetime (void);
 
 #ifdef __cplusplus

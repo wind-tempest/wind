@@ -37,12 +37,12 @@
 #include "kstdint.h"
 
 /* Font dimensions are 8x8 */
-const uint32_t FONT_WIDTH  = 8;
-const uint32_t FONT_HEIGHT = 8;
+const kuint32_t FONT_WIDTH  = 8;
+const kuint32_t FONT_HEIGHT = 8;
 
 /* 8x8 bitmap font - ASCII characters 0-127 */
 const unsigned char font[256][8] = {
-    /* 0x00 - NULL */
+    /* 0x00 - KNULL */
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
     /* 0x01 - Start of heading */
     {0x7E, 0x81, 0xA5, 0x81, 0xBD, 0x99, 0x81, 0x7E},

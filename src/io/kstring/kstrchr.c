@@ -53,5 +53,5 @@ char *
 		return (char *) str;
 	}
 
-	return NULL;
+	return KNULL;
 }

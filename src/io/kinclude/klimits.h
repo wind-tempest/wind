@@ -52,54 +52,54 @@
 #endif
 
 /* Maximum value for unsigned char. */
-#define UCHAR_MAX 255
+#define KUCHAR_MAX 255
 
 /* Maximum value for multibyte character length. */
-#define MB_LEN_MAX 16
+#define KMB_LEN_MAX 16
 
 /* Minimum and maximum values for short. */
-#define SHRT_MIN  (-32768)
-#define SHRT_MAX  32767
-#define USHRT_MAX 65535U
+#define KSHRT_MIN  (-32768)
+#define KSHRT_MAX  32767
+#define KUSHRT_MAX 65535U
 
 /* Minimum and maximum values for int. */
-#define INT_MIN	 (-2147483647 - 1)
-#define INT_MAX	 2147483647
-#define UINT_MAX 4294967295U
+#define KINT_MIN  (-2147483647 - 1)
+#define KINT_MAX  2147483647
+#define KUINT_MAX 4294967295U
 
 /* Minimum and maximum values for long. */
 #if defined(_LP64) || defined(__x86_64__)
 /* LP64: long is 64 bits */
-#define LONG_MIN  (-9223372036854775807L - 1)
-#define LONG_MAX  9223372036854775807L
-#define ULONG_MAX 18446744073709551615UL
+#define KLONG_MIN  (-9223372036854775807L - 1)
+#define KLONG_MAX  9223372036854775807L
+#define KULONG_MAX 18446744073709551615UL
 #else
 /* ILP32: long is 32 bits */
-#define LONG_MIN  (-2147483647L - 1)
-#define LONG_MAX  2147483647L
-#define ULONG_MAX 4294967295UL
+#define KLONG_MIN  (-2147483647L - 1)
+#define KLONG_MAX  2147483647L
+#define KULONG_MAX 4294967295UL
 #endif
 
 /* Minimum and maximum values for long long. */
-#define LLONG_MIN  (-9223372036854775807LL - 1)
-#define LLONG_MAX  9223372036854775807LL
-#define ULLONG_MAX 18446744073709551615ULL
+#define KLLONG_MIN  (-9223372036854775807LL - 1)
+#define KLLONG_MAX  9223372036854775807LL
+#define KULLONG_MAX 18446744073709551615ULL
 
 /* Additional limits (C99 and POSIX) */
 
 /* Pointer difference type */
-#define PTRDIFF_MIN (-INT_MAX - 1)
-#define PTRDIFF_MAX INT_MAX
+#define KPTRDIFF_MIN (-KINT_MAX - 1)
+#define KPTRDIFF_MAX KINT_MAX
 
 /* Size type */
-#define SIZE_MAX UINT_MAX
+#define KSIZE_MAX KUINT_MAX
 
 /* sig_atomic_t */
-#define SIG_ATOMIC_MIN (-2147483647 - 1)
-#define SIG_ATOMIC_MAX 2147483647
+#define KSIG_ATOMIC_MIN (-2147483647 - 1)
+#define KSIG_ATOMIC_MAX 2147483647
 
 /* wchar_t and wint_t */
-#define WCHAR_MIN 0
-#define WCHAR_MAX 4294967295U
-#define WINT_MIN  0u
-#define WINT_MAX  4294967295u
+#define KWCHAR_MIN 0
+#define KWCHAR_MAX 4294967295U
+#define KWINT_MIN  0u
+#define KWINT_MAX  4294967295u

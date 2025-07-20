@@ -37,5 +37,5 @@
 
 #include "kstddef.h"
 
-size_t
+ksize_t
     kstrlen (const char *str);

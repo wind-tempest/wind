@@ -37,7 +37,7 @@
 
 #include "kstdint.h"
 
-uint32_t
+kuint32_t
     k_u_rand32 (void);
-int32_t
+kint32_t
     krand32 (void);

@@ -38,4 +38,4 @@
 #include "kstddef.h"
 
 void *
-    kmemcpy (void *dest, const void *src, size_t n);
+    kmemcpy (void *dest, const void *src, ksize_t n);

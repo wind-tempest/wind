@@ -39,20 +39,20 @@
 #define PCG32_MULT     6364136223846793005ULL
 #define PCG32_INIT_SEQ 0xDEADBEEFULL
 
-static uint64_t pcg_state  = 0;
-static uint64_t pcg_inc	   = 0;
-static bool	pcg_inited = false;
+static kuint64_t pcg_state  = 0;
+static kuint64_t pcg_inc    = 0;
+static kbool	 pcg_inited = kfalse;
 
-static inline uint32_t
+static inline kuint32_t
     krdtsc32 (void)
 {
-	uint32_t lo;
+	kuint32_t lo;
 	__asm__ volatile("rdtsc" : "=a"(lo)::"edx");
 	return lo;
 }
 
 void
-    ksrand32 (uint64_t seed, uint64_t seq)
+    ksrand32 (kuint64_t seed, kuint64_t seq)
 {
 	pcg_state = 0;
 	pcg_inc	  = (seq << 1) | 1;
@@ -61,7 +61,7 @@ void
 		pcg_state = pcg_state * PCG32_MULT + pcg_inc;
 	pcg_state += seed;
 	pcg_state  = pcg_state * PCG32_MULT + pcg_inc;
-	pcg_inited = true;
+	pcg_inited = ktrue;
 }
 
 static void
@@ -69,31 +69,31 @@ static void
 {
 	if ( !pcg_inited )
 	{
-		uint32_t t = krdtsc32();
+		kuint32_t t = krdtsc32();
 		ksrand32(t, t ^ PCG32_INIT_SEQ);
 	}
 }
 
-uint32_t
+kuint32_t
     k_u_rand32 (void)
 {
 	kensure_pcg_init();
-	uint64_t prev_state = pcg_state;
-	pcg_state	    = prev_state * PCG32_MULT + pcg_inc;
+	kuint64_t prev_state = pcg_state;
+	pcg_state	     = prev_state * PCG32_MULT + pcg_inc;
 	/* Output function (XSH RR), as per PCG reference */
-	uint32_t xorshifted = (uint32_t) (((prev_state >> 18u) ^ prev_state) >> 27u);
-	uint32_t rot	    = (uint32_t) (prev_state >> 59u);
+	kuint32_t xorshifted = (kuint32_t) (((prev_state >> 18u) ^ prev_state) >> 27u);
+	kuint32_t rot	     = (kuint32_t) (prev_state >> 59u);
 	return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
 }
 
-int32_t
+kint32_t
     krand32 (void)
 {
 	kensure_pcg_init();
-	uint64_t prev_state = pcg_state;
-	pcg_state	    = prev_state * PCG32_MULT + pcg_inc;
+	kuint64_t prev_state = pcg_state;
+	pcg_state	     = prev_state * PCG32_MULT + pcg_inc;
 	/* Output function (XSH RR), as per PCG reference */
-	uint32_t xorshifted = (uint32_t) (((prev_state >> 18u) ^ prev_state) >> 27u);
-	uint32_t rot	    = (uint32_t) (prev_state >> 59u);
-	return (int32_t) ((xorshifted >> rot) | (xorshifted << ((-rot) & 31)));
+	kuint32_t xorshifted = (kuint32_t) (((prev_state >> 18u) ^ prev_state) >> 27u);
+	kuint32_t rot	     = (kuint32_t) (prev_state >> 59u);
+	return (kint32_t) ((xorshifted >> rot) | (xorshifted << ((-rot) & 31)));
 }

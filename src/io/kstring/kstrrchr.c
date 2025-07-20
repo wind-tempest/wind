@@ -40,9 +40,9 @@ char *
     kstrrchr (const char *str, int c)
 {
 	if ( !str )
-		return NULL;
+		return KNULL;
 
-	char *last = NULL;
+	char *last = KNULL;
 	char  ch   = (char) c;
 
 	while ( *str )

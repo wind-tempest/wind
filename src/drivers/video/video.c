@@ -42,45 +42,45 @@
 extern void
     kputs (const char *s);
 extern void
-    puthex (uint64_t value);
+    puthex (kuint64_t value);
 extern void
-    putdec (uint32_t value);
+    putdec (kuint32_t value);
 
-static volatile uint32_t *framebuffer = NULL;
-uint32_t		  fb_width    = 0;
-uint32_t		  fb_height   = 0;
-uint32_t		  fb_pitch    = 0;
-uint8_t			  fb_bpp      = 0;
+static volatile kuint32_t *framebuffer = KNULL;
+kuint32_t		   fb_width    = 0;
+kuint32_t		   fb_height   = 0;
+kuint32_t		   fb_pitch    = 0;
+kuint8_t		   fb_bpp      = 0;
 
-static uint32_t cursor_x = 0;
-static uint32_t cursor_y = 0;
+static kuint32_t cursor_x = 0;
+static kuint32_t cursor_y = 0;
 
 void
-    video_clear (uint32_t color)
+    video_clear (kuint32_t color)
 {
-	if ( framebuffer == NULL )
+	if ( framebuffer == KNULL )
 		return;
 
-	for ( uint32_t y = 0; y < fb_height; y++ )
+	for ( kuint32_t y = 0; y < fb_height; y++ )
 	{
-		volatile uint8_t *row_base = (volatile uint8_t *) framebuffer + y * fb_pitch;
+		volatile kuint8_t *row_base = (volatile kuint8_t *) framebuffer + y * fb_pitch;
 
 		if ( fb_bpp == 16 )
 		{
-			volatile uint16_t *row = (volatile uint16_t *) row_base;
-			uint16_t color16 = (uint16_t) (color & 0xFFFF); // Assume formato RGB565
-			for ( uint32_t x = 0; x < fb_width; x++ )
+			volatile kuint16_t *row = (volatile kuint16_t *) row_base;
+			kuint16_t color16 = (kuint16_t) (color & 0xFFFF); // Assume formato RGB565
+			for ( kuint32_t x = 0; x < fb_width; x++ )
 			{
 				row[x] = color16;
 			}
 		}
 		else if ( fb_bpp == 24 )
 		{
-			volatile uint8_t *row = row_base;
-			uint8_t		  r   = (color >> 16) & 0xFF;
-			uint8_t		  g   = (color >> 8) & 0xFF;
-			uint8_t		  b   = (color >> 0) & 0xFF;
-			for ( uint32_t x = 0; x < fb_width; x++ )
+			volatile kuint8_t *row = row_base;
+			kuint8_t	   r   = (color >> 16) & 0xFF;
+			kuint8_t	   g   = (color >> 8) & 0xFF;
+			kuint8_t	   b   = (color >> 0) & 0xFF;
+			for ( kuint32_t x = 0; x < fb_width; x++ )
 			{
 				row[x * 3 + 0] = b;
 				row[x * 3 + 1] = g;
@@ -89,8 +89,8 @@ void
 		}
 		else if ( fb_bpp == 32 )
 		{
-			volatile uint32_t *row = (volatile uint32_t *) row_base;
-			for ( uint32_t x = 0; x < fb_width; x++ )
+			volatile kuint32_t *row = (volatile kuint32_t *) row_base;
+			for ( kuint32_t x = 0; x < fb_width; x++ )
 			{
 				row[x] = color;
 			}
@@ -102,37 +102,37 @@ void
 }
 
 /* Convert 24-bit RGB (0xRRGGBB) to 16-bit RGB565 */
-static inline uint16_t
-    rgb888_to_rgb565 (uint32_t rgb)
+static inline kuint16_t
+    rgb888_to_rgb565 (kuint32_t rgb)
 {
-	uint8_t r = (rgb >> 16) & 0xFF;
-	uint8_t g = (rgb >> 8) & 0xFF;
-	uint8_t b = rgb & 0xFF;
-	return (uint16_t) ((r >> 3) << 11 | (g >> 2) << 5 | (b >> 3));
+	kuint8_t r = (rgb >> 16) & 0xFF;
+	kuint8_t g = (rgb >> 8) & 0xFF;
+	kuint8_t b = rgb & 0xFF;
+	return (kuint16_t) ((r >> 3) << 11 | (g >> 2) << 5 | (b >> 3));
 }
 
-bool
+kbool
     is_video_ready (void)
 {
-	return framebuffer != NULL && fb_width > 0 && fb_height > 0;
+	return framebuffer != KNULL && fb_width > 0 && fb_height > 0;
 }
 
-static bool
+static kbool
     is_hex_char (char c)
 {
 	return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
 }
 
-uint32_t
-    rgb_to_bgr (uint32_t rgb)
+kuint32_t
+    rgb_to_bgr (kuint32_t rgb)
 {
-	uint8_t r = (rgb >> 16) & 0xFF;
-	uint8_t g = (rgb >> 8) & 0xFF;
-	uint8_t b = rgb & 0xFF;
-	return ((uint32_t) b << 16) | ((uint32_t) g << 8) | (uint32_t) r;
+	kuint8_t r = (rgb >> 16) & 0xFF;
+	kuint8_t g = (rgb >> 8) & 0xFF;
+	kuint8_t b = rgb & 0xFF;
+	return ((kuint32_t) b << 16) | ((kuint32_t) g << 8) | (kuint32_t) r;
 }
 
-uint32_t
+kuint32_t
     hexstr_to_color (const char *hex)
 {
 	if ( hex[0] == '#' )
@@ -140,17 +140,17 @@ uint32_t
 	if ( hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X') )
 		hex += 2;
 
-	uint32_t value = 0;
+	kuint32_t value = 0;
 	for ( int i = 0; i < 6 && is_hex_char(hex[i]); i++ )
 	{
 		char c = hex[i];
 		value <<= 4;
 		if ( c >= '0' && c <= '9' )
-			value |= (uint32_t) (c - '0');
+			value |= (kuint32_t) (c - '0');
 		else if ( c >= 'a' && c <= 'f' )
-			value |= (uint32_t) (c - 'a' + 10);
+			value |= (kuint32_t) (c - 'a' + 10);
 		else if ( c >= 'A' && c <= 'F' )
-			value |= (uint32_t) (c - 'A' + 10);
+			value |= (kuint32_t) (c - 'A' + 10);
 	}
 
 	return value;
@@ -159,12 +159,12 @@ uint32_t
 void
     video_init (struct framebuffer_info *fb_info)
 {
-	if ( fb_info == NULL || fb_info->addr == 0 )
+	if ( fb_info == KNULL || fb_info->addr == 0 )
 	{
 		return;
 	}
 
-	framebuffer = (volatile uint32_t *) fb_info->addr;
+	framebuffer = (volatile kuint32_t *) fb_info->addr;
 	fb_width    = fb_info->width;
 	fb_height   = fb_info->height;
 	fb_pitch    = fb_info->pitch;
@@ -181,39 +181,39 @@ void
 }
 
 void
-    video_put_pixel (uint32_t x, uint32_t y, uint32_t rgb_color)
+    video_put_pixel (kuint32_t x, kuint32_t y, kuint32_t rgb_color)
 {
-	if ( framebuffer == NULL || x >= fb_width || y >= fb_height )
+	if ( framebuffer == KNULL || x >= fb_width || y >= fb_height )
 	{
 		return;
 	}
 
 	if ( fb_bpp == 16 )
 	{
-		uint16_t *row = (uint16_t *) ((uint8_t *) framebuffer + y * fb_pitch);
-		row[x]	      = rgb888_to_rgb565(rgb_color);
+		kuint16_t *row = (kuint16_t *) ((kuint8_t *) framebuffer + y * fb_pitch);
+		row[x]	       = rgb888_to_rgb565(rgb_color);
 	}
 	else
 	{
-		uint32_t *row = (uint32_t *) ((uint8_t *) framebuffer + y * fb_pitch);
-		row[x]	      = rgb_to_bgr(rgb_color);
+		kuint32_t *row = (kuint32_t *) ((kuint8_t *) framebuffer + y * fb_pitch);
+		row[x]	       = rgb_to_bgr(rgb_color);
 	}
 }
 
 static void
-    video_draw_glyph_at (char c, uint32_t x, uint32_t y, uint32_t rgb_color)
+    video_draw_glyph_at (char c, kuint32_t x, kuint32_t y, kuint32_t rgb_color)
 {
-	if ( framebuffer == NULL || (unsigned int) c >= 256 )
+	if ( framebuffer == KNULL || (unsigned int) c >= 256 )
 	{
 		return;
 	}
 
 	const unsigned char *glyph = font[(unsigned int) c];
 
-	for ( uint32_t row = 0; row < FONT_HEIGHT; row++ )
+	for ( kuint32_t row = 0; row < FONT_HEIGHT; row++ )
 	{
 		unsigned char row_data = glyph[row];
-		for ( uint32_t col = 0; col < FONT_WIDTH; col++ )
+		for ( kuint32_t col = 0; col < FONT_WIDTH; col++ )
 		{
 			if ( row_data & (0x80 >> col) )
 			{
@@ -238,9 +238,9 @@ void
 			cursor_x = fb_width - FONT_WIDTH;
 		}
 		/* Erase the character at the current position */
-		for ( uint32_t row = 0; row < FONT_HEIGHT; row++ )
+		for ( kuint32_t row = 0; row < FONT_HEIGHT; row++ )
 		{
-			for ( uint32_t col = 0; col < FONT_WIDTH; col++ )
+			for ( kuint32_t col = 0; col < FONT_WIDTH; col++ )
 			{
 				video_put_pixel(cursor_x + col, cursor_y + row, 0x000000);
 			}
@@ -279,7 +279,7 @@ void
 }
 
 void
-    video_draw_circle (int cx, int cy, int radius, uint32_t rgb_color)
+    video_draw_circle (int cx, int cy, int radius, kuint32_t rgb_color)
 {
 	for ( int y = -radius; y <= radius; y++ )
 	{
@@ -291,7 +291,7 @@ void
 				int py = cy + y;
 				if ( px >= 0 && py >= 0 )
 				{
-					video_put_pixel((uint32_t) px, (uint32_t) py, rgb_color);
+					video_put_pixel((kuint32_t) px, (kuint32_t) py, rgb_color);
 				}
 			}
 		}
@@ -299,7 +299,7 @@ void
 }
 
 void
-    video_draw_square (int cx, int cy, int size, uint32_t rgb_color)
+    video_draw_square (int cx, int cy, int size, kuint32_t rgb_color)
 {
 	int half = size / 2;
 
@@ -309,7 +309,7 @@ void
 		{
 			if ( x >= 0 && y >= 0 && x < (int) fb_width && y < (int) fb_height )
 			{
-				video_put_pixel((uint32_t) x, (uint32_t) y, rgb_color);
+				video_put_pixel((kuint32_t) x, (kuint32_t) y, rgb_color);
 			}
 		}
 	}

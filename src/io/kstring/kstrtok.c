@@ -37,18 +37,18 @@
 #include "kstrchr.h"
 #include "kstrtok.h"
 
-static char *strtok_save = NULL;
+static char *strtok_save = KNULL;
 
 char *
     kstrtok (char *str, const char *delim)
 {
-	if ( str != NULL )
+	if ( str != KNULL )
 	{
 		strtok_save = str;
 	}
-	else if ( strtok_save == NULL )
+	else if ( strtok_save == KNULL )
 	{
-		return NULL;
+		return KNULL;
 	}
 
 	/* Skip leading delimiters */
@@ -59,8 +59,8 @@ char *
 
 	if ( *strtok_save == '\0' )
 	{
-		strtok_save = NULL;
-		return NULL;
+		strtok_save = KNULL;
+		return KNULL;
 	}
 
 	char *token_start = strtok_save;
@@ -78,7 +78,7 @@ char *
 	}
 	else
 	{
-		strtok_save = NULL;
+		strtok_save = KNULL;
 	}
 
 	return token_start;

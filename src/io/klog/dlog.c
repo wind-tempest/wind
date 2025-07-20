@@ -161,9 +161,9 @@ int
 					if ( *(p + 1) == 'x' )
 					{
 						p++; /* Skip 'x' */
-						uint64_t n = k_va_arg(args, uint64_t);
-						char	 buf[20];
-						char	*end_ptr =
+						kuint64_t n = k_va_arg(args, kuint64_t);
+						char	  buf[20];
+						char	 *end_ptr =
 						    kutoa(buf,
 							  buf + sizeof(buf) - 1,
 							  (unsigned int) (n & 0xFFFFFFFF),
@@ -212,7 +212,7 @@ int
 void
     kcritical (const char *message, const char *extra)
 {
-	if ( extra == NULL )
+	if ( extra == KNULL )
 	{
 		kprintf("[CRITICAL] %s\n", message);
 	}
@@ -225,7 +225,7 @@ void
 void
     kalert (const char *message, const char *extra)
 {
-	if ( extra == NULL )
+	if ( extra == KNULL )
 	{
 		kprintf("[ALERT] %s\n", message);
 	}
@@ -238,7 +238,7 @@ void
 void
     kemerg (const char *message, const char *extra)
 {
-	if ( extra == NULL )
+	if ( extra == KNULL )
 	{
 		kprintf("[EMERGENCY] %s\n", message);
 	}
@@ -251,7 +251,7 @@ void
 void
     kwarn (const char *message, const char *extra)
 {
-	if ( extra == NULL )
+	if ( extra == KNULL )
 	{
 		kprintf("[WARN] %s\n", message);
 	}
@@ -264,7 +264,7 @@ void
 void
     kerror (const char *message, const char *extra)
 {
-	if ( extra == NULL )
+	if ( extra == KNULL )
 	{
 		kprintf("[ERROR] %s\n", message);
 	}
@@ -277,7 +277,7 @@ void
 void
     knotice (const char *message, const char *extra)
 {
-	if ( extra == NULL )
+	if ( extra == KNULL )
 	{
 		kprintf("[NOTICE] %s\n", message);
 	}
@@ -290,7 +290,7 @@ void
 void
     kinfo (const char *message, const char *extra)
 {
-	if ( extra == NULL )
+	if ( extra == KNULL )
 	{
 		kprintf("[INFO] %s\n", message);
 	}

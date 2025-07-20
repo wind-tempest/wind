@@ -45,40 +45,40 @@
 #include "shell/shell.h"
 
 /* FIXED! FINALLY! Just don't use debug before the video initialization. */
-bool use_debug = false;
+kbool use_debug = kfalse;
 
 /* Multiboot2 header structure. */
 struct multiboot_header
 {
-	uint32_t total_size;
-	uint32_t reserved;
+	kuint32_t total_size;
+	kuint32_t reserved;
 };
 
 /* Multiboot2 tag structure. */
 struct multiboot_tag
 {
-	uint32_t type;
-	uint32_t size;
+	kuint32_t type;
+	kuint32_t size;
 };
 
 /* Multiboot2 framebuffer tag. */
 struct multiboot_tag_framebuffer
 {
-	uint32_t type;
-	uint32_t size;
-	uint64_t addr;
-	uint32_t pitch;
-	uint32_t width;
-	uint32_t height;
-	uint8_t	 bpp;
-	uint8_t	 type_fb;
-	uint8_t	 red_mask_size;
-	uint8_t	 red_mask_shift;
-	uint8_t	 green_mask_size;
-	uint8_t	 green_mask_shift;
-	uint8_t	 blue_mask_size;
-	uint8_t	 blue_mask_shift;
-	uint8_t	 reserved[2];
+	kuint32_t type;
+	kuint32_t size;
+	kuint64_t addr;
+	kuint32_t pitch;
+	kuint32_t width;
+	kuint32_t height;
+	kuint8_t  bpp;
+	kuint8_t  type_fb;
+	kuint8_t  red_mask_size;
+	kuint8_t  red_mask_shift;
+	kuint8_t  green_mask_size;
+	kuint8_t  green_mask_shift;
+	kuint8_t  blue_mask_size;
+	kuint8_t  blue_mask_shift;
+	kuint8_t  reserved[2];
 };
 
 /* Multiboot2 tag types. */
@@ -90,12 +90,12 @@ static struct framebuffer_info fb_info = {0};
 void
     debug_init (void)
 {
-	use_debug = true;
+	use_debug = ktrue;
 }
 
 /* Function to map a physical address to virtual address in page tables. */
 static void
-    map_framebuffer_address (uint64_t phys_addr)
+    map_framebuffer_address (kuint64_t phys_addr)
 {
 	/* Map the framebuffer to a high virtual address (0xFFFF800000000000 + */
 	/* phys_addr) This creates a 1:1 mapping for the framebuffer area. */
@@ -118,15 +118,15 @@ static void
 static void
     parse_multiboot_info (void *mb_info)
 {
-	if ( mb_info == NULL )
+	if ( mb_info == KNULL )
 	{
-		kduts("mb_info is NULL!");
+		kduts("mb_info is KNULL!");
 		return;
 	}
 
-	uint32_t total_size	 = *(uint32_t *) mb_info;
-	uint8_t *current_tag_ptr = (uint8_t *) ((uintptr_t) mb_info + 8);
-	uint8_t *end_of_tags	 = (uint8_t *) ((uintptr_t) mb_info + total_size);
+	kuint32_t total_size	  = *(kuint32_t *) mb_info;
+	kuint8_t *current_tag_ptr = (kuint8_t *) ((kuintptr_t) mb_info + 8);
+	kuint8_t *end_of_tags	  = (kuint8_t *) ((kuintptr_t) mb_info + total_size);
 
 	kduts("Parsing multiboot info...");
 
@@ -134,7 +134,7 @@ static void
 	{
 		struct multiboot_tag *tag = (struct multiboot_tag *) current_tag_ptr;
 
-		uint32_t tag_size = tag->size;
+		kuint32_t tag_size = tag->size;
 		if ( tag_size == 0 )
 		{
 			kduts("Error: Invalid tag size 0.");
@@ -199,7 +199,7 @@ void
 	idt_init();
 	serial_init();
 
-	if ( mb_info == NULL )
+	if ( mb_info == KNULL )
 	{
 		/*
 		 * We can't do anything without multiboot info.
@@ -230,7 +230,7 @@ void
 	init_memory_pools();
 
 	/* Initialize ATA and mount EXT2 disk */
-	ext2_set_block_device(ata_pio_read, NULL);
+	ext2_set_block_device(ata_pio_read, KNULL);
 	if ( ext2_mount(0) != 0 )
 	{
 		kputs("EXT2 mount failed\n");

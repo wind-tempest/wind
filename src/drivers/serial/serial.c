@@ -39,9 +39,9 @@
 #include "serial.h"
 
 #define PORT 0x3f8 // COM1
-bool is_serial_available;
+kbool is_serial_available;
 
-bool
+kbool
     serial_available (void);
 
 void
@@ -102,7 +102,7 @@ void
 	serial_writes(buf);
 }
 
-bool
+kbool
     serial_available (void)
 {
 	/* Save original values. */

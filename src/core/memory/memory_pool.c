@@ -40,29 +40,29 @@
 
 /* Memory pool management */
 memory_pool_t *
-    pool_create (size_t block_size, size_t num_blocks)
+    pool_create (ksize_t block_size, ksize_t num_blocks)
 {
 	if ( block_size == 0 || num_blocks == 0 )
 	{
-		return NULL;
+		return KNULL;
 	}
 
 	/* Allocate pool structure */
 	memory_pool_t *pool = kmalloc(sizeof(memory_pool_t));
 	if ( !pool )
 	{
-		return NULL;
+		return KNULL;
 	}
 
 	/* Calculate total size needed */
-	size_t total_size = num_blocks * block_size;
+	ksize_t total_size = num_blocks * block_size;
 
 	/* Allocate the actual pool memory */
 	pool->pool_start = kmalloc(total_size);
 	if ( !pool->pool_start )
 	{
 		kfree(pool);
-		return NULL;
+		return KNULL;
 	}
 
 	/* Allocate free list */
@@ -71,7 +71,7 @@ memory_pool_t *
 	{
 		kfree(pool->pool_start);
 		kfree(pool);
-		return NULL;
+		return KNULL;
 	}
 
 	/* Initialize pool */
@@ -80,9 +80,9 @@ memory_pool_t *
 	pool->free_blocks  = num_blocks;
 
 	/* Initialize free list */
-	for ( size_t i = 0; i < num_blocks; i++ )
+	for ( ksize_t i = 0; i < num_blocks; i++ )
 	{
-		pool->free_list[i] = (uint8_t *) pool->pool_start + i * block_size;
+		pool->free_list[i] = (kuint8_t *) pool->pool_start + i * block_size;
 	}
 
 	return pool;
@@ -93,7 +93,7 @@ void *
 {
 	if ( !pool || pool->free_blocks == 0 )
 	{
-		return NULL;
+		return KNULL;
 	}
 
 	/* Get next free block */
@@ -113,21 +113,21 @@ void
 
 	/* Check if pointer is within pool bounds */
 	if ( ptr < pool->pool_start
-	     || (uintptr_t) ptr
-		    >= (uintptr_t) pool->pool_start + pool->total_blocks * pool->block_size )
+	     || (kuintptr_t) ptr
+		    >= (kuintptr_t) pool->pool_start + pool->total_blocks * pool->block_size )
 	{
 		return; /* Invalid pointer */
 	}
 
 	/* Check if pointer is aligned to block size */
-	uintptr_t offset = (uintptr_t) ptr - (uintptr_t) pool->pool_start;
+	kuintptr_t offset = (kuintptr_t) ptr - (kuintptr_t) pool->pool_start;
 	if ( offset % pool->block_size != 0 )
 	{
 		return; /* Misaligned pointer */
 	}
 
 	/* Check if block is already free */
-	for ( size_t i = 0; i < pool->free_blocks; i++ )
+	for ( ksize_t i = 0; i < pool->free_blocks; i++ )
 	{
 		if ( pool->free_list[i] == ptr )
 		{
@@ -163,9 +163,9 @@ void
 }
 
 /* Predefined memory pools for common sizes */
-static memory_pool_t *small_pool  = NULL; /* 16 bytes */
-static memory_pool_t *medium_pool = NULL; /* 64 bytes */
-static memory_pool_t *large_pool  = NULL; /* 256 bytes */
+static memory_pool_t *small_pool  = KNULL; /* 16 bytes */
+static memory_pool_t *medium_pool = KNULL; /* 64 bytes */
+static memory_pool_t *large_pool  = KNULL; /* 256 bytes */
 
 void
     init_memory_pools (void)
@@ -177,7 +177,7 @@ void
 
 	if ( !small_pool || !medium_pool || !large_pool )
 	{
-		kwarn("Failed to create some memory pools", NULL);
+		kwarn("Failed to create some memory pools", KNULL);
 	}
 }
 
@@ -219,7 +219,7 @@ void
 
 /* Smart allocation that chooses the best pool */
 void *
-    smart_alloc (size_t size)
+    smart_alloc (ksize_t size)
 {
 	if ( size <= 16 )
 	{
@@ -240,7 +240,7 @@ void *
 }
 
 void
-    smart_free (void *ptr, size_t size)
+    smart_free (void *ptr, ksize_t size)
 {
 	if ( size <= 16 )
 	{

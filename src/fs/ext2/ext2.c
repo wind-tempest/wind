@@ -38,19 +38,19 @@
 #include "kstdio.h"
 #include "kstring.h"
 
-static uint64_t		  g_base_lba = 0; /* Partition/LBA base of filesystem         */
+static kuint64_t	  g_base_lba = 0; /* Partition/LBA base of filesystem         */
 static ext2_superblock_t  g_superblock;
-static ext2_group_desc_t *g_group_desc = NULL;
-static uint32_t		  g_block_size = 0;
-bool			  is_mounted   = false;
+static ext2_group_desc_t *g_group_desc = KNULL;
+static kuint32_t	  g_block_size = 0;
+kbool			  is_mounted   = kfalse;
 
 /* Caller-supplied I/O functions (sector based, 512-byte) */
-static int (*g_read_sector)(uint64_t lba, uint32_t count, void *buf)	    = NULL;
-static int (*g_write_sector)(uint64_t lba, uint32_t count, const void *buf) = NULL;
+static int (*g_read_sector)(kuint64_t lba, kuint32_t count, void *buf)	      = KNULL;
+static int (*g_write_sector)(kuint64_t lba, kuint32_t count, const void *buf) = KNULL;
 
 /* Convenience wrapper: read N sectors into dst */
 static int
-    read_sectors (uint64_t lba, uint32_t cnt, void *dst)
+    read_sectors (kuint64_t lba, kuint32_t cnt, void *dst)
 {
 	if ( !g_read_sector )
 	{
@@ -61,27 +61,27 @@ static int
 
 /* Read an aligned filesystem block into dst. Assumes dst has at least block_size bytes. */
 static int
-    read_block (uint32_t block_id, void *dst)
+    read_block (kuint32_t block_id, void *dst)
 {
-	uint64_t first_lba = g_base_lba + ((uint64_t) block_id * g_block_size) / 512;
-	uint32_t cnt	   = g_block_size / 512;
+	kuint64_t first_lba = g_base_lba + ((kuint64_t) block_id * g_block_size) / 512;
+	kuint32_t cnt	    = g_block_size / 512;
 	return read_sectors(first_lba, cnt, dst);
 }
 
 /* Forward declaration for functions used before definition */
 static int
-    read_inode (uint32_t ino, ext2_inode_t *out);
+    read_inode (kuint32_t ino, ext2_inode_t *out);
 
 void
-    ext2_set_block_device (int (*read)(uint64_t, uint32_t, void *),
-			   int (*write)(uint64_t, uint32_t, const void *))
+    ext2_set_block_device (int (*read)(kuint64_t, kuint32_t, void *),
+			   int (*write)(kuint64_t, kuint32_t, const void *))
 {
 	g_read_sector  = read;
-	g_write_sector = write; /* May be NULL for read-only volumes */
+	g_write_sector = write; /* May be KNULL for read-only volumes */
 }
 
 int
-    ext2_mount (uint64_t base_lba)
+    ext2_mount (kuint64_t base_lba)
 {
 	if ( !g_read_sector )
 	{
@@ -93,7 +93,7 @@ int
 	/* Read raw 1024-byte superblock into temp buffer and copy only the
 	 * structure portion we need. This avoids overflowing g_superblock
 	 * (struct is ~128 bytes). */
-	uint8_t sb_raw[1024];
+	kuint8_t sb_raw[1024];
 	if ( read_sectors(base_lba + EXT2_SUPERBLOCK_OFFSET / 512, 2, sb_raw) != 0 )
 	{
 		return EXT2_ERR_IO;
@@ -122,11 +122,11 @@ int
 	}
 	g_block_size = 1024U << g_superblock.log_block_size;
 
-	uint32_t groups = (g_superblock.blocks_count + g_superblock.blocks_per_group - 1)
-			  / g_superblock.blocks_per_group;
+	kuint32_t groups = (g_superblock.blocks_count + g_superblock.blocks_per_group - 1)
+			   / g_superblock.blocks_per_group;
 
-	size_t gd_table_bytes  = groups * sizeof(ext2_group_desc_t);
-	size_t gd_table_blocks = (gd_table_bytes + g_block_size - 1) / g_block_size;
+	ksize_t gd_table_bytes	= groups * sizeof(ext2_group_desc_t);
+	ksize_t gd_table_blocks = (gd_table_bytes + g_block_size - 1) / g_block_size;
 
 	g_group_desc = (ext2_group_desc_t *) kmalloc(gd_table_blocks * g_block_size);
 	if ( !g_group_desc )
@@ -140,10 +140,10 @@ int
 	 * byte 1024 inside block0, so the descriptor table immediately follows
 	 * in block1.
 	 */
-	uint32_t gd_start_blk = (g_block_size == 1024) ? 2 : 1;
-	for ( uint32_t i = 0; i < gd_table_blocks; i++ )
+	kuint32_t gd_start_blk = (g_block_size == 1024) ? 2 : 1;
+	for ( kuint32_t i = 0; i < gd_table_blocks; i++ )
 	{
-		if ( read_block(gd_start_blk + i, (uint8_t *) g_group_desc + i * g_block_size)
+		if ( read_block(gd_start_blk + i, (kuint8_t *) g_group_desc + i * g_block_size)
 		     != 0 )
 		{
 			return EXT2_ERR_IO;
@@ -174,8 +174,8 @@ int
 	}
 
 	/* Make a modifiable copy of path without leading '/' */
-	char   tmp[256];
-	size_t plen = (size_t) kstrlen(path);
+	char	tmp[256];
+	ksize_t plen = (ksize_t) kstrlen(path);
 	if ( plen >= sizeof(tmp) )
 		return EXT2_ERR_INVALID;
 	kstrcpy(tmp, path[0] == '/' ? path + 1 : path);
@@ -189,18 +189,18 @@ int
 	char *next_tok;
 	while ( tok )
 	{
-		next_tok = kstrtok(NULL, "/");
+		next_tok = kstrtok(KNULL, "/");
 
 		/* Search for tok in cur_inode directory entries (direct blocks only) */
-		uint32_t found_ino = 0;
+		kuint32_t found_ino = 0;
 
-		uint8_t *blk_buf = kmalloc(g_block_size);
+		kuint8_t *blk_buf = kmalloc(g_block_size);
 		if ( !blk_buf )
 			return EXT2_ERR_IO;
 
 		for ( int i = 0; i < 12 && found_ino == 0; i++ )
 		{
-			uint32_t blk = cur_inode.block[i];
+			kuint32_t blk = cur_inode.block[i];
 			if ( blk == 0 )
 				continue;
 			if ( read_block(blk, blk_buf) != 0 )
@@ -208,13 +208,13 @@ int
 				kfree(blk_buf);
 				return EXT2_ERR_IO;
 			}
-			uint32_t off = 0;
+			kuint32_t off = 0;
 			while ( off < g_block_size )
 			{
 				ext2_dir_entry_t *ent = (ext2_dir_entry_t *) (blk_buf + off);
 				if ( ent->rec_len == 0 )
 					break;
-				if ( ent->inode != 0 && ent->name_len == (uint8_t) kstrlen(tok)
+				if ( ent->inode != 0 && ent->name_len == (kuint8_t) kstrlen(tok)
 				     && kmemcmp(ent->name, tok, ent->name_len) == 0 )
 				{
 					found_ino = ent->inode;
@@ -251,26 +251,26 @@ int
 }
 
 static int
-    read_inode (uint32_t ino, ext2_inode_t *out)
+    read_inode (kuint32_t ino, ext2_inode_t *out)
 {
 	if ( ino == 0 )
 		return EXT2_ERR_INVALID;
 
-	uint32_t idx0  = ino - 1;
-	uint32_t group = idx0 / g_superblock.inodes_per_group;
-	uint32_t index = idx0 % g_superblock.inodes_per_group;
+	kuint32_t idx0	= ino - 1;
+	kuint32_t group = idx0 / g_superblock.inodes_per_group;
+	kuint32_t index = idx0 % g_superblock.inodes_per_group;
 
 	if ( !g_group_desc )
 		return EXT2_ERR_INVALID;
 
-	uint32_t inode_tbl_blk = g_group_desc[group].inode_table;
-	uint32_t inode_size    = g_superblock.inode_size ? g_superblock.inode_size : 128;
+	kuint32_t inode_tbl_blk = g_group_desc[group].inode_table;
+	kuint32_t inode_size	= g_superblock.inode_size ? g_superblock.inode_size : 128;
 
-	uint64_t offset	      = (uint64_t) index * inode_size;
-	uint32_t blk_offset   = (uint32_t) (offset / g_block_size);
-	uint32_t off_in_block = (uint32_t) (offset % g_block_size);
+	kuint64_t offset       = (kuint64_t) index * inode_size;
+	kuint32_t blk_offset   = (kuint32_t) (offset / g_block_size);
+	kuint32_t off_in_block = (kuint32_t) (offset % g_block_size);
 
-	uint8_t *tmp = kmalloc(g_block_size);
+	kuint8_t *tmp = kmalloc(g_block_size);
 	if ( !tmp )
 		return EXT2_ERR_IO;
 
@@ -281,8 +281,8 @@ static int
 		return EXT2_ERR_IO;
 	}
 
-	uint32_t bytes_first = g_block_size - off_in_block;
-	uint32_t need	     = sizeof(ext2_inode_t);
+	kuint32_t bytes_first = g_block_size - off_in_block;
+	kuint32_t need	      = sizeof(ext2_inode_t);
 
 	if ( bytes_first >= need )
 	{
@@ -300,7 +300,7 @@ static int
 			kfree(tmp);
 			return EXT2_ERR_IO;
 		}
-		kmemcpy((uint8_t *) out + bytes_first, tmp, need - bytes_first);
+		kmemcpy((kuint8_t *) out + bytes_first, tmp, need - bytes_first);
 	}
 
 	kfree(tmp);
@@ -316,13 +316,13 @@ static int
 	if ( !(dir_inode->mode & 0x4000) ) /* not a directory */
 		return EXT2_ERR_INVALID;
 
-	uint8_t *block_buf = kmalloc(g_block_size);
+	kuint8_t *block_buf = kmalloc(g_block_size);
 	if ( !block_buf )
 		return EXT2_ERR_IO;
 
 	for ( int i = 0; i < 12; i++ )
 	{
-		uint32_t blk_id = dir_inode->block[i];
+		kuint32_t blk_id = dir_inode->block[i];
 		if ( blk_id == 0 )
 			continue;
 		if ( read_block(blk_id, block_buf) != 0 )
@@ -331,19 +331,19 @@ static int
 			return EXT2_ERR_IO;
 		}
 
-		uint32_t off = 0;
+		kuint32_t off = 0;
 		while ( off < g_block_size )
 		{
 			ext2_dir_entry_t *ent = (ext2_dir_entry_t *) (block_buf + off);
 
-			uint16_t rec_len = ent->rec_len;
-			uint8_t	 nlen	 = ent->name_len;
+			kuint16_t rec_len = ent->rec_len;
+			kuint8_t  nlen	  = ent->name_len;
 			/* Basic sanity checks */
 			if ( rec_len < 8 || rec_len > g_block_size - off )
 				break;
 			if ( ent->inode != 0 && nlen == 0 )
 				break;
-			uint16_t min_len = (uint16_t) (((8 + nlen + 3) / 4) * 4);
+			kuint16_t min_len = (kuint16_t) (((8 + nlen + 3) / 4) * 4);
 			if ( rec_len < min_len )
 				break;
 
@@ -378,8 +378,8 @@ int
 		return list_dir_entries(&root, cb);
 	}
 
-	char   tmp[256];
-	size_t plen = (size_t) kstrlen(path);
+	char	tmp[256];
+	ksize_t plen = (ksize_t) kstrlen(path);
 	if ( plen >= sizeof(tmp) )
 		return EXT2_ERR_INVALID;
 	kstrcpy(tmp, path[0] == '/' ? path + 1 : path);
@@ -392,16 +392,16 @@ int
 	char *next_tok;
 	while ( tok )
 	{
-		next_tok = kstrtok(NULL, "/");
+		next_tok = kstrtok(KNULL, "/");
 
-		uint32_t found_ino = 0;
-		uint8_t *blk_buf   = kmalloc(g_block_size);
+		kuint32_t found_ino = 0;
+		kuint8_t *blk_buf   = kmalloc(g_block_size);
 		if ( !blk_buf )
 			return EXT2_ERR_IO;
 
 		for ( int i = 0; i < 12 && found_ino == 0; i++ )
 		{
-			uint32_t blk = cur_inode.block[i];
+			kuint32_t blk = cur_inode.block[i];
 			if ( blk == 0 )
 				continue;
 			if ( read_block(blk, blk_buf) != 0 )
@@ -409,13 +409,13 @@ int
 				kfree(blk_buf);
 				return EXT2_ERR_IO;
 			}
-			uint32_t off = 0;
+			kuint32_t off = 0;
 			while ( off < g_block_size )
 			{
 				ext2_dir_entry_t *ent = (ext2_dir_entry_t *) (blk_buf + off);
 				if ( ent->rec_len == 0 )
 					break;
-				if ( ent->inode != 0 && ent->name_len == (uint8_t) kstrlen(tok)
+				if ( ent->inode != 0 && ent->name_len == (kuint8_t) kstrlen(tok)
 				     && kmemcmp(ent->name, tok, ent->name_len) == 0 )
 				{
 					found_ino = ent->inode;
@@ -461,14 +461,14 @@ int
 	if ( !(root.mode & 0x4000) ) /* not a directory */
 		return EXT2_ERR_INVALID;
 
-	uint8_t *block_buf = kmalloc(g_block_size);
+	kuint8_t *block_buf = kmalloc(g_block_size);
 	if ( !block_buf )
 		return EXT2_ERR_IO;
 
 	/* --- Direct blocks --- */
 	for ( int i = 0; i < 12; i++ ) /* Only direct blocks for now */
 	{
-		uint32_t blk_id = root.block[i];
+		kuint32_t blk_id = root.block[i];
 		if ( blk_id == 0 )
 			continue;
 		if ( read_block(blk_id, block_buf) != 0 )
@@ -477,7 +477,7 @@ int
 			return EXT2_ERR_IO;
 		}
 
-		uint32_t off = 0;
+		kuint32_t off = 0;
 		while ( off < g_block_size )
 		{
 			ext2_dir_entry_t *ent = (ext2_dir_entry_t *) (block_buf + off);
@@ -488,14 +488,14 @@ int
 			 *  - rec_len >= 8 + name_len, padded to 4-byte boundary
 			 *  - rec_len keeps us within the current block
 			 * If any condition fails, stop processing this block. */
-			uint16_t rec_len = ent->rec_len;
-			uint8_t	 nlen	 = ent->name_len;
+			kuint16_t rec_len = ent->rec_len;
+			kuint8_t  nlen	  = ent->name_len;
 			if ( rec_len < 8 || rec_len > g_block_size - off )
 				break; /* Bad length */
 			if ( ent->inode != 0 && nlen == 0 )
 				break; /* Invalid */
 			/* 4-byte aligned length of header + name */
-			uint16_t min_len = (uint16_t) (((8 + nlen + 3) / 4) * 4);
+			kuint16_t min_len = (kuint16_t) (((8 + nlen + 3) / 4) * 4);
 			if ( rec_len < min_len )
 				break; /* Corrupt */
 
@@ -514,45 +514,45 @@ int
 }
 
 int
-    ext2_read (ext2_file_t *file, void *buf, size_t len)
+    ext2_read (ext2_file_t *file, void *buf, ksize_t len)
 {
 	if ( !file || !buf )
 		return EXT2_ERR_INVALID;
 
 	/* Clamp length to remaining bytes in file */
-	uint32_t size = file->inode.size_lo; /* We only support files <4GiB */
+	kuint32_t size = file->inode.size_lo; /* We only support files <4GiB */
 	if ( file->pos >= size )
 		return 0; /* EOF */
 	if ( file->pos + len > size )
 		len = size - file->pos;
 
-	uint8_t *dst	   = (uint8_t *) buf;
-	size_t	 remaining = len;
+	kuint8_t *dst	    = (kuint8_t *) buf;
+	ksize_t	  remaining = len;
 
-	uint8_t *block_buf = kmalloc(g_block_size);
+	kuint8_t *block_buf = kmalloc(g_block_size);
 	if ( !block_buf )
 		return EXT2_ERR_IO;
 
 	while ( remaining > 0 )
 	{
-		uint32_t block_idx    = file->pos / g_block_size;
-		uint32_t off_in_block = file->pos % g_block_size;
+		kuint32_t block_idx    = file->pos / g_block_size;
+		kuint32_t off_in_block = file->pos % g_block_size;
 		if ( block_idx >= 12 )
 		{
 			/* Indirect blocks not supported yet */
 			kfree(block_buf);
 			return EXT2_ERR_UNSUPPORTED;
 		}
-		uint32_t blk_id = file->inode.block[block_idx];
+		kuint32_t blk_id = file->inode.block[block_idx];
 		if ( blk_id == 0 )
 		{
 			/* Sparse region – treat as zero */
-			size_t chunk = g_block_size - off_in_block;
+			ksize_t chunk = g_block_size - off_in_block;
 			if ( chunk > remaining )
 				chunk = remaining;
 			memset(dst, 0, chunk);
 			dst += chunk;
-			file->pos += (uint32_t) chunk;
+			file->pos += (kuint32_t) chunk;
 			remaining -= chunk;
 			continue;
 		}
@@ -561,12 +561,12 @@ int
 			kfree(block_buf);
 			return EXT2_ERR_IO;
 		}
-		size_t chunk = g_block_size - off_in_block;
+		ksize_t chunk = g_block_size - off_in_block;
 		if ( chunk > remaining )
 			chunk = remaining;
 		kmemcpy(dst, block_buf + off_in_block, chunk);
 		dst += chunk;
-		file->pos += (uint32_t) chunk;
+		file->pos += (kuint32_t) chunk;
 		remaining -= chunk;
 	}
 	kfree(block_buf);

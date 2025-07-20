@@ -39,7 +39,7 @@
 
 /* I think this is... safe? */
 void
-    kputhex (uint64_t n)
+    kputhex (kuint64_t n)
 {
 	const char *hex = "0123456789ABCDEF";
 	char	    buf[17]; // 16 hex digits + null terminator
@@ -62,7 +62,7 @@ void
 }
 
 void
-    kputdec (uint32_t n)
+    kputdec (kuint32_t n)
 {
 	if ( n == 0 )
 	{
@@ -93,7 +93,7 @@ void
 }
 
 int
-    kvsnprintf (char *buffer, size_t size, const char *format, va_list args)
+    kvsnprintf (char *buffer, ksize_t size, const char *format, va_list args)
 {
 	char *out = buffer;
 	char *end = buffer + size - 1;
@@ -152,16 +152,16 @@ int
 			{
 				if ( long_long )
 				{
-					int64_t	 val = k_va_arg(args, int64_t);
-					uint64_t uval;
+					kint64_t  val = k_va_arg(args, kint64_t);
+					kuint64_t uval;
 					if ( val < 0 )
 					{
 						*t++ = '-';
-						uval = (uint64_t) (-val);
+						uval = (kuint64_t) (-val);
 					}
 					else
 					{
-						uval = (uint64_t) val;
+						uval = (kuint64_t) val;
 					}
 					t = kutoa(t,
 						  temp + sizeof(temp) - 1,
@@ -190,12 +190,12 @@ int
 			{
 				if ( long_long )
 				{
-					uint64_t uval = k_va_arg(args, uint64_t);
-					t	      = kutoa(t,
-						      temp + sizeof(temp) - 1,
-						      (unsigned long) uval,
-						      10,
-						      0);
+					kuint64_t uval = k_va_arg(args, kuint64_t);
+					t	       = kutoa(t,
+						       temp + sizeof(temp) - 1,
+						       (unsigned long) uval,
+						       10,
+						       0);
 				}
 				else
 				{
@@ -230,14 +230,14 @@ int
 		}
 		++p;
 
-		size_t len = (size_t) (t - temp);
-		int    pad = width > (int) len ? width - (int) len : 0;
+		ksize_t len = (ksize_t) (t - temp);
+		int	pad = width > (int) len ? width - (int) len : 0;
 		if ( !left_align )
 		{
 			while ( pad-- > 0 && out < end )
 				*out++ = ' ';
 		}
-		for ( size_t i = 0; i < len && out < end; ++i )
+		for ( ksize_t i = 0; i < len && out < end; ++i )
 		{
 			*out++ = temp[i];
 		}
@@ -254,7 +254,7 @@ int
 }
 
 int
-    ksnprintf (char *buffer, size_t size, const char *format, ...)
+    ksnprintf (char *buffer, ksize_t size, const char *format, ...)
 {
 	va_list args;
 	k_va_start(args, format);
@@ -345,7 +345,7 @@ int
 					n = -n;
 				}
 
-				kputdec((uint32_t) n);
+				kputdec((kuint32_t) n);
 
 				int temp = n, digits = 1;
 				while ( temp >= 10 )
@@ -360,7 +360,7 @@ int
 			case 'x':
 			{
 				unsigned int n = k_va_arg(args, unsigned int);
-				kputhex((uint64_t) n);
+				kputhex((kuint64_t) n);
 
 				unsigned int temp   = n;
 				int	     digits = 1;

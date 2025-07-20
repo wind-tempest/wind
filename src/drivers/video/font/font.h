@@ -39,7 +39,7 @@
 
 /* A simple 8x8 font for rendering text to the framebuffer. */
 /* Each character is 8 pixels wide and 8 pixels tall. */
-extern const uint32_t FONT_WIDTH;
-extern const uint32_t FONT_HEIGHT;
+extern const kuint32_t FONT_WIDTH;
+extern const kuint32_t FONT_HEIGHT;
 
 extern const unsigned char font[256][8];

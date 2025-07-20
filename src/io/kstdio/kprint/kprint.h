@@ -40,15 +40,15 @@
 #include "kstdint.h"
 
 void
-    kputhex (uint64_t n);
+    kputhex (kuint64_t n);
 void
-    kputdec (uint32_t n);
+    kputdec (kuint32_t n);
 void
     kputs (const char *s);
 int
-    kvsnprintf (char *buffer, size_t size, const char *format, va_list args);
+    kvsnprintf (char *buffer, ksize_t size, const char *format, va_list args);
 int
-    ksnprintf (char *buffer, size_t size, const char *format, ...);
+    ksnprintf (char *buffer, ksize_t size, const char *format, ...);
 int
     kprintf (const char *format, ...);
 void

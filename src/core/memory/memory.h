@@ -85,35 +85,35 @@ typedef enum
 
 typedef struct
 {
-	uint64_t      base_addr;
-	uint64_t      length;
+	kuint64_t     base_addr;
+	kuint64_t     length;
 	memory_type_t type;
-	uint32_t      acpi_attributes;
+	kuint32_t     acpi_attributes;
 } memory_map_entry_t;
 
 /* Page frame structure */
 typedef struct page_frame
 {
 	struct page_frame *next;
-	uint64_t	   physical_addr;
-	uint32_t	   ref_count;
-	bool		   is_free;
+	kuint64_t	   physical_addr;
+	kuint32_t	   ref_count;
+	kbool		   is_free;
 } page_frame_t;
 
 /* Virtual memory region */
 typedef struct vm_region
 {
-	uint64_t	  start;
-	uint64_t	  end;
-	uint64_t	  flags;
+	kuint64_t	  start;
+	kuint64_t	  end;
+	kuint64_t	  flags;
 	struct vm_region *next;
 } vm_region_t;
 
 /* Heap block header */
 typedef struct heap_block
 {
-	size_t		   size;
-	bool		   is_free;
+	ksize_t		   size;
+	kbool		   is_free;
 	struct heap_block *next;
 	struct heap_block *prev;
 } heap_block_t;
@@ -121,29 +121,29 @@ typedef struct heap_block
 /* Memory pool */
 typedef struct memory_pool
 {
-	void  *pool_start;
-	size_t block_size;
-	size_t total_blocks;
-	size_t free_blocks;
-	void **free_list;
+	void   *pool_start;
+	ksize_t block_size;
+	ksize_t total_blocks;
+	ksize_t free_blocks;
+	void  **free_list;
 } memory_pool_t;
 
 /* Memory statistics */
 typedef struct
 {
-	uint64_t total_physical_pages;
-	uint64_t free_physical_pages;
-	uint64_t used_physical_pages;
-	uint64_t total_heap_size;
-	uint64_t free_heap_size;
-	uint64_t used_heap_size;
+	kuint64_t total_physical_pages;
+	kuint64_t free_physical_pages;
+	kuint64_t used_physical_pages;
+	kuint64_t total_heap_size;
+	kuint64_t free_heap_size;
+	kuint64_t used_heap_size;
 } memory_stats_t;
 
 /* Page table structures */
-typedef uint64_t pml4e_t;
-typedef uint64_t pml3e_t;
-typedef uint64_t pml2e_t;
-typedef uint64_t pml1e_t;
+typedef kuint64_t pml4e_t;
+typedef kuint64_t pml3e_t;
+typedef kuint64_t pml2e_t;
+typedef kuint64_t pml1e_t;
 
 typedef struct
 {
@@ -174,22 +174,22 @@ page_frame_t *
     allocate_page_frame (void);
 void
     free_page_frame (page_frame_t *frame);
-uint64_t
+kuint64_t
     get_physical_addr (page_frame_t *frame);
 page_frame_t *
-    get_page_frame (uint64_t physical_addr);
+    get_page_frame (kuint64_t physical_addr);
 
 /* Virtual memory management */
 void
     vm_init (void);
-bool
-    vm_map_page (uint64_t virtual_addr, uint64_t physical_addr, uint64_t flags);
-bool
-    vm_unmap_page (uint64_t virtual_addr);
-uint64_t
-    vm_get_physical_addr (uint64_t virtual_addr);
+kbool
+    vm_map_page (kuint64_t virtual_addr, kuint64_t physical_addr, kuint64_t flags);
+kbool
+    vm_unmap_page (kuint64_t virtual_addr);
+kuint64_t
+    vm_get_physical_addr (kuint64_t virtual_addr);
 void
-    vm_invalidate_page (uint64_t virtual_addr);
+    vm_invalidate_page (kuint64_t virtual_addr);
 void
     vm_switch_pagetable (pml4_t *new_pml4);
 
@@ -197,11 +197,11 @@ void
 void
     heap_init (void);
 void *
-    kmalloc (size_t size);
+    kmalloc (ksize_t size);
 void *
-    kcalloc (size_t count, size_t size);
+    kcalloc (ksize_t count, ksize_t size);
 void *
-    krealloc (void *ptr, size_t size);
+    krealloc (void *ptr, ksize_t size);
 void
     kfree (void *ptr);
 void
@@ -209,7 +209,7 @@ void
 
 /* Memory pool management */
 memory_pool_t *
-    pool_create (size_t block_size, size_t num_blocks);
+    pool_create (ksize_t block_size, ksize_t num_blocks);
 void *
     pool_alloc (memory_pool_t *pool);
 void
@@ -231,19 +231,19 @@ void
 void
     pool_free_large (void *ptr);
 void *
-    smart_alloc (size_t size);
+    smart_alloc (ksize_t size);
 void
-    smart_free (void *ptr, size_t size);
+    smart_free (void *ptr, ksize_t size);
 
 /* Memory utilities */
 void *
-    memset (void *dest, int c, size_t n);
+    memset (void *dest, int c, ksize_t n);
 void *
-    memcpy (void *dest, const void *src, size_t n);
+    memcpy (void *dest, const void *src, ksize_t n);
 int
-    memcmp (const void *s1, const void *s2, size_t n);
+    memcmp (const void *s1, const void *s2, ksize_t n);
 void *
-    memmove (void *dest, const void *src, size_t n);
+    memmove (void *dest, const void *src, ksize_t n);
 
 /* Memory statistics */
 memory_stats_t
@@ -252,31 +252,31 @@ void
     memory_print_stats (void);
 
 /* Memory protection */
-bool
-    memory_protect (uint64_t addr, size_t size, uint64_t flags);
-bool
-    memory_unprotect (uint64_t addr, size_t size);
+kbool
+    memory_protect (kuint64_t addr, ksize_t size, kuint64_t flags);
+kbool
+    memory_unprotect (kuint64_t addr, ksize_t size);
 
 /* Memory mapping */
 void *
-    memory_map_physical (uint64_t physical_addr, size_t size, uint64_t flags);
+    memory_map_physical (kuint64_t physical_addr, ksize_t size, kuint64_t flags);
 void
-    memory_unmap_physical (void *virtual_addr, size_t size);
+    memory_unmap_physical (void *virtual_addr, ksize_t size);
 
 /* Kernel memory management */
 void *
-    kernel_alloc (size_t size);
+    kernel_alloc (ksize_t size);
 void *
-    kernel_alloc_aligned (size_t size, size_t alignment);
+    kernel_alloc_aligned (ksize_t size, ksize_t alignment);
 void
     kernel_free (void *ptr);
 
 /* User memory management */
 void *
-    user_alloc (size_t size);
+    user_alloc (ksize_t size);
 void
     user_free (void *ptr);
-bool
-    user_copy_to_kernel (void *kernel_dest, const void *user_src, size_t size);
-bool
-    user_copy_from_kernel (void *user_dest, const void *kernel_src, size_t size);
+kbool
+    user_copy_to_kernel (void *kernel_dest, const void *user_src, ksize_t size);
+kbool
+    user_copy_from_kernel (void *user_dest, const void *kernel_src, ksize_t size);

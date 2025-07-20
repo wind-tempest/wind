@@ -35,4 +35,4 @@
 
 #include "kerrno.h"
 
-int errno = 0;
+int kerrno = 0;

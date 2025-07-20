@@ -44,7 +44,7 @@ int
 	long result = 0;
 	int  sign   = 1;
 
-	errno = 0;
+	kerrno = 0;
 
 	while ( kisspace(*s) )
 		s++;
@@ -58,7 +58,7 @@ int
 
 	if ( !kisdigit(*s) )
 	{
-		errno = EINVAL;
+		kerrno = KEINVAL;
 		return 0;
 	}
 
@@ -66,10 +66,10 @@ int
 	{
 		int digit = *s - '0';
 
-		if ( result > (LONG_MAX - digit) / 10 )
+		if ( result > (KLONG_MAX - digit) / 10 )
 		{
-			errno = ERANGE;
-			return sign == 1 ? INT_MAX : INT_MIN;
+			kerrno = KERANGE;
+			return sign == 1 ? KINT_MAX : KINT_MIN;
 		}
 
 		result = result * 10 + digit;
@@ -78,10 +78,10 @@ int
 
 	result *= sign;
 
-	if ( result < INT_MIN || result > INT_MAX )
+	if ( result < KINT_MIN || result > KINT_MAX )
 	{
-		errno = ERANGE;
-		return result > 0 ? INT_MAX : INT_MIN;
+		kerrno = KERANGE;
+		return result > 0 ? KINT_MAX : KINT_MIN;
 	}
 
 	return (int) result;

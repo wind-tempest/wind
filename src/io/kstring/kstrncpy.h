@@ -38,4 +38,4 @@
 #include "kstddef.h"
 
 char *
-    kstrncpy (char *dest, const char *src, size_t n);
+    kstrncpy (char *dest, const char *src, ksize_t n);
