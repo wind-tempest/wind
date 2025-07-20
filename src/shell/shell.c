@@ -198,9 +198,10 @@ void
 						ksize_t len = (ksize_t) kstrlen(cmd_buffer);
 						if ( len >= CMD_BUFFER_SIZE )
 							len = CMD_BUFFER_SIZE - 1;
-						kmemcpy(command_history[history_count],
-							cmd_buffer,
-							len);
+						kmemcpy(
+						    command_history[history_count],
+						    cmd_buffer,
+						    len);
 						command_history[history_count][len] = '\0';
 						history_count++;
 					}
@@ -309,26 +310,28 @@ static void
 static void
     cmd_fetch (const char *args) {
 	(void) args;
-	const char *ascii[] = {"@                         @",
-			       " @@           @       @@@@",
-			       "     @@@@@@@           ",
-			       "@                        @@",
-			       "   @@@@@@             @ ",
-			       "            @@@@@@@@     ",
-			       "@                         @",
-			       " @     @@@@@@@@@@      @@ "};
-	char	    info[8][96];
+	const char *ascii[] = {
+	    "@                         @",
+	    " @@           @       @@@@",
+	    "     @@@@@@@           ",
+	    "@                        @@",
+	    "   @@@@@@             @ ",
+	    "            @@@@@@@@     ",
+	    "@                         @",
+	    " @     @@@@@@@@@@      @@ "};
+	char info[8][96];
 	ksnprintf(info[0], sizeof(info[0]), "os:     wind");
 	ksnprintf(info[1], sizeof(info[1]), "kernel: tempest");
 	extern char cpu_brand_string[49];
 	ksnprintf(info[2], sizeof(info[2]), "cpu:    %s", cpu_brand_string);
 	if ( fb_width && fb_height && fb_bpp ) {
-		ksnprintf(info[3],
-			  sizeof(info[3]),
-			  "resolution: %ux%u %ubpp",
-			  fb_width,
-			  fb_height,
-			  (unsigned int) fb_bpp);
+		ksnprintf(
+		    info[3],
+		    sizeof(info[3]),
+		    "resolution: %ux%u %ubpp",
+		    fb_width,
+		    fb_height,
+		    (unsigned int) fb_bpp);
 	} else {
 		ksnprintf(info[3], sizeof(info[3]), "resolution: unknown");
 	}
@@ -340,19 +343,21 @@ static void
 	kuint64_t      used_mb	= used_kb / 1024;
 	kuint64_t      free_mb	= free_kb / 1024;
 	if ( total_mb >= 1 ) {
-		ksnprintf(info[4],
-			  sizeof(info[4]),
-			  "memory: %llu MB used / %llu MB total (%llu MB free)",
-			  used_mb,
-			  total_mb,
-			  free_mb);
+		ksnprintf(
+		    info[4],
+		    sizeof(info[4]),
+		    "memory: %llu MB used / %llu MB total (%llu MB free)",
+		    used_mb,
+		    total_mb,
+		    free_mb);
 	} else {
-		ksnprintf(info[4],
-			  sizeof(info[4]),
-			  "memory: %llu kB used / %llu kB total (%llu kB free)",
-			  used_kb,
-			  total_kb,
-			  free_kb);
+		ksnprintf(
+		    info[4],
+		    sizeof(info[4]),
+		    "memory: %llu kB used / %llu kB total (%llu kB free)",
+		    used_kb,
+		    total_kb,
+		    free_kb);
 	}
 	info[5][0] = '\0';
 	info[6][0] = '\0';

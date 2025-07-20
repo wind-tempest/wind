@@ -45,7 +45,7 @@
 #include "shell/shell.h"
 
 /* FIXED! FINALLY! Just don't use debug before the video initialization. */
-kbool use_debug = kfalse;
+kbool kuse_debug = kfalse;
 
 /* Multiboot2 header structure. */
 struct multiboot_header {
@@ -129,8 +129,9 @@ static void
 
 		switch ( tag->type ) {
 			case MULTIBOOT_TAG_TYPE_END:
-				kduts("Found end tag. Multiboot parsing "
-				      "complete.");
+				kduts(
+				    "Found end tag. Multiboot parsing "
+				    "complete.");
 				return;
 
 			case MULTIBOOT_TAG_TYPE_FRAMEBUFFER: {
@@ -169,13 +170,14 @@ static void
 		current_tag_ptr += (tag_size + 7) & 0xFFFFFFF8;
 	}
 
-	kduts("Finished parsing multiboot tags (end tag not found, but reached "
-	      "end of info).");
+	kduts(
+	    "Finished parsing multiboot tags (end tag not found, but reached "
+	    "end of info).");
 }
 
 void
     kernel_main (void *mb_info) {
-	/* In this case, we must use use_debug instead of the functions that */
+	/* In this case, we must use kuse_debug instead of the functions that */
 	/* check debug. */
 	/* Initialize crucial parts first. The IDT must be loaded before */
 	/* any hardware is touched to prevent triple faults. */

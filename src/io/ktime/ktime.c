@@ -161,14 +161,15 @@ void
 	    "%02d-%02d-%04d %02d:%02d", time.day, time.month, time.year, time.hour, time.minute);
 
 	/* Copy to buffer */
-	ksnprintf(buffer,
-		  buffer_size,
-		  "%02d/%02d/%02d %02d:%02d",
-		  time.day,
-		  time.month,
-		  time.year % 100,
-		  time.hour,
-		  time.minute);
+	ksnprintf(
+	    buffer,
+	    buffer_size,
+	    "%02d/%02d/%02d %02d:%02d",
+	    time.day,
+	    time.month,
+	    time.year % 100,
+	    time.hour,
+	    time.minute);
 }
 
 /* Get day of week string */

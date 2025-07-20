@@ -154,8 +154,9 @@ typedef struct ext2_file {
 
 /* Application supplies block-device callbacks (sector-based, 512-byte) */
 void
-    kext2_set_block_device (int (*read)(kuint64_t lba, kuint32_t count, void *buf),
-			    int (*write)(kuint64_t lba, kuint32_t count, const void *buf));
+    kext2_set_block_device (
+	int (*read)(kuint64_t lba, kuint32_t count, void *buf),
+	int (*write)(kuint64_t lba, kuint32_t count, const void *buf));
 
 /* Mount an EXT2 filesystem located at @base_lba. Returns EXT2_OK on success. */
 int

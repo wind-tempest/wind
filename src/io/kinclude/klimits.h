@@ -44,11 +44,11 @@
 
 /* Minimum and maximum values for char. */
 #if defined(__CHAR_UNSIGNED__)
-#define CHAR_MIN 0
-#define CHAR_MAX 255
+#	define CHAR_MIN 0
+#	define CHAR_MAX 255
 #else
-#define CHAR_MIN SCHAR_MIN
-#define CHAR_MAX SCHAR_MAX
+#	define CHAR_MIN SCHAR_MIN
+#	define CHAR_MAX SCHAR_MAX
 #endif
 
 /* Maximum value for unsigned char. */
@@ -70,14 +70,14 @@
 /* Minimum and maximum values for long. */
 #if defined(_LP64) || defined(__x86_64__)
 /* LP64: long is 64 bits */
-#define KLONG_MIN  (-9223372036854775807L - 1)
-#define KLONG_MAX  9223372036854775807L
-#define KULONG_MAX 18446744073709551615UL
+#	define KLONG_MIN  (-9223372036854775807L - 1)
+#	define KLONG_MAX  9223372036854775807L
+#	define KULONG_MAX 18446744073709551615UL
 #else
 /* ILP32: long is 32 bits */
-#define KLONG_MIN  (-2147483647L - 1)
-#define KLONG_MAX  2147483647L
-#define KULONG_MAX 4294967295UL
+#	define KLONG_MIN  (-2147483647L - 1)
+#	define KLONG_MAX  2147483647L
+#	define KULONG_MAX 4294967295UL
 #endif
 
 /* Minimum and maximum values for long long. */

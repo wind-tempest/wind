@@ -553,14 +553,16 @@ void
     memory_print_stats (void) {
 	memory_stats_t stats = memory_get_stats();
 	kprintf("Memory Statistics:\n");
-	kprintf("  Physical Memory: %llu pages total, %llu free, %llu used\n",
-		stats.total_physical_pages,
-		stats.free_physical_pages,
-		stats.used_physical_pages);
-	kprintf("  Heap Memory: %llu bytes total, %llu free, %llu used\n",
-		stats.total_heap_size,
-		stats.free_heap_size,
-		stats.used_heap_size);
+	kprintf(
+	    "  Physical Memory: %llu pages total, %llu free, %llu used\n",
+	    stats.total_physical_pages,
+	    stats.free_physical_pages,
+	    stats.used_physical_pages);
+	kprintf(
+	    "  Heap Memory: %llu bytes total, %llu free, %llu used\n",
+	    stats.total_heap_size,
+	    stats.free_heap_size,
+	    stats.used_heap_size);
 }
 
 /* Kernel memory management */

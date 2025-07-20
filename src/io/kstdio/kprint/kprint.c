@@ -140,11 +140,12 @@ int
 					} else {
 						uval = (kuint64_t) val;
 					}
-					t = kutoa(t,
-						  temp + sizeof(temp) - 1,
-						  (unsigned long) uval,
-						  10,
-						  0);
+					t = kutoa(
+					    t,
+					    temp + sizeof(temp) - 1,
+					    (unsigned long) uval,
+					    10,
+					    0);
 				} else {
 					int	     val = k_va_arg(args, int);
 					unsigned int uval;
@@ -161,11 +162,12 @@ int
 			case 'u': {
 				if ( long_long ) {
 					kuint64_t uval = k_va_arg(args, kuint64_t);
-					t	       = kutoa(t,
-						       temp + sizeof(temp) - 1,
-						       (unsigned long) uval,
-						       10,
-						       0);
+					t	       = kutoa(
+						 t,
+						 temp + sizeof(temp) - 1,
+						 (unsigned long) uval,
+						 10,
+						 0);
 				} else {
 					unsigned int uval = k_va_arg(args, unsigned int);
 					t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);

@@ -42,7 +42,7 @@
 
 void
     kduts (const char *s) {
-	if ( !use_debug ) {
+	if ( !kuse_debug ) {
 		return;
 	}
 	serial_writes(s);
@@ -51,7 +51,7 @@ void
 
 int
     kdebugf (const char *format, ...) {
-	if ( !use_debug )
+	if ( !kuse_debug )
 		return 0;
 
 	va_list args;
@@ -144,12 +144,12 @@ int
 						p++; /* Skip 'x' */
 						kuint64_t n = k_va_arg(args, kuint64_t);
 						char	  buf[20];
-						char	 *end_ptr =
-						    kutoa(buf,
-							  buf + sizeof(buf) - 1,
-							  (unsigned int) (n & 0xFFFFFFFF),
-							  16,
-							  0);
+						char	 *end_ptr = kutoa(
+							buf,
+							buf + sizeof(buf) - 1,
+							(unsigned int) (n & 0xFFFFFFFF),
+							16,
+							0);
 						*end_ptr = '\0';
 						serial_writes(buf);
 						count += (int) (end_ptr - buf);

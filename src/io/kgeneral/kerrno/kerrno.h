@@ -104,8 +104,8 @@ extern int kerrno;
 
 /* Thread support */
 #ifdef K__THREAD_LOCAL_ERRNO
-#undef errno
-#define errno (*K__errno_location())
+#	undef errno
+#	define errno (*K__errno_location())
 extern int *
     K__errno_location (void);
 #endif

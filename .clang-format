@@ -12,25 +12,35 @@ AlignConsecutiveDeclarations: true
 AlignConsecutiveMacros: true
 AlignOperands: true
 AlignTrailingComments: true
-AlignAfterOpenBracket: Align
+AlignAfterOpenBracket: AlwaysBreak
+AlignConsecutiveBitFields: true
 
 ColumnLimit: 100
 MaxEmptyLinesToKeep: 1
 PenaltyReturnTypeOnItsOwnLine: 0
+PenaltyBreakAssignment: 2
+PenaltyBreakBeforeFirstCallParameter: 1
 
 BreakBeforeBraces: Attach
 BreakAfterReturnType: TopLevel
 AlwaysBreakAfterReturnType: TopLevel
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+AlwaysBreakTemplateDeclarations: true
+BreakBeforeTernaryOperators: true
 
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortEnumsOnASingleLine: false
 
 DerivePointerAlignment: false
 PointerAlignment: Right
 
 SpaceAfterCStyleCast: true
+SpaceBeforeAssignmentOperators: true
 SpaceInEmptyParentheses: false
 
 SpaceBeforeParens: Custom
@@ -48,15 +58,19 @@ SpacesInParensOptions:
   InCStyleCasts: false
   InEmptyParentheses: false
   Other: false
-
 SpacesInContainerLiterals: false
+SpacesInAngles: false
+
+IndentPPDirectives: AfterHash
 
 SortIncludes: true
 IncludeBlocks: Preserve
 IncludeCategories:
   - Regex: ".*"
     Priority: 0
+IncludeIsMainRegex: "([-_](test|unittest))?$"
 
+SortUsingDeclarations: true
 CommentPragmas: '^.*$'
 ReflowComments: true
 KeepEmptyLinesAtTheStartOfBlocks: true

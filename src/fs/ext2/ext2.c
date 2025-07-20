@@ -70,8 +70,9 @@ static int
     kread_inode (kuint32_t ino, ext2_inode_t *out);
 
 void
-    kext2_set_block_device (int (*read)(kuint64_t, kuint32_t, void *),
-			    int (*write)(kuint64_t, kuint32_t, const void *)) {
+    kext2_set_block_device (
+	int (*read)(kuint64_t, kuint32_t, void *),
+	int (*write)(kuint64_t, kuint32_t, const void *)) {
 	g_read_sector  = read;
 	g_write_sector = write; /* May be KNULL for read-only volumes */
 }
@@ -95,9 +96,10 @@ int
 
 	if ( g_superblock.magic != EXT2_SUPER_MAGIC ) {
 #ifdef EXT2_DEBUG
-		kprintf("EXT2: bad magic 0x%04x (expected 0x%04x)\n",
-			g_superblock.magic,
-			EXT2_SUPER_MAGIC);
+		kprintf(
+		    "EXT2: bad magic 0x%04x (expected 0x%04x)\n",
+		    g_superblock.magic,
+		    EXT2_SUPER_MAGIC);
 #endif
 		return EXT2_ERR_BAD_MAGIC;
 	}

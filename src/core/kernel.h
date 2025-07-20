@@ -37,5 +37,5 @@
 
 #include "kstdbool.h"
 
-extern kbool use_debug;
+extern kbool kuse_debug;
 extern kbool enable_serial;
