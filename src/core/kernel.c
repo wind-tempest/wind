@@ -84,11 +84,6 @@ struct multiboot_tag_framebuffer {
 
 static struct framebuffer_info fb_info = {0};
 
-void
-    kdebug_init (void) {
-	use_debug = ktrue;
-}
-
 /* Function to map a physical address to virtual address in page tables. */
 static void
     map_framebuffer_address (kuint64_t phys_addr) {
@@ -206,8 +201,6 @@ void
 		/* No framebuffer, no visual output possible. */
 		kwarn("No framebuffer found", "continuing without visual output");
 	}
-
-	kdebug_init();
 
 	/* Initialize memory manager */
 	kmemory_init(mb_info);
