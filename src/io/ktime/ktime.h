@@ -53,19 +53,16 @@ struct bios_time {
 	kuint8_t  day_of_week;
 };
 
-/* Function declarations */
 void
-    get_bios_time (struct bios_time *time);
+    kget_bios_time (struct bios_time *time);
 void
-    get_date_string (char *buffer, ksize_t buffer_size);
+    kget_date_string (char *buffer, ksize_t buffer_size);
 void
-    get_time_string (char *buffer, ksize_t buffer_size);
+    kget_time_string (char *buffer, ksize_t buffer_size);
 void
-    get_datetime_string (char *buffer, ksize_t buffer_size);
+    kget_datetime_string (char *buffer, ksize_t buffer_size);
 const char *
-    get_day_of_week_string (kuint8_t day_of_week);
-void
-    print_current_datetime (void);
+    kget_day_of_week_string (kuint8_t day_of_week);
 
 #ifdef __cplusplus
 }

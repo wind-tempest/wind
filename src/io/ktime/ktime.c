@@ -123,7 +123,7 @@ void
 
 /* Get date string in DD-MM-YYYY format */
 void
-    get_date_string (char *buffer, ksize_t buffer_size) {
+    kget_date_string (char *buffer, ksize_t buffer_size) {
 	if ( !buffer || buffer_size < 11 )
 		return;
 
@@ -136,7 +136,7 @@ void
 
 /* Get time string in HH:MM:SS format */
 void
-    get_time_string (char *buffer, ksize_t buffer_size) {
+    kget_time_string (char *buffer, ksize_t buffer_size) {
 	if ( !buffer || buffer_size < 9 )
 		return;
 
@@ -149,7 +149,7 @@ void
 
 /* Get full date and time string */
 void
-    get_datetime_string (char *buffer, ksize_t buffer_size) {
+    kget_datetime_string (char *buffer, ksize_t buffer_size) {
 	if ( !buffer || buffer_size < 16 )
 		return;
 

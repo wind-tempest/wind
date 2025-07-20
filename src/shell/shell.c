@@ -563,8 +563,8 @@ static void
 	char time_buffer[16];
 
 	/* Retrieve date and time strings */
-	get_date_string(date_buffer, sizeof(date_buffer));
-	get_time_string(time_buffer, sizeof(time_buffer));
+	kget_date_string(date_buffer, sizeof(date_buffer));
+	kget_time_string(time_buffer, sizeof(time_buffer));
 
 	/* Display formatted date and time */
 	kprintf("Date: %s\n", date_buffer);
