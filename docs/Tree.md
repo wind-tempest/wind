@@ -25,17 +25,26 @@
 │   │   ├── .config
 │   │   ├── Desktop
 │   │   ├── Documents
-│   │   └── Downloads
+│   │   ├── Downloads
+│   │   ├── Music
+│   │   ├── Pictures
+│   │   └── Videos
 │   ├── user2
 │   │   ├── .config
 │   │   ├── Desktop
 │   │   ├── Documents
-│   │   └── Downloads
+│   │   ├── Downloads
+│   │   ├── Music
+│   │   ├── Pictures
+│   │   └── Videos
 │   └── user3
 │       ├── .config
 │       ├── Desktop
 │       ├── Documents
-│       └── Downloads
+│       ├── Downloads
+│       ├── Music
+│       ├── Pictures
+│       └── Videos
 ```
 
 # Why is not POSIX?
