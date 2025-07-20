@@ -37,14 +37,10 @@
 #include "kmath.h"
 
 double
-    kcopysign (double x, double y)
-{
-	if ( y >= 0.0 )
-	{
+    kcopysign (double x, double y) {
+	if ( y >= 0.0 ) {
 		return kfabs(x);
-	}
-	else
-	{
+	} else {
 		return -kfabs(x);
 	}
 }

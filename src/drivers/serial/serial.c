@@ -45,13 +45,11 @@ kbool
     serial_available (void);
 
 void
-    serial_init (void)
-{
+    serial_init (void) {
 	/* First check if serial port is available. */
 	is_serial_available = serial_available();
 
-	if ( !is_serial_available )
-	{
+	if ( !is_serial_available ) {
 		return; // Exit if no serial port detected.
 	}
 
@@ -66,14 +64,12 @@ void
 }
 
 static int
-    is_transmit_empty (void)
-{
+    is_transmit_empty (void) {
 	return kinb(PORT + 5) & 0x20;
 }
 
 void
-    serial_write (char a)
-{
+    serial_write (char a) {
 	if ( !is_serial_available || !a )
 		return; // Exit if serial not available or character is null.
 	while ( is_transmit_empty() == 0 )
@@ -82,19 +78,16 @@ void
 }
 
 void
-    serial_writes (const char *s)
-{
+    serial_writes (const char *s) {
 	if ( !is_serial_available || !s )
 		return; // Exit if serial not available or string is null.
-	while ( *s )
-	{
+	while ( *s ) {
 		serial_write(*s++);
 	}
 }
 
 void
-    serial_write_int (int i)
-{
+    serial_write_int (int i) {
 	if ( !is_serial_available )
 		return; // Exit if serial not available.
 	char buf[16];
@@ -103,8 +96,7 @@ void
 }
 
 kbool
-    serial_available (void)
-{
+    serial_available (void) {
 	/* Save original values. */
 	unsigned char original_lcr = kinb(PORT + 3);
 	unsigned char original_mcr = kinb(PORT + 4);
@@ -120,8 +112,7 @@ kbool
 	koutb(PORT, test_value);
 
 	/* Small delay to ensure data is processed. */
-	for ( volatile int i = 0; i < 1000; i++ )
-	{
+	for ( volatile int i = 0; i < 1000; i++ ) {
 		/* Yes. */
 	}
 

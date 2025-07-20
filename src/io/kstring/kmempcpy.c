@@ -36,8 +36,7 @@
 #include "kstddef.h"
 
 void *
-    mempcpy (void *dest, const void *src, ksize_t n)
-{
+    mempcpy (void *dest, const void *src, ksize_t n) {
 	char	   *d = (char *) dest;
 	const char *s = (const char *) src;
 	for ( ksize_t i = 0; i < n; i++ )

@@ -48,22 +48,19 @@
 kbool use_debug = kfalse;
 
 /* Multiboot2 header structure. */
-struct multiboot_header
-{
+struct multiboot_header {
 	kuint32_t total_size;
 	kuint32_t reserved;
 };
 
 /* Multiboot2 tag structure. */
-struct multiboot_tag
-{
+struct multiboot_tag {
 	kuint32_t type;
 	kuint32_t size;
 };
 
 /* Multiboot2 framebuffer tag. */
-struct multiboot_tag_framebuffer
-{
+struct multiboot_tag_framebuffer {
 	kuint32_t type;
 	kuint32_t size;
 	kuint64_t addr;
@@ -88,15 +85,13 @@ struct multiboot_tag_framebuffer
 static struct framebuffer_info fb_info = {0};
 
 void
-    kdebug_init (void)
-{
+    kdebug_init (void) {
 	use_debug = ktrue;
 }
 
 /* Function to map a physical address to virtual address in page tables. */
 static void
-    map_framebuffer_address (kuint64_t phys_addr)
-{
+    map_framebuffer_address (kuint64_t phys_addr) {
 	/* Map the framebuffer to a high virtual address (0xFFFF800000000000 + */
 	/* phys_addr) This creates a 1:1 mapping for the framebuffer area. */
 
@@ -116,10 +111,8 @@ static void
 }
 
 static void
-    parse_multiboot_info (void *mb_info)
-{
-	if ( mb_info == KNULL )
-	{
+    parse_multiboot_info (void *mb_info) {
+	if ( mb_info == KNULL ) {
 		kduts("mb_info is KNULL!");
 		return;
 	}
@@ -130,26 +123,22 @@ static void
 
 	kduts("Parsing multiboot info...");
 
-	while ( current_tag_ptr < end_of_tags )
-	{
+	while ( current_tag_ptr < end_of_tags ) {
 		struct multiboot_tag *tag = (struct multiboot_tag *) current_tag_ptr;
 
 		kuint32_t tag_size = tag->size;
-		if ( tag_size == 0 )
-		{
+		if ( tag_size == 0 ) {
 			kduts("Error: Invalid tag size 0.");
 			return;
 		}
 
-		switch ( tag->type )
-		{
+		switch ( tag->type ) {
 			case MULTIBOOT_TAG_TYPE_END:
 				kduts("Found end tag. Multiboot parsing "
 				      "complete.");
 				return;
 
-			case MULTIBOOT_TAG_TYPE_FRAMEBUFFER:
-			{
+			case MULTIBOOT_TAG_TYPE_FRAMEBUFFER: {
 				kduts("Found framebuffer tag!");
 				struct multiboot_tag_framebuffer *fb_tag =
 				    (struct multiboot_tag_framebuffer *) tag;
@@ -190,8 +179,7 @@ static void
 }
 
 void
-    kernel_main (void *mb_info)
-{
+    kernel_main (void *mb_info) {
 	/* In this case, we must use use_debug instead of the functions that */
 	/* check debug. */
 	/* Initialize crucial parts first. The IDT must be loaded before */
@@ -199,8 +187,7 @@ void
 	idt_init();
 	serial_init();
 
-	if ( mb_info == KNULL )
-	{
+	if ( mb_info == KNULL ) {
 		/*
 		 * We can't do anything without multiboot info.
 		 * We can't even print an error.
@@ -213,12 +200,9 @@ void
 	parse_multiboot_info(mb_info);
 
 	/* Initialize framebuffer if available. */
-	if ( fb_info.addr != 0 )
-	{
+	if ( fb_info.addr != 0 ) {
 		video_init(&fb_info);
-	}
-	else
-	{
+	} else {
 		/* No framebuffer, no visual output possible. */
 		kwarn("No framebuffer found", "continuing without visual output");
 	}
@@ -231,8 +215,7 @@ void
 
 	/* Initialize ATA and mount EXT2 disk */
 	kext2_set_block_device(ata_pio_read, KNULL);
-	if ( kext2_mount(0) != 0 )
-	{
+	if ( kext2_mount(0) != 0 ) {
 		kputs("EXT2 mount failed\n");
 	}
 
@@ -248,8 +231,7 @@ void
 	kshell();
 
 	/* Main system loop with device polling */
-	while ( 1 )
-	{
+	while ( 1 ) {
 		/* Halt until next interrupt */
 		__asm__("hlt");
 	}

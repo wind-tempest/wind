@@ -37,8 +37,7 @@
 #include "kmath.h"
 
 double
-    kfmin (double x, double y)
-{
+    kfmin (double x, double y) {
 	/* Handle NaN cases */
 	if ( x != x )
 		return y;

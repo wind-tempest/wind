@@ -37,11 +37,9 @@
 #include "kstrlen.h"
 
 ksize_t
-    kstrlen (const char *str)
-{
+    kstrlen (const char *str) {
 	ksize_t len = 0;
-	while ( str[len] != '\0' )
-	{
+	while ( str[len] != '\0' ) {
 		len++;
 	}
 	return len;

@@ -44,8 +44,7 @@ extern kuint32_t fb_pitch;
 extern kuint8_t	 fb_bpp;
 
 /* Framebuffer information structure */
-struct framebuffer_info
-{
+struct framebuffer_info {
 	kuint64_t addr;
 	kuint32_t pitch;
 	kuint32_t width;

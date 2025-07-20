@@ -37,18 +37,15 @@
 #include "kstrrchr.h"
 
 char *
-    kstrrchr (const char *str, int c)
-{
+    kstrrchr (const char *str, int c) {
 	if ( !str )
 		return KNULL;
 
 	char *last = KNULL;
 	char  ch   = (char) c;
 
-	while ( *str )
-	{
-		if ( *str == ch )
-		{
+	while ( *str ) {
+		if ( *str == ch ) {
 			last = (char *) str;
 		}
 		str++;

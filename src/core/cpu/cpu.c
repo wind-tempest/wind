@@ -40,23 +40,19 @@
 char cpu_brand_string[49] = "Unknown CPU";
 
 static inline void
-    cpuid (kuint32_t eax, kuint32_t ecx, kuint32_t *regs)
-{
+    cpuid (kuint32_t eax, kuint32_t ecx, kuint32_t *regs) {
 	__asm__ volatile("cpuid"
 			 : "=a"(regs[0]), "=b"(regs[1]), "=c"(regs[2]), "=d"(regs[3])
 			 : "a"(eax), "c"(ecx));
 }
 
 void
-    kcpu_init_brand (void)
-{
+    kcpu_init_brand (void) {
 	kuint32_t regs[4];
 	char	 *brand = cpu_brand_string;
-	for ( kuint32_t i = 0; i < 3; ++i )
-	{
+	for ( kuint32_t i = 0; i < 3; ++i ) {
 		cpuid(0x80000002 + i, 0, regs);
-		for ( int j = 0; j < 4; ++j )
-		{
+		for ( int j = 0; j < 4; ++j ) {
 			*(kuint32_t *) (brand + i * 16 + j * 4) = regs[j];
 		}
 	}

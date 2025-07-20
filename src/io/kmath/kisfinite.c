@@ -37,7 +37,6 @@
 #include "kmath.h"
 
 int
-    kisfinite (double x)
-{
+    kisfinite (double x) {
 	return !kisnan(x) && !kisinf(x);
 }

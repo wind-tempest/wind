@@ -62,10 +62,8 @@
 
 /* Get panic message based on error code. */
 static const char *
-    get_panic_message (int code)
-{
-	switch ( code )
-	{
+    get_panic_message (int code) {
+	switch ( code ) {
 		case PANIC_DIVISION_BY_ZERO:
 			return "Division by zero";
 		case PANIC_DOUBLE_FAULT:
@@ -111,8 +109,7 @@ static const char *
 static kbool panic_in_progress = kfalse;
 
 void
-    panic (int code, registers_t *regs)
-{
+    panic (int code, registers_t *regs) {
 	panic_in_progress = ktrue;
 	__asm__ volatile("cli");
 
@@ -130,34 +127,27 @@ void
 	serial_writes(error_msg);
 	serial_writes("\n");
 
-	if ( video_ok )
-	{
+	if ( video_ok ) {
 		video_puts("\n\nOops! Your system crashed\n");
 	}
-	if ( video_ok )
-	{
+	if ( video_ok ) {
 		video_puts("Error code: ");
 	}
 	kitoa(buf, buf + 14, code, 10, 0);
 	video_puts(buf);
-	if ( video_ok )
-	{
+	if ( video_ok ) {
 		video_puts("\nError: ");
 	}
-	if ( video_ok )
-	{
+	if ( video_ok ) {
 		video_puts(error_msg);
 	}
-	if ( video_ok )
-	{
+	if ( video_ok ) {
 		video_puts("\n\n");
 	}
 
-	if ( regs )
-	{
+	if ( regs ) {
 		serial_writes("Registers:\n");
-		if ( video_ok )
-		{
+		if ( video_ok ) {
 			video_puts("Registers:\n");
 		}
 #define PRINT_REG(name)                                                                            \
@@ -197,22 +187,18 @@ void
 #undef PRINT_REG
 	}
 
-	if ( video_ok )
-	{
+	if ( video_ok ) {
 		video_puts("\nSystem will reboot in 5 seconds...\n");
 	}
 	serial_writes("System will reboot in 5 seconds...\n");
 
-	for ( int i = 5; i > 0; i-- )
-	{
+	for ( int i = 5; i > 0; i-- ) {
 		kitoa(buf, buf + 14, i, 10, 0);
-		if ( video_ok )
-		{
+		if ( video_ok ) {
 			video_puts("Rebooting in ");
 		}
 		video_puts(buf);
-		if ( video_ok )
-		{
+		if ( video_ok ) {
 			video_puts(" seconds...\n");
 		}
 		serial_writes("Rebooting in ");
@@ -221,8 +207,7 @@ void
 		ksleep(1000);
 	}
 
-	if ( video_ok )
-	{
+	if ( video_ok ) {
 		video_puts("Rebooting now...\n");
 	}
 	serial_writes("Rebooting now...\n");
@@ -231,13 +216,11 @@ void
 	kreboot();
 
 	/* If reboot fails, halt the system. */
-	if ( video_ok )
-	{
+	if ( video_ok ) {
 		video_puts("Reboot failed! System halted.\n");
 	}
 	serial_writes("Reboot failed! System halted.\n");
-	while ( 1 )
-	{
+	while ( 1 ) {
 		__asm__ volatile("hlt");
 	}
 }

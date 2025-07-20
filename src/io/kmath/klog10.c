@@ -37,8 +37,7 @@
 #include "kmath.h"
 
 double
-    klog10 (double x)
-{
+    klog10 (double x) {
 	/* Handle special cases */
 	if ( kisnan(x) )
 		return knan("");

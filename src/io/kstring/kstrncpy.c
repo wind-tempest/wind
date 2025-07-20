@@ -37,8 +37,7 @@
 #include "kstrncpy.h"
 
 char *
-    kstrncpy (char *dest, const char *src, ksize_t n)
-{
+    kstrncpy (char *dest, const char *src, ksize_t n) {
 	ksize_t i;
 	for ( i = 0; i < n && src[i] != '\0'; i++ )
 		dest[i] = src[i];

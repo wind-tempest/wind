@@ -37,8 +37,7 @@
 #include "ksin.h"
 
 double
-    ksin (double x)
-{
+    ksin (double x) {
 	/* Normalize x to [-π, π] */
 	x = kfmod(x, 2.0 * K_M_PI);
 	if ( x > K_M_PI )
@@ -47,8 +46,7 @@ double
 		x += 2.0 * K_M_PI;
 
 	/* Use Taylor series for small values */
-	if ( kfabs(x) < 0.1 )
-	{
+	if ( kfabs(x) < 0.1 ) {
 		double x2 = x * x;
 		double x3 = x2 * x;
 		double x5 = x3 * x2;
@@ -63,8 +61,7 @@ double
 	double factorial = 1.0;
 	int    sign	 = 1;
 
-	for ( int i = 1; i <= 10; i++ )
-	{
+	for ( int i = 1; i <= 10; i++ ) {
 		result += sign * term / factorial;
 		term *= x2;
 		factorial *= (2 * i) * (2 * i + 1);

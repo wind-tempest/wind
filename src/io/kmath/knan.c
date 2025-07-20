@@ -37,14 +37,12 @@
 #include "knan.h"
 
 double
-    knan (const char *tagp)
-{
+    knan (const char *tagp) {
 	/* Return NaN - the tagp parameter is ignored in this implementation */
 	(void) tagp; /* Suppress unused parameter warning */
 
 	/* Return a quiet NaN */
-	union
-	{
+	union {
 		double		   d;
 		unsigned long long u;
 	} u;

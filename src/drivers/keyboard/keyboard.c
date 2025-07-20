@@ -70,54 +70,42 @@ static unsigned char kbd_us_shift[128] = {
 };
 
 static void
-    keyboard_handler (registers_t *regs)
-{
+    keyboard_handler (registers_t *regs) {
 	(void) regs;
 	unsigned char scancode = kinb(KBD_DATA_PORT);
 
 	/* Caps Lock pressed */
-	if ( scancode == 0x3A )
-	{
+	if ( scancode == 0x3A ) {
 		caps_lock = !caps_lock; // Toggle caps lock
 		return;
 	}
 
-	if ( scancode == 0x2A || scancode == 0x36 )
-	{
+	if ( scancode == 0x2A || scancode == 0x36 ) {
 		shift_pressed = ktrue;
 		return;
 	}
-	if ( scancode == 0xAA || scancode == 0xB6 )
-	{
+	if ( scancode == 0xAA || scancode == 0xB6 ) {
 		shift_pressed = kfalse;
 		return;
 	}
 
-	if ( scancode < 128 )
-	{
+	if ( scancode < 128 ) {
 		unsigned char c = shift_pressed ? kbd_us_shift[scancode] : kbd_us[scancode];
 
-		if ( caps_lock && !shift_pressed )
-		{
+		if ( caps_lock && !shift_pressed ) {
 			/* Caps Lock ON + Shift OFF: */
-			if ( c >= 'a' && c <= 'z' )
-			{
+			if ( c >= 'a' && c <= 'z' ) {
 				c -= 32;
 			}
-		}
-		else if ( caps_lock && shift_pressed )
-		{
+		} else if ( caps_lock && shift_pressed ) {
 			/* Caps Lock ON + Shift ON: */
-			if ( c >= 'A' && c <= 'Z' )
-			{
+			if ( c >= 'A' && c <= 'Z' ) {
 				c += 32;
 			}
 		}
 
-		if ( c != 0 )
-		{
-			if ( (kbd_buffer_head + 1) % KBD_BUFFER_SIZE != kbd_buffer_tail )
-			{
+		if ( c != 0 ) {
+			if ( (kbd_buffer_head + 1) % KBD_BUFFER_SIZE != kbd_buffer_tail ) {
 				kbd_buffer[kbd_buffer_head] = c;
 				kbd_buffer_head = (kbd_buffer_head + 1) % KBD_BUFFER_SIZE;
 			}
@@ -126,11 +114,9 @@ static void
 }
 
 int
-    getchar (void)
-{
+    getchar (void) {
 	/* Wait for a character to be available */
-	while ( kbd_buffer_head == kbd_buffer_tail )
-	{
+	while ( kbd_buffer_head == kbd_buffer_tail ) {
 		__asm__ volatile("sti; hlt"); // Wait for interrupt
 	}
 	__asm__ volatile("cli"); // Disable interrupts while reading buffer
@@ -143,7 +129,6 @@ int
 }
 
 void
-    keyboard_init (void)
-{
+    keyboard_init (void) {
 	register_irq_handler(1, keyboard_handler);
 }

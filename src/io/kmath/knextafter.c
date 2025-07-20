@@ -37,8 +37,7 @@
 #include "knextafter.h"
 
 double
-    knextafter (double x, double y)
-{
+    knextafter (double x, double y) {
 	/* Handle special cases */
 	if ( kisnan(x) || kisnan(y) )
 		return knan("");
@@ -53,10 +52,8 @@ double
 	int direction = (y > x) ? 1 : -1;
 
 	/* For zero, return smallest subnormal in the direction of y */
-	if ( x == 0.0 )
-	{
-		union
-		{
+	if ( x == 0.0 ) {
+		union {
 			double		   d;
 			unsigned long long u;
 		} u;
