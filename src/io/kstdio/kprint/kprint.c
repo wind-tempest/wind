@@ -278,7 +278,6 @@ int
 			count++;
 			continue;
 		}
-
 		p++;
 
 		/* Field width and left alignment */
@@ -290,11 +289,18 @@ int
 			left_align = 1;
 			p++;
 		}
-
 		while ( *p >= '0' && *p <= '9' )
 		{
 			width = width * 10 + (*p - '0');
 			p++;
+		}
+
+		/* Handle "ll" length modifier (for %llu) */
+		int long_long = 0;
+		if ( *p == 'l' && *(p + 1) == 'l' )
+		{
+			long_long = 1;
+			p += 2;
 		}
 
 		switch ( *p )
@@ -337,42 +343,103 @@ int
 
 			case 'd':
 			{
-				int n = k_va_arg(args, int);
-				if ( n < 0 )
+				if ( long_long )
 				{
-					kputchar('-');
-					count++;
-					n = -n;
+					kint64_t n = k_va_arg(args, kint64_t);
+					if ( n < 0 )
+					{
+						kputchar('-');
+						count++;
+						n = -n;
+					}
+					char buf[21];
+					int  idx = 20;
+					buf[idx] = '\0';
+					if ( n == 0 )
+						buf[--idx] = '0';
+					else
+					{
+						kuint64_t un = (kuint64_t) n;
+						while ( un )
+						{
+							buf[--idx] = '0' + (un % 10);
+							un /= 10;
+						}
+					}
+					int len = 20 - idx;
+					int pad = (width > len) ? width - len : 0;
+					if ( !left_align )
+					{
+						for ( int i = 0; i < pad; ++i )
+						{
+							kputchar(' ');
+							count++;
+						}
+					}
+					for ( int i = idx; i < 20; ++i )
+					{
+						kputchar(buf[i]);
+						count++;
+					}
+					if ( left_align )
+					{
+						for ( int i = 0; i < pad; ++i )
+						{
+							kputchar(' ');
+							count++;
+						}
+					}
 				}
-
-				kputdec((kuint32_t) n);
-
-				int temp = n, digits = 1;
-				while ( temp >= 10 )
+				else
 				{
-					temp /= 10;
-					digits++;
+					int n = k_va_arg(args, int);
+					if ( n < 0 )
+					{
+						kputchar('-');
+						count++;
+						n = -n;
+					}
+					kputdec((kuint32_t) n);
+					int temp = n, digits = 1;
+					while ( temp >= 10 )
+					{
+						temp /= 10;
+						digits++;
+					}
+					count += digits;
 				}
-				count += digits;
 				break;
 			}
-
 			case 'x':
 			{
-				unsigned int n = k_va_arg(args, unsigned int);
-				kputhex((kuint64_t) n);
-
-				unsigned int temp   = n;
-				int	     digits = 1;
-				while ( temp >= 16 )
+				if ( long_long )
 				{
-					temp /= 16;
-					digits++;
+					kuint64_t n = k_va_arg(args, kuint64_t);
+					kputhex(n);
+					kuint64_t temp	 = n;
+					int	  digits = 1;
+					while ( temp >= 16 )
+					{
+						temp /= 16;
+						digits++;
+					}
+					count += digits;
 				}
-				count += digits;
+				else
+				{
+					unsigned int n = k_va_arg(args, unsigned int);
+					kputhex((kuint64_t) n);
+					unsigned int temp   = n;
+					int	     digits = 1;
+					while ( temp >= 16 )
+					{
+						temp /= 16;
+						digits++;
+					}
+					count += digits;
+				}
 				break;
 			}
-
 			case 'c':
 			{
 				char c = (char) k_va_arg(args, int);
@@ -387,23 +454,63 @@ int
 				count++;
 				break;
 			}
-
 			case 'u':
 			{
-				unsigned int n = k_va_arg(args, unsigned int);
-				kputdec(n);
-
-				unsigned int temp   = n;
-				int	     digits = 1;
-				while ( temp >= 10 )
+				if ( long_long )
 				{
-					temp /= 10;
-					digits++;
+					kuint64_t n = k_va_arg(args, kuint64_t);
+					char	  buf[21];
+					int	  idx = 20;
+					buf[idx]      = '\0';
+					if ( n == 0 )
+						buf[--idx] = '0';
+					else
+					{
+						while ( n )
+						{
+							buf[--idx] = '0' + (n % 10);
+							n /= 10;
+						}
+					}
+					int len = 20 - idx;
+					int pad = (width > len) ? width - len : 0;
+					if ( !left_align )
+					{
+						for ( int i = 0; i < pad; ++i )
+						{
+							kputchar(' ');
+							count++;
+						}
+					}
+					for ( int i = idx; i < 20; ++i )
+					{
+						kputchar(buf[i]);
+						count++;
+					}
+					if ( left_align )
+					{
+						for ( int i = 0; i < pad; ++i )
+						{
+							kputchar(' ');
+							count++;
+						}
+					}
 				}
-				count += digits;
+				else
+				{
+					unsigned int n = k_va_arg(args, unsigned int);
+					kputdec(n);
+					unsigned int temp   = n;
+					int	     digits = 1;
+					while ( temp >= 10 )
+					{
+						temp /= 10;
+						digits++;
+					}
+					count += digits;
+				}
 				break;
 			}
-
 			default:
 				kputchar('%');
 				kputchar(*p);
