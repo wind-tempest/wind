@@ -41,13 +41,6 @@ All docs live in [`docs/`](docs/Main.md). Read them first.
 - **No magic.** Every bit is visible and hackable.  
 - **No excuses.** Missing features? Write the code.
 
-## Build
-
-Requirements:
-
-- `x86_64-elf` cross-compiler  
-- `nasm`
-
 ## Run
 
 Supported targets:
