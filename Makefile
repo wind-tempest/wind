@@ -54,9 +54,39 @@ C_SRCS := $(shell find $(SRC_DIR) -name '*.c')
 C_OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJDIR)/%.o,$(C_SRCS))
 OBJS := $(C_OBJS) $(ASM_OBJS)
 
-.PHONY: all clean run
+NINJA_BUILD_FILE := build.ninja
+
+.PHONY: all clean run ninja
 
 all: $(ISO_PATH) $(DISK_PATH)
+
+ninja: $(NINJA_BUILD_FILE)
+	@if command -v ninja >/dev/null 2>&1; then \
+		ninja -f $(NINJA_BUILD_FILE); \
+	else \
+		echo "Ninja is not installed. Falling back to Make."; \
+		$(MAKE) all; \
+	fi
+
+$(NINJA_BUILD_FILE): Makefile
+	@echo "Generating Ninja build file..."
+	@echo "ninja_required_version = 1.3" > $(NINJA_BUILD_FILE)
+	@echo "builddir = $(BUILD_DIR)" >> $(NINJA_BUILD_FILE)
+	@echo "cflags = $(CFLAGS)" >> $(NINJA_BUILD_FILE)
+	@echo "ldflags = $(LDFLAGS)" >> $(NINJA_BUILD_FILE)
+	@echo "rule cc" >> $(NINJA_BUILD_FILE)
+	@echo "  command = $(CC) $$cflags -c $$in -o $$out" >> $(NINJA_BUILD_FILE)
+	@echo "rule asm" >> $(NINJA_BUILD_FILE)
+	@echo "  command = $(NASM) -f elf64 $$in -o $$out" >> $(NINJA_BUILD_FILE)
+	@echo "rule link" >> $(NINJA_BUILD_FILE)
+	@echo "  command = $(CC) $$ldflags -T linker.ld $$in -o $$out" >> $(NINJA_BUILD_FILE)
+	@echo "rule iso" >> $(NINJA_BUILD_FILE)
+	@echo "  command = xorriso -as mkisofs -o $$out -b limine-bios-cd.bin -no-emul-boot -boot-load-size 4 -boot-info-table -isohybrid-mbr $(ISODIR)/limine-bios.sys -eltorito-alt-boot -e limine-uefi-cd.bin -no-emul-boot -isohybrid-gpt-basdat $(ISODIR)" >> $(NINJA_BUILD_FILE)
+	@echo "build $(C_OBJS): cc | $(SRC_DIR)" >> $(NINJA_BUILD_FILE)
+	@echo "build $(ASM_OBJS): asm | $(SRC_DIR)" >> $(NINJA_BUILD_FILE)
+	@echo "build $(OUTDIR)/wind.elf: link $(OBJS)" >> $(NINJA_BUILD_FILE)
+	@echo "build $(ISO_PATH): iso $(OUTDIR)/wind.elf" >> $(NINJA_BUILD_FILE)
+	@echo "default $(ISO_PATH)" >> $(NINJA_BUILD_FILE)
 
 $(DISK_PATH):
 	dd if=/dev/zero of=$(DISK_PATH) bs=1M count=64
@@ -103,4 +133,4 @@ run: all
 -include $(C_OBJS:.o=.d)
 
 clean:
-	$(RM) $(BUILD_DIR) $(DISK_PATH)
+	$(RM) $(BUILD_DIR) $(DISK_PATH) $(NINJA_BUILD_FILE)
