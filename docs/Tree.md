@@ -1,6 +1,6 @@
 # Wind/Tempest Tree
 
-> ![WARNING]
+> [!WARNING]
 > This tree is not final and will probably change as the project evolves.
 
 ```
