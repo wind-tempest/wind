@@ -1,4 +1,4 @@
-/* shell.c */
+/* kshell.c */
 
 /*
  * ---------------------------------------------------------------------------
@@ -40,7 +40,7 @@
 #include "drivers/serial/serial.h"
 #include "drivers/video/video.h"
 #include "fs/ext2/ext2.h"
-#include "fs/vfs/vfs.h"
+#include "fs/ext2/vfs/vfs.h"
 #include "kerrno.h"
 #include "kstdio.h"
 #include "kstdlib.h"
@@ -51,14 +51,14 @@
 
 /*
 	ALL OF THIS IS HARD-CODED FOR NOW!
-
 	I WILL CHANGE TO USER PROGRAM AFTER I GET A BETTER UNDERSTANDING OF THE
-	KERNEL EXECUTION PROGRAM.
+	ELF
 */
 
 /*
 	16384, 32767 AND 65535 CAUSED THE SYSTEM TO CRASH, IS RECOMMEND TO USE
-	512 OR 256
+	512 OR 256! Don't know why. And I will not fix now, but is required to
+	fix later.
 */
 
 #define CMD_BUFFER_SIZE 512
@@ -176,7 +176,7 @@ static void
 }
 
 void
-    shell (void)
+    kshell (void)
 {
 	char cmd_buffer[CMD_BUFFER_SIZE];
 	int  cmd_ptr = 0;
@@ -461,7 +461,7 @@ static void
 	}
 }
 
-/* Callback used by ext2_list to print each entry */
+/* Callback used by kext2_list to print each entry */
 static void
     ls_print_cb (const char *name, kuint8_t file_type)
 {
@@ -472,7 +472,7 @@ static void
 static void
     list_dir_path (const char *path)
 {
-	int rc = ext2_list(path, ls_print_cb);
+	int rc = kext2_list(path, ls_print_cb);
 	if ( rc != 0 )
 	{
 		kprintf("ls: cannot access %s (err %d)\n", path, rc);
@@ -526,7 +526,7 @@ static void
 		path = abs_path;
 	}
 	ext2_file_t file;
-	int	    rc = ext2_open(path, &file);
+	int	    rc = kext2_open(path, &file);
 	if ( rc != 0 )
 	{
 		kprintf("cat: cannot open %s (err %d)\n", path, rc);
@@ -534,7 +534,7 @@ static void
 	}
 	char buf[512];
 	int  read;
-	while ( (read = ext2_read(&file, buf, sizeof(buf) - 1)) > 0 )
+	while ( (read = kext2_read(&file, buf, sizeof(buf) - 1)) > 0 )
 	{
 		buf[read] = '\0';
 		kputs(buf);
@@ -557,7 +557,7 @@ static void
 		path = abs_path;
 	}
 	ext2_file_t file;
-	int	    rc = ext2_open(path, &file);
+	int	    rc = kext2_open(path, &file);
 	if ( rc != 0 )
 	{
 		kprintf("fsize: cannot open %s (err %d)\n", path, rc);

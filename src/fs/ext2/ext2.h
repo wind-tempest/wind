@@ -159,26 +159,23 @@ extern "C"
 	 * ------------------------------------------------------------------------*/
 
 	/* Application supplies block-device callbacks (sector-based, 512-byte) */
-	void ext2_set_block_device (int (*read)(kuint64_t lba, kuint32_t count, void *buf),
-				    int (*write)(kuint64_t lba, kuint32_t count, const void *buf));
+	void kext2_set_block_device (int (*read)(kuint64_t lba, kuint32_t count, void *buf),
+				     int (*write)(kuint64_t lba, kuint32_t count, const void *buf));
 
 	/* Mount an EXT2 filesystem located at @base_lba. Returns EXT2_OK on success. */
-	int ext2_mount (kuint64_t base_lba);
+	int kext2_mount (kuint64_t base_lba);
 
 	/* Open file by absolute POSIX path (e.g., "/etc/issue"). Read-only.       */
-	int ext2_open (const char *path, ext2_file_t *out_file);
+	int kext2_open (const char *path, ext2_file_t *out_file);
 
 	/* Read up to @len bytes from file into @buf starting at current position.  */
-	int ext2_read (ext2_file_t *file, void *buf, ksize_t len);
+	int kext2_read (ext2_file_t *file, void *buf, ksize_t len);
 
 	/* Callback type for listing directory entries */
 	typedef void (*ext2_list_cb_t)(const char *name, kuint8_t file_type);
 
-	/* List entries in the root directory. Calls cb for each entry. */
-	int ext2_list_root (ext2_list_cb_t cb);
-
 	/* List entries in the directory specified by POSIX path (e.g. "/System/fonts"). */
-	int ext2_list (const char *path, ext2_list_cb_t cb);
+	int kext2_list (const char *path, ext2_list_cb_t cb);
 
 #ifdef __cplusplus
 }

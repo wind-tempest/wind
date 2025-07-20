@@ -147,7 +147,7 @@ int
 	vfs_resolve(path, resolved, sizeof(resolved));
 
 	ext2_file_t dir;
-	int	    rc = ext2_open(resolved, &dir);
+	int	    rc = kext2_open(resolved, &dir);
 	if ( rc != 0 )
 		return rc; /* propagate ext2 error */
 	if ( !(dir.inode.mode & 0x4000) )

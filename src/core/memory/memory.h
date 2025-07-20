@@ -169,7 +169,7 @@ typedef struct
 
 /* Physical memory management */
 void
-    memory_init (void *multiboot_info);
+    kmemory_init (void *multiboot_info);
 page_frame_t *
     allocate_page_frame (void);
 void

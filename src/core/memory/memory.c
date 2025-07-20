@@ -77,7 +77,7 @@ struct multiboot_tag_mmap
 /* Physical memory management */
 
 void
-    memory_init (void *multiboot_info)
+    kmemory_init (void *multiboot_info)
 {
 	if ( !multiboot_info )
 	{

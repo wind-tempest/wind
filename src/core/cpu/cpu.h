@@ -37,4 +37,4 @@
 
 extern char cpu_brand_string[49];
 void
-    cpu_init_brand (void);
+    kcpu_init_brand (void);

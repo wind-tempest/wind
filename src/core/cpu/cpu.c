@@ -48,7 +48,7 @@ static inline void
 }
 
 void
-    cpu_init_brand (void)
+    kcpu_init_brand (void)
 {
 	kuint32_t regs[4];
 	char	 *brand = cpu_brand_string;

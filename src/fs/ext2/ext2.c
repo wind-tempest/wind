@@ -50,7 +50,7 @@ static int (*g_write_sector)(kuint64_t lba, kuint32_t count, const void *buf) = 
 
 /* Convenience wrapper: read N sectors into dst */
 static int
-    read_sectors (kuint64_t lba, kuint32_t cnt, void *dst)
+    kread_sectors (kuint64_t lba, kuint32_t cnt, void *dst)
 {
 	if ( !g_read_sector )
 	{
@@ -61,27 +61,27 @@ static int
 
 /* Read an aligned filesystem block into dst. Assumes dst has at least block_size bytes. */
 static int
-    read_block (kuint32_t block_id, void *dst)
+    kread_block (kuint32_t block_id, void *dst)
 {
 	kuint64_t first_lba = g_base_lba + ((kuint64_t) block_id * g_block_size) / 512;
 	kuint32_t cnt	    = g_block_size / 512;
-	return read_sectors(first_lba, cnt, dst);
+	return kread_sectors(first_lba, cnt, dst);
 }
 
 /* Forward declaration for functions used before definition */
 static int
-    read_inode (kuint32_t ino, ext2_inode_t *out);
+    kread_inode (kuint32_t ino, ext2_inode_t *out);
 
 void
-    ext2_set_block_device (int (*read)(kuint64_t, kuint32_t, void *),
-			   int (*write)(kuint64_t, kuint32_t, const void *))
+    kext2_set_block_device (int (*read)(kuint64_t, kuint32_t, void *),
+			    int (*write)(kuint64_t, kuint32_t, const void *))
 {
 	g_read_sector  = read;
 	g_write_sector = write; /* May be KNULL for read-only volumes */
 }
 
 int
-    ext2_mount (kuint64_t base_lba)
+    kext2_mount (kuint64_t base_lba)
 {
 	if ( !g_read_sector )
 	{
@@ -94,7 +94,7 @@ int
 	 * structure portion we need. This avoids overflowing g_superblock
 	 * (struct is ~128 bytes). */
 	kuint8_t sb_raw[1024];
-	if ( read_sectors(base_lba + EXT2_SUPERBLOCK_OFFSET / 512, 2, sb_raw) != 0 )
+	if ( kread_sectors(base_lba + EXT2_SUPERBLOCK_OFFSET / 512, 2, sb_raw) != 0 )
 	{
 		return EXT2_ERR_IO;
 	}
@@ -143,7 +143,7 @@ int
 	kuint32_t gd_start_blk = (g_block_size == 1024) ? 2 : 1;
 	for ( kuint32_t i = 0; i < gd_table_blocks; i++ )
 	{
-		if ( read_block(gd_start_blk + i, (kuint8_t *) g_group_desc + i * g_block_size)
+		if ( kread_block(gd_start_blk + i, (kuint8_t *) g_group_desc + i * g_block_size)
 		     != 0 )
 		{
 			return EXT2_ERR_IO;
@@ -157,7 +157,7 @@ int
 }
 
 int
-    ext2_open (const char *path, ext2_file_t *out_file)
+    kext2_open (const char *path, ext2_file_t *out_file)
 {
 	(void) path;
 	(void) out_file;
@@ -167,7 +167,7 @@ int
 	/* If path is just "/" open root directory */
 	if ( kstrcmp(path, "/") == 0 )
 	{
-		if ( read_inode(EXT2_ROOT_INODE, &out_file->inode) != EXT2_OK )
+		if ( kread_inode(EXT2_ROOT_INODE, &out_file->inode) != EXT2_OK )
 			return EXT2_ERR_IO;
 		out_file->pos = 0;
 		return EXT2_OK;
@@ -182,7 +182,7 @@ int
 
 	/* Current inode when traversing */
 	ext2_inode_t cur_inode;
-	if ( read_inode(EXT2_ROOT_INODE, &cur_inode) != EXT2_OK )
+	if ( kread_inode(EXT2_ROOT_INODE, &cur_inode) != EXT2_OK )
 		return EXT2_ERR_IO;
 
 	char *tok = kstrtok(tmp, "/");
@@ -203,7 +203,7 @@ int
 			kuint32_t blk = cur_inode.block[i];
 			if ( blk == 0 )
 				continue;
-			if ( read_block(blk, blk_buf) != 0 )
+			if ( kread_block(blk, blk_buf) != 0 )
 			{
 				kfree(blk_buf);
 				return EXT2_ERR_IO;
@@ -228,7 +228,7 @@ int
 			return EXT2_ERR_PATH_NOT_FOUND;
 
 		/* Load inode */
-		if ( read_inode(found_ino, &cur_inode) != EXT2_OK )
+		if ( kread_inode(found_ino, &cur_inode) != EXT2_OK )
 			return EXT2_ERR_IO;
 
 		if ( next_tok )
@@ -251,7 +251,7 @@ int
 }
 
 static int
-    read_inode (kuint32_t ino, ext2_inode_t *out)
+    kread_inode (kuint32_t ino, ext2_inode_t *out)
 {
 	if ( ino == 0 )
 		return EXT2_ERR_INVALID;
@@ -275,7 +275,7 @@ static int
 		return EXT2_ERR_IO;
 
 	/* Read the first block that contains (part of) the inode */
-	if ( read_block(inode_tbl_blk + blk_offset, tmp) != 0 )
+	if ( kread_block(inode_tbl_blk + blk_offset, tmp) != 0 )
 	{
 		kfree(tmp);
 		return EXT2_ERR_IO;
@@ -295,7 +295,7 @@ static int
 		kmemcpy(out, tmp + off_in_block, bytes_first);
 
 		/* Read next block for the remaining bytes */
-		if ( read_block(inode_tbl_blk + blk_offset + 1, tmp) != 0 )
+		if ( kread_block(inode_tbl_blk + blk_offset + 1, tmp) != 0 )
 		{
 			kfree(tmp);
 			return EXT2_ERR_IO;
@@ -307,8 +307,35 @@ static int
 	return EXT2_OK;
 }
 
+static void
+    kprocess_dir_block (kuint8_t *block_buf, kuint32_t block_size, ext2_list_cb_t cb)
+{
+	kuint32_t off = 0;
+	while ( off < block_size )
+	{
+		ext2_dir_entry_t *ent	  = (ext2_dir_entry_t *) (block_buf + off);
+		kuint16_t	  rec_len = ent->rec_len;
+		kuint8_t	  nlen	  = ent->name_len;
+		if ( rec_len < 8 || rec_len > block_size - off )
+			break;
+		if ( ent->inode != 0 && nlen == 0 )
+			break;
+		kuint16_t min_len = (kuint16_t) (((8 + nlen + 3) / 4) * 4);
+		if ( rec_len < min_len )
+			break;
+		if ( ent->inode != 0 && nlen > 0 )
+		{
+			char name[256] = {0};
+			kmemcpy(name, ent->name, nlen);
+			name[nlen] = '\0';
+			cb(name, ent->file_type);
+		}
+		off += rec_len;
+	}
+}
+
 static int
-    list_dir_entries (const ext2_inode_t *dir_inode, ext2_list_cb_t cb)
+    klist_dir_entries (const ext2_inode_t *dir_inode, ext2_list_cb_t cb)
 {
 	if ( !dir_inode || !cb )
 		return EXT2_ERR_INVALID;
@@ -325,44 +352,19 @@ static int
 		kuint32_t blk_id = dir_inode->block[i];
 		if ( blk_id == 0 )
 			continue;
-		if ( read_block(blk_id, block_buf) != 0 )
+		if ( kread_block(blk_id, block_buf) != 0 )
 		{
 			kfree(block_buf);
 			return EXT2_ERR_IO;
 		}
-
-		kuint32_t off = 0;
-		while ( off < g_block_size )
-		{
-			ext2_dir_entry_t *ent = (ext2_dir_entry_t *) (block_buf + off);
-
-			kuint16_t rec_len = ent->rec_len;
-			kuint8_t  nlen	  = ent->name_len;
-			/* Basic sanity checks */
-			if ( rec_len < 8 || rec_len > g_block_size - off )
-				break;
-			if ( ent->inode != 0 && nlen == 0 )
-				break;
-			kuint16_t min_len = (kuint16_t) (((8 + nlen + 3) / 4) * 4);
-			if ( rec_len < min_len )
-				break;
-
-			if ( ent->inode != 0 && nlen > 0 )
-			{
-				char name[256] = {0};
-				kmemcpy(name, ent->name, nlen);
-				name[nlen] = '\0';
-				cb(name, ent->file_type);
-			}
-			off += rec_len;
-		}
+		kprocess_dir_block(block_buf, g_block_size, cb);
 	}
 	kfree(block_buf);
 	return EXT2_OK;
 }
 
 int
-    ext2_list (const char *path, ext2_list_cb_t cb)
+    kext2_list (const char *path, ext2_list_cb_t cb)
 {
 	if ( !path || !cb )
 		return EXT2_ERR_INVALID;
@@ -371,11 +373,11 @@ int
 	if ( kstrcmp(path, "/") == 0 || path[0] == '\0' )
 	{
 		ext2_inode_t root;
-		if ( read_inode(EXT2_ROOT_INODE, &root) != EXT2_OK )
+		if ( kread_inode(EXT2_ROOT_INODE, &root) != EXT2_OK )
 			return EXT2_ERR_IO;
 		if ( !(root.mode & 0x4000) )
 			return EXT2_ERR_INVALID;
-		return list_dir_entries(&root, cb);
+		return klist_dir_entries(&root, cb);
 	}
 
 	char	tmp[256];
@@ -385,7 +387,7 @@ int
 	kstrcpy(tmp, path[0] == '/' ? path + 1 : path);
 
 	ext2_inode_t cur_inode;
-	if ( read_inode(EXT2_ROOT_INODE, &cur_inode) != EXT2_OK )
+	if ( kread_inode(EXT2_ROOT_INODE, &cur_inode) != EXT2_OK )
 		return EXT2_ERR_IO;
 
 	char *tok = kstrtok(tmp, "/");
@@ -404,7 +406,7 @@ int
 			kuint32_t blk = cur_inode.block[i];
 			if ( blk == 0 )
 				continue;
-			if ( read_block(blk, blk_buf) != 0 )
+			if ( kread_block(blk, blk_buf) != 0 )
 			{
 				kfree(blk_buf);
 				return EXT2_ERR_IO;
@@ -428,7 +430,7 @@ int
 		if ( found_ino == 0 )
 			return EXT2_ERR_PATH_NOT_FOUND;
 
-		if ( read_inode(found_ino, &cur_inode) != EXT2_OK )
+		if ( kread_inode(found_ino, &cur_inode) != EXT2_OK )
 			return EXT2_ERR_IO;
 
 		if ( next_tok )
@@ -440,7 +442,7 @@ int
 		{
 			if ( !(cur_inode.mode & 0x4000) )
 				return EXT2_ERR_INVALID;
-			return list_dir_entries(&cur_inode, cb);
+			return klist_dir_entries(&cur_inode, cb);
 		}
 
 		tok = next_tok;
@@ -449,13 +451,13 @@ int
 }
 
 int
-    ext2_list_dir (ext2_list_cb_t cb)
+    kext2_list_dir (ext2_list_cb_t cb)
 {
 	if ( !cb )
 		return EXT2_ERR_INVALID;
 
 	ext2_inode_t root;
-	if ( read_inode(EXT2_ROOT_INODE, &root) != EXT2_OK )
+	if ( kread_inode(EXT2_ROOT_INODE, &root) != EXT2_OK )
 		return EXT2_ERR_IO;
 
 	if ( !(root.mode & 0x4000) ) /* not a directory */
@@ -471,50 +473,19 @@ int
 		kuint32_t blk_id = root.block[i];
 		if ( blk_id == 0 )
 			continue;
-		if ( read_block(blk_id, block_buf) != 0 )
+		if ( kread_block(blk_id, block_buf) != 0 )
 		{
 			kfree(block_buf);
 			return EXT2_ERR_IO;
 		}
-
-		kuint32_t off = 0;
-		while ( off < g_block_size )
-		{
-			ext2_dir_entry_t *ent = (ext2_dir_entry_t *) (block_buf + off);
-			/* Sanity checks to avoid malformed directory entries
-			 * causing memory corruption or endless loops. Conditions:
-			 *  - rec_len >= 8 (fixed-size part of dir entry)
-			 *  - name_len <= 255 and name_len > 0 when inode != 0
-			 *  - rec_len >= 8 + name_len, padded to 4-byte boundary
-			 *  - rec_len keeps us within the current block
-			 * If any condition fails, stop processing this block. */
-			kuint16_t rec_len = ent->rec_len;
-			kuint8_t  nlen	  = ent->name_len;
-			if ( rec_len < 8 || rec_len > g_block_size - off )
-				break; /* Bad length */
-			if ( ent->inode != 0 && nlen == 0 )
-				break; /* Invalid */
-			/* 4-byte aligned length of header + name */
-			kuint16_t min_len = (kuint16_t) (((8 + nlen + 3) / 4) * 4);
-			if ( rec_len < min_len )
-				break; /* Corrupt */
-
-			if ( ent->inode != 0 && nlen > 0 )
-			{
-				char name[256] = {0};
-				kmemcpy(name, ent->name, nlen);
-				name[nlen] = '\0';
-				cb(name, ent->file_type);
-			}
-			off += rec_len;
-		}
+		kprocess_dir_block(block_buf, g_block_size, cb);
 	}
 	kfree(block_buf);
 	return EXT2_OK;
 }
 
 int
-    ext2_read (ext2_file_t *file, void *buf, ksize_t len)
+    kext2_read (ext2_file_t *file, void *buf, ksize_t len)
 {
 	if ( !file || !buf )
 		return EXT2_ERR_INVALID;
@@ -556,7 +527,7 @@ int
 			remaining -= chunk;
 			continue;
 		}
-		if ( read_block(blk_id, block_buf) != 0 )
+		if ( kread_block(blk_id, block_buf) != 0 )
 		{
 			kfree(block_buf);
 			return EXT2_ERR_IO;

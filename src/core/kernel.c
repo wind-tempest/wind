@@ -88,7 +88,7 @@ struct multiboot_tag_framebuffer
 static struct framebuffer_info fb_info = {0};
 
 void
-    debug_init (void)
+    kdebug_init (void)
 {
 	use_debug = ktrue;
 }
@@ -223,21 +223,21 @@ void
 		kwarn("No framebuffer found", "continuing without visual output");
 	}
 
-	debug_init();
+	kdebug_init();
 
 	/* Initialize memory manager */
-	memory_init(mb_info);
+	kmemory_init(mb_info);
 	init_memory_pools();
 
 	/* Initialize ATA and mount EXT2 disk */
-	ext2_set_block_device(ata_pio_read, KNULL);
-	if ( ext2_mount(0) != 0 )
+	kext2_set_block_device(ata_pio_read, KNULL);
+	if ( kext2_mount(0) != 0 )
 	{
 		kputs("EXT2 mount failed\n");
 	}
 
 	/* Initialize CPU brand string */
-	cpu_init_brand();
+	kcpu_init_brand();
 
 	/* Initialize keyboard before enabling interrupts */
 	keyboard_init();
@@ -245,7 +245,7 @@ void
 	/* Enable interrupts now that all basic drivers are loaded. */
 	__asm__ volatile("sti");
 
-	shell();
+	kshell();
 
 	/* Main system loop with device polling */
 	while ( 1 )
