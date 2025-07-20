@@ -1,5 +1,8 @@
 # Wind/Tempest Progress
 
+> [!WARNING]
+> This progress list is not final and will probably change as the project evolves.
+
 ## Basic Stuff (Done)
 - [x] Bootloader: Limine + Multiboot2
 - [x] Basic VGA text mode (replaced with framebuffer)
@@ -38,5 +41,4 @@
 
 ---
 
-This list is not final and will probably change as the project evolves.  
 Don’t expect miracles. This is a kernel, not a toy.
