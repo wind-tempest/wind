@@ -6,6 +6,7 @@
 - NASM (for compiling .ASM files)
 - Clang (for compiling .C files)
 - Make (for compiling using the automatic way)
+- Ninja (fast and minimal build system for parallel and incremental builds)
 
 ## Building
 
@@ -34,12 +35,14 @@ To compile and link Wind/Tempest using toolchain, run:
 ./build.sh
 ```
 
-Or to just compile and link Wind/Tempest, run:
+There is some arguments that can be passed to the script, to see the available options:
+
 ```bash
-./build.sh --build-only
+./build.sh -h 
 ```
 
-Or to just run Wind/Tempest, run:
+or you can use help in the extended way:
+
 ```bash
-./build.sh --run-only
+./build.sh --help
 ```
