@@ -1,4 +1,4 @@
-/* kshell.c */
+/* shell.c */
 
 /*
  * ---------------------------------------------------------------------------
@@ -34,7 +34,7 @@
  */
 
 #include "core/acpi/acpi.h"
-#include "core/memory/memory.h"
+#include "core/memory/kmemory.h"
 #include "core/panic/panic.h"
 #include "drivers/keyboard/keyboard.h"
 #include "drivers/serial/serial.h"

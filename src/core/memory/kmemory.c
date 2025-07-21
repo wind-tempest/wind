@@ -1,4 +1,4 @@
-/* memory.c */
+/* kmemory.c */
 
 /*
  * ---------------------------------------------------------------------------
@@ -34,9 +34,9 @@
  */
 
 #include "core/panic/panic.h"
+#include "kmemory.h"
 #include "kstdio.h"
 #include "kstring.h"
-#include "memory.h"
 
 struct multiboot_tag {
 	kuint32_t type;

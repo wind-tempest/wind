@@ -41,7 +41,7 @@
 #include "fs/ext2/ext2.h"
 #include "kernel.h"
 #include "kprint.h"
-#include "memory/memory.h"
+#include "memory/kmemory.h"
 #include "shell/shell.h"
 
 /* FIXED! FINALLY! Just don't use debug before the video initialization. */

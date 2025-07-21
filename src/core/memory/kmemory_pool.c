@@ -1,4 +1,4 @@
-/* memory_pool.c */
+/* kmemory_pool.c */
 
 /*
  * ---------------------------------------------------------------------------
@@ -34,9 +34,9 @@
  */
 
 #include "dlog.h"
+#include "kmemory.h"
 #include "kstdio.h"
 #include "kstring.h"
-#include "memory.h"
 
 /* Memory pool management */
 memory_pool_t *
