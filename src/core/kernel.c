@@ -108,7 +108,7 @@ static void
 static void
     parse_multiboot_info (void *mb_info) {
 	if ( mb_info == KNULL ) {
-		kduts("mb_info is KNULL!");
+		kduts("mb_info is NULL!");
 		return;
 	}
 
