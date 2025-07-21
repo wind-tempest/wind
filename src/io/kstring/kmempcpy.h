@@ -38,4 +38,4 @@
 #include "stddef.h"
 
 void *
-    mempcpy (void *dest, const void *src, ksize_t n);
+    kmempcpy (void *dest, const void *src, ksize_t n);

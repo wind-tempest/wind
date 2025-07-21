@@ -37,7 +37,7 @@
 #include "kstdint.h"
 
 void *
-    memset (void *s, int c, ksize_t n) {
+    kmemset (void *s, int c, ksize_t n) {
 	if ( !s )
 		return KNULL; // null-check for safety
 

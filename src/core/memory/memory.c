@@ -35,6 +35,7 @@
 
 #include "core/panic/panic.h"
 #include "kstdio.h"
+#include "kstring.h"
 #include "memory.h"
 
 struct multiboot_tag {
@@ -235,7 +236,7 @@ kbool
 			return kfalse;
 
 		pml3 = (pml3_t *) (get_physical_addr(frame) + KERNEL_BASE);
-		memset(pml3, 0, PAGE_SIZE);
+		kmemset(pml3, 0, PAGE_SIZE);
 
 		current_pml4->entries[pml4_index] =
 		    get_physical_addr(frame) | PAGE_PRESENT | PAGE_WRITABLE;
@@ -252,7 +253,7 @@ kbool
 			return kfalse;
 
 		pml2 = (pml2_t *) (get_physical_addr(frame) + KERNEL_BASE);
-		memset(pml2, 0, PAGE_SIZE);
+		kmemset(pml2, 0, PAGE_SIZE);
 
 		pml3->entries[pml3_index] = get_physical_addr(frame) | PAGE_PRESENT | PAGE_WRITABLE;
 	} else {
@@ -268,7 +269,7 @@ kbool
 			return kfalse;
 
 		pml1 = (pml1_t *) (get_physical_addr(frame) + KERNEL_BASE);
-		memset(pml1, 0, PAGE_SIZE);
+		kmemset(pml1, 0, PAGE_SIZE);
 
 		pml2->entries[pml2_index] = get_physical_addr(frame) | PAGE_PRESENT | PAGE_WRITABLE;
 	} else {
@@ -440,7 +441,7 @@ void *
 	ksize_t total_size = count * size;
 	void   *ptr	   = kmalloc(total_size);
 	if ( ptr ) {
-		memset(ptr, 0, total_size);
+		kmemset(ptr, 0, total_size);
 	}
 	return ptr;
 }
@@ -461,7 +462,7 @@ void *
 
 	void *new_ptr = kmalloc(size);
 	if ( new_ptr ) {
-		memcpy(new_ptr, ptr, block->size);
+		kmemcpy(new_ptr, ptr, block->size);
 		kfree(ptr);
 	}
 	return new_ptr;

@@ -473,7 +473,7 @@ int
 			ksize_t chunk = g_block_size - off_in_block;
 			if ( chunk > remaining )
 				chunk = remaining;
-			memset(dst, 0, chunk);
+			kmemset(dst, 0, chunk);
 			dst += chunk;
 			file->pos += (kuint32_t) chunk;
 			remaining -= chunk;

@@ -224,16 +224,6 @@ void *
 void
     smart_free (void *ptr, ksize_t size);
 
-/* Memory utilities */
-void *
-    memset (void *dest, int c, ksize_t n);
-void *
-    memcpy (void *dest, const void *src, ksize_t n);
-int
-    memcmp (const void *s1, const void *s2, ksize_t n);
-void *
-    memmove (void *dest, const void *src, ksize_t n);
-
 /* Memory statistics */
 memory_stats_t
     memory_get_stats (void);

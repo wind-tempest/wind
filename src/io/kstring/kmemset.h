@@ -36,4 +36,4 @@
 #pragma once
 
 void *
-    memset (void *s, int c, ksize_t n);
+    kmemset (void *s, int c, ksize_t n);
