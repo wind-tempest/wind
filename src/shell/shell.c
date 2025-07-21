@@ -519,7 +519,7 @@ static void
 	}
 
 	for ( int i = 0; i < history_count; i++ ) {
-		kprintf("%2d -> %s\n", i + 1, command_history[i]);
+		kprintf("%2d - %s\n", i + 1, command_history[i]);
 	}
 }
 
