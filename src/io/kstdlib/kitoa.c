@@ -48,7 +48,7 @@ char *
 	int	    negative  = 0;
 
 	/* Ensure we have at least 2 bytes for null terminator */
-	if ( buf >= end - 1 ) {
+	if ( buf >= end ) {
 		if ( buf < end ) {
 			*buf = '\0';
 		}
@@ -81,9 +81,6 @@ char *
 		*p1	 = *p2;
 		*p2	 = tmp;
 	}
-
-	/* Null-terminate the string */
-	*rev = '\0';
 
 	return rev;
 }
