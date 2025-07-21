@@ -38,9 +38,11 @@
 
 ksize_t
     kstrlen (const char *str) {
-	ksize_t len = 0;
-	while ( str[len] != '\0' ) {
-		len++;
-	}
-	return len;
+	if ( !str )
+		return 0;
+
+	const char *s = str;
+	while ( *s )
+		s++;
+	return (ksize_t) (s - str);
 }
