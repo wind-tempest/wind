@@ -6,7 +6,6 @@
 - NASM (for compiling .ASM files)
 - Clang (for compiling .C files)
 - Make (for compiling using the automatic way)
-- Ninja (fast and minimal build system for parallel and incremental builds)
 
 ## Building
 

@@ -38,11 +38,9 @@ read -r -d '' agpl_header <<'EOF'
 EOF
 
 for file in $(find . -type f -name "*.c" -o -name "*.h"); do
-    filename=$(basename "$file")
-    expected="/* $filename */"
+    header=$(head -n 25 "$file")
 
-    header=$(head -n 15 "$file")
-
+    # Check if header text already exists (more strict)
     if ! echo "$header" | grep -q "This file is part of the Wind/Tempest project"; then
         echo "Incorrect or missing header in: $file"
         headers_bad=true
@@ -50,7 +48,7 @@ for file in $(find . -type f -name "*.c" -o -name "*.h"); do
         tmpfile="$file.tmp"
 
         {
-            echo "$expected"
+            echo "/* $(basename "$file") */"
             echo ""
             echo "$agpl_header"
             echo ""

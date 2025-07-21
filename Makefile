@@ -1,136 +1,121 @@
+# Compiler tools
 CC      := ccache clang
 NASM    := nasm
 LD      := ld
 RM      := rm -rf
 
-SRC_DIR    := src
-BUILD_DIR  := build
-OBJDIR     := $(BUILD_DIR)/obj
-OUTDIR     := $(BUILD_DIR)/out
-ISODIR     := $(BUILD_DIR)/isodir
+# Directory structure
+SRC_DIR     := src
+BUILD_DIR   := build
+OBJDIR      := $(BUILD_DIR)/obj
+OUTDIR      := $(BUILD_DIR)/out
+ISODIR      := $(BUILD_DIR)/isodir
+BOOTDIR     := $(ISODIR)/boot
 
-LIMINE_BIN_DIR := boot/limine
-LIMINE_FILES   := \
-	$(LIMINE_BIN_DIR)/limine-bios.sys \
-	$(LIMINE_BIN_DIR)/limine-bios-cd.bin \
-	$(LIMINE_BIN_DIR)/limine-uefi-cd.bin \
-	$(LIMINE_BIN_DIR)/BOOTX64.EFI
-LIMINE_CFG := $(LIMINE_BIN_DIR)/limine.conf
+# Limine
+LIMINE_DIR   := boot/limine
+LIMINE_FILES := $(LIMINE_DIR)/limine-bios.sys \
+                $(LIMINE_DIR)/limine-bios-cd.bin \
+                $(LIMINE_DIR)/limine-uefi-cd.bin \
+                $(LIMINE_DIR)/BOOTX64.EFI
+LIMINE_CFG   := $(LIMINE_DIR)/limine.conf
 
-ISO_PATH     := $(OUTDIR)/wind.iso
-DISK_PATH    := $(BUILD_DIR)/disk.img
+# Outputs
+ISO_PATH   := $(OUTDIR)/wind.iso
+DISK_PATH  := $(BUILD_DIR)/disk.img
 
+# QEMU
 QEMU_COMMAND := qemu-system-x86_64 -cdrom $(ISO_PATH) \
-                -vga vmware -machine hpet=on -m 512M -serial mon:stdio -drive file=$(DISK_PATH),format=raw,if=ide
+                -vga vmware -machine hpet=on -m 512M \
+                -serial mon:stdio -drive file=$(DISK_PATH),format=raw,if=ide
 
+# Build mode
 MODE ?= Release
 
-COMMON_CFLAGS   := -I$(SRC_DIR) -fno-pie -fno-stack-protector -ffreestanding -m64 -std=gnu23 \
-                   -Wall -Wextra -Wpedantic -Wconversion -Werror \
-                   -ffunction-sections -fdata-sections -Wundef -Wshadow -Wno-unused-command-line-argument
-
-COMMON_LDFLAGS  := -no-pie -fno-stack-protector -ffreestanding -m64 -nostdinc -nostdlib \
-                   -Wl,--gc-sections
+# C Flags
+COMMON_CFLAGS := -I$(SRC_DIR) -fno-pie -fno-stack-protector -ffreestanding \
+                 -m64 -std=gnu23 -Wall -Wextra -Wpedantic -Wconversion -Werror \
+                 -ffunction-sections -fdata-sections -Wundef -Wshadow \
+                 -Wno-unused-command-line-argument
 
 IO_DIRS := $(shell find $(SRC_DIR)/io -type d)
 COMMON_CFLAGS += $(patsubst %, -I%, $(IO_DIRS))
 
 ifeq ($(MODE),Debug)
     CFLAGS  := $(COMMON_CFLAGS) -Og -g1
-    LDFLAGS := $(COMMON_LDFLAGS)
 else ifeq ($(MODE),Release)
     CFLAGS  := $(COMMON_CFLAGS) -O3 -march=x86-64 -mtune=generic -fno-omit-frame-pointer
-    LDFLAGS := $(COMMON_LDFLAGS)
 else
     $(error "INVALID MODE": use Debug or Release)
 endif
 
+LDFLAGS := -no-pie -fno-stack-protector -ffreestanding -m64 -nostdinc -nostdlib -Wl,--gc-sections
+
+# Dependency generation
 DEPFLAGS := -MMD -MP
 
+# Sources
+C_SRCS   := $(shell find $(SRC_DIR) -name '*.c')
 ASM_SRCS := $(shell find $(SRC_DIR) -name '*.asm')
+
+C_OBJS   := $(patsubst $(SRC_DIR)/%.c,$(OBJDIR)/%.o,$(C_SRCS))
 ASM_OBJS := $(patsubst $(SRC_DIR)/%.asm,$(OBJDIR)/%.o,$(ASM_SRCS))
+OBJS     := $(C_OBJS) $(ASM_OBJS)
 
-C_SRCS := $(shell find $(SRC_DIR) -name '*.c')
-C_OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJDIR)/%.o,$(C_SRCS))
-OBJS := $(C_OBJS) $(ASM_OBJS)
-
-NINJA_BUILD_FILE := build.ninja
-
-.PHONY: all clean run ninja
-
+# Build everything by default
+.PHONY: all clean run
 all: $(ISO_PATH) $(DISK_PATH)
 
-ninja: $(NINJA_BUILD_FILE)
-	@if command -v ninja >/dev/null 2>&1; then \
-		ninja -f $(NINJA_BUILD_FILE); \
-	else \
-		echo "Ninja is not installed. Falling back to Make."; \
-		$(MAKE) all; \
-	fi
-
-$(NINJA_BUILD_FILE): Makefile
-	@echo "Generating Ninja build file..."
-	@echo "ninja_required_version = 1.3" > $(NINJA_BUILD_FILE)
-	@echo "builddir = $(BUILD_DIR)" >> $(NINJA_BUILD_FILE)
-	@echo "cflags = $(CFLAGS)" >> $(NINJA_BUILD_FILE)
-	@echo "ldflags = $(LDFLAGS)" >> $(NINJA_BUILD_FILE)
-	@echo "rule cc" >> $(NINJA_BUILD_FILE)
-	@echo "  command = $(CC) $$cflags -c $$in -o $$out" >> $(NINJA_BUILD_FILE)
-	@echo "rule asm" >> $(NINJA_BUILD_FILE)
-	@echo "  command = $(NASM) -f elf64 $$in -o $$out" >> $(NINJA_BUILD_FILE)
-	@echo "rule link" >> $(NINJA_BUILD_FILE)
-	@echo "  command = $(CC) $$ldflags -T linker.ld $$in -o $$out" >> $(NINJA_BUILD_FILE)
-	@echo "rule iso" >> $(NINJA_BUILD_FILE)
-	@echo "  command = xorriso -as mkisofs -o $$out -b limine-bios-cd.bin -no-emul-boot -boot-load-size 4 -boot-info-table -isohybrid-mbr $(ISODIR)/limine-bios.sys -eltorito-alt-boot -e limine-uefi-cd.bin -no-emul-boot -isohybrid-gpt-basdat $(ISODIR)" >> $(NINJA_BUILD_FILE)
-	@echo "build $(C_OBJS): cc | $(SRC_DIR)" >> $(NINJA_BUILD_FILE)
-	@echo "build $(ASM_OBJS): asm | $(SRC_DIR)" >> $(NINJA_BUILD_FILE)
-	@echo "build $(OUTDIR)/wind.elf: link $(OBJS)" >> $(NINJA_BUILD_FILE)
-	@echo "build $(ISO_PATH): iso $(OUTDIR)/wind.elf" >> $(NINJA_BUILD_FILE)
-	@echo "default $(ISO_PATH)" >> $(NINJA_BUILD_FILE)
-
-$(DISK_PATH):
-	dd if=/dev/zero of=$(DISK_PATH) bs=1M count=64
-
+# Parallelize
 MAKEFLAGS += -j$(shell nproc)
 
-$(OBJDIR) $(OUTDIR) $(ISODIR)/boot:
+# Create required directories
+$(OBJDIR) $(OUTDIR) $(BOOTDIR):
 	mkdir -p $@
 
+# Compile C files
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c | $(OBJDIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(DEPFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: src/%.asm | $(OBJDIR)
+# Assemble ASM files
+$(OBJDIR)/%.o: $(SRC_DIR)/%.asm | $(OBJDIR)
 	@mkdir -p $(dir $@)
 	$(NASM) -f elf64 $< -o $@
 
+# Link
 $(OUTDIR)/wind.elf: $(OBJS) linker.ld | $(OUTDIR)
 	$(CC) $(LDFLAGS) -T linker.ld $(OBJS) -o $@
 ifeq ($(MODE),Release)
 	strip --strip-debug $@
 endif
 
-$(ISO_PATH): $(OUTDIR)/wind.elf | $(ISODIR)/boot
-	cp $< $(ISODIR)/boot/wind.elf
+# Generate ISO
+$(ISO_PATH): $(OUTDIR)/wind.elf | $(BOOTDIR)
+	cp $< $(BOOTDIR)/wind.elf
 	cp $(LIMINE_CFG) $(ISODIR)/
 	cp $(LIMINE_FILES) $(ISODIR)/
 	xorriso -as mkisofs \
 		-o $@ \
-		-b limine-bios-cd.bin \
-		-no-emul-boot \
-		-boot-load-size 4 \
-		-boot-info-table \
+		-b limine-bios-cd.bin -no-emul-boot \
+		-boot-load-size 4 -boot-info-table \
 		-isohybrid-mbr $(ISODIR)/limine-bios.sys \
 		-eltorito-alt-boot \
-		-e limine-uefi-cd.bin \
-		-no-emul-boot \
+		-e limine-uefi-cd.bin -no-emul-boot \
 		-isohybrid-gpt-basdat \
 		$(ISODIR)
 
+# Create dummy disk image
+$(DISK_PATH):
+	dd if=/dev/zero of=$@ bs=1M count=64
+
+# Run with QEMU
 run: all
 	@$(QEMU_COMMAND)
 
+# Include dependencies
 -include $(C_OBJS:.o=.d)
 
+# Clean
 clean:
-	$(RM) $(BUILD_DIR) $(DISK_PATH) $(NINJA_BUILD_FILE)
+	$(RM) $(BUILD_DIR) $(DISK_PATH)
