@@ -2,34 +2,45 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    strategy:
+      matrix:
+        compiler: [clang, gcc]
 
-      - name: Setup ccache
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache ccache (only for clang)
+        if: matrix.compiler == 'clang'
         uses: actions/cache@v4
         with:
           path: ~/.ccache
-          key: ${{ runner.os }}-ccache-${{ hashFiles('**/*.c', '**/*.h', '**/*.asm') }}
+          key: ${{ runner.os }}-ccache-${{ matrix.compiler }}-${{ hashFiles('**/*.c', '**/*.h', '**/*.asm') }}
           restore-keys: |
-            ${{ runner.os }}-ccache-
+            ${{ runner.os }}-ccache-${{ matrix.compiler }}-
 
       - name: Install dependencies
-        run: sudo apt install -y clang nasm xorriso ccache
+        run: |
+          sudo apt install -y clang gcc nasm xorriso ccache
 
       - name: Build project (Release Mode)
-        run: time make MODE=Release
+        run: |
+          if [ "${{ matrix.compiler }}" = "clang" ]; then
+            export CC="ccache clang"
+          else
+            export CC="ccache gcc"
+          fi
+          time make CC=$(CC)-j$(nproc) MODE=Release
 
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wind-iso
+          name: wind-iso-${{ matrix.compiler }}
           path: build/out/wind.iso

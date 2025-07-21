@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 IFS=$'\n\t'
+CPU_COUNT=$(nproc)
 
 BUILD_PATH="build"
 TOOLS_PATH="tools"
@@ -63,7 +64,7 @@ if $BUILD; then
 	run_step "${TOOLS_PATH}/header.sh"
 	run_step "${TOOLS_PATH}/format.sh"
 	run_step "${TOOLS_PATH}/create_disk.sh"
-	run_step "make"
+	run_step "make -j${CPU_COUNT}"
 fi
 
 if $RUN; then

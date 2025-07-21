@@ -1,5 +1,12 @@
-# Compiler tools
-CC      := ccache clang
+BASE_CC ?= clang
+
+USE_CCACHE ?= 1
+
+ifeq ($(USE_CCACHE),1)
+  CC := ccache $(BASE_CC)
+else
+  CC := $(BASE_CC)
+endif
 NASM    := nasm
 LD      := ld
 RM      := rm -rf
@@ -65,9 +72,6 @@ OBJS     := $(C_OBJS) $(ASM_OBJS)
 # Build everything by default
 .PHONY: all clean run
 all: $(ISO_PATH) $(DISK_PATH)
-
-# Parallelize
-MAKEFLAGS += -j$(shell nproc)
 
 # Create required directories
 $(OBJDIR) $(OUTDIR) $(BOOTDIR):
