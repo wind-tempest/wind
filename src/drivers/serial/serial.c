@@ -112,9 +112,8 @@ kbool
 	koutb(PORT, test_value);
 
 	/* Small delay to ensure data is processed. */
-	for ( volatile int i = 0; i < 1000; i++ ) {
-		/* Yes. */
-	}
+	for ( volatile int i = 0; i < 1000; i++ )
+		;
 
 	/* Read back the value. */
 	unsigned char read_value = kinb(PORT);

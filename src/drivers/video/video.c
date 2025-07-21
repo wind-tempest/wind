@@ -218,7 +218,7 @@ void
 	} else if ( c == '\r' ) {
 		cursor_x = 0;
 	} else {
-		video_draw_glyph_at(c, cursor_x, cursor_y, 0xFFFFFF); // White (RGB)
+		video_draw_glyph_at(c, cursor_x, cursor_y, 0xFFFFFF);
 		cursor_x += FONT_WIDTH;
 	}
 
