@@ -72,20 +72,18 @@
 #include "kstddef.h"
 #include "kstrrchr.h"
 
-char *
+const char *
     kstrrchr (const char *str, int c) {
 	if ( !str )
 		return KNULL;
 
-	char *last = KNULL;
-	char  ch   = (char) c;
+	const char  ch	 = (char) c;
+	const char *last = KNULL;
 
-	while ( *str ) {
-		if ( *str == ch ) {
-			last = (char *) str;
-		}
-		str++;
-	}
+	do {
+		if ( *str == ch )
+			last = str;
+	} while ( *str++ );
 
 	return last;
 }

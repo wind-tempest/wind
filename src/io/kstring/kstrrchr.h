@@ -71,5 +71,5 @@
 
 #pragma once
 
-char *
+const char *
     kstrrchr (const char *str, int c);

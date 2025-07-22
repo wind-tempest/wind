@@ -77,7 +77,7 @@ for file in $(find . -type f -name "*.c" -o -name "*.h"); do
     header=$(head -n 25 "$file")
 
     # Check if header text already exists (more strict)
-    if ! echo "$header" | grep -q "This file is part of the Wind/Tempest project"; then
+    if ! echo "$header" | grep -q "Copyright (C) 2025 Wind/Tempest Foundation <https://wind.infernointeractive.win>"; then
         echo "Incorrect or missing header in: $file"
         headers_bad=true
 
