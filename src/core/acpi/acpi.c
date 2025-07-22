@@ -47,6 +47,7 @@ void
 	koutw(0xB004, 0x2000); /* Port 0xB004 */
 
 	ksleep(POWEROFF_TIMEOUT_MS);
+	/* If poweroff fails, log warning */
 	kerror("Legacy poweroff failed. System may not shut down.", KNULL);
 }
 

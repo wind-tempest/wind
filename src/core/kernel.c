@@ -224,10 +224,4 @@ void
 	__asm__ volatile("sti");
 
 	kshell();
-
-	/* Main system loop with device polling */
-	while ( 1 ) {
-		/* Halt until next interrupt */
-		__asm__("hlt");
-	}
 }
