@@ -1,4 +1,4 @@
-/* kfmin.c */
+// kfmin.c
 
 /*
  * ============================================================================
@@ -74,7 +74,7 @@
 
 double
     kfmin (double x, double y) {
-	/* Handle NaN cases */
+	// Handle NaN cases
 	if ( x != x )
 		return y;
 	if ( y != y )

@@ -1,4 +1,4 @@
-/* kstrtok.c */
+// kstrtok.c
 
 /*
  * ============================================================================
@@ -83,7 +83,7 @@ char *
 		return KNULL;
 	}
 
-	/* Skip leading delimiters */
+	// Skip leading delimiters
 	while ( *strtok_save && kstrchr(delim, *strtok_save) ) {
 		strtok_save++;
 	}
@@ -95,7 +95,7 @@ char *
 
 	char *token_start = strtok_save;
 
-	/* Find end of token */
+	// Find end of token
 	while ( *strtok_save && !kstrchr(delim, *strtok_save) ) {
 		strtok_save++;
 	}

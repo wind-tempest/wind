@@ -1,4 +1,4 @@
-/* kitoa.c */
+// kitoa.c
 
 /*
  * ============================================================================
@@ -83,7 +83,7 @@ char *
 	char	   *rev	      = buf;
 	int	    negative  = 0;
 
-	/* Ensure we have at least 2 bytes for null terminator */
+	// Ensure we have at least 2 bytes for null terminator
 	if ( buf >= end ) {
 		if ( buf < end ) {
 			*buf = '\0';
@@ -111,7 +111,7 @@ char *
 		*rev++ = '-';
 	}
 
-	/* Reverse string */
+	// Reverse string
 	for ( char *p1 = buf, *p2 = rev - 1; p1 < p2; p1++, p2-- ) {
 		char tmp = *p1;
 		*p1	 = *p2;

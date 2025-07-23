@@ -1,4 +1,4 @@
-/* katan2.c */
+// katan2.c
 
 /*
  * ============================================================================
@@ -74,13 +74,13 @@
 
 double
     katan2 (double y, double x) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) || kisnan(y) )
 		return knan("");
 	if ( kisinf(x) && kisinf(y) )
 		return knan("");
 
-	/* If x is zero */
+	// If x is zero
 	if ( x == 0.0 ) {
 		if ( y > 0.0 )
 			return K_M_PI_2;
@@ -89,7 +89,7 @@ double
 		return 0.0; /* y is also zero */
 	}
 
-	/* If y is zero */
+	// If y is zero
 	if ( y == 0.0 ) {
 		if ( x > 0.0 )
 			return 0.0;
@@ -98,7 +98,7 @@ double
 		return 0.0;
 	}
 
-	/* If x is infinite */
+	// If x is infinite
 	if ( kisinf(x) ) {
 		if ( x > 0.0 )
 			return y > 0.0 ? 0.0 : -0.0;
@@ -106,12 +106,12 @@ double
 			return y > 0.0 ? K_M_PI : -K_M_PI;
 	}
 
-	/* If y is infinite */
+	// If y is infinite
 	if ( kisinf(y) ) {
 		return y > 0.0 ? K_M_PI_2 : -K_M_PI_2;
 	}
 
-	/* Normal case: use atan(y/x) with proper quadrant adjustment */
+	// Normal case: use atan(y/x) with proper quadrant adjustment
 	double result = katan(y / x);
 
 	if ( x < 0.0 ) {

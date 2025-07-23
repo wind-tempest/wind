@@ -1,4 +1,4 @@
-/* kstdarg.h */
+// kstdarg.h
 
 /*
  * ============================================================================
@@ -85,20 +85,20 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 #if defined(__GNUC__)
 
-/* va_list type built-in to the compiler */
+// va_list type built-in to the compiler
 typedef __builtin_va_list va_list;
 
 /* Initialize ap to point to first unnamed argument after last named parameter
  */
 #	define k_va_start(ap, last) __builtin_va_start((ap), (last))
 
-/* Retrieve next argument of given type */
+// Retrieve next argument of given type
 #	define k_va_arg(ap, type) __builtin_va_arg((ap), type)
 
-/* Clean up the va_list when done */
+// Clean up the va_list when done
 #	define k_va_end(ap) __builtin_va_end(ap)
 
-/* Copy state of one va_list to another */
+// Copy state of one va_list to another
 #	ifndef k_va_copy
 #		define k_va_copy(dest, src) __builtin_va_copy((dest), (src))
 #	endif

@@ -1,4 +1,4 @@
-/* kstrtol.c */
+// kstrtol.c
 
 /*
  * ============================================================================
@@ -83,11 +83,11 @@ long
 	long	    cutoff;
 	int	    cutlim;
 
-	/* skip whitespace */
+	// skip whitespace
 	while ( kisspace((unsigned char) *s) )
 		s++;
 
-	/* sign */
+	// sign
 	if ( *s == '-' ) {
 		neg = 1;
 		s++;
@@ -95,7 +95,7 @@ long
 		s++;
 	}
 
-	/* detect base if 0 */
+	// detect base if 0
 	if ( base == 0 ) {
 		if ( *s == '0' ) {
 			if ( s[1] == 'x' || s[1] == 'X' ) {
@@ -114,7 +114,7 @@ long
 		}
 	}
 
-	/* compute cutoff for overflow */
+	// compute cutoff for overflow
 	cutoff = neg ? KLONG_MIN : KLONG_MAX;
 	cutlim = (int) (cutoff % base);
 	cutoff /= base;
@@ -123,7 +123,7 @@ long
 		cutoff += 1;
 	}
 
-	/* convert digits */
+	// convert digits
 	for ( ;; s++ ) {
 		c = (unsigned char) *s;
 		if ( kisdigit(c) )
@@ -135,7 +135,7 @@ long
 		if ( c >= base )
 			break;
 
-		/* check overflow */
+		// check overflow
 		if ( neg ) {
 			if ( acc < cutoff || (acc == cutoff && c > cutlim) ) {
 				acc    = KLONG_MIN;

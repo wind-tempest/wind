@@ -1,4 +1,4 @@
-/* kcos.c */
+// kcos.c
 
 /*
  * ============================================================================
@@ -74,14 +74,14 @@
 
 double
     kcos (double x) {
-	/* Normalize x to [-π, π] */
+	// Normalize x to [-π, π]
 	x = kfmod(x, 2.0 * K_M_PI);
 	if ( x > K_M_PI )
 		x -= 2.0 * K_M_PI;
 	if ( x < -K_M_PI )
 		x += 2.0 * K_M_PI;
 
-	/* Use Taylor series for small values */
+	// Use Taylor series for small values
 	if ( kfabs(x) < 0.1 ) {
 		double x2 = x * x;
 		double x4 = x2 * x2;
@@ -89,7 +89,7 @@ double
 		return 1.0 - x2 / 2.0 + x4 / 24.0 - x6 / 720.0;
 	}
 
-	/* For larger values, use more terms of Taylor series */
+	// For larger values, use more terms of Taylor series
 	double result	 = 0.0;
 	double term	 = 1.0;
 	double x2	 = x * x;

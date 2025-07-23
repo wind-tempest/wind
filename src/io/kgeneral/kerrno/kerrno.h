@@ -1,4 +1,4 @@
-/* kerrno.h */
+// kerrno.h
 
 /*
  * ============================================================================
@@ -77,7 +77,7 @@ extern "C" {
 
 extern int kerrno;
 
-/* Error codes (POSIX / C Standard) */
+// Error codes (POSIX / C Standard)
 #define KENONE	      0	 /* No error information */
 #define KEPERM	      1	 /* Operation not permitted */
 #define KENOENT	      2	 /* No such file or directory */
@@ -120,7 +120,7 @@ extern int kerrno;
 #define KENOTEMPTY    39 /* Directory not empty */
 #define KELOOP	      40 /* Too many symbolic links encountered */
 
-/* Networking, IPC, and others (optional) */
+// Networking, IPC, and others (optional)
 #define KEWOULDBLOCK	 EAGAIN /* Operation would block */
 #define KENOMSG		 42	/* No message of desired type */
 #define KEIDRM		 43	/* Identifier removed */
@@ -138,7 +138,7 @@ extern int kerrno;
 #define KEOWNERDEAD	 55	/* Previous owner died */
 #define KESTRPIPE	 56	/* Streams pipe error */
 
-/* Thread support */
+// Thread support
 #ifdef K__THREAD_LOCAL_ERRNO
 #	undef errno
 #	define errno (*K__errno_location())

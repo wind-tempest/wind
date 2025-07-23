@@ -1,4 +1,4 @@
-/* kernel.c */
+// kernel.c
 
 /*
  * ============================================================================
@@ -80,22 +80,22 @@
 #include "memory/kmemory.h"
 #include "shell/shell.h"
 
-/* FIXED! FINALLY! Just don't use debug before the video initialization. */
+// FIXED! FINALLY! Just don't use debug before the video initialization.
 kbool kuse_debug = kfalse;
 
-/* Multiboot2 header structure. */
+// Multiboot2 header structure.
 struct multiboot_header {
 	kuint32_t total_size;
 	kuint32_t reserved;
 };
 
-/* Multiboot2 tag structure. */
+// Multiboot2 tag structure.
 struct multiboot_tag {
 	kuint32_t type;
 	kuint32_t size;
 };
 
-/* Multiboot2 framebuffer tag. */
+// Multiboot2 framebuffer tag.
 struct multiboot_tag_framebuffer {
 	kuint32_t type;
 	kuint32_t size;
@@ -114,28 +114,28 @@ struct multiboot_tag_framebuffer {
 	kuint8_t  reserved[2];
 };
 
-/* Multiboot2 tag types. */
+// Multiboot2 tag types.
 #define MULTIBOOT_TAG_TYPE_END	       0
 #define MULTIBOOT_TAG_TYPE_FRAMEBUFFER 8
 
 static struct framebuffer_info fb_info = {0};
 
-/* Function to map a physical address to virtual address in page tables. */
+// Function to map a physical address to virtual address in page tables.
 static void
     map_framebuffer_address (kuint64_t phys_addr) {
-	/* Map the framebuffer to a high virtual address (0xFFFF800000000000 + */
-	/* phys_addr) This creates a 1:1 mapping for the framebuffer area. */
+	// Map the framebuffer to a high virtual address (0xFFFF800000000000 +
+	// phys_addr) This creates a 1:1 mapping for the framebuffer area.
 
-	/* kdebugf("Mapping framebuffer address 0x%llx to virtual address */
-	/* 0x%llx\n", */
-	/*        phys_addr, */
-	/*        0xFFFF800000000000 + phys_addr); */
+	// kdebugf("Mapping framebuffer address 0x%llx to virtual address
+	// 0x%llx\n",
+	// phys_addr,
+	// 0xFFFF800000000000 + phys_addr);
 
-	/* For simplicity, we'll just update the framebuffer address to use the */
-	/* virtual mapping. Since we already set up the high virtual address */
-	/* mapping in boot.asm, we can access the framebuffer through the high */
-	/* virtual address. */
-	/* Use the higher-half direct mapping (0xFFFF800000000000 + phys_addr) */
+	// For simplicity, we'll just update the framebuffer address to use the
+	// virtual mapping. Since we already set up the high virtual address
+	// mapping in boot.asm, we can access the framebuffer through the high
+	// virtual address.
+	// Use the higher-half direct mapping (0xFFFF800000000000 + phys_addr)
 	fb_info.addr = 0xFFFF800000000000ULL + phys_addr;
 
 	kdebugf("Framebuffer mapped to virtual address 0x%llx\n", fb_info.addr);
@@ -202,7 +202,7 @@ static void
 				break;
 		}
 
-		/* Move to the next tag, ensuring 8-byte alignment. */
+		// Move to the next tag, ensuring 8-byte alignment.
 		current_tag_ptr += (tag_size + 7) & 0xFFFFFFF8;
 	}
 
@@ -213,10 +213,10 @@ static void
 
 void
     start_kernel (void *mb_info) {
-	/* In this case, we must use kuse_debug instead of the functions that */
-	/* check debug. */
-	/* Initialize crucial parts first. The IDT must be loaded before */
-	/* any hardware is touched to prevent triple faults. */
+	// In this case, we must use kuse_debug instead of the functions that
+	// check debug.
+	// Initialize crucial parts first. The IDT must be loaded before
+	// any hardware is touched to prevent triple faults.
 	idt_init();
 	serial_init();
 
@@ -229,34 +229,34 @@ void
 		__asm__("cli; hlt");
 	}
 
-	/* Parse multiboot information. */
+	// Parse multiboot information.
 	parse_multiboot_info(mb_info);
 
-	/* Initialize framebuffer if available. */
+	// Initialize framebuffer if available.
 	if ( fb_info.addr != 0 ) {
 		video_init(&fb_info);
 	} else {
-		/* No framebuffer, no visual output possible. */
+		// No framebuffer, no visual output possible.
 		kwarn("No framebuffer found", "continuing without visual output");
 	}
 
-	/* Initialize memory manager */
+	// Initialize memory manager
 	kmemory_init(mb_info);
 	init_memory_pools();
 
-	/* Initialize ATA and mount EXT2 disk */
+	// Initialize ATA and mount EXT2 disk
 	kext2_set_block_device(ata_pio_read, KNULL);
 	if ( kext2_mount(0) != 0 ) {
 		kputs("EXT2 mount failed\n");
 	}
 
-	/* Initialize CPU brand string */
+	// Initialize CPU brand string
 	kcpu_init_brand();
 
-	/* Initialize keyboard before enabling interrupts */
+	// Initialize keyboard before enabling interrupts
 	keyboard_init();
 
-	/* Enable interrupts now that all basic drivers are loaded. */
+	// Enable interrupts now that all basic drivers are loaded.
 	__asm__ volatile("sti");
 
 	kshell();

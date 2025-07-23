@@ -1,4 +1,4 @@
-/* kfrexp.c */
+// kfrexp.c
 
 /*
  * ============================================================================
@@ -74,7 +74,7 @@
 
 double
     kfrexp (double x, int *exp) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) ) {
 		*exp = 0;
 		return knan("");
@@ -88,9 +88,9 @@ double
 		return 0.0;
 	}
 
-	/* Extract exponent using log2 */
+	// Extract exponent using log2
 	*exp = (int) kfloor(klog2(kfabs(x))) + 1;
 
-	/* Calculate mantissa: x / 2^exp */
+	// Calculate mantissa: x / 2^exp
 	return x / kpow(2.0, *exp);
 }

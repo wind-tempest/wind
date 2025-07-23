@@ -1,4 +1,4 @@
-/* vfs.h */
+// vfs.h
 
 /*
  * ============================================================================
@@ -83,14 +83,14 @@
 int
     vfs_chdir (const char *path);
 
-/* Retrieve the canonical absolute current working directory. */
+// Retrieve the canonical absolute current working directory.
 void
     vfs_getcwd (char *out, ksize_t size);
 
-/* Resolve an arbitrary path (absolute or relative) into an absolute canonical path. */
+// Resolve an arbitrary path (absolute or relative) into an absolute canonical path.
 void
     vfs_resolve (const char *path, char *out, ksize_t size);
 
-/* Canonicalise path: resolves '.', '..', duplicate slashes; assumes input absolute or produced by vfs_resolve */
+// Canonicalise path: resolves '.', '..', duplicate slashes; assumes input absolute or produced by vfs_resolve
 void
     vfs_normalize_path (const char *path, char *out, ksize_t size);

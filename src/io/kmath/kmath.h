@@ -1,4 +1,4 @@
-/* kmath.h */
+// kmath.h
 
 /*
  * ============================================================================
@@ -112,7 +112,7 @@
 #include "ktan.h"
 #include "ktrunc.h"
 
-/* Mathematical constants */
+// Mathematical constants
 #define K_M_E	     2.7182818284590452354  /* e */
 #define K_M_LOG2E    1.4426950408889634074  /* log_2 e */
 #define K_M_LOG10E   0.43429448190325182765 /* log_10 e */
@@ -133,11 +133,11 @@
     INFINITY: floating-point constant (IEEE 754 positive infinity)
 */
 
-/* Infinity and NaN constants */
+// Infinity and NaN constants
 #define K_INFINITY (1.0 / 0.0)
 #define K_NAN	   (0.0 / 0.0)
 
-/* Classification macros */
+// Classification macros
 #define K_FP_NAN       0
 #define K_FP_ZERO      2
 #define K_FP_SUBNORMAL 3

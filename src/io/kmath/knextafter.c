@@ -1,4 +1,4 @@
-/* knextafter.c */
+// knextafter.c
 
 /*
  * ============================================================================
@@ -74,20 +74,20 @@
 
 double
     knextafter (double x, double y) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) || kisnan(y) )
 		return knan("");
 	if ( kisinf(x) )
 		return x;
 
-	/* If x equals y, return y */
+	// If x equals y, return y
 	if ( x == y )
 		return y;
 
-	/* Determine direction */
+	// Determine direction
 	int direction = (y > x) ? 1 : -1;
 
-	/* For zero, return smallest subnormal in the direction of y */
+	// For zero, return smallest subnormal in the direction of y
 	if ( x == 0.0 ) {
 		union {
 			double		   d;
@@ -98,9 +98,9 @@ double
 		return u.d;
 	}
 
-	/* For finite non-zero values, use a simple approximation */
-	/* This is a simplified implementation - a full implementation would */
-	/* need to handle the IEEE 754 bit representation directly */
+	// For finite non-zero values, use a simple approximation
+	// This is a simplified implementation - a full implementation would
+	// need to handle the IEEE 754 bit representation directly
 	double epsilon = 1e-15;
 	return x + direction * epsilon * kfabs(x);
 }

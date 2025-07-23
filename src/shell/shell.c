@@ -1,4 +1,4 @@
-/* shell.c */
+// shell.c
 
 /*
  * ============================================================================
@@ -103,10 +103,10 @@ static char command_history[MAX_HISTORY][CMD_BUFFER_SIZE];
 static int  history_count  = 0;
 int	    input_overflow = 0;
 
-/* Command handler function type */
+// Command handler function type
 typedef void (*command_func_t)(const char *args);
 
-/* Forward declarations for handler functions */
+// Forward declarations for handler functions
 static void
     cmd_help (const char *args);
 static void
@@ -144,41 +144,41 @@ static void
 static void
     cmd_cd (const char *args);
 
-/* Command table with handler functions */
+// Command table with handler functions
 static struct Command {
 	const char    *name;
 	const char    *description;
 	const char    *category;
 	command_func_t handler;
 } commands[] = {
-    /* System commands */
+    // System commands
     {"help", "Show this help message", "System", cmd_help},
     {"clear", "Clear the screen", "System", cmd_clear},
     {"echo", "Echo a message", "System", cmd_echo},
     {"history", "Show the history of commands", "System", cmd_history},
 
-    /* System control */
+    // System control
     {"poweroff", "Power off the OS", "Control", cmd_poweroff},
     {"reboot", "Reboot the OS", "Control", cmd_reboot},
     {"panic", "Test kernel panic (DANGEROUS!)", "Control", cmd_panic},
 
-    /* Information commands */
+    // Information commands
     {"fetch", "View system information", "Info", cmd_fetch},
     {"time", "Show current date and time", "Info", cmd_time},
 
-    /* Graphics testing */
+    // Graphics testing
     {"test_circle", "Test drawing a circle", "Graphics", cmd_test_circle},
     {"test_square", "Test drawing a square", "Graphics", cmd_test_square},
     {"test_graphics", "Test the graphics driver", "Graphics", cmd_test_graphics},
 
-    /* Filesystem commands */
+    // Filesystem commands
     {"ls", "List directory", "FS", cmd_ls},
     {"cat", "Read file from filesystem", "FS", cmd_cat},
     {"fsize", "Show file size", "FS", cmd_fsize},
     {"cd", "Change current directory", "FS", cmd_cd},
     {"pwd", "Print current directory", "FS", cmd_pwd},
 
-    /* Hardware testing */
+    // Hardware testing
     {"sleep", "Test the HPET timer", "Hardware", cmd_sleep},
 };
 
@@ -186,7 +186,7 @@ static struct Command {
 
 static void
     handle_command (char *cmd) {
-	/* Split command and arguments */
+	// Split command and arguments
 	char *space = cmd;
 	while ( *space && *space != ' ' )
 		++space;
@@ -292,7 +292,7 @@ static void
 	(void) args;
 	kputs("Available commands:\n");
 
-	/* Get unique categories */
+	// Get unique categories
 	const char *categories[10];
 	int	    num_categories = 0;
 
@@ -309,7 +309,7 @@ static void
 		}
 	}
 
-	/* Display commands by category */
+	// Display commands by category
 	for ( int cat = 0; cat < num_categories; ++cat ) {
 		kprintf("\n[%s]\n", categories[cat]);
 		for ( ksize_t i = 0; i < NUM_COMMANDS; ++i ) {
@@ -411,7 +411,7 @@ static void
     cmd_test_circle (const char *args) {
 	(void) args;
 
-	/* Safety check for division by zero */
+	// Safety check for division by zero
 	if ( fb_width == 0 || fb_height == 0 ) {
 		kputs("Error: Invalid framebuffer dimensions");
 		return;
@@ -427,7 +427,7 @@ static void
     cmd_test_square (const char *args) {
 	(void) args;
 
-	/* Safety check for division by zero */
+	// Safety check for division by zero
 	if ( fb_width == 0 || fb_height == 0 ) {
 		kputs("Error: Invalid framebuffer dimensions");
 		return;
@@ -449,7 +449,7 @@ static void
 	}
 }
 
-/* Callback used by kext2_list to print each entry */
+// Callback used by kext2_list to print each entry
 static void
     ls_print_cb (const char *name, kuint8_t file_type) {
 	(void) file_type;
@@ -466,7 +466,7 @@ static void
 
 static void
     cmd_ls (const char *args) {
-	/* If no path given use current working directory */
+	// If no path given use current working directory
 	const char *path = (args && *args) ? args : KNULL;
 	char	    buf[256];
 	if ( !path ) {
@@ -479,7 +479,7 @@ static void
 	list_dir_path(path);
 }
 
-/* Change current working directory */
+// Change current working directory
 static void
     cmd_cd (const char *args) {
 	const char *path = (args && *args) ? args : "/";
@@ -563,7 +563,7 @@ static void
     cmd_test_graphics (const char *args) {
 	(void) args;
 
-	/* Safety check for division by zero */
+	// Safety check for division by zero
 	if ( fb_width == 0 || fb_height == 0 ) {
 		kputs("Error: Invalid framebuffer dimensions");
 		return;
@@ -575,13 +575,13 @@ static void
 	kuint32_t color	      = k_u_rand32() & 0xFFFFFF;
 	video_draw_circle((int) circle_x, (int) circle_y, 100, color);
 
-	/* First square: left */
+	// First square: left
 	color		    = k_u_rand32() & 0xFFFFFF;
 	kuint32_t square1_x = circle_x - circle_diff;
 	kuint32_t square1_y = circle_y;
 	video_draw_square((int) square1_x, (int) square1_y, 100, color);
 
-	/* Second square: right */
+	// Second square: right
 	color		    = k_u_rand32() & 0xFFFFFF;
 	kuint32_t square2_x = circle_x + circle_diff;
 	kuint32_t square2_y = circle_y;
@@ -594,15 +594,15 @@ static void
     cmd_time (const char *args) {
 	(void) args;
 
-	/* Buffer for date and time strings */
+	// Buffer for date and time strings
 	char date_buffer[16];
 	char time_buffer[16];
 
-	/* Retrieve date and time strings */
+	// Retrieve date and time strings
 	kget_date_string(date_buffer, sizeof(date_buffer));
 	kget_time_string(time_buffer, sizeof(time_buffer));
 
-	/* Display formatted date and time */
+	// Display formatted date and time
 	kprintf("Date: %s\n", date_buffer);
 	kprintf("Time: %s\n", time_buffer);
 }
@@ -621,6 +621,6 @@ static void
 		return;
 	}
 
-	/* Trigger the panic */
+	// Trigger the panic
 	panic(code, KNULL);
 }

@@ -1,4 +1,4 @@
-/* kmodf.c */
+// kmodf.c
 
 /*
  * ============================================================================
@@ -74,7 +74,7 @@
 
 double
     kmodf (double x, double *iptr) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) ) {
 		*iptr = knan("");
 		return knan("");
@@ -84,12 +84,12 @@ double
 		return 0.0;
 	}
 
-	/* Extract integer part */
+	// Extract integer part
 	if ( x >= 0.0 )
 		*iptr = kfloor(x);
 	else
 		*iptr = kceil(x);
 
-	/* Return fractional part */
+	// Return fractional part
 	return x - *iptr;
 }

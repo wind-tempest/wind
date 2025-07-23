@@ -1,4 +1,4 @@
-/* video.c */
+// video.c
 
 /*
  * ============================================================================
@@ -74,7 +74,7 @@
 #include "kstddef.h"
 #include "video.h"
 
-/* Forward declarations */
+// Forward declarations
 extern void
     kputs (const char *s);
 extern void
@@ -127,7 +127,7 @@ void
 	cursor_y = 0;
 }
 
-/* Convert 24-bit RGB (0xRRGGBB) to 16-bit RGB565 */
+// Convert 24-bit RGB (0xRRGGBB) to 16-bit RGB565
 static inline kuint16_t
     rgb888_to_rgb565 (kuint32_t rgb) {
 	kuint8_t r = (rgb >> 16) & 0xFF;
@@ -239,7 +239,7 @@ void
 			cursor_y -= FONT_HEIGHT;
 			cursor_x = fb_width - FONT_WIDTH;
 		}
-		/* Erase the character at the current position */
+		// Erase the character at the current position
 		for ( kuint32_t row = 0; row < FONT_HEIGHT; row++ ) {
 			for ( kuint32_t col = 0; col < FONT_WIDTH; col++ ) {
 				video_put_pixel(cursor_x + col, cursor_y + row, 0x000000);

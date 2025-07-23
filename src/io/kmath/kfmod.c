@@ -1,4 +1,4 @@
-/* kfmod.c */
+// kfmod.c
 
 /*
  * ============================================================================
@@ -75,7 +75,7 @@
 double
     kfmod (double x, double y) {
 	if ( y == 0.0 ) {
-		/* Return NaN for division by zero */
+		// Return NaN for division by zero
 		return 0.0 / 0.0;
 	}
 
@@ -83,7 +83,7 @@ double
 		return 0.0;
 	}
 
-	/* Calculate remainder using: x - y * floor(x/y) */
+	// Calculate remainder using: x - y * floor(x/y)
 	double quotient = x / y;
 	double int_part = kfloor(quotient);
 	return x - y * int_part;

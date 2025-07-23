@@ -1,4 +1,4 @@
-/* kremquo.c */
+// kremquo.c
 
 /*
  * ============================================================================
@@ -74,7 +74,7 @@
 
 double
     kremquo (double x, double y, int *quo) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) || kisnan(y) ) {
 		*quo = 0;
 		return knan("");
@@ -92,13 +92,13 @@ double
 		return x;
 	}
 
-	/* Calculate quotient */
+	// Calculate quotient
 	*quo = (int) kround(x / y);
 
-	/* Calculate remainder */
+	// Calculate remainder
 	double r = x - *quo * y;
 
-	/* Adjust to get remainder in the range [-|y|/2, |y|/2] */
+	// Adjust to get remainder in the range [-|y|/2, |y|/2]
 	if ( kfabs(r) > kfabs(y) / 2.0 ) {
 		if ( r > 0 ) {
 			r -= kfabs(y);

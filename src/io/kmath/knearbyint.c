@@ -1,4 +1,4 @@
-/* knearbyint.c */
+// knearbyint.c
 
 /*
  * ============================================================================
@@ -74,13 +74,13 @@
 
 double
     knearbyint (double x) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");
 	if ( kisinf(x) )
 		return x;
 
-	/* Round to nearest integer (same as rint for this implementation) */
+	// Round to nearest integer (same as rint for this implementation)
 	if ( x >= 0.0 ) {
 		double frac = x - kfloor(x);
 		if ( frac < 0.5 )

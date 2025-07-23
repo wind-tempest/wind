@@ -1,4 +1,4 @@
-/* klog.c */
+// klog.c
 
 /*
  * ============================================================================
@@ -74,28 +74,28 @@
 
 double
     klog (double x) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( x <= 0.0 ) {
-		/* Return NaN for non-positive numbers */
+		// Return NaN for non-positive numbers
 		return 0.0 / 0.0;
 	}
 
 	if ( x == 1.0 )
 		return 0.0;
 
-	/* Use Newton's method to find ln(x) */
-	/* We solve: e^y = x, so y = ln(x) */
+	// Use Newton's method to find ln(x)
+	// We solve: e^y = x, so y = ln(x)
 	double y = 0.0;
 	double prev_y;
 
-	/* Initial guess */
+	// Initial guess
 	if ( x > 1.0 ) {
 		y = 1.0;
 	} else {
 		y = -1.0;
 	}
 
-	/* Newton iteration: y_{n+1} = y_n + (x - e^y_n) / e^y_n */
+	// Newton iteration: y_{n+1} = y_n + (x - e^y_n) / e^y_n
 	for ( int i = 0; i < 10; i++ ) {
 		prev_y	     = y;
 		double exp_y = kexp(y);

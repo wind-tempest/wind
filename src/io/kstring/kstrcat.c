@@ -1,4 +1,4 @@
-/* kstrcat.c */
+// kstrcat.c
 
 /*
  * ============================================================================
@@ -76,13 +76,13 @@ char *
 	if ( !dest || !src )
 		return dest;
 
-	/* Find the end of dest */
+	// Find the end of dest
 	char *end = dest;
 	while ( *end ) {
 		end++;
 	}
 
-	/* Copy src to the end of dest */
+	// Copy src to the end of dest
 	while ( *src ) {
 		*end = *src;
 		end++;

@@ -1,4 +1,4 @@
-/* serial.c */
+// serial.c
 
 /*
  * ============================================================================
@@ -82,7 +82,7 @@ kbool
 
 void
     serial_init (void) {
-	/* First check if serial port is available. */
+	// First check if serial port is available.
 	is_serial_available = serial_available();
 
 	if ( !is_serial_available ) {
@@ -133,31 +133,31 @@ void
 
 kbool
     serial_available (void) {
-	/* Save original values. */
+	// Save original values.
 	unsigned char original_lcr = kinb(PORT + 3);
 	unsigned char original_mcr = kinb(PORT + 4);
 
-	/* Set up loopback mode. */
+	// Set up loopback mode.
 	koutb(PORT + 3, 0x80); // Enable DLAB.
 	koutb(PORT + 4, 0x10); // Enable loopback mode.
 
-	/* Test value to write and read back. */
+	// Test value to write and read back.
 	unsigned char test_value = 0xAA;
 
-	/* Write test value. */
+	// Write test value.
 	koutb(PORT, test_value);
 
-	/* Small delay to ensure data is processed. */
+	// Small delay to ensure data is processed.
 	for ( volatile int i = 0; i < 1000; i++ )
 		;
 
-	/* Read back the value. */
+	// Read back the value.
 	unsigned char read_value = kinb(PORT);
 
-	/* Restore original values. */
+	// Restore original values.
 	koutb(PORT + 3, original_lcr);
 	koutb(PORT + 4, original_mcr);
 
-	/* If read value matches test value, port is available. */
+	// If read value matches test value, port is available.
 	return (read_value == test_value);
 }

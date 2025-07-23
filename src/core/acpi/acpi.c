@@ -1,4 +1,4 @@
-/* acpi.c */
+// acpi.c
 
 /*
  * ============================================================================
@@ -74,7 +74,7 @@
 #include "ksleep.h"
 #include "kstddef.h"
 
-/* Define timeout for poweroff in milliseconds */
+// Define timeout for poweroff in milliseconds
 #define POWEROFF_TIMEOUT_MS 5000
 
 void
@@ -83,7 +83,7 @@ void
 	koutw(0xB004, 0x2000); /* Port 0xB004 */
 
 	ksleep(POWEROFF_TIMEOUT_MS);
-	/* If poweroff fails, log warning */
+	// If poweroff fails, log warning
 	kerror("Legacy poweroff failed. System may not shut down.", KNULL);
 }
 
@@ -94,6 +94,6 @@ void
 	koutb(0x64, 0xFE); /* Send reset command */
 
 	ksleep(POWEROFF_TIMEOUT_MS);
-	/* If reboot fails, log warning */
+	// If reboot fails, log warning
 	kerror("Legacy reboot failed. System may not restart.", KNULL);
 }

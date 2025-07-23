@@ -1,4 +1,4 @@
-/* vfs.c */
+// vfs.c
 
 /*
  * ============================================================================
@@ -89,7 +89,7 @@ void
 		return;
 	}
 
-	/* Require absolute path */
+	// Require absolute path
 	if ( path[0] != '/' ) {
 		kstrncpy(out, path, size);
 		return;
@@ -101,7 +101,7 @@ void
 
 	const char *p = path + 1; /* skip leading '/' */
 	while ( *p ) {
-		/* Skip repeated '/' */
+		// Skip repeated '/'
 		while ( *p == '/' )
 			++p;
 		if ( !*p )
@@ -119,12 +119,12 @@ void
 		if ( len == 1 && comp[0] == '.' )
 			continue; /* ignore '.' */
 		if ( len == 2 && comp[0] == '.' && comp[1] == '.' ) {
-			/* Go up one directory */
+			// Go up one directory
 			if ( pos > 1 ) {
-				/* remove trailing '/' */
+				// remove trailing '/'
 				if ( tmp[pos - 1] == '/' )
 					--pos;
-				/* pop until previous '/' */
+				// pop until previous '/'
 				while ( pos > 0 && tmp[pos - 1] != '/' )
 					--pos;
 			}
@@ -152,7 +152,7 @@ void
 	if ( !path || *path == '\0' ) {
 		kstrcpy(temp, cwd_path);
 	} else if ( path[0] == '/' ) {
-		/* Absolute */
+		// Absolute
 		kstrcpy(temp, path);
 	} else {
 		if ( kstrcmp(cwd_path, "/") == 0 )

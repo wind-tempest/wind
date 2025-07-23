@@ -1,4 +1,4 @@
-/* keyboard.c */
+// keyboard.c
 
 /*
  * ============================================================================
@@ -77,14 +77,14 @@
 #define KBD_DATA_PORT	0x60
 #define KBD_BUFFER_SIZE 256
 
-/* Simple keyboard buffer */
+// Simple keyboard buffer
 static unsigned char kbd_buffer[KBD_BUFFER_SIZE];
 static int	     kbd_buffer_head = 0;
 static int	     kbd_buffer_tail = 0;
 static kbool	     shift_pressed   = kfalse;
 static kbool	     caps_lock	     = kfalse;
 
-/* Scancode set 1 to ASCII mapping for US keyboard layout */
+// Scancode set 1 to ASCII mapping for US keyboard layout
 unsigned char kbd_us[128] = {
     0,	 27,   '1',  '2', '3',	'4', '5', '6', '7', '8', '9', '0', '-',
     '=', '\b', '\t', 'q', 'w',	'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
@@ -110,7 +110,7 @@ static void
 	(void) regs;
 	unsigned char scancode = kinb(KBD_DATA_PORT);
 
-	/* Caps Lock pressed */
+	// Caps Lock pressed
 	if ( scancode == 0x3A ) {
 		caps_lock = !caps_lock; // Toggle caps lock
 		return;
@@ -129,12 +129,12 @@ static void
 		unsigned char c = shift_pressed ? kbd_us_shift[scancode] : kbd_us[scancode];
 
 		if ( caps_lock && !shift_pressed ) {
-			/* Caps Lock ON + Shift OFF: */
+			// Caps Lock ON + Shift OFF:
 			if ( c >= 'a' && c <= 'z' ) {
 				c -= 32;
 			}
 		} else if ( caps_lock && shift_pressed ) {
-			/* Caps Lock ON + Shift ON: */
+			// Caps Lock ON + Shift ON:
 			if ( c >= 'A' && c <= 'Z' ) {
 				c += 32;
 			}
@@ -151,7 +151,7 @@ static void
 
 int
     getchar (void) {
-	/* Wait for a character to be available */
+	// Wait for a character to be available
 	while ( kbd_buffer_head == kbd_buffer_tail ) {
 		__asm__ volatile("sti; hlt"); // Wait for interrupt
 	}

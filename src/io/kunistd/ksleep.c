@@ -1,4 +1,4 @@
-/* ksleep.c */
+// ksleep.c
 
 /*
  * ============================================================================
@@ -91,12 +91,12 @@ void
 	}
 }
 
-/* PIT busy-wait ~1ms per tick */
+// PIT busy-wait ~1ms per tick
 void
     kpit_wait (int ms) {
 	koutb(PIT_COMMAND, 0x34);
 
-	kuint16_t reload = 1193; /* ~1 ms (1193182 Hz / 1000) */
+	kuint16_t reload = 1193; // ~1 ms (1193182 Hz / 1000)
 	koutb(PIT_CHANNEL0, (kuint8_t) (reload & 0xFF));
 	koutb(PIT_CHANNEL0, (kuint8_t) ((reload >> 8) & 0xFF));
 

@@ -1,4 +1,4 @@
-/* ext2.h */
+// ext2.h
 
 /*
  * ============================================================================
@@ -86,7 +86,7 @@ extern kbool is_mounted;
 #define EXT2_N_BLOCKS	       15 /* Direct + indirect block ptrs */
 #define EXT2_ROOT_INODE	       2
 
-/* Error codes returned by driver functions                                                 */
+// Error codes returned by driver functions
 #define EXT2_OK			0
 #define EXT2_ERR_IO		-1
 #define EXT2_ERR_BAD_MAGIC	-2
@@ -94,7 +94,7 @@ extern kbool is_mounted;
 #define EXT2_ERR_PATH_NOT_FOUND -4
 #define EXT2_ERR_INVALID	-5
 
-/* Superblock — stored at offset 1024 bytes from partition start           */
+// Superblock — stored at offset 1024 bytes from partition start
 typedef struct __attribute__((packed)) ext2_superblock {
 	kuint32_t inodes_count;	     /* Total number of inodes           */
 	kuint32_t blocks_count;	     /* Total number of blocks           */
@@ -121,7 +121,7 @@ typedef struct __attribute__((packed)) ext2_superblock {
 	kuint32_t rev_level;
 	kuint16_t def_resuid;
 	kuint16_t def_resgid;
-	/* --- EXT2_DYNAMIC_REV superblock fields follow (we only need few) */
+	// --- EXT2_DYNAMIC_REV superblock fields follow (we only need few)
 	kuint32_t first_ino;  /* First non-reserved inode         */
 	kuint16_t inode_size; /* Size of each inode structure     */
 	kuint16_t block_group_nr;
@@ -132,10 +132,10 @@ typedef struct __attribute__((packed)) ext2_superblock {
 	char	  volume_name[16];
 	char	  last_mounted[64];
 	kuint32_t algorithm_usage_bitmap;
-	/* Fields beyond this are rarely needed for read-only support */
+	// Fields beyond this are rarely needed for read-only support
 } ext2_superblock_t;
 
-/* Block Group Descriptor (size 32 bytes)                                   */
+// Block Group Descriptor (size 32 bytes)
 typedef struct __attribute__((packed)) ext2_group_desc {
 	kuint32_t block_bitmap; /* Block bitmap block id            */
 	kuint32_t inode_bitmap; /* Inode bitmap block id            */
@@ -147,7 +147,7 @@ typedef struct __attribute__((packed)) ext2_group_desc {
 	kuint32_t reserved[3];
 } ext2_group_desc_t;
 
-/* Inode (dynamic size — 128 bytes for rev 0, 256+ for rev 1)               */
+// Inode (dynamic size — 128 bytes for rev 0, 256+ for rev 1)
 typedef struct __attribute__((packed)) ext2_inode {
 	kuint16_t mode;
 	kuint16_t uid;
@@ -169,7 +169,7 @@ typedef struct __attribute__((packed)) ext2_inode {
 	kuint8_t  osd2[12];
 } ext2_inode_t;
 
-/* Directory entry (variable size)                                          */
+// Directory entry (variable size)
 typedef struct __attribute__((packed)) ext2_dir_entry {
 	kuint32_t inode;     /* Inode number                     */
 	kuint16_t rec_len;   /* Directory entry length           */
@@ -178,7 +178,7 @@ typedef struct __attribute__((packed)) ext2_dir_entry {
 	char	  name[255]; /* File name (not null-terminated)  */
 } ext2_dir_entry_t;
 
-/* File handle used by driver functions                                     */
+// File handle used by driver functions
 typedef struct ext2_file {
 	ext2_inode_t inode;
 	kuint32_t    pos; /* Current read offset              */
@@ -188,28 +188,28 @@ typedef struct ext2_file {
  *  Public API (minimal)
  * ------------------------------------------------------------------------*/
 
-/* Application supplies block-device callbacks (sector-based, 512-byte) */
+// Application supplies block-device callbacks (sector-based, 512-byte)
 void
     kext2_set_block_device (
 	int (*read)(kuint64_t lba, kuint32_t count, void *buf),
 	int (*write)(kuint64_t lba, kuint32_t count, const void *buf));
 
-/* Mount an EXT2 filesystem located at @base_lba. Returns EXT2_OK on success. */
+// Mount an EXT2 filesystem located at @base_lba. Returns EXT2_OK on success.
 int
     kext2_mount (kuint64_t base_lba);
 
-/* Open file by absolute POSIX path (e.g., "/etc/issue"). Read-only.       */
+// Open file by absolute POSIX path (e.g., "/etc/issue"). Read-only.
 int
     kext2_open (const char *path, ext2_file_t *out_file);
 
-/* Read up to @len bytes from file into @buf starting at current position.  */
+// Read up to @len bytes from file into @buf starting at current position.
 int
     kext2_read (ext2_file_t *file, void *buf, ksize_t len);
 
-/* Callback type for listing directory entries */
+// Callback type for listing directory entries
 typedef void (*ext2_list_cb_t)(const char *name, kuint8_t file_type);
 
-/* List entries in the directory specified by POSIX path (e.g. "/System/fonts"). */
+// List entries in the directory specified by POSIX path (e.g. "/System/fonts").
 int
     kext2_list (const char *path, ext2_list_cb_t cb);
 

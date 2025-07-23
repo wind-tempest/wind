@@ -1,4 +1,4 @@
-/* kstdio.h */
+// kstdio.h
 
 /*
  * ============================================================================
@@ -71,7 +71,7 @@
 
 #pragma once
 
-/* stdio implementations */
+// stdio implementations
 #include "kprint/kprint.h"
 #include "kstdbool.h"
 #include "kstddef.h"

@@ -1,4 +1,4 @@
-/* ext2.c */
+// ext2.c
 
 /*
  * ============================================================================
@@ -80,11 +80,11 @@ static ext2_group_desc_t *g_group_desc = KNULL;
 static kuint32_t	  g_block_size = 0;
 kbool			  is_mounted   = kfalse;
 
-/* Caller-supplied I/O functions (sector based, 512-byte) */
+// Caller-supplied I/O functions (sector based, 512-byte)
 static int (*g_read_sector)(kuint64_t lba, kuint32_t count, void *buf)	      = KNULL;
 static int (*g_write_sector)(kuint64_t lba, kuint32_t count, const void *buf) = KNULL;
 
-/* Convenience wrapper: read N sectors into dst */
+// Convenience wrapper: read N sectors into dst
 static int
     kread_sectors (kuint64_t lba, kuint32_t cnt, void *dst) {
 	if ( !g_read_sector ) {
@@ -93,7 +93,7 @@ static int
 	return g_read_sector(lba, cnt, dst);
 }
 
-/* Read an aligned filesystem block into dst. Assumes dst has at least block_size bytes. */
+// Read an aligned filesystem block into dst. Assumes dst has at least block_size bytes.
 static int
     kread_block (kuint32_t block_id, void *dst) {
 	kuint64_t first_lba = g_base_lba + ((kuint64_t) block_id * g_block_size) / 512;
@@ -101,7 +101,7 @@ static int
 	return kread_sectors(first_lba, cnt, dst);
 }
 
-/* Forward declaration for functions used before definition */
+// Forward declaration for functions used before definition
 static int
     kread_inode (kuint32_t ino, ext2_inode_t *out);
 
@@ -162,7 +162,7 @@ int
 		return EXT2_ERR_IO;
 	}
 
-	/* Group descriptor table starts right after superblock (block 2 for 1K blk) */
+	// Group descriptor table starts right after superblock (block 2 for 1K blk)
 	/* For 1 KiB block size the layout is: block0=boot, block1=superblock,
 	 * block2=group descriptor table. For 2 KiB/4 KiB, superblock is at
 	 * byte 1024 inside block0, so the descriptor table immediately follows
@@ -189,7 +189,7 @@ int
 	if ( !path || !out_file )
 		return EXT2_ERR_INVALID;
 
-	/* If path is just "/" open root directory */
+	// If path is just "/" open root directory
 	if ( kstrcmp(path, "/") == 0 ) {
 		if ( kread_inode(EXT2_ROOT_INODE, &out_file->inode) != EXT2_OK )
 			return EXT2_ERR_IO;
@@ -197,14 +197,14 @@ int
 		return EXT2_OK;
 	}
 
-	/* Make a modifiable copy of path without leading '/' */
+	// Make a modifiable copy of path without leading '/'
 	char	tmp[256];
 	ksize_t plen = (ksize_t) kstrlen(path);
 	if ( plen >= sizeof(tmp) )
 		return EXT2_ERR_INVALID;
 	kstrcpy(tmp, path[0] == '/' ? path + 1 : path);
 
-	/* Current inode when traversing */
+	// Current inode when traversing
 	ext2_inode_t cur_inode;
 	if ( kread_inode(EXT2_ROOT_INODE, &cur_inode) != EXT2_OK )
 		return EXT2_ERR_IO;
@@ -214,7 +214,7 @@ int
 	while ( tok ) {
 		next_tok = kstrtok(KNULL, "/");
 
-		/* Search for tok in cur_inode directory entries (direct blocks only) */
+		// Search for tok in cur_inode directory entries (direct blocks only)
 		kuint32_t found_ino = 0;
 
 		kuint8_t *blk_buf = kmalloc(g_block_size);
@@ -246,16 +246,16 @@ int
 		if ( found_ino == 0 )
 			return EXT2_ERR_PATH_NOT_FOUND;
 
-		/* Load inode */
+		// Load inode
 		if ( kread_inode(found_ino, &cur_inode) != EXT2_OK )
 			return EXT2_ERR_IO;
 
 		if ( next_tok ) {
-			/* Expect directory */
+			// Expect directory
 			if ( !(cur_inode.mode & 0x4000) )
 				return EXT2_ERR_INVALID; /* Not a directory */
 		} else {
-			/* Last component - should be file (or directory, we allow both) */
+			// Last component - should be file (or directory, we allow both)
 			out_file->inode = cur_inode;
 			out_file->pos	= 0;
 			return EXT2_OK;
@@ -289,7 +289,7 @@ static int
 	if ( !tmp )
 		return EXT2_ERR_IO;
 
-	/* Read the first block that contains (part of) the inode */
+	// Read the first block that contains (part of) the inode
 	if ( kread_block(inode_tbl_blk + blk_offset, tmp) != 0 ) {
 		kfree(tmp);
 		return EXT2_ERR_IO;
@@ -299,13 +299,13 @@ static int
 	kuint32_t need	      = sizeof(ext2_inode_t);
 
 	if ( bytes_first >= need ) {
-		/* Inode fits entirely in this block */
+		// Inode fits entirely in this block
 		kmemcpy(out, tmp + off_in_block, need);
 	} else {
-		/* Copy first portion */
+		// Copy first portion
 		kmemcpy(out, tmp + off_in_block, bytes_first);
 
-		/* Read next block for the remaining bytes */
+		// Read next block for the remaining bytes
 		if ( kread_block(inode_tbl_blk + blk_offset + 1, tmp) != 0 ) {
 			kfree(tmp);
 			return EXT2_ERR_IO;
@@ -372,7 +372,7 @@ int
 	if ( !path || !cb )
 		return EXT2_ERR_INVALID;
 
-	/* Special case: root directory */
+	// Special case: root directory
 	if ( kstrcmp(path, "/") == 0 || path[0] == '\0' ) {
 		ext2_inode_t root;
 		if ( kread_inode(EXT2_ROOT_INODE, &root) != EXT2_OK )
@@ -460,7 +460,7 @@ int
 	if ( !block_buf )
 		return EXT2_ERR_IO;
 
-	/* --- Direct blocks --- */
+	// --- Direct blocks ---
 	for ( int i = 0; i < 12; i++ ) /* Only direct blocks for now */
 	{
 		kuint32_t blk_id = root.block[i];
@@ -481,7 +481,7 @@ int
 	if ( !file || !buf )
 		return EXT2_ERR_INVALID;
 
-	/* Clamp length to remaining bytes in file */
+	// Clamp length to remaining bytes in file
 	kuint32_t size = file->inode.size_lo; /* We only support files <4GiB */
 	if ( file->pos >= size )
 		return 0; /* EOF */
@@ -499,13 +499,13 @@ int
 		kuint32_t block_idx    = file->pos / g_block_size;
 		kuint32_t off_in_block = file->pos % g_block_size;
 		if ( block_idx >= 12 ) {
-			/* Indirect blocks not supported yet */
+			// Indirect blocks not supported yet
 			kfree(block_buf);
 			return EXT2_ERR_UNSUPPORTED;
 		}
 		kuint32_t blk_id = file->inode.block[block_idx];
 		if ( blk_id == 0 ) {
-			/* Sparse region – treat as zero */
+			// Sparse region – treat as zero
 			ksize_t chunk = g_block_size - off_in_block;
 			if ( chunk > remaining )
 				chunk = remaining;

@@ -1,4 +1,4 @@
-/* panic.h */
+// panic.h
 
 /*
  * ============================================================================
@@ -73,7 +73,7 @@
 
 #include "core/registers.h"
 
-/* Panic error codes */
+// Panic error codes
 #define PANIC_UNKNOWN_ERROR	  0
 #define PANIC_DIVISION_BY_ZERO	  1
 #define PANIC_DOUBLE_FAULT	  2
@@ -92,6 +92,6 @@
 #define PANIC_SECURITY		  15
 #define PANIC_INVALID_OPCODE	  16
 
-/* Panic function - halts the system with error information */
+// Panic function - halts the system with error information
 void
     panic (int code, registers_t *regs);

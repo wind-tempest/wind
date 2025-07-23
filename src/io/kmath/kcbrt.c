@@ -1,4 +1,4 @@
-/* kcbrt.c */
+// kcbrt.c
 
 /*
  * ============================================================================
@@ -74,7 +74,7 @@
 
 double
     kcbrt (double x) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");
 	if ( kisinf(x) )
@@ -82,17 +82,17 @@ double
 	if ( x == 0.0 )
 		return 0.0;
 
-	/* Use Newton's method for cube root */
+	// Use Newton's method for cube root
 	double y = kfabs(x);
 	double guess;
 
-	/* Initial guess */
+	// Initial guess
 	if ( y > 1.0 )
 		guess = y / 3.0;
 	else
 		guess = y * 2.0 / 3.0;
 
-	/* Newton iteration: x_{n+1} = (2*x_n + y/x_n^2) / 3 */
+	// Newton iteration: x_{n+1} = (2*x_n + y/x_n^2) / 3
 	for ( int i = 0; i < 10; i++ ) {
 		double guess2	 = guess * guess;
 		double new_guess = (2.0 * guess + y / guess2) / 3.0;

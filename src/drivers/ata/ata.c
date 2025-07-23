@@ -1,4 +1,4 @@
-/* ata.c */
+// ata.c
 
 /*
  * ============================================================================
@@ -77,7 +77,7 @@
 #define ATA_PRIMARY_IO	 0x1F0
 #define ATA_PRIMARY_CTRL 0x3F6
 
-/* I/O registers (offsets from base) */
+// I/O registers (offsets from base)
 #define ATA_REG_DATA	 0x00
 #define ATA_REG_ERROR	 0x01
 #define ATA_REG_SECCOUNT 0x02
@@ -88,11 +88,11 @@
 #define ATA_REG_STATUS	 0x07
 #define ATA_REG_COMMAND	 0x07
 
-/* Control register */
+// Control register
 #define ATA_REG_CONTROL	 0x02 /* base 0x3F6 + 2 == 0x3F8, but 0x3F6 often used */
 #define ATA_CONTROL_nIEN 0x02
 
-/* Status bits */
+// Status bits
 #define ATA_SR_BSY  0x80
 #define ATA_SR_DRDY 0x40
 #define ATA_SR_DRQ  0x08
@@ -102,16 +102,16 @@
 
 static inline void
     io_wait (void) {
-	/* 400ns delay by reading alternate-status port 4 times */
+	// 400ns delay by reading alternate-status port 4 times
 	for ( int i = 0; i < 4; i++ )
 		(void) kinb(ATA_PRIMARY_CTRL);
 }
 
-/* Poll until BSY=0 and either DRQ=1 or ERR=1. Return 0 on ready, -1 on error */
+// Poll until BSY=0 and either DRQ=1 or ERR=1. Return 0 on ready, -1 on error
 static int
     ata_poll (void) {
 	kuint8_t status;
-	/* Initial delay */
+	// Initial delay
 	io_wait();
 	while ( (status = kinb(ATA_PRIMARY_IO + ATA_REG_STATUS)) & ATA_SR_BSY )
 		;
@@ -133,23 +133,23 @@ int
 	for ( kuint32_t i = 0; i < count; i++ ) {
 		kuint32_t cur_lba = (kuint32_t) (lba + i);
 
-		/* Select drive + LBA bits 24-27 */
+		// Select drive + LBA bits 24-27
 		koutb(ATA_PRIMARY_IO + ATA_REG_DRIVE, 0xE0 | ((cur_lba >> 24) & 0x0F));
 
-		/* Sector count */
+		// Sector count
 		koutb(ATA_PRIMARY_IO + ATA_REG_SECCOUNT, 1);
-		/* LBA low/mid/high */
+		// LBA low/mid/high
 		koutb(ATA_PRIMARY_IO + ATA_REG_LBA_LO, (kuint8_t) cur_lba);
 		koutb(ATA_PRIMARY_IO + ATA_REG_LBA_MID, (kuint8_t) (cur_lba >> 8));
 		koutb(ATA_PRIMARY_IO + ATA_REG_LBA_HI, (kuint8_t) (cur_lba >> 16));
 
-		/* Issue READ SECTORS command */
+		// Issue READ SECTORS command
 		koutb(ATA_PRIMARY_IO + ATA_REG_COMMAND, ATA_CMD_READ_SECTORS);
 
 		if ( ata_poll() != 0 )
 			return -1;
 
-		/* Transfer 256 words (512 bytes) */
+		// Transfer 256 words (512 bytes)
 		for ( int w = 0; w < 256; w++ ) {
 			kuint16_t data = kinw(ATA_PRIMARY_IO + ATA_REG_DATA);
 			ptr[0]	       = (kuint8_t) data;

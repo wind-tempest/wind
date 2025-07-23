@@ -1,4 +1,4 @@
-/* idt.c */
+// idt.c
 
 /*
  * ============================================================================
@@ -74,14 +74,14 @@
 #include "ksignal.h"
 #include "kstdio.h"
 
-/* PIC (Programmable Interrupt Controller) ports. */
+// PIC (Programmable Interrupt Controller) ports.
 #define PIC1_CMD  0x20
 #define PIC1_DATA 0x21
 #define PIC2_CMD  0xA0
 #define PIC2_DATA 0xA1
 #define PIC_EOI	  0x20 /* End-of-Interrupt command. */
 
-/* External declarations for ISR and IRQ handlers. */
+// External declarations for ISR and IRQ handlers.
 extern void
     isr0 (void);
 extern void
@@ -182,7 +182,7 @@ extern void
 
 extern void *isr_stub_table[];
 
-/* Array of C-level interrupt handlers. */
+// Array of C-level interrupt handlers.
 static irq_handler_t irq_handlers[16];
 
 void
@@ -190,7 +190,7 @@ void
 	irq_handlers[irq] = handler;
 }
 
-/* IDT entry structure. */
+// IDT entry structure.
 struct idt_entry {
 	kuint16_t base_lo;
 	kuint16_t sel;
@@ -201,7 +201,7 @@ struct idt_entry {
 	kuint32_t reserved;
 } __attribute__((packed));
 
-/* IDT pointer structure. */
+// IDT pointer structure.
 struct idt_ptr {
 	kuint16_t limit;
 	kuint64_t base;
@@ -210,7 +210,7 @@ struct idt_ptr {
 static struct idt_entry idt[256];
 static struct idt_ptr	idtp;
 
-/* Set up an IDT entry. */
+// Set up an IDT entry.
 static void
     idt_set_gate (kuint8_t num, kuint64_t base, kuint16_t sel, kuint8_t flags) {
 	idt[num].base_lo  = (kuint16_t) (base & 0xFFFF);
@@ -222,10 +222,10 @@ static void
 	idt[num].reserved = 0;
 }
 
-/* Default C-level handlers. */
+// Default C-level handlers.
 void
     isr_handler (registers_t *regs) {
-	/* Map interrupt numbers to panic codes. */
+	// Map interrupt numbers to panic codes.
 	int panic_code = PANIC_UNKNOWN_ERROR;
 
 	switch ( regs->int_no ) {
@@ -282,13 +282,13 @@ void
 			break;
 	}
 
-	/* Call panic with the appropriate error code and registers. */
+	// Call panic with the appropriate error code and registers.
 	panic(panic_code, regs);
 }
 
 void
     irq_handler (registers_t *regs) {
-	/* If a custom handler is registered, call it. */
+	// If a custom handler is registered, call it.
 	if ( regs->int_no >= 32 && regs->int_no <= 47 ) {
 		irq_handler_t handler = irq_handlers[regs->int_no - 32];
 		if ( handler ) {
@@ -296,7 +296,7 @@ void
 		}
 	}
 
-	/* Send End-of-Interrupt (EOI) to the PICs. */
+	// Send End-of-Interrupt (EOI) to the PICs.
 	if ( regs->int_no >= 40 ) {
 		koutb(PIC2_CMD, PIC_EOI); /* EOI to slave PIC. */
 	}
@@ -305,11 +305,11 @@ void
 
 void
     idt_init (void) {
-	/* Set up the IDT pointer. */
+	// Set up the IDT pointer.
 	idtp.limit = (sizeof(struct idt_entry) * 256) - 1;
 	idtp.base  = (kuint64_t) &idt;
 
-	/* Remap the PIC. */
+	// Remap the PIC.
 	koutb(PIC1_CMD, 0x11);
 	koutb(PIC2_CMD, 0x11);
 	koutb(PIC1_DATA, 0x20); /* Master PIC vector offset. */
@@ -321,7 +321,7 @@ void
 	koutb(PIC1_DATA, 0x0);
 	koutb(PIC2_DATA, 0x0);
 
-	/* Set up ISR entries. */
+	// Set up ISR entries.
 	idt_set_gate(0, (kuint64_t) isr0, 0x08, 0x8E);
 	idt_set_gate(1, (kuint64_t) isr1, 0x08, 0x8E);
 	idt_set_gate(2, (kuint64_t) isr2, 0x08, 0x8E);
@@ -355,7 +355,7 @@ void
 	idt_set_gate(30, (kuint64_t) isr30, 0x08, 0x8E);
 	idt_set_gate(31, (kuint64_t) isr31, 0x08, 0x8E);
 
-	/* Set up IRQ entries. */
+	// Set up IRQ entries.
 	idt_set_gate(32, (kuint64_t) irq0, 0x08, 0x8E);
 	idt_set_gate(33, (kuint64_t) irq1, 0x08, 0x8E);
 	idt_set_gate(34, (kuint64_t) irq2, 0x08, 0x8E);
@@ -373,6 +373,6 @@ void
 	idt_set_gate(46, (kuint64_t) irq14, 0x08, 0x8E);
 	idt_set_gate(47, (kuint64_t) irq15, 0x08, 0x8E);
 
-	/* Load the IDT. */
+	// Load the IDT.
 	__asm__ volatile("lidt %0" : : "m"(idtp));
 }

@@ -1,4 +1,4 @@
-/* katan.c */
+// katan.c
 
 /*
  * ============================================================================
@@ -74,7 +74,7 @@
 
 double
     katan (double x) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");
 	if ( kisinf(x) )
@@ -82,7 +82,7 @@ double
 	if ( x == 0.0 )
 		return 0.0;
 
-	/* Use series expansion for small values */
+	// Use series expansion for small values
 	if ( kfabs(x) < 1.0 ) {
 		double x2 = x * x;
 		double x3 = x2 * x;
@@ -92,7 +92,7 @@ double
 		return x - x3 / 3.0 + x5 / 5.0 - x7 / 7.0 + x9 / 9.0;
 	}
 
-	/* For large values, use atan(x) = π/2 - atan(1/x) */
+	// For large values, use atan(x) = π/2 - atan(1/x)
 	if ( x > 0 )
 		return K_M_PI_2 - katan(1.0 / x);
 	else

@@ -1,4 +1,4 @@
-/* ktrunc.c */
+// ktrunc.c
 
 /*
  * ============================================================================
@@ -74,13 +74,13 @@
 
 double
     ktrunc (double x) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");
 	if ( kisinf(x) )
 		return x;
 
-	/* For positive numbers, truncate towards zero */
+	// For positive numbers, truncate towards zero
 	if ( x >= 0.0 )
 		return kfloor(x);
 	else

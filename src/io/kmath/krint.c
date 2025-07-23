@@ -1,4 +1,4 @@
-/* krint.c */
+// krint.c
 
 /*
  * ============================================================================
@@ -74,13 +74,13 @@
 
 double
     krint (double x) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");
 	if ( kisinf(x) )
 		return x;
 
-	/* Round to nearest integer */
+	// Round to nearest integer
 	if ( x >= 0.0 ) {
 		double frac = x - kfloor(x);
 		if ( frac < 0.5 )

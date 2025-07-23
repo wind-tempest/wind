@@ -1,4 +1,4 @@
-/* kexp2.c */
+// kexp2.c
 
 /*
  * ============================================================================
@@ -74,12 +74,12 @@
 
 double
     kexp2 (double x) {
-	/* Handle special cases */
+	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");
 	if ( kisinf(x) )
 		return x > 0 ? K_INFINITY : 0.0;
 
-	/* Use the relationship: exp2(x) = exp(x * ln(2)) */
+	// Use the relationship: exp2(x) = exp(x * ln(2))
 	return kexp(x * K_M_LN2);
 }

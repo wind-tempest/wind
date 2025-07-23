@@ -1,4 +1,4 @@
-/* kprint.c */
+// kprint.c
 
 /*
  * ============================================================================
@@ -73,7 +73,7 @@
 #include "kstdio.h"
 #include "kutoa.h"
 
-/* I think this is... safe? */
+// I think this is... safe?
 void
     kputhex (kuint64_t n) {
 	const char *hex = "0123456789ABCDEF";
@@ -85,7 +85,7 @@ void
 		n >>= 4;
 	}
 
-	/* Skip leading zeros */
+	// Skip leading zeros
 	int start = 0;
 	while ( start < 15 && buf[start] == '0' ) {
 		start++;
@@ -143,7 +143,7 @@ int
 		}
 
 		char temp[32];
-		/* Handle length modifier for long long ("ll") */
+		// Handle length modifier for long long ("ll")
 		int long_long = 0;
 		if ( *p == 'l' && *(p + 1) == 'l' ) {
 			long_long = 1;
@@ -152,7 +152,7 @@ int
 
 		char *t = temp;
 
-		/* Use long_long flag to choose value width */
+		// Use long_long flag to choose value width
 
 		switch ( *p ) {
 			case 's': {
@@ -275,7 +275,7 @@ int
 		}
 		p++;
 
-		/* Field width and left alignment */
+		// Field width and left alignment
 		int left_align = 0;
 		int width      = 0;
 
@@ -288,7 +288,7 @@ int
 			p++;
 		}
 
-		/* Handle "ll" length modifier (for %llu) */
+		// Handle "ll" length modifier (for %llu)
 		int long_long = 0;
 		if ( *p == 'l' && *(p + 1) == 'l' ) {
 			long_long = 1;

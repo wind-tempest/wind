@@ -1,4 +1,4 @@
-/* panic.c */
+// panic.c
 
 /*
  * ============================================================================
@@ -77,7 +77,7 @@
 #include "ksleep.h"
 #include "kstdio.h"
 
-/* Panic error codes. */
+// Panic error codes.
 #define PANIC_UNKNOWN_ERROR	  0
 #define PANIC_DIVISION_BY_ZERO	  1
 #define PANIC_DOUBLE_FAULT	  2
@@ -96,7 +96,7 @@
 #define PANIC_SECURITY		  15
 #define PANIC_INVALID_OPCODE	  16
 
-/* Get panic message based on error code. */
+// Get panic message based on error code.
 static const char *
     get_panic_message (int code) {
 	switch ( code ) {
@@ -211,7 +211,7 @@ void
 		PRINT_REG(r15);
 		PRINT_REG(int_no);
 		PRINT_REG(err_code);
-		/* Show the instruction pointer (RIP) as the stack top. */
+		// Show the instruction pointer (RIP) as the stack top.
 		kuint64_t rip = *((kuint64_t *) ((kuint8_t *) regs + sizeof(registers_t)));
 		kitoa(buf, buf + 14, (long) rip, 16, 0);
 		serial_writes("  RIP = 0x");
@@ -248,10 +248,10 @@ void
 	}
 	serial_writes("Rebooting now...\n");
 
-	/* Reboot the system. */
+	// Reboot the system.
 	kreboot();
 
-	/* If reboot fails, halt the system. */
+	// If reboot fails, halt the system.
 	if ( video_ok ) {
 		video_puts("Reboot failed! System halted.\n");
 	}

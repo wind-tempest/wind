@@ -1,4 +1,4 @@
-/* dlog.c */
+// dlog.c
 
 /*
  * ============================================================================
@@ -173,7 +173,7 @@ int
 				break;
 			}
 			case 'l': {
-				/* Handle long/long long modifiers */
+				// Handle long/long long modifiers
 				if ( *(p + 1) == 'l' ) {
 					p++; /* Skip second 'l' */
 					if ( *(p + 1) == 'x' ) {
@@ -192,7 +192,7 @@ int
 						break;
 					}
 				}
-				/* Fall through to default for single 'l' */
+				// Fall through to default for single 'l'
 				goto default_case;
 			}
 

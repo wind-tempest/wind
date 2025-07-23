@@ -1,4 +1,4 @@
-/* ktime.h */
+// ktime.h
 
 /*
  * ============================================================================
@@ -78,7 +78,7 @@
 extern "C" {
 #endif
 
-/* BIOS time structure */
+// BIOS time structure
 struct bios_time {
 	kuint8_t  second;
 	kuint8_t  minute;

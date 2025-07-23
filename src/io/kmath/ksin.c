@@ -1,4 +1,4 @@
-/* ksin.c */
+// ksin.c
 
 /*
  * ============================================================================
@@ -74,14 +74,14 @@
 
 double
     ksin (double x) {
-	/* Normalize x to [-π, π] */
+	// Normalize x to [-π, π]
 	x = kfmod(x, 2.0 * K_M_PI);
 	if ( x > K_M_PI )
 		x -= 2.0 * K_M_PI;
 	if ( x < -K_M_PI )
 		x += 2.0 * K_M_PI;
 
-	/* Use Taylor series for small values */
+	// Use Taylor series for small values
 	if ( kfabs(x) < 0.1 ) {
 		double x2 = x * x;
 		double x3 = x2 * x;
@@ -90,7 +90,7 @@ double
 		return x - x3 / 6.0 + x5 / 120.0 - x7 / 5040.0;
 	}
 
-	/* For larger values, use more terms of Taylor series */
+	// For larger values, use more terms of Taylor series
 	double result	 = 0.0;
 	double term	 = x;
 	double x2	 = x * x;
