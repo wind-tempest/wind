@@ -198,7 +198,8 @@ static void
 				 * We can print info about
 				 * it if we want, in case "kduts("Unhandled tag found");"
 				 * But for the love of god, DO NOT FUCKING
-				 * ENABLE THIS! */
+				 * ENABLE THIS!
+				 */
 				break;
 		}
 
@@ -213,10 +214,11 @@ static void
 
 void
     start_kernel (void *mb_info) {
-	// In this case, we must use kuse_debug instead of the functions that
-	// check debug.
-	// Initialize crucial parts first. The IDT must be loaded before
-	// any hardware is touched to prevent triple faults.
+	/* In this case, we must use kuse_debug instead of the functions that
+	 * check debug.
+	 * Initialize crucial parts first. The IDT must be loaded before
+	 * any hardware is touched to prevent triple faults.
+	 */
 	idt_init();
 	serial_init();
 
