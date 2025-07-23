@@ -253,7 +253,7 @@ void
 	// Initialize ATA and mount EXT2 disk
 	kext2_set_block_device(ata_pio_read, KNULL);
 	if ( kext2_mount(0) != 0 ) {
-		kputs("EXT2 mount failed\n");
+		kerror("EXT2 mount failed", KNULL);
 	}
 
 	// Initialize CPU brand string
