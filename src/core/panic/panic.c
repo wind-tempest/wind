@@ -150,7 +150,7 @@ void
 	__asm__ volatile("cli");
 
 	kbool video_ok = kis_video_ready();
-	kvideo_clear(0x000000);
+	kvideo_clear(0xff0000);
 
 	const char *error_msg = get_panic_message(code);
 
