@@ -69,7 +69,7 @@
  * ============================================================================
  */
 
-#include "dlog.h"
+#include "kdebug.h"
 #include "ksignal.h"
 #include "ksleep.h"
 #include "kstddef.h"

@@ -69,7 +69,7 @@
  * ============================================================================
  */
 
-#include "dlog.h"
+#include "kdebug.h"
 #include "kmemory.h"
 #include "kstdio.h"
 #include "kstring.h"
