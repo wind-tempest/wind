@@ -212,7 +212,7 @@ static void
 }
 
 void
-    kernel_main (void *mb_info) {
+    start_kernel (void *mb_info) {
 	/* In this case, we must use kuse_debug instead of the functions that */
 	/* check debug. */
 	/* Initialize crucial parts first. The IDT must be loaded before */

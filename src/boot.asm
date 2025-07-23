@@ -154,8 +154,8 @@ long_mode:
     mov rdi, rbp
 
     ; Call the C kernel.
-    extern kernel_main
-    call kernel_main
+    extern start_kernel
+    call start_kernel
 
     ; Hang forever if the kernel returns.
 .hang:
