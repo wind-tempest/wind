@@ -72,7 +72,6 @@
 #include "fs/ext2/ext2.h"
 #include "kstdio.h"
 #include "kstring.h"
-
 #include "vfs.h"
 
 static char cwd_path[256] = "/";
