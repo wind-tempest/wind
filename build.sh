@@ -3,6 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 BUILD_PATH="build"
+CPU_COUNT="$(nproc)"
 TOOLS_PATH="tools"
 ISO_PATH="${BUILD_PATH}/out/wind.iso"
 
@@ -63,7 +64,7 @@ if $BUILD; then
 	run_step "${TOOLS_PATH}/header.sh"
 	run_step "${TOOLS_PATH}/format.sh"
 	run_step "${TOOLS_PATH}/create_disk.sh"
-	run_step "make"
+	run_step "make -j${CPU_COUNT}"
 fi
 
 if $RUN; then
