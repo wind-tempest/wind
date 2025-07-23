@@ -284,7 +284,7 @@ static void
 			color = (kuint32_t) val;
 		}
 	}
-	video_clear(color);
+	kvideo_clear(color);
 }
 
 static void
@@ -420,7 +420,7 @@ static void
 	kuint32_t width_center	= fb_width / 2;
 	kuint32_t height_center = fb_height / 2;
 	kuint32_t color		= k_u_rand32() & 0xFFFFFF;
-	video_draw_circle((int) width_center, (int) (height_center), 100, color);
+	kvideo_draw_circle((int) width_center, (int) (height_center), 100, color);
 }
 
 static void
@@ -436,7 +436,7 @@ static void
 	kuint32_t width_center	= fb_width / 2;
 	kuint32_t height_center = fb_height / 2;
 	kuint32_t color		= k_u_rand32() & 0xFFFFFF;
-	video_draw_square((int) width_center, (int) height_center, 100, color);
+	kvideo_draw_square((int) width_center, (int) height_center, 100, color);
 }
 
 static void
@@ -573,19 +573,19 @@ static void
 	kuint32_t circle_x    = fb_width / 2;
 	kuint32_t circle_y    = fb_height / 2;
 	kuint32_t color	      = k_u_rand32() & 0xFFFFFF;
-	video_draw_circle((int) circle_x, (int) circle_y, 100, color);
+	kvideo_draw_circle((int) circle_x, (int) circle_y, 100, color);
 
 	// First square: left
 	color		    = k_u_rand32() & 0xFFFFFF;
 	kuint32_t square1_x = circle_x - circle_diff;
 	kuint32_t square1_y = circle_y;
-	video_draw_square((int) square1_x, (int) square1_y, 100, color);
+	kvideo_draw_square((int) square1_x, (int) square1_y, 100, color);
 
 	// Second square: right
 	color		    = k_u_rand32() & 0xFFFFFF;
 	kuint32_t square2_x = circle_x + circle_diff;
 	kuint32_t square2_y = circle_y;
-	video_draw_square((int) square2_x, (int) square2_y, 100, color);
+	kvideo_draw_square((int) square2_x, (int) square2_y, 100, color);
 
 	ksleep(5000);
 }

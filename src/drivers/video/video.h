@@ -96,23 +96,23 @@ struct framebuffer_info {
 };
 
 void
-    video_init (struct framebuffer_info *fb_info);
+    kvideo_init (struct framebuffer_info *fb_info);
 kbool
-    is_video_ready (void);
+    kis_video_ready (void);
 kuint32_t
-    rgb_to_bgr (kuint32_t rgb);
+    krgb_to_bgr (kuint32_t rgb);
 kuint32_t
-    hexstr_to_color (const char *hex);
+    khexstr_to_color (const char *hex);
 void
-    video_put_pixel (kuint32_t x, kuint32_t y, kuint32_t rgb_color);
+    kvideo_put_pixel (kuint32_t x, kuint32_t y, kuint32_t rgb_color);
 void
-    video_clear (kuint32_t color);
+    kvideo_clear (kuint32_t color);
 
 void
-    video_putchar (char c);
+    kvideo_putchar (char c);
 void
-    video_puts (const char *s);
+    kvideo_puts (const char *s);
 void
-    video_draw_circle (int cx, int cy, int radius, kuint32_t rgb_color);
+    kvideo_draw_circle (int cx, int cy, int radius, kuint32_t rgb_color);
 void
-    video_draw_square (int cx, int cy, int size, kuint32_t rgb_color);
+    kvideo_draw_square (int cx, int cy, int size, kuint32_t rgb_color);

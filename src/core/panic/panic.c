@@ -149,8 +149,8 @@ void
 	panic_in_progress = ktrue;
 	__asm__ volatile("cli");
 
-	kbool video_ok = is_video_ready();
-	video_clear(0x000000);
+	kbool video_ok = kis_video_ready();
+	kvideo_clear(0x000000);
 
 	const char *error_msg = get_panic_message(code);
 
@@ -164,36 +164,36 @@ void
 	serial_writes("\n");
 
 	if ( video_ok ) {
-		video_puts("\n\nOops! Your system crashed\n");
+		kvideo_puts("\n\nOops! Your system crashed\n");
 	}
 	if ( video_ok ) {
-		video_puts("Error code: ");
+		kvideo_puts("Error code: ");
 	}
 	kitoa(buf, buf + 14, code, 10, 0);
-	video_puts(buf);
+	kvideo_puts(buf);
 	if ( video_ok ) {
-		video_puts("\nError: ");
+		kvideo_puts("\nError: ");
 	}
 	if ( video_ok ) {
-		video_puts(error_msg);
+		kvideo_puts(error_msg);
 	}
 	if ( video_ok ) {
-		video_puts("\n\n");
+		kvideo_puts("\n\n");
 	}
 
 	if ( regs ) {
 		serial_writes("Registers:\n");
 		if ( video_ok ) {
-			video_puts("Registers:\n");
+			kvideo_puts("Registers:\n");
 		}
 #define PRINT_REG(name)                                                                            \
 	kitoa(buf, buf + 14, (long) regs->name, 16, 0);                                            \
 	serial_writes("  " #name " = 0x");                                                         \
 	serial_writes(buf);                                                                        \
 	serial_writes("\n");                                                                       \
-	video_puts("  " #name " = 0x");                                                            \
-	video_puts(buf);                                                                           \
-	video_puts("\n");
+	kvideo_puts("  " #name " = 0x");                                                           \
+	kvideo_puts(buf);                                                                          \
+	kvideo_puts("\n");
 		PRINT_REG(rax);
 		PRINT_REG(rbx);
 		PRINT_REG(rcx);
@@ -217,25 +217,25 @@ void
 		serial_writes("  RIP = 0x");
 		serial_writes(buf);
 		serial_writes("\n");
-		video_puts("  RIP = 0x");
-		video_puts(buf);
-		video_puts("\n");
+		kvideo_puts("  RIP = 0x");
+		kvideo_puts(buf);
+		kvideo_puts("\n");
 #undef PRINT_REG
 	}
 
 	if ( video_ok ) {
-		video_puts("\nSystem will reboot in 5 seconds...\n");
+		kvideo_puts("\nSystem will reboot in 5 seconds...\n");
 	}
 	serial_writes("System will reboot in 5 seconds...\n");
 
 	for ( int i = 5; i > 0; i-- ) {
 		kitoa(buf, buf + 14, i, 10, 0);
 		if ( video_ok ) {
-			video_puts("Rebooting in ");
+			kvideo_puts("Rebooting in ");
 		}
-		video_puts(buf);
+		kvideo_puts(buf);
 		if ( video_ok ) {
-			video_puts(" seconds...\n");
+			kvideo_puts(" seconds...\n");
 		}
 		serial_writes("Rebooting in ");
 		serial_writes(buf);
@@ -244,7 +244,7 @@ void
 	}
 
 	if ( video_ok ) {
-		video_puts("Rebooting now...\n");
+		kvideo_puts("Rebooting now...\n");
 	}
 	serial_writes("Rebooting now...\n");
 
@@ -253,7 +253,7 @@ void
 
 	// If reboot fails, halt the system.
 	if ( video_ok ) {
-		video_puts("Reboot failed! System halted.\n");
+		kvideo_puts("Reboot failed! System halted.\n");
 	}
 	serial_writes("Reboot failed! System halted.\n");
 	while ( 1 ) {

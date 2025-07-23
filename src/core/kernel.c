@@ -228,7 +228,7 @@ void
 
 	// Initialize framebuffer if available.
 	if ( fb_info.addr != 0 ) {
-		video_init(&fb_info);
+		kvideo_init(&fb_info);
 	} else {
 		// No framebuffer, no visual output possible.
 		kwarn("No framebuffer found", "continuing without visual output");
