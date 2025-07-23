@@ -11,9 +11,3 @@ files=$(find src/ -name "*.[ch]")
 if ! clang-format -i $files; then
   echo -e "\n\e[33mclang-format failed!\e[0m\n"
 fi
-
-for f in $files; do
-  if grep -qE '^[[:space:]]*//.*' "$f"; then
-    sed -i 's|^\([[:space:]]*\)//\(.*\)|\1/*\2 */|' "$f"
-  fi
-done
