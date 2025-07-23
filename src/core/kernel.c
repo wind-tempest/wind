@@ -123,23 +123,11 @@ static struct framebuffer_info fb_info = {0};
 // Function to map a physical address to virtual address in page tables.
 static void
     map_framebuffer_address (kuint64_t phys_addr) {
-	/*
-	 * Map the framebuffer to a high virtual address (0xFFFF800000000000 +
-	 * phys_addr) This creates a 1:1 mapping for the framebuffer area.
-	 */
-
 	kdebugf(
 	    "Mapping framebuffer address 0x%llx to virtual address 0x%llx\n",
 	    phys_addr,
 	    0xFFFF800000000000 + phys_addr);
 
-	/*
-	 * For simplicity, we'll just update the framebuffer address to use the
-	 * virtual mapping. Since we already set up the high virtual address
-	 * mapping in boot.asm, we can access the framebuffer through the high
-	 * virtual address.
-	 * Use the higher-half direct mapping (0xFFFF800000000000 + phys_addr)
-	 */
 	fb_info.addr = 0xFFFF800000000000ULL + phys_addr;
 
 	kdebugf("Framebuffer mapped to virtual address 0x%llx\n", fb_info.addr);
