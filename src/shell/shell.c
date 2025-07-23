@@ -290,7 +290,7 @@ static void
 static void
     cmd_help (const char *args) {
 	(void) args;
-	kputs("Available commands:\n");
+	kputs("Available commands:");
 
 	// Get unique categories
 	const char *categories[10];
