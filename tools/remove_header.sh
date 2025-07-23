@@ -8,8 +8,8 @@ find . -type f \( -name "*.c" -o -name "*.h" \) | while read -r file; do
       BEGIN { inside_comment = 0; header_skipped = 0; printed = 0 }
 
       # Remove single-line // comment header with Wind/Tempest
-      NR == 1 && $0 ~ /^[[:space:]]*\/\/.*Wind\/Tempest/ { next }
-      NR <= 10 && header_skipped == 0 && $0 ~ /^[[:space:]]*\/\/.*Wind\/Tempest/ { next }
+      NR == 1 && $0 ~ /^[[:space:]]*\/\/[[:space:]]*[^[:space:]]+\.(c|h)[[:space:]]*$/ { next }
+      NR <= 5 && $0 ~ /^[[:space:]]*\/\/[[:space:]]*[^[:space:]]+\.(c|h)[[:space:]]*$/ { next }
 
       # Remove multi-line /* ... */ header containing Wind/Tempest
       NR == 1 && /^\s*\/\*.*\*\/\s*$/ { next }
