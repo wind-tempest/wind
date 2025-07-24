@@ -79,7 +79,8 @@
  */
 
 /* Change the current working directory.
- * Accepts absolute or relative path. Returns 0 on success, negative error code otherwise. */
+ * Accepts absolute or relative path. Returns 0 on success, negative error code otherwise.
+ */
 int
     vfs_chdir (const char *path);
 
