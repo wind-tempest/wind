@@ -14,4 +14,4 @@ Run DOS apps on Wind with equal or better speed than real DOS, but with modern s
 
 ## Why?
 
-Why not? It's fun!
+Why not? It's fun.
