@@ -178,7 +178,7 @@ kuint32_t
 
 void
     kvideo_init (struct framebuffer_info *fb_info) {
-	if ( fb_info == KNULL || fb_info->addr == 0 ) {
+	if ( !kis_video_ready() ) {
 		return;
 	}
 
