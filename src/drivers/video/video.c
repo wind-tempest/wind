@@ -69,6 +69,7 @@
  * ============================================================================
  */
 
+#include "core/kernel.h"
 #include "font/font.h"
 #include "kstdbool.h"
 #include "kstddef.h"
@@ -138,7 +139,7 @@ static inline kuint16_t
 
 kbool
     kis_video_ready (void) {
-	return framebuffer != KNULL && fb_width > 0 && fb_height > 0;
+	return fb_info.addr != 0 && fb_info.width > 0 && fb_info.height > 0;
 }
 
 static kbool
@@ -177,16 +178,16 @@ kuint32_t
 }
 
 void
-    kvideo_init (struct framebuffer_info *fb_info) {
+    kvideo_init (struct framebuffer_info *fb) {
 	if ( !kis_video_ready() ) {
 		return;
 	}
 
-	framebuffer = (volatile kuint32_t *) fb_info->addr;
-	fb_width    = fb_info->width;
-	fb_height   = fb_info->height;
-	fb_pitch    = fb_info->pitch;
-	fb_bpp	    = fb_info->bpp;
+	framebuffer = (volatile kuint32_t *) fb->addr;
+	fb_width    = fb->width;
+	fb_height   = fb->height;
+	fb_pitch    = fb->pitch;
+	fb_bpp	    = fb->bpp;
 
 	if ( fb_width == 0 || fb_height == 0 ) {
 		kputs("kvideo_init: invalid framebuffer dimensions");

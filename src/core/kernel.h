@@ -75,3 +75,5 @@
 
 extern kbool kuse_debug;
 extern kbool enable_serial;
+
+extern struct framebuffer_info fb_info;

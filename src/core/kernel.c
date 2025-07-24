@@ -80,8 +80,7 @@
 #include "memory/kmemory.h"
 #include "shell/shell.h"
 
-// FIXED! FINALLY! Just don't use debug before the video initialization.
-kbool kuse_debug = kfalse;
+kbool kuse_debug = ktrue;
 
 // Multiboot2 header structure.
 struct multiboot_header {
@@ -118,7 +117,7 @@ struct multiboot_tag_framebuffer {
 #define MULTIBOOT_TAG_TYPE_END	       0
 #define MULTIBOOT_TAG_TYPE_FRAMEBUFFER 8
 
-static struct framebuffer_info fb_info = {0};
+struct framebuffer_info fb_info = {0};
 
 // Function to map a physical address to virtual address in page tables.
 static void
