@@ -70,6 +70,7 @@
  */
 
 #include "kisinf.h"
+
 #include "kmath.h"
 
 int

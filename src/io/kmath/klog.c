@@ -70,6 +70,7 @@
  */
 
 #include "klog.h"
+
 #include "kmath.h"
 
 double

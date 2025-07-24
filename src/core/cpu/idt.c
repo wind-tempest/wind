@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "core/panic/panic.h"
 #include "idt.h"
+
+#include "core/panic/panic.h"
 #include "ksignal.h"
 #include "kstdio.h"
 

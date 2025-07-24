@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kstddef.h"
 #include "kstrlen.h"
+
+#include "kstddef.h"
 
 ksize_t
     kstrlen (const char *str) {

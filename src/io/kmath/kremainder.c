@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "kremainder.h"
+
+#include "kmath.h"
 
 double
     kremainder (double x, double y) {

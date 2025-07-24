@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "ksin.h"
+
+#include "kmath.h"
 
 double
     ksin (double x) {

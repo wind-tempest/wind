@@ -70,6 +70,7 @@
  */
 
 #include "kcopysign.h"
+
 #include "kmath.h"
 
 double

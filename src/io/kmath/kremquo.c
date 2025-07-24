@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "kremquo.h"
+
+#include "kmath.h"
 
 double
     kremquo (double x, double y, int *quo) {

@@ -69,6 +69,8 @@
  * ============================================================================
  */
 
+#include "shell.h"
+
 #include "core/acpi/acpi.h"
 #include "core/kernel.h"
 #include "core/memory/kmemory.h"
@@ -84,7 +86,6 @@
 #include "kstring.h"
 #include "ktime.h"
 #include "kunistd.h"
-#include "shell.h"
 
 /*
 	ALL OF THIS IS HARD-CODED FOR NOW!

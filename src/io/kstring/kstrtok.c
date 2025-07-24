@@ -69,9 +69,10 @@
  * ============================================================================
  */
 
+#include "kstrtok.h"
+
 #include "kstddef.h"
 #include "kstrchr.h"
-#include "kstrtok.h"
 
 static char *strtok_save = KNULL;
 

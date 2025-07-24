@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "kround.h"
+
+#include "kmath.h"
 
 double
     kround (double x) {

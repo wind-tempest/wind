@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kstddef.h"
 #include "kstrrchr.h"
+
+#include "kstddef.h"
 
 const char *
     kstrrchr (const char *str, int c) {

@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "krint.h"
+
+#include "kmath.h"
 
 double
     krint (double x) {

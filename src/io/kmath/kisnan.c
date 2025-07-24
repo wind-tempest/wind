@@ -70,6 +70,7 @@
  */
 
 #include "kisnan.h"
+
 #include "kmath.h"
 
 int

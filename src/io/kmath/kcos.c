@@ -70,6 +70,7 @@
  */
 
 #include "kcos.h"
+
 #include "kmath.h"
 
 double

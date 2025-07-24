@@ -70,6 +70,7 @@
  */
 
 #include "kisfinite.h"
+
 #include "kmath.h"
 
 int

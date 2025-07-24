@@ -70,6 +70,7 @@
  */
 
 #include "font.h"
+
 #include "kstdint.h"
 
 // Font dimensions are 8x8

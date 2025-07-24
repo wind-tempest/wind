@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "ktan.h"
+
+#include "kmath.h"
 
 double
     ktan (double x) {

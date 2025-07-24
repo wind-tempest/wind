@@ -70,6 +70,7 @@
  */
 
 #include "khypot.h"
+
 #include "kmath.h"
 
 double

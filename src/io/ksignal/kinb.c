@@ -70,6 +70,7 @@
  */
 
 #include "kinb.h"
+
 #include "ksignal.h"
 
 unsigned char

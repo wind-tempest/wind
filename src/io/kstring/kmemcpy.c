@@ -70,6 +70,7 @@
  */
 
 #include "kmemcpy.h"
+
 #include "kstddef.h"
 
 void *

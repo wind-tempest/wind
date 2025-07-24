@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "ksignal.h"
 #include "ksleep.h"
+
+#include "ksignal.h"
 #include "kstddef.h"
 #include "kstdint.h"
 

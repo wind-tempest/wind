@@ -69,9 +69,10 @@
  * ============================================================================
  */
 
+#include "kutoa.h"
+
 #include "kcharset.h"
 #include "kstdlib.h"
-#include "kutoa.h"
 
 char *
     kutoa (char *buf, char *end, unsigned long value, int base, int is_uppercase) {

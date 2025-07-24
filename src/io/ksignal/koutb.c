@@ -70,6 +70,7 @@
  */
 
 #include "koutb.h"
+
 #include "ksignal.h"
 
 void

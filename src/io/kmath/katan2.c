@@ -70,6 +70,7 @@
  */
 
 #include "katan2.h"
+
 #include "kmath.h"
 
 double

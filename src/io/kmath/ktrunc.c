@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "ktrunc.h"
+
+#include "kmath.h"
 
 double
     ktrunc (double x) {

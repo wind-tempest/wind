@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "ksqrt.h"
+
+#include "kmath.h"
 
 double
     ksqrt (double x) {

@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "kmodf.h"
+
+#include "kmath.h"
 
 double
     kmodf (double x, double *iptr) {

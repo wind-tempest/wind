@@ -69,9 +69,10 @@
  * ============================================================================
  */
 
+#include "kdebug.h"
+
 #include "core/kernel.h"
 #include "drivers/serial/serial.h"
-#include "kdebug.h"
 #include "kprint.h"
 #include "kstdarg.h"
 #include "kutoa.h"

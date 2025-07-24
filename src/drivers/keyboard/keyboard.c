@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "core/cpu/idt.h"
 #include "keyboard.h"
+
+#include "core/cpu/idt.h"
 #include "ksignal.h"
 #include "kstdio.h"
 

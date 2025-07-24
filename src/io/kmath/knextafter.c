@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "knextafter.h"
+
+#include "kmath.h"
 
 double
     knextafter (double x, double y) {

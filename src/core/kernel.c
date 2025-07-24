@@ -69,13 +69,14 @@
  * ============================================================================
  */
 
+#include "kernel.h"
+
 #include "cpu/cpu.h"
 #include "cpu/idt.h"
 #include "drivers/ata/ata.h"
 #include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
 #include "kdebug.h"
-#include "kernel.h"
 #include "kprint.h"
 #include "memory/kmemory.h"
 #include "shell/shell.h"

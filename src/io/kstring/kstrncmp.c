@@ -70,6 +70,7 @@
  */
 
 #include "kstrncmp.h"
+
 #include "stddef.h"
 
 int

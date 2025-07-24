@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmemcpy.h"
 #include "kstrcpy.h"
+
+#include "kmemcpy.h"
 #include "kstrlen.h"
 
 char *

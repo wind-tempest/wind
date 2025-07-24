@@ -63,13 +63,6 @@ SpacesInAngles: false
 
 IndentPPDirectives: AfterHash
 
-SortIncludes: true
-IncludeBlocks: Preserve
-IncludeCategories:
-  - Regex: ".*"
-    Priority: 0
-IncludeIsMainRegex: "([-_](test|unittest))?$"
-
 SortUsingDeclarations: true
 CommentPragmas: '^.*$'
 ReflowComments: true
@@ -83,3 +76,13 @@ BinPackArguments: false
 BinPackParameters: false
 
 BreakBeforeBinaryOperators: NonAssignment
+
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<[^/]+>'
+    Priority: 1
+  - Regex: '^"(.*)"$'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3

@@ -1,4 +1,4 @@
-// kstrnlen.c
+// labs.c
 
 /*
  * ============================================================================
@@ -69,15 +69,11 @@
  * ============================================================================
  */
 
-#include "kstrnlen.h"
+#include "labs.h"
 
-#include "kstddef.h"
+#include "kstdlib.h"
 
-ksize_t
-    kstrnlen (const char *str, ksize_t maxlen) {
-	ksize_t len = 0;
-	while ( len < maxlen && str[len] != '\0' ) {
-		len++;
-	}
-	return len;
+long
+    labs (long a) {
+	return a > 0 ? a : -a;
 }

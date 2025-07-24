@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kcharset.h"
 #include "kitoa.h"
+
+#include "kcharset.h"
 #include "kstdlib.h"
 
 char *

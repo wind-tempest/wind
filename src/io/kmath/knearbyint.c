@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "knearbyint.h"
+
+#include "kmath.h"
 
 double
     knearbyint (double x) {

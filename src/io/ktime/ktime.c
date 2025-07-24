@@ -69,9 +69,10 @@
  * ============================================================================
  */
 
+#include "ktime.h"
+
 #include "ksignal.h"
 #include "kstdio.h"
-#include "ktime.h"
 
 // BIOS interrupt for getting RTC (Real Time Clock) data
 #define RTC_COMMAND_PORT 0x70

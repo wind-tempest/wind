@@ -69,11 +69,12 @@
  * ============================================================================
  */
 
+#include "video.h"
+
 #include "core/kernel.h"
 #include "font/font.h"
 #include "kstdbool.h"
 #include "kstddef.h"
-#include "video.h"
 
 // Forward declarations
 extern void

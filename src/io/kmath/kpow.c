@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "kpow.h"
+
+#include "kmath.h"
 
 double
     kpow (double x, double y) {

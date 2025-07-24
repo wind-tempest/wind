@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "kmath.h"
 #include "knan.h"
+
+#include "kmath.h"
 
 double
     knan (const char *tagp) {

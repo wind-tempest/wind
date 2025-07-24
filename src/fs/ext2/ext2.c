@@ -69,8 +69,9 @@
  * ============================================================================
  */
 
-#include "core/memory/kmemory.h"
 #include "ext2.h"
+
+#include "core/memory/kmemory.h"
 #include "kstdio.h"
 #include "kstring.h"
 
