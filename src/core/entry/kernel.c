@@ -189,8 +189,6 @@ static void
 				 * This is not an error, just an unhandled tag.
 				 * We can print info about
 				 * it if we want, in case "kduts("Unhandled tag found");"
-				 * But for the love of god, DO NOT FUCKING
-				 * ENABLE THIS!
 				 */
 				break;
 		}
