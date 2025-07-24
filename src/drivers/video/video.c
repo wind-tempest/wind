@@ -232,6 +232,9 @@ static void
 
 void
     kvideo_putchar (char c) {
+	if ( !kis_video_ready() )
+		return;
+
 	if ( c == '\b' ) {
 		if ( cursor_x >= FONT_WIDTH ) {
 			cursor_x -= FONT_WIDTH;
@@ -264,9 +267,7 @@ void
 	}
 
 	if ( cursor_y + FONT_HEIGHT > fb_height ) {
-		if ( kis_video_ready() ) {
-			kvideo_clear(0x000000);
-		}
+		kvideo_clear(0x000000);
 	}
 }
 
