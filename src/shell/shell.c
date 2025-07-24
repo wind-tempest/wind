@@ -72,7 +72,7 @@
 #include "shell.h"
 
 #include "core/acpi/acpi.h"
-#include "core/kernel.h"
+#include "core/entry/kernel.h"
 #include "core/memory/kmemory.h"
 #include "core/panic/panic.h"
 #include "drivers/keyboard/keyboard.h"

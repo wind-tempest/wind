@@ -69,7 +69,7 @@
  * ============================================================================
  */
 
-#include "core/kernel.h"
+#include "core/entry/kernel.h"
 #include "kstddef.h"
 #include "kstdint.h"
 

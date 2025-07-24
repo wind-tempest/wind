@@ -71,7 +71,7 @@
 
 #include "kdebug.h"
 
-#include "core/kernel.h"
+#include "core/entry/kernel.h"
 #include "drivers/serial/serial.h"
 #include "kprint.h"
 #include "kstdarg.h"

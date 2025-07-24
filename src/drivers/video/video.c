@@ -71,7 +71,7 @@
 
 #include "video.h"
 
-#include "core/kernel.h"
+#include "core/entry/kernel.h"
 #include "font/font.h"
 #include "kstdbool.h"
 #include "kstddef.h"

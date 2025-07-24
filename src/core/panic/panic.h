@@ -71,7 +71,7 @@
 
 #pragma once
 
-#include "core/registers.h"
+#include "core/cpu/registers.h"
 
 // Panic error codes
 #define PANIC_UNKNOWN_ERROR	  0

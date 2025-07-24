@@ -70,7 +70,7 @@
  */
 
 #include "core/acpi/acpi.h"
-#include "core/registers.h"
+#include "core/cpu/registers.h"
 #include "drivers/serial/serial.h"
 #include "drivers/video/video.h"
 #include "kitoa.h"

@@ -71,7 +71,7 @@
 
 #pragma once
 
-#include "core/registers.h"
+#include "registers.h"
 
 void
     idt_init (void);
