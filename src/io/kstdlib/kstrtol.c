@@ -72,6 +72,7 @@
 #include "kctype.h"
 #include "kerrno.h"
 #include "klimits.h"
+#include "kstdlib.h"
 #include "kstrtol.h"
 
 long

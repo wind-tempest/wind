@@ -73,6 +73,7 @@
 #include "kctype.h"
 #include "kerrno.h"
 #include "klimits.h"
+#include "kstdlib.h"
 
 int
     katoi (const char *s) {

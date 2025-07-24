@@ -70,6 +70,7 @@
  */
 
 #include "kcharset.h"
+#include "kstdlib.h"
 #include "kutoa.h"
 
 char *
