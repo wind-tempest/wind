@@ -70,6 +70,7 @@
  */
 
 #include "core/acpi/acpi.h"
+#include "core/kernel.h"
 #include "core/memory/kmemory.h"
 #include "core/panic/panic.h"
 #include "drivers/keyboard/keyboard.h"
@@ -360,14 +361,14 @@ static void
 	ksnprintf(info[1], sizeof(info[1]), "kernel: tempest");
 	extern char cpu_brand_string[49];
 	ksnprintf(info[2], sizeof(info[2]), "cpu:    %s", cpu_brand_string);
-	if ( fb_width && fb_height && fb_bpp ) {
+	if ( fb_info.width && fb_info.height && fb_info.bpp ) {
 		ksnprintf(
 		    info[3],
 		    sizeof(info[3]),
 		    "resolution: %ux%u %ubpp",
-		    fb_width,
-		    fb_height,
-		    (unsigned int) fb_bpp);
+		    fb_info.width,
+		    fb_info.height,
+		    (unsigned int) fb_info.bpp);
 	} else {
 		ksnprintf(info[3], sizeof(info[3]), "resolution: unknown");
 	}
@@ -412,13 +413,13 @@ static void
 	(void) args;
 
 	// Safety check for division by zero
-	if ( fb_width == 0 || fb_height == 0 ) {
+	if ( fb_info.width == 0 || fb_info.height == 0 ) {
 		kputs("Error: Invalid framebuffer dimensions");
 		return;
 	}
 
-	kuint32_t width_center	= fb_width / 2;
-	kuint32_t height_center = fb_height / 2;
+	kuint32_t width_center	= fb_info.width / 2;
+	kuint32_t height_center = fb_info.height / 2;
 	kuint32_t color		= k_u_rand32() & 0xFFFFFF;
 	kvideo_draw_circle((int) width_center, (int) (height_center), 100, color);
 }
@@ -428,13 +429,13 @@ static void
 	(void) args;
 
 	// Safety check for division by zero
-	if ( fb_width == 0 || fb_height == 0 ) {
+	if ( fb_info.width == 0 || fb_info.height == 0 ) {
 		kputs("Error: Invalid framebuffer dimensions");
 		return;
 	}
 
-	kuint32_t width_center	= fb_width / 2;
-	kuint32_t height_center = fb_height / 2;
+	kuint32_t width_center	= fb_info.width / 2;
+	kuint32_t height_center = fb_info.height / 2;
 	kuint32_t color		= k_u_rand32() & 0xFFFFFF;
 	kvideo_draw_square((int) width_center, (int) height_center, 100, color);
 }
@@ -564,14 +565,14 @@ static void
 	(void) args;
 
 	// Safety check for division by zero
-	if ( fb_width == 0 || fb_height == 0 ) {
+	if ( fb_info.width == 0 || fb_info.height == 0 ) {
 		kputs("Error: Invalid framebuffer dimensions");
 		return;
 	}
 
 	kuint8_t  circle_diff = k_u_rand32() & 0xFF;
-	kuint32_t circle_x    = fb_width / 2;
-	kuint32_t circle_y    = fb_height / 2;
+	kuint32_t circle_x    = fb_info.width / 2;
+	kuint32_t circle_y    = fb_info.height / 2;
 	kuint32_t color	      = k_u_rand32() & 0xFFFFFF;
 	kvideo_draw_circle((int) circle_x, (int) circle_y, 100, color);
 

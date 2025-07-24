@@ -74,11 +74,6 @@
 #include "kstdbool.h"
 #include "kstdint.h"
 
-extern kuint32_t fb_width;
-extern kuint32_t fb_height;
-extern kuint32_t fb_pitch;
-extern kuint8_t	 fb_bpp;
-
 // Framebuffer information structure
 struct framebuffer_info {
 	kuint64_t addr;

@@ -84,10 +84,6 @@ extern void
     putdec (kuint32_t value);
 
 static volatile kuint32_t *framebuffer = KNULL;
-kuint32_t		   fb_width    = 0;
-kuint32_t		   fb_height   = 0;
-kuint32_t		   fb_pitch    = 0;
-kuint8_t		   fb_bpp      = 0;
 
 static kuint32_t cursor_x = 0;
 static kuint32_t cursor_y = 0;
@@ -97,28 +93,28 @@ void
 	if ( framebuffer == KNULL )
 		return;
 
-	for ( kuint32_t y = 0; y < fb_height; y++ ) {
-		volatile kuint8_t *row_base = (volatile kuint8_t *) framebuffer + y * fb_pitch;
+	for ( kuint32_t y = 0; y < fb_info.height; y++ ) {
+		volatile kuint8_t *row_base = (volatile kuint8_t *) framebuffer + y * fb_info.pitch;
 
-		if ( fb_bpp == 16 ) {
+		if ( fb_info.bpp == 16 ) {
 			volatile kuint16_t *row = (volatile kuint16_t *) row_base;
 			kuint16_t color16 = (kuint16_t) (color & 0xFFFF); // Assume formato RGB565
-			for ( kuint32_t x = 0; x < fb_width; x++ ) {
+			for ( kuint32_t x = 0; x < fb_info.width; x++ ) {
 				row[x] = color16;
 			}
-		} else if ( fb_bpp == 24 ) {
+		} else if ( fb_info.bpp == 24 ) {
 			volatile kuint8_t *row = row_base;
 			kuint8_t	   r   = (color >> 16) & 0xFF;
 			kuint8_t	   g   = (color >> 8) & 0xFF;
 			kuint8_t	   b   = (color >> 0) & 0xFF;
-			for ( kuint32_t x = 0; x < fb_width; x++ ) {
+			for ( kuint32_t x = 0; x < fb_info.width; x++ ) {
 				row[x * 3 + 0] = b;
 				row[x * 3 + 1] = g;
 				row[x * 3 + 2] = r;
 			}
-		} else if ( fb_bpp == 32 ) {
+		} else if ( fb_info.bpp == 32 ) {
 			volatile kuint32_t *row = (volatile kuint32_t *) row_base;
-			for ( kuint32_t x = 0; x < fb_width; x++ ) {
+			for ( kuint32_t x = 0; x < fb_info.width; x++ ) {
 				row[x] = color;
 			}
 		}
@@ -184,12 +180,8 @@ void
 	}
 
 	framebuffer = (volatile kuint32_t *) fb->addr;
-	fb_width    = fb->width;
-	fb_height   = fb->height;
-	fb_pitch    = fb->pitch;
-	fb_bpp	    = fb->bpp;
 
-	if ( fb_width == 0 || fb_height == 0 ) {
+	if ( fb_info.width == 0 || fb_info.height == 0 ) {
 		kputs("kvideo_init: invalid framebuffer dimensions");
 		return;
 	}
@@ -204,11 +196,11 @@ void
 		return;
 	}
 
-	if ( fb_bpp == 16 ) {
-		kuint16_t *row = (kuint16_t *) ((kuint8_t *) framebuffer + y * fb_pitch);
+	if ( fb_info.bpp == 16 ) {
+		kuint16_t *row = (kuint16_t *) ((kuint8_t *) framebuffer + y * fb_info.pitch);
 		row[x]	       = krgb888_to_rgb565(rgb_color);
 	} else {
-		kuint32_t *row = (kuint32_t *) ((kuint8_t *) framebuffer + y * fb_pitch);
+		kuint32_t *row = (kuint32_t *) ((kuint8_t *) framebuffer + y * fb_info.pitch);
 		row[x]	       = krgb_to_bgr(rgb_color);
 	}
 }
@@ -241,7 +233,7 @@ void
 			cursor_x -= FONT_WIDTH;
 		} else if ( cursor_y >= FONT_HEIGHT ) {
 			cursor_y -= FONT_HEIGHT;
-			cursor_x = fb_width - FONT_WIDTH;
+			cursor_x = fb_info.width - FONT_WIDTH;
 		}
 		// Erase the character at the current position
 		for ( kuint32_t row = 0; row < FONT_HEIGHT; row++ ) {
@@ -262,12 +254,12 @@ void
 		cursor_x += FONT_WIDTH;
 	}
 
-	if ( cursor_x + FONT_WIDTH > fb_width ) {
+	if ( cursor_x + FONT_WIDTH > fb_info.width ) {
 		cursor_x = 0;
 		cursor_y += FONT_HEIGHT;
 	}
 
-	if ( cursor_y + FONT_HEIGHT > fb_height ) {
+	if ( cursor_y + FONT_HEIGHT > fb_info.height ) {
 		kvideo_clear(0x000000);
 	}
 }
@@ -293,7 +285,8 @@ void
 
 	for ( int y = cy - half; y < cy + half; y++ ) {
 		for ( int x = cx - half; x < cx + half; x++ ) {
-			if ( x >= 0 && y >= 0 && x < (int) fb_width && y < (int) fb_height ) {
+			if ( x >= 0 && y >= 0 && x < (int) fb_info.width
+			     && y < (int) fb_info.height ) {
 				kvideo_put_pixel((kuint32_t) x, (kuint32_t) y, rgb_color);
 			}
 		}
