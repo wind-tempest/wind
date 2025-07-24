@@ -144,118 +144,54 @@ static const char *
  */
 static kbool panic_in_progress = kfalse;
 
+/*
+ * Why did I make this function? Well...
+ * I don't want the code to repeat so much.
+ */
+void
+    pputs (const char *s) {
+	serial_writes(s);
+	kputs(s);
+}
+
 void
     panic (int code, registers_t *regs) {
 	panic_in_progress = ktrue;
 	__asm__ volatile("cli");
 
-	kbool video_ok = kis_video_ready();
 	kvideo_clear(0xff0000);
 
 	const char *error_msg = get_panic_message(code);
 
-	serial_writes("\n\nOops! Your system crashed\n");
-	serial_writes("Error code: ");
+	pputs("\n\nOops! Your system crashed\n");
+	pputs("Error code: ");
 	char buf[16];
 	kitoa(buf, buf + 14, code, 10, 0);
-	serial_writes(buf);
-	serial_writes("\nError: ");
-	serial_writes(error_msg);
-	serial_writes("\n");
-
-	if ( video_ok ) {
-		kvideo_puts("\n\nOops! Your system crashed\n");
-	}
-	if ( video_ok ) {
-		kvideo_puts("Error code: ");
-	}
-	kitoa(buf, buf + 14, code, 10, 0);
-	kvideo_puts(buf);
-	if ( video_ok ) {
-		kvideo_puts("\nError: ");
-	}
-	if ( video_ok ) {
-		kvideo_puts(error_msg);
-	}
-	if ( video_ok ) {
-		kvideo_puts("\n\n");
-	}
+	pputs(buf);
+	pputs("\nError: ");
+	pputs(error_msg);
+	pputs("\n");
 
 	if ( regs ) {
-		serial_writes("Registers:\n");
-		if ( video_ok ) {
-			kvideo_puts("Registers:\n");
-		}
-#define PRINT_REG(name)                                                                            \
-	kitoa(buf, buf + 14, (long) regs->name, 16, 0);                                            \
-	serial_writes("  " #name " = 0x");                                                         \
-	serial_writes(buf);                                                                        \
-	serial_writes("\n");                                                                       \
-	kvideo_puts("  " #name " = 0x");                                                           \
-	kvideo_puts(buf);                                                                          \
-	kvideo_puts("\n");
-		PRINT_REG(rax);
-		PRINT_REG(rbx);
-		PRINT_REG(rcx);
-		PRINT_REG(rdx);
-		PRINT_REG(rsi);
-		PRINT_REG(rdi);
-		PRINT_REG(rbp);
-		PRINT_REG(r8);
-		PRINT_REG(r9);
-		PRINT_REG(r10);
-		PRINT_REG(r11);
-		PRINT_REG(r12);
-		PRINT_REG(r13);
-		PRINT_REG(r14);
-		PRINT_REG(r15);
-		PRINT_REG(int_no);
-		PRINT_REG(err_code);
-		// Show the instruction pointer (RIP) as the stack top.
-		kuint64_t rip = *((kuint64_t *) ((kuint8_t *) regs + sizeof(registers_t)));
-		kitoa(buf, buf + 14, (long) rip, 16, 0);
-		serial_writes("  RIP = 0x");
-		serial_writes(buf);
-		serial_writes("\n");
-		kvideo_puts("  RIP = 0x");
-		kvideo_puts(buf);
-		kvideo_puts("\n");
-#undef PRINT_REG
+		// TODO: Print registers
 	}
 
-	if ( video_ok ) {
-		kvideo_puts("\nSystem will reboot in 5 seconds...\n");
-	}
-	serial_writes("System will reboot in 5 seconds...\n");
+	pputs("System will reboot in 5 seconds...\n");
 
 	for ( int i = 5; i > 0; i-- ) {
-		kitoa(buf, buf + 14, i, 10, 0);
-		if ( video_ok ) {
-			kvideo_puts("Rebooting in ");
-		}
-		kvideo_puts(buf);
-		if ( video_ok ) {
-			kvideo_puts(" seconds...\n");
-		}
-		serial_writes("Rebooting in ");
-		serial_writes(buf);
-		serial_writes(" seconds...\n");
+		pputs("Rebooting in ");
+		pputs(buf);
+		pputs(" seconds...\n");
 		ksleep(1000);
 	}
 
-	if ( video_ok ) {
-		kvideo_puts("Rebooting now...\n");
-	}
-	serial_writes("Rebooting now...\n");
+	pputs("Rebooting now...\n");
 
 	// Reboot the system.
 	kreboot();
 
 	// If reboot fails, halt the system.
-	if ( video_ok ) {
-		kvideo_puts("Reboot failed! System halted.\n");
-	}
-	serial_writes("Reboot failed! System halted.\n");
+	pputs("Reboot failed! System halted.\n");
 	while ( 1 ) {
 		__asm__ volatile("hlt");
 	}
