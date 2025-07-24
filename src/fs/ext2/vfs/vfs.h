@@ -71,7 +71,7 @@
 
 #pragma once
 
-#include "stddef.h"
+#include "kstddef.h"
 
 /*
  * Very small VFS helpers for current working directory handling.
