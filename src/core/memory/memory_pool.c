@@ -70,9 +70,9 @@
  */
 
 #include "kdebug.h"
-#include "kmemory.h"
 #include "kstdio.h"
 #include "kstring.h"
+#include "memory.h"
 
 // Memory pool management
 memory_pool_t *

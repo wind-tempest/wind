@@ -71,7 +71,7 @@
 
 #include "ext2.h"
 
-#include "core/memory/kmemory.h"
+#include "core/memory/memory.h"
 #include "kstdio.h"
 #include "kstring.h"
 

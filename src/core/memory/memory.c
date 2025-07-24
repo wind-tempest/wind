@@ -69,7 +69,7 @@
  * ============================================================================
  */
 
-#include "kmemory.h"
+#include "memory.h"
 
 #include "core/panic/panic.h"
 #include "kstdio.h"
