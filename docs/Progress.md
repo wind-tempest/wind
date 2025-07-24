@@ -26,7 +26,7 @@
 - [ ] User-space binary loading (.ELF or custom)
 - [x] Privilege separation (rings, even if basic)
 - [ ] Module loading (e.g., drivers)
-- [ ] Package manager (experimental idea)
+- [ ] Package manager (not sure yet)
 
 ## Compatibility Layers
 
