@@ -199,7 +199,7 @@ void
 
 void
     kvideo_put_pixel (kuint32_t x, kuint32_t y, kuint32_t rgb_color) {
-	if ( framebuffer == KNULL || x >= fb_width || y >= fb_height ) {
+	if ( !kis_video_ready() ) {
 		return;
 	}
 
