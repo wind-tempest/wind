@@ -33,3 +33,7 @@ Wind is like lightweight and calm frontend. (the OS or vision of the user) Tempe
 ## Where to find all API documentation?
 
 There is none for now, but I will add it soon.
+
+## What's the CPU architecture you are targeting?
+
+For now x86-64. But in a future (I don't know when) I plan to support other architectures like ARM and etc.
