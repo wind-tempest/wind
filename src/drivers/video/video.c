@@ -99,7 +99,7 @@ void
 
 		if ( fb_info.bpp == 16 ) {
 			volatile kuint16_t *row = (volatile kuint16_t *) row_base;
-			kuint16_t color16 = (kuint16_t) (color & 0xFFFF); // Assume formato RGB565
+			kuint16_t color16 = (kuint16_t) (color & 0xFFFF); // Assume format RGB565
 			for ( kuint32_t x = 0; x < fb_info.width; x++ ) {
 				row[x] = color16;
 			}
