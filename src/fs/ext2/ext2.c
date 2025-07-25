@@ -457,8 +457,8 @@ int
 	if ( !block_buf )
 		return EXT2_ERR_IO;
 
-	// --- Direct blocks ---
-	for ( int i = 0; i < 12; i++ ) /* Only direct blocks for now */
+	// Direct blocks
+	for ( int i = 0; i < 12; i++ ) // Only direct blocks for now
 	{
 		kuint32_t blk_id = root.block[i];
 		if ( blk_id == 0 )
