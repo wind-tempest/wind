@@ -93,6 +93,8 @@
 #define PANIC_INVALID_OPCODE                                                                       \
 	16 // For some reason, this is every time used instead of the proper ones.
 
+unsigned int seconds_to_reboot = 5;
+
 // Get kpanic message based on error code.
 static const char *
     get_panic_message (int code) {
@@ -231,10 +233,18 @@ void
 		dump_registers(regs);
 	}
 
-	pputs("System will reboot in 5 seconds...\n");
+	buf[0] = '\0';
+
+	pputs("System will reboot in ");
+	kitoa(buf, buf + 14, seconds_to_reboot, 10, 0);
+	pputs(buf);
+	pputs(" seconds...\n");
+
+	buf[0] = '\0';
 
 	for ( int i = 5; i > 0; i-- ) {
 		pputs("Rebooting in ");
+		kitoa(buf, buf + 14, i, 10, 0);
 		pputs(buf);
 		pputs(" seconds...\n");
 		ksleep(1000);
