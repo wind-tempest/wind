@@ -59,4 +59,4 @@ Must support Multiboot2/Limine.
 
 ## License
 
-This OS/Kernel is released under the GNU Affero General Public License (v3). Please see [LICENSE](LICENSE.md).
+This OS/Kernel is released under the                                Liberty Software License (v1.0). Please see [LICENSE](LICENSE).
