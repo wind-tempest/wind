@@ -77,7 +77,7 @@
 #include "kprint.h"
 #include "shell/shell.h"
 
-kbool kuse_debug = ktrue;
+kbool kuse_debug = kfalse;
 
 // Multiboot2 header structure.
 struct multiboot_header {

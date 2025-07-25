@@ -255,64 +255,70 @@ void
 
 kbool
     vm_map_page (kuint64_t virtual_addr, kuint64_t physical_addr, kuint64_t flags) {
+	if ( (virtual_addr & 0xFFF) || (physical_addr & 0xFFF) )
+		return kfalse;
+
 	kuint64_t pml4_index = (virtual_addr >> 39) & 0x1FF;
 	kuint64_t pml3_index = (virtual_addr >> 30) & 0x1FF;
 	kuint64_t pml2_index = (virtual_addr >> 21) & 0x1FF;
 	kuint64_t pml1_index = (virtual_addr >> 12) & 0x1FF;
 
-	// Get or create PML3 table
 	pml3_t *pml3 = KNULL;
 	if ( !(current_pml4->entries[pml4_index] & PAGE_PRESENT) ) {
 		page_frame_t *frame = allocate_page_frame();
 		if ( !frame )
 			return kfalse;
 
-		pml3 = (pml3_t *) (get_physical_addr(frame) + KERNEL_BASE);
+		kuint64_t phys = get_physical_addr(frame);
+		pml3	       = (pml3_t *) (phys + KERNEL_BASE);
 		kmemset(pml3, 0, PAGE_SIZE);
 
-		current_pml4->entries[pml4_index] =
-		    get_physical_addr(frame) | PAGE_PRESENT | PAGE_WRITABLE;
+		current_pml4->entries[pml4_index] = phys | PAGE_PRESENT | PAGE_WRITABLE;
 	} else {
 		kuint64_t pml3_phys = current_pml4->entries[pml4_index] & ~(kuint64_t) 0xFFF;
 		pml3		    = (pml3_t *) (pml3_phys + KERNEL_BASE);
 	}
 
-	// Get or create PML2 table
 	pml2_t *pml2 = KNULL;
 	if ( !(pml3->entries[pml3_index] & PAGE_PRESENT) ) {
 		page_frame_t *frame = allocate_page_frame();
 		if ( !frame )
 			return kfalse;
 
-		pml2 = (pml2_t *) (get_physical_addr(frame) + KERNEL_BASE);
+		kuint64_t phys = get_physical_addr(frame);
+		pml2	       = (pml2_t *) (phys + KERNEL_BASE);
 		kmemset(pml2, 0, PAGE_SIZE);
 
-		pml3->entries[pml3_index] = get_physical_addr(frame) | PAGE_PRESENT | PAGE_WRITABLE;
+		pml3->entries[pml3_index] = phys | PAGE_PRESENT | PAGE_WRITABLE;
 	} else {
 		kuint64_t pml2_phys = pml3->entries[pml3_index] & ~(kuint64_t) 0xFFF;
 		pml2		    = (pml2_t *) (pml2_phys + KERNEL_BASE);
 	}
 
-	// Get or create PML1 table
 	pml1_t *pml1 = KNULL;
 	if ( !(pml2->entries[pml2_index] & PAGE_PRESENT) ) {
 		page_frame_t *frame = allocate_page_frame();
 		if ( !frame )
 			return kfalse;
 
-		pml1 = (pml1_t *) (get_physical_addr(frame) + KERNEL_BASE);
+		kuint64_t phys = get_physical_addr(frame);
+		pml1	       = (pml1_t *) (phys + KERNEL_BASE);
 		kmemset(pml1, 0, PAGE_SIZE);
 
-		pml2->entries[pml2_index] = get_physical_addr(frame) | PAGE_PRESENT | PAGE_WRITABLE;
+		pml2->entries[pml2_index] = phys | PAGE_PRESENT | PAGE_WRITABLE;
 	} else {
 		kuint64_t pml1_phys = pml2->entries[pml2_index] & ~(kuint64_t) 0xFFF;
 		pml1		    = (pml1_t *) (pml1_phys + KERNEL_BASE);
 	}
 
-	// Map the page
+	if ( pml1->entries[pml1_index] & PAGE_PRESENT ) {
+		// return kfalse;
+	}
+
 	pml1->entries[pml1_index] = physical_addr | flags;
 
-	// Invalidate TLB entry
+	__asm__ volatile("" ::: "memory");
+
 	vm_invalidate_page(virtual_addr);
 
 	return ktrue;
