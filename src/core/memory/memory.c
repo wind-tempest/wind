@@ -71,7 +71,7 @@
 
 #include "memory.h"
 
-#include "core/panic/panic.h"
+#include "core/kpanic/kpanic.h"
 #include "kstdio.h"
 #include "kstring.h"
 
@@ -115,7 +115,7 @@ struct multiboot_tag_mmap {
 void
     kmemory_init (void *multiboot_info) {
 	if ( !multiboot_info ) {
-		panic(1, KNULL);
+		kpanic(1, KNULL);
 		return;
 	}
 
@@ -141,7 +141,7 @@ void
 	}
 
 	if ( !memory_map ) {
-		panic(2, KNULL);
+		kpanic(2, KNULL);
 		return;
 	}
 

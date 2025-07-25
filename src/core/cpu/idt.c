@@ -71,7 +71,7 @@
 
 #include "idt.h"
 
-#include "core/panic/panic.h"
+#include "core/kpanic/kpanic.h"
 #include "ksignal.h"
 #include "kstdio.h"
 
@@ -226,7 +226,7 @@ static void
 // Default C-level handlers.
 void
     isr_handler (registers_t *regs) {
-	// Map interrupt numbers to panic codes.
+	// Map interrupt numbers to kpanic codes.
 	int panic_code = PANIC_UNKNOWN_ERROR;
 
 	switch ( regs->int_no ) {
@@ -283,8 +283,8 @@ void
 			break;
 	}
 
-	// Call panic with the appropriate error code and registers.
-	panic(panic_code, regs);
+	// Call kpanic with the appropriate error code and registers.
+	kpanic(panic_code, regs);
 }
 
 void

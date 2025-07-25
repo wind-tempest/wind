@@ -73,8 +73,8 @@
 
 #include "core/acpi/acpi.h"
 #include "core/entry/kernel.h"
+#include "core/kpanic/kpanic.h"
 #include "core/memory/memory.h"
-#include "core/panic/panic.h"
 #include "drivers/keyboard/keyboard.h"
 #include "drivers/serial/serial.h"
 #include "drivers/video/video.h"
@@ -162,7 +162,7 @@ static struct Command {
     // System control
     {"poweroff", "Power off the OS", "Control", cmd_poweroff},
     {"reboot", "Reboot the OS", "Control", cmd_reboot},
-    {"panic", "Test kernel panic (DANGEROUS!)", "Control", cmd_panic},
+    {"kpanic", "Test kernel kpanic (DANGEROUS!)", "Control", cmd_panic},
 
     // Information commands
     {"fetch", "View system information", "Info", cmd_fetch},
@@ -612,7 +612,7 @@ static void
 static void
     cmd_panic (const char *args) {
 	if ( args == KNULL || *args == '\0' ) {
-		kputs("Usage: panic <error_code>");
+		kputs("Usage: kpanic <error_code>");
 		kputs("Error codes: 0-15 (0=unknown, 1=div_by_zero, etc.)");
 		return;
 	}
@@ -623,6 +623,6 @@ static void
 		return;
 	}
 
-	// Trigger the panic
-	panic(code, KNULL);
+	// Trigger the kpanic
+	kpanic(code, KNULL);
 }
