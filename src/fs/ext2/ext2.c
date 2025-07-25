@@ -139,7 +139,8 @@ int
 
 	/* Compute block size and validate (EXT2 supports 1K,2K,4K). Anything
 	 * larger is non-standard and can easily blow up our simple kmalloc.
-	 * Reject filesystems with block sizes >4 KiB. */
+	 * Reject filesystems with block sizes >4 KiB. 
+	 */
 	if ( g_superblock.log_block_size > 2 ) {
 #ifdef EXT2_DEBUG
 		kprintf("EXT2: unsupported block size (log=%u)\n", g_superblock.log_block_size);
@@ -159,8 +160,8 @@ int
 		return EXT2_ERR_IO;
 	}
 
-	// Group descriptor table starts right after superblock (block 2 for 1K blk)
-	/* For 1 KiB block size the layout is: block0=boot, block1=superblock,
+	/* Group descriptor table starts right after superblock (block 2 for 1K blk)
+	 * For 1 KiB block size the layout is: block0=boot, block1=superblock,
 	 * block2=group descriptor table. For 2 KiB/4 KiB, superblock is at
 	 * byte 1024 inside block0, so the descriptor table immediately follows
 	 * in block1.
