@@ -1,63 +1,92 @@
                                 The Liberty Software License
-                                Version 1.0
+                                        Version 1.0
 
-All rights reserved (C) 2025 <Wind Foundation>
+All rights reserved. <Wind Foundation> (C) 2025
 
-Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
+This license document may be copied and distributed verbatim by anybody, but it cannot be altered.
 
--- Preamble
+- Introduction
 
-The Liberty Software License (LSL) is a modified version of the GNU Affero General Public License v3 (AGPLv3).
-It preserves all freedoms granted by the AGPLv3, with additional provisions designed to address modern challenges.
+The Liberty Software License (LSL), which was developed with the principles of robust copyleft and software freedom in mind, was designed to safeguard users rights to use, modify, and distribute software while adding new clauses to address modern concerns like DRM restrictions and AI training.
 
-Our goal is to ensure that software licensed under the LSL remains free, accessible, transparent, and ethical.
+- TERMS AND CONDITIONS
 
--- TERMS AND CONDITIONS
+0. Definitions.
 
-- 0. Definitions
+    The following terms are used throughout this License:
 
-    With the following additions, this license adopts the definitions found in the GNU AGPLv3:
-    The term "Liberty Clause" describes parts of this license that go beyond the AGPLv3 to provide extra conditions or explanations.
-    "Artificial Intelligence Systems" means machine learning systems, language models, or any automated decision-making system trained or enhanced using digital input.
-    Any technical restrictions intended to limit user freedom, such as access, modification, or redistribution, are referred to as "DRM" (Digital Restrictions Management).
+    * "This License": Refers to the Liberty Software License, Version 1.0.
 
-- 1. License Adoption
+    * "The Program": Refers to any software or work licensed under this License.
 
-    The GNU Affero General Public License version 3, which can be found at <https://www.gnu.org/licenses/agpl-3.0.html>, is incorporated into and contains all of the terms of this license.Agpl-3.0.html (https://www.gnu.org/licenses)
+    * "You" or "User": Any individual or legal entity exercising rights under this License.
 
-- 2. Liberty Clauses (Additional Conditions):
+    * "Source Code": The preferred format for program modifications, containing any relevant files, scripts, documentation, configuration files, and instructions that a skilled developer would require to fully understand, build, test, and modify the program without needing to rely on additional proprietary, cryptic, or intentionally obfuscated materials.
 
-    - 2.1. No Use for AI Training
-        You may not use this software or any of its components for training, improving, or supplementing Artificial Intelligence Systems, including but not limited to language models, recommendation systems, or data mining applications, without explicit written permission from the original author.
+        * "Object Code": Any non-source form of the program.
 
-    - 2.2. Anti-DRM Requirement
-        You may not incorporate this software in any system, product, or service that uses DRM or otherwise restricts users' ability to run, read, modify, or redistribute the software.
+        * "Modify": To change the software or operate in compliance with it.
 
-    - 2.3. Source Code Access
-        You may not distribute this software or derivative works unless you also make the entire corresponding human-readable source code freely available, under the same license, without obfuscation, encryption, or barrier to access.
+        * "Distribute": To in any way make the program or copies of it available to more people.
 
-    - 2.4. Commercial Use Transparency
-        Commercial use is allowed only if all corresponding source code is published and available under the terms of this license. This includes use in Software-as-a-Service platforms, monetized APIs, embedded systems, or paid distribution.
+        The "Liberty Clauses" in Section 6 extend this license to address modern concerns like DRM and artificial intelligence.
 
-    - 2.5. Integrity of Copyright
-        This software may not be relicensed, dual-licensed, or sublicensed under any other license. The Liberty Software License must be applied to all altered or derivative works.
+1. Basic Permissions.
 
-- 3. No Additional Limitations
+    You may run the unmodified Program, copy and distribute verbatim copies, and modify and distribute modified versions under the terms of this License, provided you comply with all its terms.
 
-    No additional terms or conditions may be placed on the use, distribution, or modification of this software in accordance with AGPLv3 Section 10.
+2. Conveying Modified Source Versions.
 
-- 4. Termination and Execution
+    When you distribute a modified version, the entire work must be licensed under this License. You must retain all notices referencing this License.
 
-    Although violating the terms of this license does not instantly end your rights, authors and contributors may nevertheless seek action through the community or the legal system if non-compliance is deliberate or persistent.
+3. Network Use.
 
-- 5. Conscientious and Moral Utilization
+    If the Program is used to provide functionality over a network, the complete corresponding source code must be made available to all users interacting with it.
 
-    To maintain the spirit of software freedom, developers and users are encouraged to:
+4. Additional Terms.
 
-    * Respecting user rights and autonomy * Steering clear of anti-user or proprietary features * Giving back to the community through improvements  Encouraging software that is transparent and accessible
+    You may not impose any further restrictions on the exercise of the rights granted herein except those expressly permitted by this License.
 
-- 6. Disclaimer of Warranties
+5. Liberty Clauses.
 
-    This program is offered "as is" with no implicit or explicit warranties.  The user has all responsibility for quality and performance risks.
+    * 5.1. No Use for AI Training.
 
-(LICENSE END)
+        The Program may not be used, in whole or in part, for training, improving, or supplementing Artificial Intelligence Systems without explicit written permission from the original author.
+
+    * 5.2. Anti-DRM.
+
+        You may not incorporate this software into any system that employs Digital Restrictions Management (DRM) or otherwise limits users' ability to use, study, modify, or share the Program.
+
+    * 5.3. Source Code Access.
+
+        Any distribution of the Program or derivative works must include the complete, human-readable source code under this License, without obfuscation, encryption, or access restrictions.
+
+    * 5.4. Commercial Use Transparency.
+
+        Commercial use is allowed only if all source code for the deployed version is provided under this License. This includes Software-as-a-Service, APIs, embedded systems, or paid software.
+
+6. No Additional Limitations.
+
+    No further conditions may be imposed on the rights granted by this License.
+
+7. Termination.
+
+    Rights under this License terminate automatically if its terms are violated and not remedied within 30 days of notice.
+
+8. Acceptance Not Required for Having Copies.
+
+    Merely using or possessing a copy of the Program does not require acceptance of this License.
+
+9. Disclaimer of Warranty.
+
+    The Program is provided "as is," without any express or implied warranty.
+
+10. Limitation of Liability.
+
+    Developers will not be held accountable for any harm caused by the program.
+
+11. The full agreement.
+
+    This license encapsulates the parties' whole agreement regarding the Program.
+
+(END OF LICENSE)
