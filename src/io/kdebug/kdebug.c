@@ -73,6 +73,7 @@
 
 #include "core/entry/kernel.h"
 #include "drivers/serial/serial.h"
+#include "io/kstdio/kstrlen/kstrlen.h"
 #include "kprint.h"
 #include "kstdarg.h"
 #include "kutoa.h"
@@ -82,6 +83,7 @@ void
 	if ( !kuse_debug ) {
 		return;
 	}
+	serial_writes("[DEBUG] ");
 	serial_writes(s);
 	serial_write('\n');
 }
@@ -94,6 +96,10 @@ int
 	va_list args;
 	k_va_start(args, format);
 	int count = 0;
+
+	const char debug_message[] = "[DEBUG] ";
+	serial_writes(debug_message);
+	count += kstrlen(debug_message);
 
 	for ( const char *p = format; *p; ++p ) {
 		if ( *p != '%' ) {

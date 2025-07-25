@@ -249,7 +249,6 @@ page_frame_t *
 }
 
 // Virtual memory management
-
 void
     vm_init (void) {
 	// Get current page table from CR3
