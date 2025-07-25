@@ -94,7 +94,8 @@
 #define PANIC_HYPERVISOR	  13
 #define PANIC_VMM_COMMUNICATION	  14
 #define PANIC_SECURITY		  15
-#define PANIC_INVALID_OPCODE	  16
+#define PANIC_INVALID_OPCODE                                                                       \
+	16 // For some reason, this is every time used instead of the proper ones.
 
 // Get panic message based on error code.
 static const char *
@@ -131,7 +132,7 @@ static const char *
 		case PANIC_SECURITY:
 			return "Security exception";
 		case PANIC_INVALID_OPCODE:
-			return "Invalid opcode";
+			return "Invalid opcode"; // I hate you.
 		default:
 			return "Unknown error";
 	}
@@ -159,7 +160,7 @@ void
 	panic_in_progress = ktrue;
 	__asm__ volatile("cli");
 
-	kvideo_clear(0xff0000);
+	kvideo_clear(0x0000ff);
 
 	const char *error_msg = get_panic_message(code);
 
@@ -173,7 +174,7 @@ void
 	pputs("\n");
 
 	if ( regs ) {
-		// TODO: Print registers
+		// TODO: Print registers.
 	}
 
 	pputs("System will reboot in 5 seconds...\n");
