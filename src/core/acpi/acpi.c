@@ -11,7 +11,6 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-
 #include "kdebug.h"
 #include "ksignal.h"
 #include "ksleep.h"

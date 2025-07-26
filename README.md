@@ -15,7 +15,7 @@
   </a>
 </p>
 
-> A minimal OS for modern machines, built from scratch, built to last.
+> A minimal OS in POSIX standards, built for modern machines, built from scratch, built to last.
 
 **Wind** is the operating system.  
 **Tempest** is the kernel powering it.
