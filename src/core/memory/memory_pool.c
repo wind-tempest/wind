@@ -122,16 +122,16 @@ void
 }
 
 // Predefined memory pools for common sizes
-static memory_pool_t *small_pool  = KNULL; /* 16 bytes */
-static memory_pool_t *medium_pool = KNULL; /* 64 bytes */
-static memory_pool_t *large_pool  = KNULL; /* 256 bytes */
+static memory_pool_t *small_pool  = KNULL; // 16 bytes
+static memory_pool_t *medium_pool = KNULL; // 64 bytes
+static memory_pool_t *large_pool  = KNULL; // 256 bytes
 
 void
     init_memory_pools (void) {
 	// Create pools for common allocation sizes
-	small_pool  = pool_create(16, 1024); /* 16KB total */
-	medium_pool = pool_create(64, 512);  /* 32KB total */
-	large_pool  = pool_create(256, 128); /* 32KB total */
+	small_pool  = pool_create(16, 1024); // 16KB total
+	medium_pool = pool_create(64, 512);  // 32KB total
+	large_pool  = pool_create(256, 128); // 32KB total
 
 	if ( !small_pool || !medium_pool || !large_pool ) {
 		kwarn("Failed to create some memory pools", KNULL);
