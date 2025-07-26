@@ -11,8 +11,6 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-// SPDX-License-Identifier: LSL-1.0
-
 #pragma once
 
 #include "core/cpu/registers.h"
