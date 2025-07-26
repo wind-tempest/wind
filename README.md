@@ -17,9 +17,6 @@
 
 > A minimal OS in POSIX standards, built for modern machines, built from scratch, built to last.
 
-**Wind** is the operating system.  
-**Tempest** is the kernel powering it.
-
 It runs on `x86_64`, has no legacy baggage, and doesn't pretend to be user-friendly.  
 You break it, you fix it.
 
