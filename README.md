@@ -1,4 +1,4 @@
-![Wind Logo (Wide Version)](logo/wind_wide.png)
+![Wind Logo (Wide Version)](logo/wide.png)
 
 # Wind / Tempest
 
