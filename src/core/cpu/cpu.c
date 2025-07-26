@@ -11,6 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
+#include "cpu.h"
+
 #include "core/entry/kernel.h"
 #include "kstddef.h"
 #include "kstdint.h"

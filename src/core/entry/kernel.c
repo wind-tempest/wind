@@ -16,7 +16,6 @@
 #include "core/cpu/cpu.h"
 #include "core/cpu/idt.h"
 #include "core/memory/memory.h"
-#include "drivers/ata/ata.h"
 #include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
 #include "kdebug.h"
