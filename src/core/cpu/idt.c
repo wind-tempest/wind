@@ -22,7 +22,7 @@
 #define PIC1_DATA 0x21
 #define PIC2_CMD  0xA0
 #define PIC2_DATA 0xA1
-#define PIC_EOI	  0x20 /* End-of-Interrupt command. */
+#define PIC_EOI	  0x20 // End-of-Interrupt command.
 
 // External declarations for ISR and IRQ handlers.
 extern void
@@ -241,9 +241,9 @@ void
 
 	// Send End-of-Interrupt (EOI) to the PICs.
 	if ( regs->int_no >= 40 ) {
-		koutb(PIC2_CMD, PIC_EOI); /* EOI to slave PIC. */
+		koutb(PIC2_CMD, PIC_EOI); // EOI to slave PIC.
 	}
-	koutb(PIC1_CMD, PIC_EOI); /* EOI to master PIC. */
+	koutb(PIC1_CMD, PIC_EOI); // EOI to master PIC.
 }
 
 void
@@ -255,11 +255,11 @@ void
 	// Remap the PIC.
 	koutb(PIC1_CMD, 0x11);
 	koutb(PIC2_CMD, 0x11);
-	koutb(PIC1_DATA, 0x20); /* Master PIC vector offset. */
-	koutb(PIC2_DATA, 0x28); /* Slave PIC vector offset. */
-	koutb(PIC1_DATA, 0x04); /* Tell Master PIC there is a slave PIC at IRQ2. */
-	koutb(PIC2_DATA, 0x02); /* Tell Slave PIC its cascade identity. */
-	koutb(PIC1_DATA, 0x01); /* 8086/88 (MCS-80/85) mode. */
+	koutb(PIC1_DATA, 0x20); // Master PIC vector offset.
+	koutb(PIC2_DATA, 0x28); // Slave PIC vector offset.
+	koutb(PIC1_DATA, 0x04); // Tell Master PIC there is a slave PIC at IRQ2.
+	koutb(PIC2_DATA, 0x02); // Tell Slave PIC its cascade identity.
+	koutb(PIC1_DATA, 0x01); // 8086/88 (MCS-80/85) mode.
 	koutb(PIC2_DATA, 0x01);
 	koutb(PIC1_DATA, 0x0);
 	koutb(PIC2_DATA, 0x0);
