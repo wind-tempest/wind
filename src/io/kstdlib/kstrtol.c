@@ -84,7 +84,7 @@ long
 			if ( acc < cutoff || (acc == cutoff && c > cutlim) ) {
 				acc    = KLONG_MIN;
 				kerrno = KERANGE;
-				neg    = 0; /* to avoid negating again */
+				neg    = 0; // to avoid negating again
 			} else {
 				acc *= base;
 				acc -= c;
@@ -93,7 +93,7 @@ long
 			if ( acc > cutoff || (acc == cutoff && c > cutlim) ) {
 				acc    = KLONG_MAX;
 				kerrno = KERANGE;
-				neg    = 0; /* to avoid negating again */
+				neg    = 0; // to avoid negating again
 			} else {
 				acc *= base;
 				acc += c;

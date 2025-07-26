@@ -17,7 +17,7 @@
 #include "kstdio.h"
 #include "kstring.h"
 
-static kuint64_t	  g_base_lba = 0; /* Partition/LBA base of filesystem         */
+static kuint64_t	  g_base_lba = 0; // Partition/LBA base of filesystem
 static ext2_superblock_t  g_superblock;
 static ext2_group_desc_t *g_group_desc = KNULL;
 static kuint32_t	  g_block_size = 0;
@@ -53,7 +53,7 @@ void
 	int (*read)(kuint64_t, kuint32_t, void *),
 	int (*write)(kuint64_t, kuint32_t, const void *)) {
 	g_read_sector  = read;
-	g_write_sector = write; /* May be KNULL for read-only volumes */
+	g_write_sector = write; // May be KNULL for read-only volumes
 }
 
 int
@@ -64,9 +64,11 @@ int
 
 	g_base_lba = base_lba;
 
-	/* Read raw 1024-byte superblock into temp buffer and copy only the
+	/*
+	 * Read raw 1024-byte superblock into temp buffer and copy only the
 	 * structure portion we need. This avoids overflowing g_superblock
-	 * (struct is ~128 bytes). */
+	 * (struct is ~128 bytes).
+	 */
 	kuint8_t sb_raw[1024];
 	if ( kread_sectors(base_lba + EXT2_SUPERBLOCK_OFFSET / 512, 2, sb_raw) != 0 ) {
 		return EXT2_ERR_IO;
@@ -83,7 +85,8 @@ int
 		return EXT2_ERR_BAD_MAGIC;
 	}
 
-	/* Compute block size and validate (EXT2 supports 1K,2K,4K). Anything
+	/*
+	 * Compute block size and validate (EXT2 supports 1K,2K,4K). Anything
 	 * larger is non-standard and can easily blow up our simple kmalloc.
 	 * Reject filesystems with block sizes >4 KiB.
 	 */
@@ -106,7 +109,8 @@ int
 		return EXT2_ERR_IO;
 	}
 
-	/* Group descriptor table starts right after superblock (block 2 for 1K blk)
+	/*
+	 * Group descriptor table starts right after superblock (block 2 for 1K blk)
 	 * For 1 KiB block size the layout is: block0=boot, block1=superblock,
 	 * block2=group descriptor table. For 2 KiB/4 KiB, superblock is at
 	 * byte 1024 inside block0, so the descriptor table immediately follows
@@ -197,7 +201,7 @@ int
 		if ( next_tok ) {
 			// Expect directory
 			if ( !(cur_inode.mode & 0x4000) )
-				return EXT2_ERR_INVALID; /* Not a directory */
+				return EXT2_ERR_INVALID; // Not a directory
 		} else {
 			// Last component - should be file (or directory, we allow both)
 			out_file->inode = cur_inode;
@@ -290,7 +294,7 @@ static int
 	if ( !dir_inode || !cb )
 		return EXT2_ERR_INVALID;
 
-	if ( !(dir_inode->mode & 0x4000) ) /* not a directory */
+	if ( !(dir_inode->mode & 0x4000) ) // not a directory
 		return EXT2_ERR_INVALID;
 
 	kuint8_t *block_buf = kmalloc(g_block_size);
@@ -397,7 +401,7 @@ int
 	if ( kread_inode(EXT2_ROOT_INODE, &root) != EXT2_OK )
 		return EXT2_ERR_IO;
 
-	if ( !(root.mode & 0x4000) ) /* not a directory */
+	if ( !(root.mode & 0x4000) ) // not a directory
 		return EXT2_ERR_INVALID;
 
 	kuint8_t *block_buf = kmalloc(g_block_size);
@@ -426,9 +430,9 @@ int
 		return EXT2_ERR_INVALID;
 
 	// Clamp length to remaining bytes in file
-	kuint32_t size = file->inode.size_lo; /* We only support files <4GiB */
+	kuint32_t size = file->inode.size_lo; // We only support files <4GiB (for a while, calm down!)
 	if ( file->pos >= size )
-		return 0; /* EOF */
+		return 0; // EOF
 	if ( file->pos + len > size )
 		len = size - file->pos;
 

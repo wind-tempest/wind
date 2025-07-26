@@ -127,7 +127,7 @@ static void
 		*space = '\0';
 		args   = space + 1;
 		while ( *args == ' ' )
-			++args; /* skip extra spaces */
+			++args; // skip extra spaces
 	}
 	for ( ksize_t i = 0; i < NUM_COMMANDS; ++i ) {
 		if ( kstrcmp(cmd, commands[i].name) == 0 ) {

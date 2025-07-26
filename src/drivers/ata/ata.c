@@ -69,7 +69,7 @@ int
     ata_pio_read (kuint64_t lba, kuint32_t count, void *buf) {
 	if ( count == 0 || buf == KNULL )
 		return -1;
-	if ( lba > 0x0FFFFFFF ) /* 28-bit limit */
+	if ( lba > 0x0FFFFFFF ) // 28-bit limit
 		return -1;
 
 	kuint8_t *ptr = (kuint8_t *) buf;

@@ -41,7 +41,7 @@ void
 	ksize_t pos	 = 0;
 	tmp[pos++]	 = '/';
 
-	const char *p = path + 1; /* skip leading '/' */
+	const char *p = path + 1; // skip leading '/'
 	while ( *p ) {
 		// Skip repeated '/'
 		while ( *p == '/' )
@@ -59,7 +59,7 @@ void
 		comp[len] = '\0';
 
 		if ( len == 1 && comp[0] == '.' )
-			continue; /* ignore '.' */
+			continue; // ignore '.'
 		if ( len == 2 && comp[0] == '.' && comp[1] == '.' ) {
 			// Go up one directory
 			if ( pos > 1 ) {
@@ -76,7 +76,7 @@ void
 		if ( pos > 1 && tmp[pos - 1] != '/' )
 			tmp[pos++] = '/';
 		if ( pos + len >= sizeof(tmp) )
-			break; /* prevent overflow */
+			break; // prevent overflow
 		kmemcpy(&tmp[pos], comp, len);
 		pos += len;
 	}

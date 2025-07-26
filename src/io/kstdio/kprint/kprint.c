@@ -89,7 +89,7 @@ int
 		int long_long = 0;
 		if ( *p == 'l' && *(p + 1) == 'l' ) {
 			long_long = 1;
-			p += 2; /* Skip the two 'l's */
+			p += 2; // Skip the two 'l's
 		}
 
 		char *t = temp;

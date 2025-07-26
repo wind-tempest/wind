@@ -101,12 +101,14 @@ void
 	// Initialize page frame array
 	page_frames = (page_frame_t *) KERNEL_HEAP_BASE;
 
-	// Map the page frames array
-	/* The first 4 GiB is identity-mapped by the bootstrap page tables, so
-	   the 16 MiB heap area we chose (0x01000000-0x05000000) is already
-	   accessible.  Therefore we don’t need extra page-table work here –
-	   attempting to allocate page frames before the free list exists would
-	   fail.  We can safely skip explicit mapping at this early stage. */
+	/*
+	 * Map the page frames array:
+	 * The first 4 GiB is identity-mapped by the bootstrap page tables, so
+	 * the 16 MiB heap area we chose (0x01000000-0x05000000) is already
+	 * accessible.  Therefore we don’t need extra page-table work here –
+	 * attempting to allocate page frames before the free list exists would
+	 * fail. We can safely skip explicit mapping at this early stage.
+	*/ 
 
 	// Initialize page frame structures
 	for ( kuint64_t i = 0; i < total_pages; i++ ) {
@@ -141,7 +143,7 @@ void
 page_frame_t *
     allocate_page_frame (void) {
 	if ( !free_page_list ) {
-		return KNULL; /* Out of memory */
+		return KNULL; // Out of memory
 	}
 
 	page_frame_t *frame = free_page_list;
@@ -165,7 +167,7 @@ void
 
 	frame->ref_count--;
 	if ( frame->ref_count > 0 ) {
-		return; /* Still referenced */
+		return; // Still referenced
 	}
 
 	frame->next    = free_page_list;
@@ -417,7 +419,7 @@ void *
 		current = current->next;
 	}
 
-	return KNULL; /* Out of memory */
+	return KNULL; // Out of memory
 }
 
 void *
@@ -441,7 +443,7 @@ void *
 
 	heap_block_t *block = (heap_block_t *) ((kuint8_t *) ptr - sizeof(heap_block_t));
 	if ( block->size >= size ) {
-		return ptr; /* No need to reallocate */
+		return ptr; // No need to reallocate
 	}
 
 	void *new_ptr = kmalloc(size);
@@ -459,7 +461,7 @@ void
 
 	heap_block_t *block = (heap_block_t *) ((kuint8_t *) ptr - sizeof(heap_block_t));
 	if ( block->is_free )
-		return; /* Already freed */
+		return; // Already freed
 
 	block->is_free = ktrue;
 	heap_used -= block->size;

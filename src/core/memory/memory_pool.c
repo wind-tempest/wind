@@ -83,19 +83,19 @@ void
 	if ( ptr < pool->pool_start
 	     || (kuintptr_t) ptr
 		    >= (kuintptr_t) pool->pool_start + pool->total_blocks * pool->block_size ) {
-		return; /* Invalid pointer */
+		return; // Invalid pointer
 	}
 
 	// Check if pointer is aligned to block size
 	kuintptr_t offset = (kuintptr_t) ptr - (kuintptr_t) pool->pool_start;
 	if ( offset % pool->block_size != 0 ) {
-		return; /* Misaligned pointer */
+		return; // Misaligned pointer
 	}
 
 	// Check if block is already free
 	for ( ksize_t i = 0; i < pool->free_blocks; i++ ) {
 		if ( pool->free_list[i] == ptr ) {
-			return; /* Already free */
+			return; // Already free
 		}
 	}
 
