@@ -1,13 +1,13 @@
 // font.c
 
-// SPDX-License-Identifier: LSL-1.1
+// SPDX-License-Identifier: LSL-1.2
 /*
  * Wind/Tempest Project
  *
  * Copyright (C) 2025 Wind Foundation <https://wind.infernointeractive.win>
  *
  * This file is part of the Wind Operating System and Tempest Kernel.
- * It is licensed under the Liberty Software License 1.1 (LSL-1.1).
+ * It is licensed under the Liberty Software License 1.2 (LSL-1.2).
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
@@ -25,7 +25,7 @@ const kuint32_t FONT_HEIGHT = 8;
  * The font data below is Public Domain.
  * Original font by Daniel Hepper <https://github.com/dhepper/font8x8>.
  * Thank you so much Daniel! :-)
- * All other code in the Wind/Tempest Project is licensed under Liberty Software License 1.1 (LSL-1.1).
+ * All other code in the Wind/Tempest Project is licensed under Liberty Software License 1.2 (LSL-1.2).
  */
 const unsigned char font[128][8] = {
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}, // U+0000 (nul)
