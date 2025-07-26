@@ -41,7 +41,7 @@ int
 
 	const char debug_message[] = "[DEBUG] ";
 	serial_writes(debug_message);
-	count += kstrlen(debug_message);
+	count += (int) kstrlen(debug_message);
 
 	for ( const char *p = format; *p; ++p ) {
 		if ( *p != '%' ) {
