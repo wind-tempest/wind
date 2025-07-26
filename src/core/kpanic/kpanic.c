@@ -188,7 +188,7 @@ void
 
 	buf[0] = '\0';
 
-	for ( int i = 5; i > 0; i-- ) {
+	for ( unsigned int i = seconds_to_reboot; i > 0; i-- ) {
 		pputs("Rebooting in ");
 		kitoa(buf, buf + 14, i, 10, 0);
 		pputs(buf);
