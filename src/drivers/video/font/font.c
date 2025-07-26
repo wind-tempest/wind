@@ -24,6 +24,7 @@ const kuint32_t FONT_HEIGHT = 8;
  *
  * The font data below is Public Domain.
  * Original font by Daniel Hepper <https://github.com/dhepper/font8x8>.
+ * Thank you so much Daniel! :-)
  * All other code in the Wind/Tempest Project is licensed under Liberty Software License 1.1 (LSL-1.1).
  */
 const unsigned char font[128][8] = {
