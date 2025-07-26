@@ -15,7 +15,7 @@ The Liberty Software License (LSL), which was developed with the principles of r
 
 	The following terms are used throughout this License:
 
-	* "This License": Refers to the Liberty Software License, Version 1.0.
+	* "This License": Refers to the Liberty Software License.
 
 	* "The Program": Refers to any software or work licensed under this License.
 
