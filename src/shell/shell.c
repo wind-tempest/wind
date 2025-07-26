@@ -381,7 +381,6 @@ static void
 	}
 }
 
-// Callback used by kext2_list to print each entry
 static void
     ls_print_cb (const char *name, kuint8_t file_type) {
 	(void) file_type;

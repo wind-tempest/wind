@@ -21,8 +21,8 @@
 
 void
     kpoweroff (void) {
-	koutw(0x604, 0x2000);  /* Port 0x604 */
-	koutw(0xB004, 0x2000); /* Port 0xB004 */
+	koutw(0x604, 0x2000);  // Port 0x604
+	koutw(0xB004, 0x2000); // Port 0xB004
 
 	ksleep(POWEROFF_TIMEOUT_MS);
 	// If poweroff fails, log warning
@@ -32,8 +32,8 @@ void
 void
     kreboot (void) {
 	while ( kinb(0x64) & 0x02 )
-		;	   /* Wait for keyboard controller ready */
-	koutb(0x64, 0xFE); /* Send reset command */
+		;	   // Wait for keyboard controller ready
+	koutb(0x64, 0xFE); // Send reset command
 
 	ksleep(POWEROFF_TIMEOUT_MS);
 	// If reboot fails, log warning
