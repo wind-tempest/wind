@@ -38,14 +38,14 @@ extern kbool is_mounted;
 
 // Superblock — stored at offset 1024 bytes from partition start
 typedef struct __attribute__((packed)) ext2_superblock {
-	kuint32_t inodes_count;	     // Total number of inodes     
-	kuint32_t blocks_count;	     // Total number of blocks     
-	kuint32_t r_blocks_count;    // Reserved blocks            
-	kuint32_t free_blocks_count; // Free blocks                
-	kuint32_t free_inodes_count; // Free inodes                
-	kuint32_t first_data_block;  // First data block id        
+	kuint32_t inodes_count;	     // Total number of inodes
+	kuint32_t blocks_count;	     // Total number of blocks
+	kuint32_t r_blocks_count;    // Reserved blocks
+	kuint32_t free_blocks_count; // Free blocks
+	kuint32_t free_inodes_count; // Free inodes
+	kuint32_t first_data_block;  // First data block id
 	kuint32_t log_block_size;    // block_size = 1024 << log_bs
-	kuint32_t log_frag_size;     // fragment size (unused)     
+	kuint32_t log_frag_size;     // fragment size (unused)
 	kuint32_t blocks_per_group;
 	kuint32_t frags_per_group;
 	kuint32_t inodes_per_group;

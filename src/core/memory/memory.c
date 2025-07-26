@@ -108,7 +108,7 @@ void
 	 * accessible.  Therefore we don’t need extra page-table work here –
 	 * attempting to allocate page frames before the free list exists would
 	 * fail. We can safely skip explicit mapping at this early stage.
-	*/ 
+	 */
 
 	// Initialize page frame structures
 	for ( kuint64_t i = 0; i < total_pages; i++ ) {

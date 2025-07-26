@@ -59,4 +59,4 @@ Must support Multiboot2/Limine.
 
 ## License
 
-This OS/Kernel is released under the                                Liberty Software License (v1.0). Please see [LICENSE](LICENSE).
+This OS/Kernel is released under the Liberty Software License (v1.1). Please see [LICENSE](LICENSE) or [LICENSE.txt](license/LICENSE.txt).

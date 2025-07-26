@@ -430,7 +430,8 @@ int
 		return EXT2_ERR_INVALID;
 
 	// Clamp length to remaining bytes in file
-	kuint32_t size = file->inode.size_lo; // We only support files <4GiB (for a while, calm down!)
+	kuint32_t size =
+	    file->inode.size_lo; // We only support files <4GiB (for a while, calm down!)
 	if ( file->pos >= size )
 		return 0; // EOF
 	if ( file->pos + len > size )
