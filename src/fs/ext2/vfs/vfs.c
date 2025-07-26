@@ -113,9 +113,9 @@ int
 	ext2_file_t dir;
 	int	    rc = kext2_open(resolved, &dir);
 	if ( rc != 0 )
-		return rc; /* propagate ext2 error */
+		return rc; // Propagate ext2 error
 	if ( !(dir.inode.mode & 0x4000) )
-		return -1; /* not a directory */
+		return -1; // Not a directory
 
 	kstrcpy(cwd_path, resolved);
 	return 0;
