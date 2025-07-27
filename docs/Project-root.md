@@ -22,9 +22,6 @@ kernel/      - Kernel source code
     fs/      - Filesystem implementation
     klibc/   - Kernel libc library
     shell/   - Hardcoded shell (placeholder)
-license/     - License files
-    LICENSE.txt - License in plain text format
-    LICENSE.md  - License in markdown format
 logo/        - Logo and image files
     ...
 tools/       - Build and utility tools

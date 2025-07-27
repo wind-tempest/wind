@@ -7,7 +7,7 @@
     <a href="https://github.com/wind-tempest/wind/tree/main/src">
       <img src="https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=" alt="Most used language">
     </a>
-    <a href="LICENSE"><img src="https://img.shields.io/badge/license-LSL-blue.svg" alt="License: LSL v1.0"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL3.0-blue.svg" alt="License: GPL3.0"></a>
     <a href="docs/Main.md"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
     <img src="https://img.shields.io/badge/platform-x86__64-lightgrey.svg" alt="Platform: x86_64">
     <a href="https://github.com/wind-tempest/wind/actions/workflows/build.yml?branch=main">
@@ -47,4 +47,4 @@ All docs live in [`docs/`](docs/Main.md). Read them first.
 
 ## License
 
-This OS/Kernel is released under the Liberty Software License (v1.1). Please see [LICENSE](LICENSE) or [LICENSE.txt](license/LICENSE.txt).
+This OS/Kernel is released under the GNU General Public License (version 3 or later). Please see [LICENSE](LICENSE)
