@@ -155,14 +155,16 @@ void
 					handle_command(cmd_buffer);
 
 					if ( history_count < MAX_HISTORY ) {
-						ksize_t len = (ksize_t) kstrlen(cmd_buffer);
+						ksize_t len =
+						    (ksize_t) kstrlen(cmd_buffer);
 						if ( len >= CMD_BUFFER_SIZE )
 							len = CMD_BUFFER_SIZE - 1;
 						kmemcpy(
 						    command_history[history_count],
 						    cmd_buffer,
 						    len);
-						command_history[history_count][len] = '\0';
+						command_history[history_count][len] =
+						    '\0';
 						history_count++;
 					}
 				}
@@ -239,7 +241,9 @@ static void
 		for ( ksize_t i = 0; i < NUM_COMMANDS; ++i ) {
 			if ( kstrcmp(commands[i].category, categories[cat]) == 0 ) {
 				kprintf(
-				    "  %-12s - %s\n", commands[i].name, commands[i].description);
+				    "  %-12s - %s\n",
+				    commands[i].name,
+				    commands[i].description);
 			}
 		}
 	}
@@ -424,7 +428,8 @@ static void
 		kprintf("fsize: cannot open %s (err %d)\n", path, rc);
 		return;
 	}
-	kuint64_t size = (((kuint64_t) file.inode.dir_acl_or_size_high) << 32) | file.inode.size_lo;
+	kuint64_t size =
+	    (((kuint64_t) file.inode.dir_acl_or_size_high) << 32) | file.inode.size_lo;
 	kprintf("%s: %llu bytes\n", args, size);
 }
 

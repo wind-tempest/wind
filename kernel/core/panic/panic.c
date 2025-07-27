@@ -37,7 +37,7 @@
 #define PANIC_HYPERVISOR	  13
 #define PANIC_VMM_COMMUNICATION	  14
 #define PANIC_SECURITY		  15
-#define PANIC_INVALID_OPCODE                                                                       \
+#define PANIC_INVALID_OPCODE                                                             \
 	16 // For some reason, this is every time used instead of the proper ones.
 
 unsigned int seconds_to_reboot = 5;

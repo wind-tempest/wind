@@ -71,11 +71,14 @@ void
 		struct multiboot_tag *tag = (struct multiboot_tag *) current_tag;
 
 		if ( tag->type == MULTIBOOT_TAG_TYPE_MMAP ) {
-			struct multiboot_tag_mmap *mmap_tag = (struct multiboot_tag_mmap *) tag;
-			memory_map = (memory_map_entry_t *) ((kuint8_t *) mmap_tag
-							     + sizeof(struct multiboot_tag_mmap));
+			struct multiboot_tag_mmap *mmap_tag =
+			    (struct multiboot_tag_mmap *) tag;
+			memory_map =
+			    (memory_map_entry_t *) ((kuint8_t *) mmap_tag
+						    + sizeof(struct multiboot_tag_mmap));
 			memory_map_entries =
-			    (kuint32_t) ((mmap_tag->size - sizeof(struct multiboot_tag_mmap))
+			    (kuint32_t) ((mmap_tag->size
+					  - sizeof(struct multiboot_tag_mmap))
 					 / mmap_tag->entry_size);
 			break;
 		}
@@ -224,8 +227,9 @@ kbool
 
 		current_pml4->entries[pml4_index] = phys | PAGE_PRESENT | PAGE_WRITABLE;
 	} else {
-		kuint64_t pml3_phys = current_pml4->entries[pml4_index] & ~(kuint64_t) 0xFFF;
-		pml3		    = (pml3_t *) (pml3_phys + KERNEL_BASE);
+		kuint64_t pml3_phys =
+		    current_pml4->entries[pml4_index] & ~(kuint64_t) 0xFFF;
+		pml3 = (pml3_t *) (pml3_phys + KERNEL_BASE);
 	}
 
 	pml2_t *pml2 = KNULL;
@@ -398,9 +402,11 @@ void *
 			// Split block if it's much larger than needed
 			if ( current->size >= total_size + sizeof(heap_block_t) + 64 ) {
 				heap_block_t *new_block =
-				    (heap_block_t *) ((kuint8_t *) current + sizeof(heap_block_t)
+				    (heap_block_t *) ((kuint8_t *) current
+						      + sizeof(heap_block_t)
 						      + total_size);
-				new_block->size = current->size - total_size - sizeof(heap_block_t);
+				new_block->size =
+				    current->size - total_size - sizeof(heap_block_t);
 				new_block->is_free = ktrue;
 				new_block->next	   = current->next;
 				new_block->prev	   = current;

@@ -38,11 +38,13 @@ void
 		return;
 
 	for ( kuint32_t y = 0; y < fb_info.height; y++ ) {
-		volatile kuint8_t *row_base = (volatile kuint8_t *) framebuffer + y * fb_info.pitch;
+		volatile kuint8_t *row_base =
+		    (volatile kuint8_t *) framebuffer + y * fb_info.pitch;
 
 		if ( fb_info.bpp == 16 ) {
 			volatile kuint16_t *row = (volatile kuint16_t *) row_base;
-			kuint16_t color16 = (kuint16_t) (color & 0xFFFF); // Assume format RGB565
+			kuint16_t	    color16 =
+			    (kuint16_t) (color & 0xFFFF); // Assume format RGB565
 			for ( kuint32_t x = 0; x < fb_info.width; x++ ) {
 				row[x] = color16;
 			}
@@ -141,11 +143,13 @@ void
 	}
 
 	if ( fb_info.bpp == 16 ) {
-		kuint16_t *row = (kuint16_t *) ((kuint8_t *) framebuffer + y * fb_info.pitch);
-		row[x]	       = krgb888_to_rgb565(rgb_color);
+		kuint16_t *row =
+		    (kuint16_t *) ((kuint8_t *) framebuffer + y * fb_info.pitch);
+		row[x] = krgb888_to_rgb565(rgb_color);
 	} else {
-		kuint32_t *row = (kuint32_t *) ((kuint8_t *) framebuffer + y * fb_info.pitch);
-		row[x]	       = krgb_to_bgr(rgb_color);
+		kuint32_t *row =
+		    (kuint32_t *) ((kuint8_t *) framebuffer + y * fb_info.pitch);
+		row[x] = krgb_to_bgr(rgb_color);
 	}
 }
 
@@ -182,7 +186,8 @@ void
 		// Erase the character at the current position
 		for ( kuint32_t row = 0; row < FONT_HEIGHT; row++ ) {
 			for ( kuint32_t col = 0; col < FONT_WIDTH; col++ ) {
-				kvideo_put_pixel(cursor_x + col, cursor_y + row, 0x000000);
+				kvideo_put_pixel(
+				    cursor_x + col, cursor_y + row, 0x000000);
 			}
 		}
 		return;
@@ -216,7 +221,8 @@ void
 				int px = cx + x;
 				int py = cy + y;
 				if ( px >= 0 && py >= 0 ) {
-					kvideo_put_pixel((kuint32_t) px, (kuint32_t) py, rgb_color);
+					kvideo_put_pixel(
+					    (kuint32_t) px, (kuint32_t) py, rgb_color);
 				}
 			}
 		}

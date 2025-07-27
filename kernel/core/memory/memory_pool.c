@@ -82,8 +82,8 @@ void
 
 	// Check if pointer is within pool bounds
 	if ( ptr < pool->pool_start
-	     || (kuintptr_t) ptr
-		    >= (kuintptr_t) pool->pool_start + pool->total_blocks * pool->block_size ) {
+	     || (kuintptr_t) ptr >= (kuintptr_t) pool->pool_start
+					+ pool->total_blocks * pool->block_size ) {
 		return; // Invalid pointer
 	}
 

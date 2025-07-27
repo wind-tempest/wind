@@ -134,7 +134,8 @@ int
 					} else {
 						uval = (unsigned int) val;
 					}
-					t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
+					t = kutoa(
+					    t, temp + sizeof(temp) - 1, uval, 10, 0);
 				}
 				break;
 			}
@@ -149,18 +150,19 @@ int
 						 0);
 				} else {
 					unsigned int uval = k_va_arg(args, unsigned int);
-					t = kutoa(t, temp + sizeof(temp) - 1, uval, 10, 0);
+					t		  = kutoa(
+					    t, temp + sizeof(temp) - 1, uval, 10, 0);
 				}
 				break;
 			}
 			case 'x': {
 				unsigned int uval = k_va_arg(args, unsigned int);
-				t		  = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 0);
+				t = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 0);
 				break;
 			}
 			case 'X': {
 				unsigned int uval = k_va_arg(args, unsigned int);
-				t		  = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 1);
+				t = kutoa(t, temp + sizeof(temp) - 1, uval, 16, 1);
 				break;
 			}
 			case '%': {
@@ -285,7 +287,8 @@ int
 					else {
 						kuint64_t un = (kuint64_t) n;
 						while ( un ) {
-							buf[--idx] = (char) ('0' + (un % 10));
+							buf[--idx] =
+							    (char) ('0' + (un % 10));
 							un /= 10;
 						}
 					}
@@ -370,7 +373,8 @@ int
 						buf[--idx] = '0';
 					else {
 						while ( n ) {
-							buf[--idx] = (char) ('0' + (n % 10));
+							buf[--idx] =
+							    (char) ('0' + (n % 10));
 							n /= 10;
 						}
 					}

@@ -15,7 +15,7 @@ AlignTrailingComments: true
 AlignAfterOpenBracket: AlwaysBreak
 AlignConsecutiveBitFields: true
 
-ColumnLimit: 100
+ColumnLimit: 90
 MaxEmptyLinesToKeep: 1
 PenaltyReturnTypeOnItsOwnLine: 0
 PenaltyBreakAssignment: 2

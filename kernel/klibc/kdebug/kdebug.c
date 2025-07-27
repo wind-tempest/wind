@@ -104,8 +104,8 @@ int
 					n      = -n;
 				}
 
-				char *end_ptr =
-				    kutoa(ptr, buf + sizeof(buf) - 1, (unsigned int) n, 10, 0);
+				char *end_ptr = kutoa(
+				    ptr, buf + sizeof(buf) - 1, (unsigned int) n, 10, 0);
 				*end_ptr = '\0';
 				serial_writes(buf);
 				count += (int) (end_ptr - buf);
@@ -115,8 +115,9 @@ int
 			case 'x': {
 				unsigned int n = k_va_arg(args, unsigned int);
 				char	     buf[12];
-				char	    *end_ptr = kutoa(buf, buf + sizeof(buf) - 1, n, 16, 0);
-				*end_ptr	     = '\0';
+				char	    *end_ptr =
+				    kutoa(buf, buf + sizeof(buf) - 1, n, 16, 0);
+				*end_ptr = '\0';
 				serial_writes(buf);
 				count += (int) (end_ptr - buf);
 				break;

@@ -14,7 +14,8 @@
 #pragma once
 
 #ifdef _STDINT_H
-#	error "Do NOT include <stdint.h> before kstdint.h! Use only kstdint.h in this project."
+#	error                                                                            \
+	    "Do NOT include <stdint.h> before kstdint.h! Use only kstdint.h in this project."
 #endif
 
 // Int

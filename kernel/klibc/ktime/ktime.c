@@ -72,12 +72,13 @@ void
 
 	// Convert BCD to decimal if needed
 	if ( is_bcd ) {
-		time->second = kbcd_to_decimal(seconds);
-		time->minute = kbcd_to_decimal(minutes);
-		time->hour   = kbcd_to_decimal(hours);
-		time->day    = kbcd_to_decimal(day);
-		time->month  = kbcd_to_decimal(month);
-		time->year = (kuint16_t) (kbcd_to_decimal(year) + (kbcd_to_decimal(century) * 100));
+		time->second	  = kbcd_to_decimal(seconds);
+		time->minute	  = kbcd_to_decimal(minutes);
+		time->hour	  = kbcd_to_decimal(hours);
+		time->day	  = kbcd_to_decimal(day);
+		time->month	  = kbcd_to_decimal(month);
+		time->year	  = (kuint16_t) (kbcd_to_decimal(year)
+						 + (kbcd_to_decimal(century) * 100));
 		time->day_of_week = kbcd_to_decimal(day_of_week);
 	} else {
 		time->second	  = seconds;
@@ -122,7 +123,8 @@ void
 	kget_bios_time(&time);
 
 	// Format: HH:MM:SS
-	ksnprintf(buffer, buffer_size, "%02d:%02d:%02d", time.hour, time.minute, time.second);
+	ksnprintf(
+	    buffer, buffer_size, "%02d:%02d:%02d", time.hour, time.minute, time.second);
 }
 
 // Get full date and time string
@@ -136,7 +138,12 @@ void
 
 	// Format: DD-MM-YYYY HH:MM
 	kprintf(
-	    "%02d-%02d-%04d %02d:%02d", time.day, time.month, time.year, time.hour, time.minute);
+	    "%02d-%02d-%04d %02d:%02d",
+	    time.day,
+	    time.month,
+	    time.year,
+	    time.hour,
+	    time.minute);
 
 	// Copy to buffer
 	ksnprintf(

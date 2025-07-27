@@ -70,7 +70,8 @@ static void
 	}
 
 	if ( scancode < 128 ) {
-		unsigned char c = shift_pressed ? kbd_us_shift[scancode] : kbd_us[scancode];
+		unsigned char c =
+		    shift_pressed ? kbd_us_shift[scancode] : kbd_us[scancode];
 
 		if ( caps_lock && !shift_pressed ) {
 			// Caps Lock ON + Shift OFF:
@@ -85,7 +86,8 @@ static void
 		}
 
 		if ( c != 0 ) {
-			if ( (kbd_buffer_head + 1) % KBD_BUFFER_SIZE != kbd_buffer_tail ) {
+			if ( (kbd_buffer_head + 1) % KBD_BUFFER_SIZE
+			     != kbd_buffer_tail ) {
 				kbd_buffer[kbd_buffer_head] = c;
 				kbd_buffer_head = (kbd_buffer_head + 1) % KBD_BUFFER_SIZE;
 			}

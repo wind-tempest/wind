@@ -93,7 +93,9 @@ int
 	 */
 	if ( g_superblock.log_block_size > 2 ) {
 #ifdef EXT2_DEBUG
-		kprintf("EXT2: unsupported block size (log=%u)\n", g_superblock.log_block_size);
+		kprintf(
+		    "EXT2: unsupported block size (log=%u)\n",
+		    g_superblock.log_block_size);
 #endif
 		return EXT2_ERR_UNSUPPORTED;
 	}
@@ -119,7 +121,8 @@ int
 	 */
 	kuint32_t gd_start_blk = (g_block_size == 1024) ? 2 : 1;
 	for ( kuint32_t i = 0; i < gd_table_blocks; i++ ) {
-		if ( kread_block(gd_start_blk + i, (kuint8_t *) g_group_desc + i * g_block_size)
+		if ( kread_block(
+			 gd_start_blk + i, (kuint8_t *) g_group_desc + i * g_block_size)
 		     != 0 ) {
 			return EXT2_ERR_IO;
 		}
@@ -180,10 +183,12 @@ int
 			}
 			kuint32_t off = 0;
 			while ( off < g_block_size ) {
-				ext2_dir_entry_t *ent = (ext2_dir_entry_t *) (blk_buf + off);
+				ext2_dir_entry_t *ent =
+				    (ext2_dir_entry_t *) (blk_buf + off);
 				if ( ent->rec_len == 0 )
 					break;
-				if ( ent->inode != 0 && ent->name_len == (kuint8_t) kstrlen(tok)
+				if ( ent->inode != 0
+				     && ent->name_len == (kuint8_t) kstrlen(tok)
 				     && kmemcmp(ent->name, tok, ent->name_len) == 0 ) {
 					found_ino = ent->inode;
 					break;
@@ -361,10 +366,12 @@ int
 			}
 			kuint32_t off = 0;
 			while ( off < g_block_size ) {
-				ext2_dir_entry_t *ent = (ext2_dir_entry_t *) (blk_buf + off);
+				ext2_dir_entry_t *ent =
+				    (ext2_dir_entry_t *) (blk_buf + off);
 				if ( ent->rec_len == 0 )
 					break;
-				if ( ent->inode != 0 && ent->name_len == (kuint8_t) kstrlen(tok)
+				if ( ent->inode != 0
+				     && ent->name_len == (kuint8_t) kstrlen(tok)
 				     && kmemcmp(ent->name, tok, ent->name_len) == 0 ) {
 					found_ino = ent->inode;
 					break;

@@ -28,7 +28,7 @@
 
 // Virtual memory layout
 #define KERNEL_BASE	 0xFFFFFFFF80000000
-#define KERNEL_HEAP_BASE 0x01000000	    // 16 MB, identity-mapped in early paging setup
+#define KERNEL_HEAP_BASE 0x01000000 // 16 MB, identity-mapped in early paging setup
 #define KERNEL_HEAP_SIZE (64 * 1024 * 1024) // 64MB
 #define USER_SPACE_BASE	 0x0000000000400000
 #define USER_SPACE_SIZE	 (0x800000000000 - USER_SPACE_BASE)
