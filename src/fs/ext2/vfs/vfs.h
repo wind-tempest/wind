@@ -20,7 +20,7 @@
  * We only track a single global CWD at the moment (one task / shell).
  */
 
-/* 
+/*
  * Change the current working directory.
  * Accepts absolute or relative path. Returns 0 on success, negative error code otherwise.
  */
