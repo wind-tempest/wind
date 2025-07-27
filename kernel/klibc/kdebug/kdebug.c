@@ -179,78 +179,47 @@ int
 }
 
 void
-    kcritical (const char *message, const char *extra) {
+    kdbgtype (const char *type, const char *message, const char *extra) {
 	if ( !message || *message == '\0' )
 		return;
-	if ( extra == KNULL ) {
-		kprintf("[CRITICAL] %s\n", message);
+	if ( !extra || *message == '\0' ) {
+		kprintf("[%s] %s\n", type, message);
 	} else {
-		kprintf("[CRITICAL] %s: %s\n", message, extra);
+		kprintf("[%s] %s: %s\n", type, message, extra);
 	}
+}
+
+void
+    kcritical (const char *message, const char *extra) {
+	kdbgtype("CRITICAL", message, extra);
 }
 
 void
     kalert (const char *message, const char *extra) {
-	if ( !message || *message == '\0' )
-		return;
-	if ( extra == KNULL ) {
-		kprintf("[ALERT] %s\n", message);
-	} else {
-		kprintf("[ALERT] %s: %s\n", message, extra);
-	}
+	kdbgtype("ALERT", message, extra);
 }
 
 void
     kemerg (const char *message, const char *extra) {
-	if ( !message || *message == '\0' )
-		return;
-	if ( extra == KNULL ) {
-		kprintf("[EMERGENCY] %s\n", message);
-	} else {
-		kprintf("[EMERGENCY] %s: %s\n", message, extra);
-	}
+	kdbgtype("EMERG", message, extra);
 }
 
 void
     kwarn (const char *message, const char *extra) {
-	if ( !message || *message == '\0' )
-		return;
-	if ( extra == KNULL ) {
-		kprintf("[WARN] %s\n", message);
-	} else {
-		kprintf("[WARN] %s: %s\n", message, extra);
-	}
+	kdbgtype("WARN", message, extra);
 }
 
 void
     kerror (const char *message, const char *extra) {
-	if ( !message || *message == '\0' )
-		return;
-	if ( extra == KNULL ) {
-		kprintf("[ERROR] %s\n", message);
-	} else {
-		kprintf("[ERROR] %s: %s\n", message, extra);
-	}
+	kdbgtype("ERROR", message, extra);
 }
 
 void
     knotice (const char *message, const char *extra) {
-	if ( !message || *message == '\0' )
-		return;
-	if ( extra == KNULL ) {
-		kprintf("[NOTICE] %s\n", message);
-	} else {
-		kprintf("[NOTICE] %s: %s\n", message, extra);
-	}
+	kdbgtype("NOTICE", message, extra);
 }
 
 void
     kinfo (const char *message, const char *extra) {
-	if ( !message || *message == '\0' )
-		return;
-	if ( extra == KNULL ) {
-		kprintf("[INFO] %s\n", message);
-	} else {
-		kprintf("[INFO] %s: %s\n", message, extra);
-	}
+	kdbgtype("INFO", message, extra);
 }
