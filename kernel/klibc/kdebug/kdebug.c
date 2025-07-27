@@ -18,12 +18,15 @@
 #include <wt/kstdio/kprint/kprint.h>
 #include <wt/kstdio/kstrlen/kstrlen.h>
 #include <wt/kstdlib/kutoa.h>
+#include <wt/kstring/kstrcmp.h>
 
 void
     kduts (const char *s) {
 	if ( !kuse_debug ) {
 		return;
 	}
+	if ( !s || *s == '\0' )
+		return;
 	serial_writes("[DEBUG] ");
 	serial_writes(s);
 	serial_write('\n');
@@ -33,6 +36,9 @@ int
     kdebugf (const char *format, ...) {
 	if ( !kuse_debug )
 		return 0;
+
+	if ( !format || *format == '\0' )
+		return 1;
 
 	va_list args;
 	k_va_start(args, format);
@@ -174,6 +180,8 @@ int
 
 void
     kcritical (const char *message, const char *extra) {
+	if ( !message || *message == '\0' )
+		return;
 	if ( extra == KNULL ) {
 		kprintf("[CRITICAL] %s\n", message);
 	} else {
@@ -183,6 +191,8 @@ void
 
 void
     kalert (const char *message, const char *extra) {
+	if ( !message || *message == '\0' )
+		return;
 	if ( extra == KNULL ) {
 		kprintf("[ALERT] %s\n", message);
 	} else {
@@ -192,6 +202,8 @@ void
 
 void
     kemerg (const char *message, const char *extra) {
+	if ( !message || *message == '\0' )
+		return;
 	if ( extra == KNULL ) {
 		kprintf("[EMERGENCY] %s\n", message);
 	} else {
@@ -201,6 +213,8 @@ void
 
 void
     kwarn (const char *message, const char *extra) {
+	if ( !message || *message == '\0' )
+		return;
 	if ( extra == KNULL ) {
 		kprintf("[WARN] %s\n", message);
 	} else {
@@ -210,6 +224,8 @@ void
 
 void
     kerror (const char *message, const char *extra) {
+	if ( !message || *message == '\0' )
+		return;
 	if ( extra == KNULL ) {
 		kprintf("[ERROR] %s\n", message);
 	} else {
@@ -219,6 +235,8 @@ void
 
 void
     knotice (const char *message, const char *extra) {
+	if ( !message || *message == '\0' )
+		return;
 	if ( extra == KNULL ) {
 		kprintf("[NOTICE] %s\n", message);
 	} else {
@@ -228,6 +246,8 @@ void
 
 void
     kinfo (const char *message, const char *extra) {
+	if ( !message || *message == '\0' )
+		return;
 	if ( extra == KNULL ) {
 		kprintf("[INFO] %s\n", message);
 	} else {
