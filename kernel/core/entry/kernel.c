@@ -145,7 +145,8 @@ static void
 
 void
     start_kernel (void *mb_info) {
-	/* In this case, we must use kuse_debug instead of the functions that
+	/*
+	 * In this case, we must use kuse_debug instead of the functions that
 	 * check debug.
 	 * Initialize crucial parts first. The IDT must be loaded before
 	 * any hardware is touched to prevent triple faults.

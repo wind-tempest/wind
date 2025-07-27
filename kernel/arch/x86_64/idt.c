@@ -176,7 +176,7 @@ void
 			panic_code = PANIC_DIVISION_BY_ZERO;
 			break;
 		case 6:
-			panic_code = PANIC_INVALID_OPCODE; /* Invalid opcode */
+			panic_code = PANIC_INVALID_OPCODE; // Invalid opcode
 			break;
 		case 8:
 			panic_code = PANIC_DOUBLE_FAULT;

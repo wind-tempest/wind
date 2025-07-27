@@ -124,9 +124,9 @@ int
 			case 'l': {
 				// Handle long/long long modifiers
 				if ( *(p + 1) == 'l' ) {
-					p++; /* Skip second 'l' */
+					p++; // Skip second 'l'
 					if ( *(p + 1) == 'x' ) {
-						p++; /* Skip 'x' */
+						p++; // Skip 'x'
 						kuint64_t n = k_va_arg(args, kuint64_t);
 						char	  buf[20];
 						char	 *end_ptr = kutoa(
