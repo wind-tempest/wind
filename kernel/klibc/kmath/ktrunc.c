@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "ktrunc.h"
+#include <wt/kmath/ktrunc.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     ktrunc (double x) {

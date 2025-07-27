@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kremainder.h"
+#include <wt/kmath/kremainder.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kremainder (double x, double y) {

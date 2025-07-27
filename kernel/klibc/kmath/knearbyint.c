@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "knearbyint.h"
+#include <wt/kmath/knearbyint.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     knearbyint (double x) {

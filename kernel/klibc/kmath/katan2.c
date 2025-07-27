@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "katan2.h"
+#include <wt/kmath/katan2.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     katan2 (double y, double x) {

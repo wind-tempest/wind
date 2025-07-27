@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kcopysign.h"
+#include <wt/kmath/kcopysign.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kcopysign (double x, double y) {

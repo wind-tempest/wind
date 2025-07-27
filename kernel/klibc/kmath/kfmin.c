@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kfmin.h"
+#include <wt/kmath/kfmin.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kfmin (double x, double y) {

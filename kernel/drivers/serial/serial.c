@@ -13,9 +13,9 @@
 
 #include "serial.h"
 
-#include <wt/kitoa.h>
-#include <wt/ksignal.h>
-#include <wt/kstdbool.h>
+#include <wt/kstdlib/kitoa.h>
+#include <wt/kasm/kio.h>
+#include <wt/kstdio/kstdbool.h>
 
 #define PORT 0x3f8 // COM1
 kbool is_serial_available;

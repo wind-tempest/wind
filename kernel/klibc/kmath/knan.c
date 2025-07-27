@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "knan.h"
+#include <wt/kmath/knan.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     knan (const char *tagp) {

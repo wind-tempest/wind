@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kisnan.h"
+#include <wt/kmath/kisnan.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 int
     kisnan (double x) {

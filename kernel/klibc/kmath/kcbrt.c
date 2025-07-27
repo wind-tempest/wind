@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kcbrt.h"
+#include <wt/kmath/kcbrt.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kcbrt (double x) {

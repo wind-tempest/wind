@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kfmod.h"
+#include <wt/kmath/kfmod.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kfmod (double x, double y) {

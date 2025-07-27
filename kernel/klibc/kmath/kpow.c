@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kpow.h"
+#include <wt/kmath/kpow.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kpow (double x, double y) {

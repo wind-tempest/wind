@@ -81,8 +81,8 @@ $(OBJDIR)/%.o: $(SRC_DIR)/%.asm | $(OBJDIR)
 	$(NASM) -f elf64 $< -o $@
 
 # Link
-$(OUTDIR)/wind.elf: $(OBJS) src/linker.ld | $(OUTDIR)
-	$(CC) $(LDFLAGS) -T src/linker.ld $(OBJS) -o $@
+$(OUTDIR)/wind.elf: $(OBJS) $(SRC_DIR)/linker.ld | $(OUTDIR)
+	$(CC) $(LDFLAGS) -T $(SRC_DIR)/linker.ld $(OBJS) -o $@
 ifeq ($(MODE),Release)
 	strip --strip-debug $@
 endif

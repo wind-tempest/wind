@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kldexp.h"
+#include <wt/kmath/kldexp.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kldexp (double x, int exp) {

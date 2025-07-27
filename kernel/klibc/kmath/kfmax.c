@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kfmax.h"
+#include <wt/kmath/kfmax.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kfmax (double x, double y) {

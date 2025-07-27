@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kround.h"
+#include <wt/kmath/kround.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kround (double x) {

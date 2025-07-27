@@ -11,7 +11,7 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "wt/kstdio/kstrnlen/kstrnlen.h"
+#include <wt/kstdio/kstrnlen/kstrnlen.h>
 
 #include <wt/kstdio/kstddef.h>
 

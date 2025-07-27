@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kfrexp.h"
+#include <wt/kmath/kfrexp.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kfrexp (double x, int *exp) {

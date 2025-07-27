@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kisfinite.h"
+#include <wt/kmath/kisfinite.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 int
     kisfinite (double x) {

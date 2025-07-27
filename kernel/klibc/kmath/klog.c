@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "klog.h"
+#include <wt/kmath/klog.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     klog (double x) {

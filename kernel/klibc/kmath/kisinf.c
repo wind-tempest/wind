@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kisinf.h"
+#include <wt/kmath/kisinf.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 int
     kisinf (double x) {

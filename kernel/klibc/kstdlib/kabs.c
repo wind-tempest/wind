@@ -11,7 +11,7 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kabs.h"
+#include <wt/kstdlib/kabs.h>
 
 #include <wt/kstdlib/kstdlib.h>
 

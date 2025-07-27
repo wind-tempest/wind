@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "ktan.h"
+#include <wt/kmath/ktan.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     ktan (double x) {

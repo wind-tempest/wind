@@ -13,8 +13,8 @@
 
 #include "ata.h"
 
-#include <wt/ksignal.h>
-#include <wt/kstddef.h>
+#include <wt/kasm/kio.h>
+#include <wt/kstdio/kstddef.h>
 
 #define ATA_PRIMARY_IO	 0x1F0
 #define ATA_PRIMARY_CTRL 0x3F6

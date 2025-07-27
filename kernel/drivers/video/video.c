@@ -15,8 +15,8 @@
 
 #include "core/entry/kernel.h"
 #include "font/font.h"
-#include <wt/kstdbool.h>
-#include <wt/kstddef.h>
+#include <wt/kstdio/kstdbool.h>
+#include <wt/kstdio/kstddef.h>
 
 // Forward declarations
 extern void

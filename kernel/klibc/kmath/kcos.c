@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kcos.h"
+#include <wt/kmath/kcos.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kcos (double x) {

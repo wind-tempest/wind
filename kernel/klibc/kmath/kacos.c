@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kacos.h"
+#include <wt/kmath/kacos.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kacos (double x) {

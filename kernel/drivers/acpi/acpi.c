@@ -11,10 +11,10 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kdebug.h>
-#include <wt/ksignal.h>
-#include <wt/ksleep.h>
-#include <wt/kstddef.h>
+#include <wt/kdebug/kdebug.h>
+#include <wt/kasm/kio.h>
+#include <wt/kunistd/ksleep.h>
+#include <wt/kstdio/kstddef.h>
 
 // Define timeout for poweroff in milliseconds
 #define POWEROFF_TIMEOUT_MS 5000

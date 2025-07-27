@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "khypot.h"
+#include <wt/kmath/khypot.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     khypot (double x, double y) {

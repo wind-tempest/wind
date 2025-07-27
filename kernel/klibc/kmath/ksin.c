@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "ksin.h"
+#include <wt/kmath/ksin.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     ksin (double x) {

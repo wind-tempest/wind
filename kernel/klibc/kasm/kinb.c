@@ -13,7 +13,7 @@
 
 #include <wt/kasm/kinb.h>
 
-#include "wt/kasm/kio.h"
+#include <wt/kasm/kio.h>
 
 unsigned char
     kinb (unsigned short port) {

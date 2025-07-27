@@ -11,11 +11,11 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "katoi.h"
+#include <wt/kstdlib/katoi.h>
 
 #include <wt/kgeneral/kctype/kctype.h>
 #include <wt/kgeneral/kerrno/kerrno.h>
-#include "klimits.h"
+#include <wt/klimits.h>
 #include <wt/kstdlib/kstdlib.h>
 
 int

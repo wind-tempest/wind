@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kceil.h"
+#include <wt/kmath/kceil.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kceil (double x) {

@@ -11,9 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kexp.h"
+#include <wt/kmath/kexp.h>
 
-#include "kmath.h"
+#include <wt/kmath/kmath.h>
 
 double
     kexp (double x) {

@@ -11,7 +11,7 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "kexit.h"
+#include <wt/kstdlib/kexit.h>
 
 #include <wt/kstdio/kstdio.h>
 #include <wt/kstdlib/kstdlib.h>
