@@ -39,16 +39,6 @@ All docs live in [`docs/`](docs/Main.md). Read them first.
 - **No magic.** Every bit is visible and hackable.  
 - **No excuses.** Missing features? Write the code.
 
-## Run
-
-Supported targets:
-
-- QEMU
-- Bochs
-- Real hardware (good luck)
-
-Must support Multiboot2.
-
 ## Philosophy
 
 - Transparency: Inspect every line.
