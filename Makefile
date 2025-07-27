@@ -81,15 +81,15 @@ $(OBJDIR)/%.o: $(SRC_DIR)/%.asm | $(OBJDIR)
 	$(NASM) -f elf64 $< -o $@
 
 # Link
-$(OUTDIR)/wind.elf: $(OBJS) $(SRC_DIR)/linker.ld | $(OUTDIR)
+$(OUTDIR)/wt.elf: $(OBJS) $(SRC_DIR)/linker.ld | $(OUTDIR)
 	$(CC) $(LDFLAGS) -T $(SRC_DIR)/linker.ld $(OBJS) -o $@
 ifeq ($(MODE),Release)
 	strip --strip-debug $@
 endif
 
 # Generate ISO
-$(ISO_PATH): $(OUTDIR)/wind.elf | $(BOOTDIR)
-	cp $< $(BOOTDIR)/wind.elf
+$(ISO_PATH): $(OUTDIR)/wt.elf | $(BOOTDIR)
+	cp $< $(BOOTDIR)/wt.elf
 	cp $(LIMINE_CFG) $(ISODIR)/
 	cp $(LIMINE_FILES) $(ISODIR)/
 	xorriso -as mkisofs \
@@ -102,9 +102,8 @@ $(ISO_PATH): $(OUTDIR)/wind.elf | $(BOOTDIR)
 		-isohybrid-gpt-basdat \
 		$(ISODIR)
 
-# Create dummy disk image
-$(DISK_PATH):
-	dd if=/dev/zero of=$@ bs=1M count=64
+$(DISK_PATH): 
+	./tools/create_disk.sh
 
 # Run with QEMU
 run: all
