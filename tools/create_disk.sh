@@ -14,7 +14,7 @@ set -euo pipefail
 
 SIZE="${1:-64M}"
 IMAGE_DIR="build"
-IMAGE_PATH="$IMAGE_DIR/disk.img"
+IMAGE_PATH="$IMAGE_DIR/hard-drive.img"
 
 mkdir -p "$IMAGE_DIR"
 
