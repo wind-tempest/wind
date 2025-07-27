@@ -163,11 +163,10 @@ void
 		__asm__("cli; hlt");
 	}
 
-	// Parse multiboot information.
 	parse_multiboot_info(mb_info);
 
 	// Initialize framebuffer if available.
-	if ( fb_info.addr != 0 ) {
+	if ( kis_video_ready() ) {
 		kvideo_init(&fb_info);
 	}
 
@@ -181,10 +180,7 @@ void
 		kerror("EXT2 mount failed", KNULL);
 	}
 
-	// Initialize CPU brand string
 	kcpu_init_brand();
-
-	// Initialize keyboard before enabling interrupts
 	keyboard_init();
 
 	// Enable interrupts now that all basic drivers are loaded.
