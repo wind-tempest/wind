@@ -47,7 +47,7 @@ Supported targets:
 - Bochs
 - Real hardware (good luck)
 
-Must support Multiboot2/Limine.
+Must support Multiboot2.
 
 ## Philosophy
 
