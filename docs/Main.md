@@ -11,6 +11,7 @@ This is the documentation hub for Wind/Tempest. Here you will find all the text 
 - [Tree](Tree.md) - file tree structure
 - [Credits](Credits.md) - external dependencies used in Wind/Tempest
 - [FAQ](FAQ.md) - frequently asked questions
+- [Project Root](Project-root.md) - Wind/Tempest source code root structure
 
 > [!WARNING]
 > If you want to understand the system, read the code.
