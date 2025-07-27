@@ -20,6 +20,8 @@
 #include <wt/kstdlib/kutoa.h>
 #include <wt/kstring/kstrcmp.h>
 
+const char *debug_type_message = "[DEBUG] ";
+
 void
     kduts (const char *s) {
 	if ( !kuse_debug ) {
@@ -27,7 +29,7 @@ void
 	}
 	if ( !s || *s == '\0' )
 		return;
-	serial_writes("[DEBUG] ");
+	serial_writes(debug_type_message);
 	serial_writes(s);
 	serial_write('\n');
 }
@@ -44,9 +46,8 @@ int
 	k_va_start(args, format);
 	int count = 0;
 
-	const char debug_message[] = "[DEBUG] ";
-	serial_writes(debug_message);
-	count += (int) kstrlen(debug_message);
+	serial_writes(debug_type_message);
+	count += (int) kstrlen(debug_type_message);
 
 	for ( const char *p = format; *p; ++p ) {
 		if ( *p != '%' ) {
@@ -182,7 +183,7 @@ void
     kdbgtype (const char *type, const char *message, const char *extra) {
 	if ( !message || *message == '\0' )
 		return;
-	if ( !extra || *message == '\0' ) {
+	if ( !extra || *extra == '\0' ) {
 		kprintf("[%s] %s\n", type, message);
 	} else {
 		kprintf("[%s] %s: %s\n", type, message, extra);
