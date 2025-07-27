@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kasm/koutb.h>
-
 #include <wt/kasm/kio.h>
+#include <wt/kasm/koutb.h>
 
 void
     koutb (unsigned short port, unsigned char val) {

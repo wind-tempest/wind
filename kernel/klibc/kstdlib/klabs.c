@@ -12,7 +12,6 @@
  */
 
 #include <wt/kstdlib/klabs.h>
-
 #include <wt/kstdlib/kstdlib.h>
 
 long

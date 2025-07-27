@@ -11,12 +11,11 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstdlib/kstrtol.h>
-
 #include <wt/kgeneral/kctype/kctype.h>
 #include <wt/kgeneral/kerrno/kerrno.h>
 #include <wt/klimits.h>
 #include <wt/kstdlib/kstdlib.h>
+#include <wt/kstdlib/kstrtol.h>
 
 long
     kstrtol (const char *nptr, char **endptr, int base) {

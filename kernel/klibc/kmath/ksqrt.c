@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kmath/ksqrt.h>
-
 #include <wt/kmath/kmath.h>
+#include <wt/kmath/ksqrt.h>
 
 double
     ksqrt (double x) {

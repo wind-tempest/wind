@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kcbrt.h>
-
 #include <wt/kmath/kmath.h>
 
 double

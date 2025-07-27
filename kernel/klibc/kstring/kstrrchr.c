@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstring/kstrrchr.h>
-
 #include <wt/kstdio/kstddef.h>
+#include <wt/kstring/kstrrchr.h>
 
 const char *
     kstrrchr (const char *str, int c) {

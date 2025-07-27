@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kmath/kremquo.h>
-
 #include <wt/kmath/kmath.h>
+#include <wt/kmath/kremquo.h>
 
 double
     kremquo (double x, double y, int *quo) {

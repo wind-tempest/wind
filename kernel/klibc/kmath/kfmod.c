@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kfmod.h>
-
 #include <wt/kmath/kmath.h>
 
 double

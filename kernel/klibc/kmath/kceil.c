@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kceil.h>
-
 #include <wt/kmath/kmath.h>
 
 double

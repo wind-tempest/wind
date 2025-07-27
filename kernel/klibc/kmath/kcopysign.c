@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kcopysign.h>
-
 #include <wt/kmath/kmath.h>
 
 double

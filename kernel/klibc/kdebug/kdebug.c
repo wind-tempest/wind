@@ -11,13 +11,13 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kdebug/kdebug.h>
-
 #include "core/entry/kernel.h"
 #include "drivers/serial/serial.h"
-#include <wt/kstdio/kstrlen/kstrlen.h>
-#include <wt/kstdio/kprint/kprint.h>
+
+#include <wt/kdebug/kdebug.h>
 #include <wt/kstdarg.h>
+#include <wt/kstdio/kprint/kprint.h>
+#include <wt/kstdio/kstrlen/kstrlen.h>
 #include <wt/kstdlib/kutoa.h>
 
 void

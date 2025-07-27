@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/khypot.h>
-
 #include <wt/kmath/kmath.h>
 
 double

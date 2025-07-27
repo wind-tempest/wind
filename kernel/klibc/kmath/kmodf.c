@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kmath/kmodf.h>
-
 #include <wt/kmath/kmath.h>
+#include <wt/kmath/kmodf.h>
 
 double
     kmodf (double x, double *iptr) {

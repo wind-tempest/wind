@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstdlib/kitoa.h>
-
 #include <wt/kgeneral/kcharset/kcharset.h>
+#include <wt/kstdlib/kitoa.h>
 #include <wt/kstdlib/kstdlib.h>
 
 char *

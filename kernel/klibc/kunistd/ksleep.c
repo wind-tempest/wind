@@ -11,11 +11,10 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kunistd/ksleep.h>
-
 #include <wt/kasm/kio.h>
 #include <wt/kstdio/kstddef.h>
 #include <wt/kstdio/kstdint.h>
+#include <wt/kunistd/ksleep.h>
 
 volatile kuint64_t *hpet = (volatile kuint64_t *) 0xFED00000;
 

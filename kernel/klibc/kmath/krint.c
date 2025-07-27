@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kmath/krint.h>
-
 #include <wt/kmath/kmath.h>
+#include <wt/kmath/krint.h>
 
 double
     krint (double x) {

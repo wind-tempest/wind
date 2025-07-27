@@ -11,10 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstring/kstrtok.h>
-
 #include <wt/kstdio/kstddef.h>
 #include <wt/kstring/kstrchr.h>
+#include <wt/kstring/kstrtok.h>
 
 static char *strtok_save = KNULL;
 

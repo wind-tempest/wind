@@ -15,6 +15,7 @@
 
 #include "core/entry/kernel.h"
 #include "font/font.h"
+
 #include <wt/kstdio/kstdbool.h>
 #include <wt/kstdio/kstddef.h>
 

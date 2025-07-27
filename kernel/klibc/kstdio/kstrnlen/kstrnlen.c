@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstdio/kstrnlen/kstrnlen.h>
-
 #include <wt/kstdio/kstddef.h>
+#include <wt/kstdio/kstrnlen/kstrnlen.h>
 
 ksize_t
     kstrnlen (const char *str, ksize_t maxlen) {

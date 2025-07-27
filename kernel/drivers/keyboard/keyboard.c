@@ -14,6 +14,7 @@
 #include "keyboard.h"
 
 #include "arch/x86_64/idt.h"
+
 #include <wt/kasm/kio.h>
 #include <wt/kstdio/kstdio.h>
 

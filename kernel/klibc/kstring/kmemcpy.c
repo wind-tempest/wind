@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstring/kmemcpy.h>
-
 #include <wt/kstdio/kstddef.h>
+#include <wt/kstring/kmemcpy.h>
 
 void *
     kmemcpy (void *dest, const void *src, ksize_t n) {

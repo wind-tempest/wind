@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/klog2.h>
-
 #include <wt/kmath/kmath.h>
 
 double

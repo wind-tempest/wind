@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kisnan.h>
-
 #include <wt/kmath/kmath.h>
 
 int

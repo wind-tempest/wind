@@ -14,6 +14,7 @@
 #include "cpu.h"
 
 #include "core/entry/kernel.h"
+
 #include <wt/kstdio/kstddef.h>
 #include <wt/kstdio/kstdint.h>
 

@@ -11,10 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstring/kstrcpy.h>
-
-#include <wt/kstring/kmemcpy.h>
 #include <wt/kstdio/kstrlen/kstrlen.h>
+#include <wt/kstring/kmemcpy.h>
+#include <wt/kstring/kstrcpy.h>
 
 char *
     kstrcpy (char *dest, const char *src) {

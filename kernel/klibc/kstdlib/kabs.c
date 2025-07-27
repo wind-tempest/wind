@@ -12,7 +12,6 @@
  */
 
 #include <wt/kstdlib/kabs.h>
-
 #include <wt/kstdlib/kstdlib.h>
 
 int

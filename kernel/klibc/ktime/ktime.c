@@ -11,10 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/ktime/ktime.h>
-
 #include <wt/kasm/kio.h>
 #include <wt/kstdio/kstdio.h>
+#include <wt/ktime/ktime.h>
 
 // BIOS interrupt for getting RTC (Real Time Clock) data
 #define RTC_COMMAND_PORT 0x70

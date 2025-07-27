@@ -15,8 +15,9 @@
 
 // stdio implementations
 #include "kprint/kprint.h"
+#include "kstrlen/kstrlen.h"
+#include "kstrnlen/kstrnlen.h"
+
 #include <wt/kstdio/kstdbool.h>
 #include <wt/kstdio/kstddef.h>
 #include <wt/kstdio/kstdint.h>
-#include "kstrlen/kstrlen.h"
-#include "kstrnlen/kstrnlen.h"

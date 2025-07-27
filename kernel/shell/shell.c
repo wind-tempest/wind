@@ -14,17 +14,18 @@
 #include "shell.h"
 
 #include "core/entry/kernel.h"
-#include "core/panic/panic.h"
 #include "core/memory/memory.h"
+#include "core/panic/panic.h"
+#include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
 #include "fs/ext2/vfs/vfs.h"
+
 #include <wt/kgeneral/kerrno/kerrno.h>
 #include <wt/kstdio/kstdio.h>
 #include <wt/kstdlib/kstdlib.h>
 #include <wt/kstring/kstring.h>
 #include <wt/ktime/ktime.h>
 #include <wt/kunistd/kunistd.h>
-#include "drivers/driver.h"
 
 #define CMD_BUFFER_SIZE 512
 #define MAX_HISTORY	128

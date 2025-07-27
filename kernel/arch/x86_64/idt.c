@@ -14,6 +14,7 @@
 #include "idt.h"
 
 #include "core/panic/panic.h"
+
 #include <wt/kasm/kio.h>
 #include <wt/kstdio/kstdio.h>
 

@@ -14,6 +14,7 @@
 #include "memory.h"
 
 #include "core/panic/panic.h"
+
 #include <wt/kstdio/kstdio.h>
 #include <wt/kstring/kstring.h>
 

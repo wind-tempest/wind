@@ -12,7 +12,6 @@
  */
 
 #include <wt/kasm/kinb.h>
-
 #include <wt/kasm/kio.h>
 
 unsigned char

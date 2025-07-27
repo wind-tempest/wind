@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/katan2.h>
-
 #include <wt/kmath/kmath.h>
 
 double

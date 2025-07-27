@@ -11,13 +11,14 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include "drivers/acpi/acpi.h"
 #include "arch/x86_64/registers.h"
+#include "drivers/acpi/acpi.h"
 #include "drivers/serial/serial.h"
 #include "drivers/video/video.h"
+
+#include <wt/kstdio/kstdio.h>
 #include <wt/kstdlib/kitoa.h>
 #include <wt/kunistd/ksleep.h>
-#include <wt/kstdio/kstdio.h>
 
 // Panic error codes.
 #define PANIC_UNKNOWN_ERROR	  0

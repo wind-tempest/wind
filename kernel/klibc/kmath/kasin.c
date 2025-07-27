@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kasin.h>
-
 #include <wt/kmath/kmath.h>
 
 double

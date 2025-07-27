@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstring/kstrncpy.h>
-
 #include <wt/kstdio/kstddef.h>
+#include <wt/kstring/kstrncpy.h>
 
 char *
     kstrncpy (char *dest, const char *src, ksize_t n) {

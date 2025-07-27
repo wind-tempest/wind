@@ -11,10 +11,9 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstdlib/kutoa.h>
-
 #include <wt/kgeneral/kcharset/kcharset.h>
 #include <wt/kstdlib/kstdlib.h>
+#include <wt/kstdlib/kutoa.h>
 
 char *
     kutoa (char *buf, char *end, unsigned long value, int base, int is_uppercase) {

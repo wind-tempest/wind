@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kasm/koutw.h>
-
 #include <wt/kasm/kio.h>
+#include <wt/kasm/koutw.h>
 
 void
     koutw (unsigned short port, unsigned short val) {

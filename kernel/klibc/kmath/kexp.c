@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kexp.h>
-
 #include <wt/kmath/kmath.h>
 
 double

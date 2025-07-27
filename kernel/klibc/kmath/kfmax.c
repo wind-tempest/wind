@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kfmax.h>
-
 #include <wt/kmath/kmath.h>
 
 double

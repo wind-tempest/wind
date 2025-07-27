@@ -11,9 +11,8 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
-#include <wt/kstring/kstrncmp.h>
-
 #include <wt/kstdio/kstddef.h>
+#include <wt/kstring/kstrncmp.h>
 
 int
     kstrncmp (const char *s1, const char *s2, ksize_t n) {

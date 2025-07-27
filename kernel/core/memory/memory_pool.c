@@ -11,10 +11,11 @@
  * For more information, see <https://wind.infernointeractive.win>.
  */
 
+#include "memory.h"
+
 #include <wt/kdebug/kdebug.h>
 #include <wt/kstdio/kstdio.h>
 #include <wt/kstring/kstring.h>
-#include "memory.h"
 
 // Memory pool management
 memory_pool_t *

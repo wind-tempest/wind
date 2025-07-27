@@ -18,9 +18,10 @@
 #include "core/memory/memory.h"
 #include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
+#include "shell/shell.h"
+
 #include <wt/kdebug/kdebug.h>
 #include <wt/kstdio/kprint/kprint.h>
-#include "shell/shell.h"
 
 kbool kuse_debug = kfalse;
 

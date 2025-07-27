@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kisfinite.h>
-
 #include <wt/kmath/kmath.h>
 
 int

@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kisinf.h>
-
 #include <wt/kmath/kmath.h>
 
 int

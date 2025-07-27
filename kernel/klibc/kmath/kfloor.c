@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kfloor.h>
-
 #include <wt/kmath/kmath.h>
 
 double

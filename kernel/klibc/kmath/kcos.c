@@ -12,7 +12,6 @@
  */
 
 #include <wt/kmath/kcos.h>
-
 #include <wt/kmath/kmath.h>
 
 double
