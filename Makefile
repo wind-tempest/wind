@@ -5,8 +5,9 @@ LD      := ld
 RM      := rm -rf
 
 # Directory structure
-SRC_DIR     := src
+SRC_DIR     := kernel
 BUILD_DIR   := build
+IO_DIR      := include
 OBJDIR      := $(BUILD_DIR)/obj
 OUTDIR      := $(BUILD_DIR)/out
 ISODIR      := $(BUILD_DIR)/isodir
@@ -21,8 +22,8 @@ LIMINE_FILES := $(LIMINE_DIR)/limine-bios.sys \
 LIMINE_CFG   := $(LIMINE_DIR)/limine.conf
 
 # Outputs
-ISO_PATH   := $(OUTDIR)/wind.iso
-DISK_PATH  := $(BUILD_DIR)/disk.img
+ISO_PATH   := $(OUTDIR)/wt.iso
+DISK_PATH  := $(BUILD_DIR)/hard-drive.img
 
 # QEMU
 QEMU_COMMAND := qemu-system-x86_64 -cdrom $(ISO_PATH) \
@@ -38,8 +39,7 @@ COMMON_CFLAGS := -I$(SRC_DIR) -fno-pie -fno-stack-protector -ffreestanding \
                  -ffunction-sections -fdata-sections -Wundef -Wshadow \
                  -Wno-unused-command-line-argument
 
-IO_DIRS := $(shell find $(SRC_DIR)/io -type d)
-COMMON_CFLAGS += $(patsubst %, -I%, $(IO_DIRS))
+COMMON_CFLAGS += -I$(IO_DIR)
 
 ifeq ($(MODE),Debug)
     CFLAGS  := $(COMMON_CFLAGS) -Og -g1
