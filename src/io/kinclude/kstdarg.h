@@ -30,8 +30,7 @@ extern "C" {
 // va_list type built-in to the compiler
 typedef __builtin_va_list va_list;
 
-/* Initialize ap to point to first unnamed argument after last named parameter
- */
+// Initialize ap to point to first unnamed argument after last named parameter
 #	define k_va_start(ap, last) __builtin_va_start((ap), (last))
 
 // Retrieve next argument of given type

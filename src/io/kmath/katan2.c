@@ -29,7 +29,7 @@ double
 			return K_M_PI_2;
 		if ( y < 0.0 )
 			return -K_M_PI_2;
-		return 0.0; /* y is also zero */
+		return 0.0; // y is also zero
 	}
 
 	// If y is zero

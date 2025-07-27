@@ -32,7 +32,7 @@
 #define ATA_REG_COMMAND	 0x07
 
 // Control register
-#define ATA_REG_CONTROL	 0x02 /* base 0x3F6 + 2 == 0x3F8, but 0x3F6 often used */
+#define ATA_REG_CONTROL	 0x02 // base 0x3F6 + 2 == 0x3F8, but 0x3F6 often used
 #define ATA_CONTROL_nIEN 0x02
 
 // Status bits

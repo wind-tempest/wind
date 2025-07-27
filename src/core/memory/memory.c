@@ -573,12 +573,10 @@ void
 }
 
 // Memory mapping
-
 void *
     memory_map_physical (kuint64_t physical_addr, ksize_t size, kuint64_t flags) {
 	// Map physical memory to kernel virtual space
-	kuint64_t virtual_addr = KERNEL_BASE + 0x1000000; /* Temporary mapping area */
-
+	kuint64_t virtual_addr = KERNEL_BASE + 0x1000000; // Temporary mapping area
 	for ( ksize_t i = 0; i < (size + PAGE_SIZE - 1) / PAGE_SIZE; i++ ) {
 		kuint64_t page_virt = virtual_addr + i * PAGE_SIZE;
 		kuint64_t page_phys = physical_addr + i * PAGE_SIZE;
