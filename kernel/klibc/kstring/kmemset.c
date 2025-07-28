@@ -16,7 +16,7 @@
 void *
     kmemset (void *restrict s, int c, ksize_t n) {
 	if ( !s )
-		return KNULL; // null-check for safety
+		return KNULL; // NULL-check for safety
 
 	unsigned char *byte_ptr = (unsigned char *) s;
 	ksize_t	       i	= 0;
