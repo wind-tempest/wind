@@ -7,6 +7,7 @@ This document defines the commit message convention used in the Wind/Tempest pro
 <subsystem>: Short description (no period)
 
 (Optional longer description explaining what changed, why it changed, and any side effects)
+(Or you can add additional parts of change in description)
 
 Signed-off-by: Name <email>
 ```
@@ -32,6 +33,7 @@ Signed-off-by: Russian95CrE <russian95@tempestfoundation.org>
 - `debug:` debugging tools and logging
 - `lib:` shared helper libraries
 - `init:` system/kernel initialization
+- `ci:` CI (continuous integration)
 
 ## Quick Rules
 
