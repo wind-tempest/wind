@@ -98,14 +98,14 @@ int
     getchar (void) {
 	// Wait for a character to be available
 	while ( kbd_buffer_head == kbd_buffer_tail ) {
-		__asm__ volatile("sti; hlt"); // Wait for interrupt
+		__asm__ volatile("sti; hlt");
 	}
-	__asm__ volatile("cli"); // Disable interrupts while reading buffer
+	__asm__ volatile("cli");
 
 	int c		= kbd_buffer[kbd_buffer_tail];
 	kbd_buffer_tail = (kbd_buffer_tail + 1) % KBD_BUFFER_SIZE;
 
-	__asm__ volatile("sti"); // Re-enable interrupts
+	__asm__ volatile("sti");
 	return c;
 }
 
