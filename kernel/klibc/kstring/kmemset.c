@@ -14,7 +14,7 @@
 #include <wt/kstdio/kstdint.h>
 
 void *
-    kmemset (void *s, int c, ksize_t n) {
+    kmemset (void *restrict s, int c, ksize_t n) {
 	if ( !s )
 		return KNULL; // null-check for safety
 
