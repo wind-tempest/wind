@@ -27,7 +27,7 @@ DISK_PATH  := $(BUILD_DIR)/hard-drive.img
 
 # QEMU
 QEMU_COMMAND := qemu-system-x86_64 -cdrom $(ISO_PATH) \
-                -vga vmware -machine hpet=on -m 512M \
+                -vga vmware -machine hpet=on -m 128M \
                 -serial mon:stdio -drive file=$(DISK_PATH),format=raw,if=ide
 
 # Build mode
