@@ -15,6 +15,12 @@
 #include <wt/kstdio/kstddef.h>
 #include <wt/kunistd/ksleep.h>
 
+/*
+ * THIS IS NOT ACPI YET! THIS IS A PLACEHOLDER FOR ACPI
+ * SINCE I WILL POLISH THE TEMPEST KERNEL BEFORE I DECIDE
+ * TO LOSE MY PRECIOUS TIME ON ACPI.
+ */
+
 // Define timeout for poweroff in milliseconds
 #define POWEROFF_TIMEOUT_MS 5000
 
