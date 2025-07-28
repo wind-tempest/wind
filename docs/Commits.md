@@ -36,7 +36,7 @@ Signed-off-by: Russian95CrE <russian95@tempestfoundation.org>
 ## Quick Rules
 
 - Use imperative present tense (`fix`, `add`, `remove`, `refactor`)
-- Prefix should be uppercase
+- Prefix should be lowercase
 - Leave a blank line between the title and body
 - Do **not** end the title with a period
 - Always include a `Signed-off-by` line
