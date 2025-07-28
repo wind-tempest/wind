@@ -208,7 +208,7 @@ int
 			if ( !(cur_inode.mode & 0x4000) )
 				return EXT2_ERR_INVALID; // Not a directory
 		} else {
-			// Last component - should be file (or directory, we allow both)
+			// Last component -- should be file (or directory, we allow both)
 			out_file->inode = cur_inode;
 			out_file->pos	= 0;
 			return EXT2_OK;
