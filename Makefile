@@ -102,6 +102,7 @@ $(ISO_PATH): $(OUTDIR)/wt.elf | $(BOOTDIR)
 		-isohybrid-gpt-basdat \
 		$(ISODIR)
 
+# Bug reported by: John Alex (#2)
 $(DISK_PATH): 
 	./tools/create_disk.sh
 
