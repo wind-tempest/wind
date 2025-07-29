@@ -99,7 +99,6 @@ int
 		char *t = temp;
 
 		// Use long_long flag to choose value width
-
 		switch ( *p ) {
 			case 's': {
 				const char *s = k_va_arg(args, const char *);
