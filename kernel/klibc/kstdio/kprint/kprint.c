@@ -15,21 +15,24 @@
 #include <wt/kstdio/kstdio.h>
 #include <wt/kstdlib/kutoa.h>
 
-// I think this is... safe?
-void
-    kputhex (kuint64_t n) {
-	const char *hex = "0123456789ABCDEF";
-	char	    buf[17]; // 16 hex digits + null terminator
+// ? I think this is... safe?
+void kputhex(kuint64_t n) {
+	static const char *hex = "0123456789ABCDEF";
+	char buf[17];
 	buf[16] = '\0';
 
-	for ( int i = 15; i >= 0; --i ) {
+	if (n == 0) {
+		kputs("0");
+		return;
+	}
+
+	for (int i = 15; i >= 0; --i) {
 		buf[i] = hex[n & 0xF];
 		n >>= 4;
 	}
 
-	// Skip leading zeros
 	int start = 0;
-	while ( start < 15 && buf[start] == '0' ) {
+	while (start < 16 && buf[start] == '0') {
 		start++;
 	}
 
