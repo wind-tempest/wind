@@ -15,16 +15,9 @@
 #include "core/entry/kernel.h"
 #include "font/font.h"
 
+#include <wt/kdebug/kdebug.h>
 #include <wt/kstdio/kstdbool.h>
 #include <wt/kstdio/kstddef.h>
-
-// Forward declarations
-extern void
-    kputs (const char *s);
-extern void
-    puthex (kuint64_t value);
-extern void
-    putdec (kuint32_t value);
 
 static volatile kuint32_t *framebuffer = KNULL;
 
@@ -127,7 +120,7 @@ void
 	framebuffer = (volatile kuint32_t *) fb->addr;
 
 	if ( fb_info.width == 0 || fb_info.height == 0 ) {
-		kputs("kvideo_init: invalid framebuffer dimensions");
+		kwarn("kvideo_init: invalid framebuffer dimensions", KNULL);
 		return;
 	}
 
