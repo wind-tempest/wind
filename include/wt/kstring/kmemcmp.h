@@ -12,13 +12,5 @@
 
 #pragma once
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 int
-    kmemcmp (const void *s1, const void *s2, unsigned long n);
-
-#ifdef __cplusplus
-}
-#endif
+    kmemcmp (const void *s1, const void *s2, ksize_t n);
