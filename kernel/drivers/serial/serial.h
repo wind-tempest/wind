@@ -14,8 +14,6 @@
 
 #include <wt/kstdio/kstdbool.h>
 
-extern kbool is_serial_available;
-
 void
     serial_init (void);
 void
@@ -25,4 +23,4 @@ void
 void
     serial_writes (const char *s);
 kbool
-    serial_available (void);
+    is_serial_available (void);

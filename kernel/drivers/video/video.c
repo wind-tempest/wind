@@ -24,6 +24,15 @@ static volatile kuint32_t *framebuffer = KNULL;
 static kuint32_t cursor_x = 0;
 static kuint32_t cursor_y = 0;
 
+// Convert 24-bit RGB (0xRRGGBB) to 16-bit RGB565
+static inline kuint16_t
+    krgb888_to_rgb565 (kuint32_t rgb) {
+	kuint8_t r = (rgb >> 16) & 0xFF;
+	kuint8_t g = (rgb >> 8) & 0xFF;
+	kuint8_t b = rgb & 0xFF;
+	return (kuint16_t) ((r >> 3) << 11 | (g >> 2) << 5 | (b >> 3));
+}
+
 void
     kvideo_clear (kuint32_t color) {
 	if ( framebuffer == KNULL )
@@ -34,9 +43,8 @@ void
 		    (volatile kuint8_t *) framebuffer + y * fb_info.pitch;
 
 		if ( fb_info.bpp == 16 ) {
-			volatile kuint16_t *row = (volatile kuint16_t *) row_base;
-			kuint16_t	    color16 =
-			    (kuint16_t) (color & 0xFFFF); // Assume format RGB565
+			volatile kuint16_t *row	    = (volatile kuint16_t *) row_base;
+			kuint16_t	    color16 = krgb888_to_rgb565(color);
 			for ( kuint32_t x = 0; x < fb_info.width; x++ ) {
 				row[x] = color16;
 			}
@@ -46,9 +54,9 @@ void
 			kuint8_t	   g   = (color >> 8) & 0xFF;
 			kuint8_t	   b   = (color >> 0) & 0xFF;
 			for ( kuint32_t x = 0; x < fb_info.width; x++ ) {
-				row[x * 3 + 0] = b;
+				row[x * 3 + 0] = r;
 				row[x * 3 + 1] = g;
-				row[x * 3 + 2] = r;
+				row[x * 3 + 2] = b;
 			}
 		} else if ( fb_info.bpp == 32 ) {
 			volatile kuint32_t *row = (volatile kuint32_t *) row_base;
@@ -60,15 +68,6 @@ void
 
 	cursor_x = 0;
 	cursor_y = 0;
-}
-
-// Convert 24-bit RGB (0xRRGGBB) to 16-bit RGB565
-static inline kuint16_t
-    krgb888_to_rgb565 (kuint32_t rgb) {
-	kuint8_t r = (rgb >> 16) & 0xFF;
-	kuint8_t g = (rgb >> 8) & 0xFF;
-	kuint8_t b = rgb & 0xFF;
-	return (kuint16_t) ((r >> 3) << 11 | (g >> 2) << 5 | (b >> 3));
 }
 
 kbool
@@ -174,8 +173,9 @@ void
 		} else if ( cursor_y >= FONT_HEIGHT ) {
 			cursor_y -= FONT_HEIGHT;
 			cursor_x = fb_info.width - FONT_WIDTH;
+		} else {
+			return;
 		}
-		// Erase the character at the current position
 		for ( kuint32_t row = 0; row < FONT_HEIGHT; row++ ) {
 			for ( kuint32_t col = 0; col < FONT_WIDTH; col++ ) {
 				kvideo_put_pixel(

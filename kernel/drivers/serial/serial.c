@@ -17,20 +17,14 @@
 #include <wt/kstdlib/kitoa.h>
 
 #define PORT 0x3f8 // COM1
-kbool is_serial_available;
 
 kbool
-    serial_available (void);
+    is_serial_available (void);
 
 void
     serial_init (void) {
-	// First check if serial port is available.
-	is_serial_available = serial_available();
-
-	if ( !is_serial_available ) {
-		return; // Exit if no serial port detected.
-	}
-
+	if ( !is_serial_available() )
+		return;	       // Exit if serial not available.
 	koutb(PORT + 1, 0x00); // Disable all interrupts.
 	koutb(PORT + 3, 0x80); // Enable DLAB (set baud rate divisor).
 	koutb(PORT + 0, 0x03); // Set divisor to 3 (lo byte) 38400 baud
@@ -48,8 +42,8 @@ static int
 
 void
     serial_write (char a) {
-	if ( !is_serial_available || !a )
-		return; // Exit if serial not available or character is null.
+	if ( !is_serial_available() )
+		return; // Exit if serial not available.
 	while ( is_transmit_empty() == 0 )
 		;
 	koutb(PORT, (unsigned char) a);
@@ -57,7 +51,7 @@ void
 
 void
     serial_writes (const char *s) {
-	if ( !is_serial_available || !s )
+	if ( !is_serial_available() || !s )
 		return; // Exit if serial not available or string is null.
 	while ( *s ) {
 		serial_write(*s++);
@@ -66,7 +60,7 @@ void
 
 void
     serial_write_int (int i) {
-	if ( !is_serial_available )
+	if ( !is_serial_available() )
 		return; // Exit if serial not available.
 	char buf[16];
 	kitoa(buf, buf + 15, i, 10, 0);
@@ -74,7 +68,7 @@ void
 }
 
 kbool
-    serial_available (void) {
+    is_serial_available (void) {
 	// Save original values.
 	unsigned char original_lcr = kinb(PORT + 3);
 	unsigned char original_mcr = kinb(PORT + 4);
