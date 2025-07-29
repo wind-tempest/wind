@@ -15,10 +15,17 @@
 
 char *
     kstrncpy (char *dest, const char *src, ksize_t n) {
-	ksize_t i;
-	for ( i = 0; i < n && src[i] != '\0'; i++ )
-		dest[i] = src[i];
-	for ( ; i < n; i++ )
-		dest[i] = '\0';
+	char	   *d = dest;
+	const char *s = src;
+
+	while ( n && *s ) {
+		*d++ = *s++;
+		n--;
+	}
+
+	while ( n-- ) {
+		*d++ = '\0';
+	}
+
 	return dest;
 }
