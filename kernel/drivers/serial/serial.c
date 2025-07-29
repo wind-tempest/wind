@@ -42,8 +42,8 @@ static int
 
 void
     serial_write (char a) {
-	if ( !is_serial_available() )
-		return; // Exit if serial not available.
+	if ( !is_serial_available() || !a )
+		return; // Exit if serial not available or if char is null.
 	while ( is_transmit_empty() == 0 )
 		;
 	koutb(PORT, (unsigned char) a);
@@ -52,7 +52,7 @@ void
 void
     serial_writes (const char *s) {
 	if ( !is_serial_available() || !s )
-		return; // Exit if serial not available or string is null.
+		return; // Exit if serial not available or if string is null.
 	while ( *s ) {
 		serial_write(*s++);
 	}

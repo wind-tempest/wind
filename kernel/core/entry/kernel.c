@@ -22,7 +22,7 @@
 #include <wt/kdebug/kdebug.h>
 #include <wt/kstdio/kprint/kprint.h>
 
-kbool kuse_debug = ktrue;
+kbool kuse_debug = kfalse;
 
 // Multiboot2 header structure.
 struct multiboot_header {
