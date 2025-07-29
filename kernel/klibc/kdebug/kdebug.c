@@ -20,6 +20,12 @@
 #include <wt/kstdlib/kutoa.h>
 #include <wt/kstring/kstrcmp.h>
 
+/*
+ * This debugging tool is only for early days of development. It is not
+ * gonna be on the final release (AKA: v1.0.0) of the Wind Operating System.
+ * /Tempest Kernel.
+ */
+
 const char *debug_type_message = "[DEBUG] ";
 
 void

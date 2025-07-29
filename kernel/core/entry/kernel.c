@@ -120,6 +120,8 @@ static void
 
 			default:
 				// Unhandled tag
+				// ! DO NOT FUCKING PRINT A ERROR MESSAGE
+				// ! THIS IS NOT A ERROR, JUST A UNHANDLED TAG
 				break;
 		}
 
