@@ -28,7 +28,7 @@ static kbool	     shift_pressed   = kfalse;
 static kbool	     caps_lock	     = kfalse;
 
 // Scancode set 1 to ASCII mapping for US keyboard layout
-unsigned char kbd_us[128] = {
+static unsigned char kbd_us[128] = {
     0,	 27,   '1',  '2', '3',	'4', '5', '6', '7', '8', '9', '0', '-',
     '=', '\b', '\t', 'q', 'w',	'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
     '[', ']',  '\n', 0,	  'a',	's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
@@ -47,6 +47,15 @@ static unsigned char kbd_us_shift[128] = {
     0,	 0,    0,    0,	  0,   0,   0,	 0,   '-', 0,	0,   0,	  /* + -> */ 0,
     0,	 0,    0,    0,	  0,   0,   0,	 0,   0,   0,
 };
+
+static unsigned char
+    adjust_case (unsigned char c) {
+	if ( caps_lock && !shift_pressed && c >= 'a' && c <= 'z' )
+		return c - 32;
+	if ( caps_lock && shift_pressed && c >= 'A' && c <= 'Z' )
+		return c + 32;
+	return c;
+}
 
 static void
     keyboard_handler (registers_t *regs) {
@@ -72,17 +81,7 @@ static void
 		unsigned char c =
 		    shift_pressed ? kbd_us_shift[scancode] : kbd_us[scancode];
 
-		if ( caps_lock && !shift_pressed ) {
-			// Caps Lock ON + Shift OFF:
-			if ( c >= 'a' && c <= 'z' ) {
-				c -= 32;
-			}
-		} else if ( caps_lock && shift_pressed ) {
-			// Caps Lock ON + Shift ON:
-			if ( c >= 'A' && c <= 'Z' ) {
-				c += 32;
-			}
-		}
+		c = adjust_case(c);
 
 		if ( c != 0 ) {
 			if ( (kbd_buffer_head + 1) % KBD_BUFFER_SIZE
@@ -94,6 +93,10 @@ static void
 	}
 }
 
+/*
+ * NOTE: This only works in single-tasking environments.
+ * Needs locking or buffer protection for multi-tasking.
+ */
 int
     getchar (void) {
 	// Wait for a character to be available
