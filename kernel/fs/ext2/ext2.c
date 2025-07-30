@@ -431,6 +431,46 @@ int
 	return EXT2_OK;
 }
 
+// Helper function to get the physical block ID for a logical block within a file
+static kuint32_t
+    kget_file_block (const ext2_inode_t *inode, kuint64_t logical_block) {
+	kuint32_t blocks_per_indirect = g_block_size / sizeof(kuint32_t);
+
+	// Direct blocks (0-11)
+	if ( logical_block < 12 ) {
+		return inode->block[logical_block];
+	}
+
+	// Single indirect blocks (12 to 12 + blocks_per_indirect - 1)
+	kuint64_t single_indirect_start = 12;
+	kuint64_t single_indirect_end	= single_indirect_start + blocks_per_indirect;
+
+	if ( logical_block < single_indirect_end ) {
+		kuint32_t indirect_block = inode->block[12];
+		if ( indirect_block == 0 )
+			return 0; // Sparse
+
+		// Read the indirect block
+		kuint32_t *indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !indirect_buf )
+			return 0;
+
+		if ( kread_block(indirect_block, indirect_buf) != 0 ) {
+			kfree(indirect_buf);
+			return 0;
+		}
+
+		kuint32_t index	 = (kuint32_t) (logical_block - single_indirect_start);
+		kuint32_t result = indirect_buf[index];
+		kfree(indirect_buf);
+		return result;
+	}
+
+	// Double indirect blocks (not implemented yet)
+	// For now, only support up to single indirect
+	return 0;
+}
+
 int
     kext2_read (ext2_file_t *file, void *buf, ksize_t len) {
 	if ( !file || !buf )
@@ -454,12 +494,19 @@ int
 	while ( remaining > 0 ) {
 		kuint64_t block_idx    = file->pos / g_block_size;
 		kuint32_t off_in_block = (kuint32_t) (file->pos % g_block_size);
-		if ( block_idx >= 12 ) {
-			// Indirect blocks not supported yet
+
+		// Calculate maximum supported blocks
+		kuint32_t blocks_per_indirect = g_block_size / sizeof(kuint32_t);
+		kuint64_t max_blocks =
+		    12 + blocks_per_indirect; // Direct + single indirect
+
+		if ( block_idx >= max_blocks ) {
+			// Beyond single indirect blocks not supported yet
 			kfree(block_buf);
 			return EXT2_ERR_UNSUPPORTED;
 		}
-		kuint32_t blk_id = (block_idx < 12) ? file->inode.block[block_idx] : 0;
+
+		kuint32_t blk_id = kget_file_block(&file->inode, block_idx);
 		if ( blk_id == 0 ) {
 			// Sparse region – treat as zero
 			ksize_t chunk = g_block_size - off_in_block;
