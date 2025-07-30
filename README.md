@@ -33,6 +33,10 @@ You break it, you fix it.
 
 All docs live in [`docs/`](docs/Main.md). Read them first.
 
+## Screenshots
+
+<img src="screenshots/1.png" alt="First screenshot of Wind/Tempest">
+
 ## Why Wind?
 
 - **No bloat.** Just what you need.
