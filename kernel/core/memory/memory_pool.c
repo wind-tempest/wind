@@ -134,7 +134,7 @@ void
 	large_pool  = pool_create(256, 128); // 32KB total
 
 	if ( !small_pool || !medium_pool || !large_pool ) {
-		kwarn("Failed to create some memory pools", KNULL);
+		kwarn("Failed to create some memory pools", "mm", KNULL);
 	}
 }
 

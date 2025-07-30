@@ -192,12 +192,12 @@ void
 		return;
 	if ( !extra || *extra == '\0' ) {
 		if ( subsystem && *subsystem != '\0' )
-			kprintf("[%s][%s] %s\n", type, subsystem, message);
+			kprintf("[%s] %s: %s\n", type, subsystem, message);
 		else
 			kprintf("[%s] %s\n", type, message);
 	} else {
 		if ( subsystem && *subsystem != '\0' )
-			kprintf("[%s][%s] %s: %s\n", type, subsystem, message, extra);
+			kprintf("[%s] %s: %s: %s\n", type, subsystem, message, extra);
 		else
 			kprintf("[%s] %s: %s\n", type, message, extra);
 	}

@@ -119,7 +119,7 @@ void
 	framebuffer = (volatile kuint32_t *) fb->addr;
 
 	if ( fb_info.width == 0 || fb_info.height == 0 ) {
-		kwarn("Invalid framebuffer dimensions", KNULL);
+		kwarn("Invalid framebuffer dimensions", "video", KNULL);
 		return;
 	}
 

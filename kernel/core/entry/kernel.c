@@ -87,7 +87,7 @@ static void
 		struct multiboot_tag *tag = (struct multiboot_tag *) current;
 
 		if ( tag->size == 0 ) {
-			kerror("Invalid tag size (0)", KNULL);
+			kerror("Invalid tag size (0)", "multiboot", KNULL);
 			return;
 		}
 
@@ -151,7 +151,7 @@ void
 
 	kext2_set_block_device(ata_pio_read, KNULL);
 	if ( kext2_mount(0) != 0 ) {
-		kerror("EXT2 mount failed", KNULL);
+		kerror("EXT2 mount failed", "fs", KNULL);
 	}
 
 	kcpu_init_brand();
