@@ -437,8 +437,8 @@ int
 		return EXT2_ERR_INVALID;
 
 	// Clamp length to remaining bytes in file
-	kuint32_t size =
-	    file->inode.size_lo; // We only support files <4GiB (for a while, calm down!)
+	kuint64_t size = (kuint64_t) file->inode.size_lo
+			 | ((kuint64_t) file->inode.dir_acl_or_size_high << 32);
 	if ( file->pos >= size )
 		return 0; // EOF
 	if ( file->pos + len > size )
@@ -452,14 +452,14 @@ int
 		return EXT2_ERR_IO;
 
 	while ( remaining > 0 ) {
-		kuint32_t block_idx    = file->pos / g_block_size;
-		kuint32_t off_in_block = file->pos % g_block_size;
+		kuint64_t block_idx    = file->pos / g_block_size;
+		kuint32_t off_in_block = (kuint32_t) (file->pos % g_block_size);
 		if ( block_idx >= 12 ) {
 			// Indirect blocks not supported yet
 			kfree(block_buf);
 			return EXT2_ERR_UNSUPPORTED;
 		}
-		kuint32_t blk_id = file->inode.block[block_idx];
+		kuint32_t blk_id = (block_idx < 12) ? file->inode.block[block_idx] : 0;
 		if ( blk_id == 0 ) {
 			// Sparse region – treat as zero
 			ksize_t chunk = g_block_size - off_in_block;
@@ -467,7 +467,7 @@ int
 				chunk = remaining;
 			kmemset(dst, 0, chunk);
 			dst += chunk;
-			file->pos += (kuint32_t) chunk;
+			file->pos += chunk;
 			remaining -= chunk;
 			continue;
 		}
@@ -480,7 +480,7 @@ int
 			chunk = remaining;
 		kmemcpy(dst, block_buf + off_in_block, chunk);
 		dst += chunk;
-		file->pos += (kuint32_t) chunk;
+		file->pos += chunk;
 		remaining -= chunk;
 	}
 	kfree(block_buf);

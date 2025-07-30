@@ -138,7 +138,8 @@ void
 	kputs("Type 'help' for a list of commands.");
 
 	while ( ktrue ) {
-		kprintf("\n$[kernel] "); // use kernel for determining it's kernel space (AKA: ring 0)
+		kprintf(
+		    "\n$[kernel] "); // use kernel for determining it's kernel space (AKA: ring 0)
 		cmd_ptr	       = 0;
 		input_overflow = 0;
 

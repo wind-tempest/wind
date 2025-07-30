@@ -122,7 +122,7 @@ typedef struct __attribute__((packed)) ext2_dir_entry {
 // File handle used by driver functions
 typedef struct ext2_file {
 	ext2_inode_t inode;
-	kuint32_t    pos; // Current read offset
+	kuint64_t    pos; // Current read offset
 } ext2_file_t;
 
 /*
