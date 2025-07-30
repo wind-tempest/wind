@@ -466,8 +466,128 @@ static kuint32_t
 		return result;
 	}
 
-	// Double indirect blocks (not implemented yet)
-	// For now, only support up to single indirect
+	// Double indirect blocks
+	kuint64_t double_indirect_start = single_indirect_end;
+	kuint64_t double_indirect_end =
+	    double_indirect_start + (kuint64_t) blocks_per_indirect * blocks_per_indirect;
+
+	if ( logical_block < double_indirect_end ) {
+		kuint32_t double_indirect_block = inode->block[13];
+		if ( double_indirect_block == 0 )
+			return 0; // Sparse
+
+		// Calculate which single indirect block we need
+		kuint64_t offset_in_double = logical_block - double_indirect_start;
+		kuint32_t single_indirect_index =
+		    (kuint32_t) (offset_in_double / blocks_per_indirect);
+		kuint32_t data_block_index =
+		    (kuint32_t) (offset_in_double % blocks_per_indirect);
+
+		// Read the double indirect block to get the single indirect block pointer
+		kuint32_t *double_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !double_indirect_buf )
+			return 0;
+
+		if ( kread_block(double_indirect_block, double_indirect_buf) != 0 ) {
+			kfree(double_indirect_buf);
+			return 0;
+		}
+
+		kuint32_t single_indirect_block =
+		    double_indirect_buf[single_indirect_index];
+		kfree(double_indirect_buf);
+
+		if ( single_indirect_block == 0 )
+			return 0; // Sparse
+
+		// Now read the single indirect block to get the data block pointer
+		kuint32_t *single_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !single_indirect_buf )
+			return 0;
+
+		if ( kread_block(single_indirect_block, single_indirect_buf) != 0 ) {
+			kfree(single_indirect_buf);
+			return 0;
+		}
+
+		kuint32_t result = single_indirect_buf[data_block_index];
+		kfree(single_indirect_buf);
+		return result;
+	}
+
+	// Triple indirect blocks
+	kuint64_t triple_indirect_start = double_indirect_end;
+	kuint64_t triple_indirect_end =
+	    triple_indirect_start
+	    + (kuint64_t) blocks_per_indirect * blocks_per_indirect * blocks_per_indirect;
+
+	if ( logical_block < triple_indirect_end ) {
+		kuint32_t triple_indirect_block = inode->block[14];
+		if ( triple_indirect_block == 0 )
+			return 0; // Sparse
+
+		// Calculate indices for triple indirection
+		kuint64_t offset_in_triple = logical_block - triple_indirect_start;
+		kuint32_t double_indirect_index =
+		    (kuint32_t) (offset_in_triple
+				 / (blocks_per_indirect * blocks_per_indirect));
+		kuint32_t single_indirect_index =
+		    (kuint32_t) ((offset_in_triple
+				  % (blocks_per_indirect * blocks_per_indirect))
+				 / blocks_per_indirect);
+		kuint32_t data_block_index =
+		    (kuint32_t) (offset_in_triple % blocks_per_indirect);
+
+		// Read the triple indirect block to get the double indirect block pointer
+		kuint32_t *triple_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !triple_indirect_buf )
+			return 0;
+
+		if ( kread_block(triple_indirect_block, triple_indirect_buf) != 0 ) {
+			kfree(triple_indirect_buf);
+			return 0;
+		}
+
+		kuint32_t double_indirect_block =
+		    triple_indirect_buf[double_indirect_index];
+		kfree(triple_indirect_buf);
+
+		if ( double_indirect_block == 0 )
+			return 0; // Sparse
+
+		// Read the double indirect block to get the single indirect block pointer
+		kuint32_t *double_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !double_indirect_buf )
+			return 0;
+
+		if ( kread_block(double_indirect_block, double_indirect_buf) != 0 ) {
+			kfree(double_indirect_buf);
+			return 0;
+		}
+
+		kuint32_t single_indirect_block =
+		    double_indirect_buf[single_indirect_index];
+		kfree(double_indirect_buf);
+
+		if ( single_indirect_block == 0 )
+			return 0; // Sparse
+
+		// Finally read the single indirect block to get the data block pointer
+		kuint32_t *single_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !single_indirect_buf )
+			return 0;
+
+		if ( kread_block(single_indirect_block, single_indirect_buf) != 0 ) {
+			kfree(single_indirect_buf);
+			return 0;
+		}
+
+		kuint32_t result = single_indirect_buf[data_block_index];
+		kfree(single_indirect_buf);
+		return result;
+	}
+
+	// Fuck you if you want more than triple indirect blocks.
 	return 0;
 }
 
@@ -498,10 +618,12 @@ int
 		// Calculate maximum supported blocks
 		kuint32_t blocks_per_indirect = g_block_size / sizeof(kuint32_t);
 		kuint64_t max_blocks =
-		    12 + blocks_per_indirect; // Direct + single indirect
-
+		    12 + blocks_per_indirect
+		    + (kuint64_t) blocks_per_indirect * blocks_per_indirect
+		    + (kuint64_t) blocks_per_indirect * blocks_per_indirect
+			  * blocks_per_indirect;
+		// Direct + single indirect + double indirect + triple indirect
 		if ( block_idx >= max_blocks ) {
-			// Beyond single indirect blocks not supported yet
 			kfree(block_buf);
 			return EXT2_ERR_UNSUPPORTED;
 		}
