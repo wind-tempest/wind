@@ -186,47 +186,54 @@ int
 }
 
 void
-    kdbgtype (const char *type, const char *message, const char *extra) {
+    kdbgtype (
+	const char *type, const char *subsystem, const char *message, const char *extra) {
 	if ( !message || *message == '\0' )
 		return;
 	if ( !extra || *extra == '\0' ) {
-		kprintf("[%s] %s\n", type, message);
+		if ( subsystem && *subsystem != '\0' )
+			kprintf("[%s][%s] %s\n", type, subsystem, message);
+		else
+			kprintf("[%s] %s\n", type, message);
 	} else {
-		kprintf("[%s] %s: %s\n", type, message, extra);
+		if ( subsystem && *subsystem != '\0' )
+			kprintf("[%s][%s] %s: %s\n", type, subsystem, message, extra);
+		else
+			kprintf("[%s] %s: %s\n", type, message, extra);
 	}
 }
 
 void
-    kcritical (const char *message, const char *extra) {
-	kdbgtype("CRITICAL", message, extra);
+    kcritical (const char *message, const char *subsystem, const char *extra) {
+	kdbgtype("CRITICAL", subsystem, message, extra);
 }
 
 void
-    kalert (const char *message, const char *extra) {
-	kdbgtype("ALERT", message, extra);
+    kalert (const char *message, const char *subsystem, const char *extra) {
+	kdbgtype("ALERT", subsystem, message, extra);
 }
 
 void
-    kemerg (const char *message, const char *extra) {
-	kdbgtype("EMERG", message, extra);
+    kemerg (const char *message, const char *subsystem, const char *extra) {
+	kdbgtype("EMERG", subsystem, message, extra);
 }
 
 void
-    kwarn (const char *message, const char *extra) {
-	kdbgtype("WARN", message, extra);
+    kwarn (const char *message, const char *subsystem, const char *extra) {
+	kdbgtype("WARN", subsystem, message, extra);
 }
 
 void
-    kerror (const char *message, const char *extra) {
-	kdbgtype("ERROR", message, extra);
+    kerror (const char *message, const char *subsystem, const char *extra) {
+	kdbgtype("ERROR", subsystem, message, extra);
 }
 
 void
-    knotice (const char *message, const char *extra) {
-	kdbgtype("NOTICE", message, extra);
+    knotice (const char *message, const char *subsystem, const char *extra) {
+	kdbgtype("NOTICE", subsystem, message, extra);
 }
 
 void
-    kinfo (const char *message, const char *extra) {
-	kdbgtype("INFO", message, extra);
+    kinfo (const char *message, const char *subsystem, const char *extra) {
+	kdbgtype("INFO", subsystem, message, extra);
 }
