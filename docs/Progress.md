@@ -30,7 +30,7 @@
 
 ## Compatibility Layers
 
-- [ ] SoulDOS (DOS compatibility layer)
+- [ ] NAVO (DOS compatibility layer)
 - [ ] BIOS / V86 support (if applicable)
 
 ## Hardware Support

@@ -4,7 +4,7 @@ This is the documentation hub for Wind/Tempest. Here you will find all the text 
 
 ## Sections
 
-- [SoulDOS](SoulDOS.md) - legacy mode and compatibility layer
+- [NAVO](NAVO.md) - legacy mode and compatibility layer
 - [Build](Build.md) - how to build Wind/Tempest
 - [LibC port](Io.md) - how I ported Musl LibC to Wind/Tempest
 - [Progress](Progress.md) - progress report
