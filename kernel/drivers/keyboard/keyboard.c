@@ -51,9 +51,9 @@ static unsigned char kbd_us_shift[128] = {
 static unsigned char
     adjust_case (unsigned char c) {
 	if ( caps_lock && !shift_pressed && c >= 'a' && c <= 'z' )
-		return c - 32;
+		return (unsigned char) (c - 32);
 	if ( caps_lock && shift_pressed && c >= 'A' && c <= 'Z' )
-		return c + 32;
+		return (unsigned char) (c + 32);
 	return c;
 }
 
