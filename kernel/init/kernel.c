@@ -136,23 +136,20 @@ void
 	idt_init();
 	serial_init();
 
-	if ( mb_info == KNULL ) {
+	if ( mb_info == KNULL )
 		__asm__("cli; hlt");
-	}
 
 	parse_multiboot_info(mb_info);
 
-	if ( kis_video_ready() ) {
+	if ( kis_video_ready() )
 		kvideo_init(&fb_info);
-	}
 
 	kmemory_init(mb_info);
 	init_memory_pools();
 
 	kext2_set_block_device(ata_pio_read, KNULL);
-	if ( kext2_mount(0) != 0 ) {
+	if ( kext2_mount(0) != 0 )
 		kerror("EXT2 mount failed", "fs", KNULL);
-	}
 
 	kcpu_init_brand();
 	keyboard_init();
