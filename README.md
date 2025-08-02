@@ -35,7 +35,10 @@ All docs live in [`docs/`](docs/Main.md). Read them first.
 
 ## Screenshots
 
-<img src="screenshots/1.png" alt="First screenshot of Wind/Tempest">
+<p align="center">
+  <img src="screenshots/1.png" alt="First screenshot" width="300" style="display:inline-block; margin-right:10px;">
+  <img src="screenshots/2.png" alt="Second screenshot" width="300" style="display:inline-block;">
+</p>
 
 ## Why Wind?
 
