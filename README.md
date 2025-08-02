@@ -1,6 +1,4 @@
 <div align="center">
-
-  <img src="logo/wide.png" alt="Wind Logo (Wide Version)" width="400">
   <h1>Wind / Tempest</h1>
   <!-- Badges -->
   <p>
@@ -16,12 +14,9 @@
   </p>
 </div>
 
-> A minimal OS in POSIX standards, built for modern machines, built from scratch, built to last.
+Wind/Tempest is a barebones POSIX-like OS. Built from scratch, for x86_64.
 
-It runs on `x86_64`, has no legacy baggage, and doesn't pretend to be user-friendly.
-You break it, you fix it.
-
-## Quick Facts
+## Core Features
 
 - **Boot:** Limine + Multiboot2
 - **Display:** Framebuffer text & test patterns
@@ -29,22 +24,22 @@ You break it, you fix it.
 - **Shell:** `inish` (basic commands)
 - **FS:** Ext2
 
-## Docs
+## Documentation
 
-All docs live in [`docs/`](docs/Main.md). Read them first.
+See [`docs/`](docs/Main.md).
 
 ## Screenshots
 
 <p align="center">
-  <img src="screenshots/1.png" alt="First screenshot" width="300" style="display:inline-block; margin-right:10px;">
-  <img src="screenshots/2.png" alt="Second screenshot" width="300" style="display:inline-block;">
+  <img src="screenshots/1.png" alt="yes" width="300">
+  <img src="screenshots/2.png" alt="no" width="300">
 </p>
 
 ## Why Wind?
 
-- **No bloat.** Just what you need.
-- **No magic.** Every bit is visible and hackable.
-- **No excuses.** Missing features? Write the code.
+- No bloat.
+- No abstraction.
+- No excuses.
 
 ## Philosophy
 
@@ -54,4 +49,4 @@ All docs live in [`docs/`](docs/Main.md). Read them first.
 
 ## License
 
-This OS/Kernel is released under the GNU General Public License (version 3 or later). Please see [LICENSE](LICENSE)
+Wind/Tempest is licensed under the GNU General Public License v3 (or later). See [LICENSE](LICENSE) for more details.
