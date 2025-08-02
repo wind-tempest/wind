@@ -16,7 +16,7 @@
 #include "core/panic/panic.h"
 #include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
-#include "fs/ext2/vfs/vfs.h"
+#include "fs/vfs/vfs.h"
 #include "init/kernel.h"
 
 #include <wt/kgeneral/kerrno/kerrno.h>

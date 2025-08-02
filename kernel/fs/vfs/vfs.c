@@ -17,6 +17,8 @@
 #include <wt/kstdio/kstdio.h>
 #include <wt/kstring/kstring.h>
 
+// TODO: Implement a redirect to ext2 to not use hardcode calls to ext2
+
 static char cwd_path[256] = "/";
 
 void
