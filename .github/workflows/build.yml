@@ -42,4 +42,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: wind-iso
-          path: build/out/wind.iso
+          path: build/out/wt.iso
