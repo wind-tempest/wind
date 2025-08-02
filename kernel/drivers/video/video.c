@@ -12,8 +12,8 @@
 
 #include "video.h"
 
-#include "core/entry/kernel.h"
 #include "font/font.h"
+#include "init/kernel.h"
 
 #include <wt/kdebug/kdebug.h>
 #include <wt/kstdio/kstdbool.h>

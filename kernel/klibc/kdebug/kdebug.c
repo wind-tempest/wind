@@ -10,8 +10,8 @@
  * It is licensed under the GNU General Public License version 3.0  (GPLv3).
  */
 
-#include "core/entry/kernel.h"
 #include "drivers/serial/serial.h"
+#include "init/kernel.h"
 
 #include <wt/kdebug/kdebug.h>
 #include <wt/kstdarg.h>
