@@ -31,8 +31,8 @@ See [`docs/`](docs/Main.md).
 ## Screenshots
 
 <p align="center">
-  <img src="screenshots/1.png" alt="yes" width="300">
-  <img src="screenshots/2.png" alt="no" width="300">
+  <img src="media/screenshots/1.png" alt="yes" width="300">
+  <img src="media/screenshots/2.png" alt="no" width="300">
 </p>
 
 ## Why Wind?

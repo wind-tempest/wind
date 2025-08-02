@@ -22,8 +22,11 @@ kernel/      - Kernel source code
     fs/      - Filesystem implementation
     klibc/   - Kernel libc library
     shell/   - Hardcoded shell (placeholder)
-logo/        - Logo and image files
-    ...
+media/       - README image and other files
+    logo/    - Logo of Wind/Tempest
+	...
+    screenshots/ - Screenshots of Wind/Tempest
+	...  
 tools/       - Build and utility tools
     ...
 ```
