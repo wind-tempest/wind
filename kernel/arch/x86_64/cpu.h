@@ -12,6 +12,6 @@
 
 #pragma once
 
-extern char cpu_brand_string[49];
+extern char cpu_brand_string[129];
 void
     kcpu_init_brand (void);
