@@ -485,6 +485,8 @@ static void
 	kvideo_draw_square((int) square2_x, (int) square2_y, 100, color);
 
 	ksleep(5000);
+
+	kvideo_clear(0x000000);
 }
 
 static void
