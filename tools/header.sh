@@ -7,9 +7,9 @@ read -r -d '' license_header <<'EOF'
 /*
  * Wind/Tempest Project
  *
- * Copyright (C) 2025 Wind Foundation <https://wind.infernointeractive.win>
+ * Copyright (C) 2025 Wind Foundation <https://wind.tempestfoundation.org>
  *
- * This file is part of the Wind Operating System and Tempest Kernel.
+ * This file is part of the Wind (Operating System) and Tempest (The Kernel).
  * It is licensed under the GNU General Public License version 3.0  (GPLv3).
  */
 EOF
@@ -18,7 +18,7 @@ for file in $(find . -type f -name "*.c" -o -name "*.h"); do
     header=$(head -n 25 "$file")
 
     # Check if header text already exists
-    if ! echo "$header" | grep -q "Copyright (C) 2025 Wind Foundation <https://wind.infernointeractive.win>"; then
+    if ! echo "$header" | grep -q "Copyright (C) 2025 Wind Foundation <https://wind.tempestfoundation.org>"; then
         echo "Incorrect or missing header in: $file"
         headers_bad=true
 

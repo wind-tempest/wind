@@ -4,9 +4,9 @@
 /*
  * Wind/Tempest Project
  *
- * Copyright (C) 2025 Wind Foundation <https://wind.infernointeractive.win>
+ * Copyright (C) 2025 Wind Foundation <https://wind.tempestfoundation.org>
  *
- * This file is part of the Wind Operating System and Tempest Kernel.
+ * This file is part of the Wind (Operating System) and Tempest (The Kernel).
  * It is licensed under the GNU General Public License version 3.0  (GPLv3).
  */
 
