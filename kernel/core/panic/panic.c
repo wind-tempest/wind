@@ -17,6 +17,7 @@
 
 #include <wt/kstdio/kstdio.h>
 #include <wt/kstdlib/kitoa.h>
+#include <wt/kstring/kmemset.h>
 #include <wt/kunistd/ksleep.h>
 
 // Panic error codes.
@@ -101,58 +102,58 @@ void
 
 static void
     dump_registers (registers_t *r) {
-	char buf[32];
+	char buff[32];
 
 	pputs(" RAX=");
-	kitoa(buf, buf + 30, (long) r->rax, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->rax, 16, 0);
+	pputs(buff);
 	pputs(" RBX=");
-	kitoa(buf, buf + 30, (long) r->rbx, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->rbx, 16, 0);
+	pputs(buff);
 	pputs(" RCX=");
-	kitoa(buf, buf + 30, (long) r->rcx, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->rcx, 16, 0);
+	pputs(buff);
 	pputs(" RDX=");
-	kitoa(buf, buf + 30, (long) r->rdx, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->rdx, 16, 0);
+	pputs(buff);
 	pputs("\n");
 
 	pputs(" RSI=");
-	kitoa(buf, buf + 30, (long) r->rsi, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->rsi, 16, 0);
+	pputs(buff);
 	pputs(" RDI=");
-	kitoa(buf, buf + 30, (long) r->rdi, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->rdi, 16, 0);
+	pputs(buff);
 	pputs(" RBP=");
-	kitoa(buf, buf + 30, (long) r->rbp, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->rbp, 16, 0);
+	pputs(buff);
 
 	pputs(" R8 =");
-	kitoa(buf, buf + 30, (long) r->r8, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->r8, 16, 0);
+	pputs(buff);
 	pputs(" R9 =");
-	kitoa(buf, buf + 30, (long) r->r9, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->r9, 16, 0);
+	pputs(buff);
 	pputs(" R10=");
-	kitoa(buf, buf + 30, (long) r->r10, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->r10, 16, 0);
+	pputs(buff);
 	pputs(" R11=");
-	kitoa(buf, buf + 30, (long) r->r11, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->r11, 16, 0);
+	pputs(buff);
 	pputs("\n");
 
 	pputs(" R12=");
-	kitoa(buf, buf + 30, (long) r->r12, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->r12, 16, 0);
+	pputs(buff);
 	pputs(" R13=");
-	kitoa(buf, buf + 30, (long) r->r13, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->r13, 16, 0);
+	pputs(buff);
 	pputs(" R14=");
-	kitoa(buf, buf + 30, (long) r->r14, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->r14, 16, 0);
+	pputs(buff);
 	pputs(" R15=");
-	kitoa(buf, buf + 30, (long) r->r15, 16, 0);
-	pputs(buf);
+	kitoa(buff, buff + 30, (long) r->r15, 16, 0);
+	pputs(buff);
 	pputs("\n");
 }
 
@@ -167,9 +168,9 @@ void
 
 	pputs("\n\nOops! Your system crashed\n");
 	pputs("Error code: ");
-	char buf[16];
-	kitoa(buf, buf + 14, code, 10, 0);
-	pputs(buf);
+	char buff[16];
+	kitoa(buff, buff + 14, code, 10, 0);
+	pputs(buff);
 	pputs("\n\nError: ");
 	pputs(error_msg);
 	pputs("\n");
@@ -179,19 +180,19 @@ void
 		dump_registers(regs);
 	}
 
-	buf[0] = '\0';
+	kmemset(buff, 0, sizeof(buff));
 
 	pputs("System will reboot in ");
-	kitoa(buf, buf + 14, seconds_to_reboot, 10, 0);
-	pputs(buf);
+	kitoa(buff, buff + 14, seconds_to_reboot, 10, 0);
+	pputs(buff);
 	pputs(" seconds...\n");
 
-	buf[0] = '\0';
+	kmemset(buff, 0, sizeof(buff));
 
 	for ( unsigned int i = seconds_to_reboot; i > 0; i-- ) {
 		pputs("Rebooting in ");
-		kitoa(buf, buf + 14, i, 10, 0);
-		pputs(buf);
+		kitoa(buff, buff + 14, i, 10, 0);
+		pputs(buff);
 		pputs(" seconds...\n");
 		ksleep(1000);
 	}
