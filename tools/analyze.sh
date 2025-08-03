@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SRC_DIR="./kernel"
+SRC_DIR="./sys"
 OUT_DIR="./analyzed"
 
 mkdir -p "$OUT_DIR"

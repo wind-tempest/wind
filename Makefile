@@ -5,13 +5,14 @@ LD      := ld
 RM      := rm -rf
 
 # Directory structure
-SRC_DIR     := kernel
+SRC_DIR     := sys
 BUILD_DIR   := build
 IO_DIR      := include
 OBJDIR      := $(BUILD_DIR)/obj
 OUTDIR      := $(BUILD_DIR)/out
 ISODIR      := $(BUILD_DIR)/isodir
 BOOTDIR     := $(ISODIR)/boot
+PLATFORM    := x86_64
 
 # Limine
 LIMINE_DIR   := boot/limine
@@ -81,8 +82,8 @@ $(OBJDIR)/%.o: $(SRC_DIR)/%.asm | $(OBJDIR)
 	$(NASM) -f elf64 $< -o $@
 
 # Link
-$(OUTDIR)/wt.elf: $(OBJS) $(SRC_DIR)/linker.ld | $(OUTDIR)
-	$(CC) $(LDFLAGS) -T $(SRC_DIR)/linker.ld $(OBJS) -o $@
+$(OUTDIR)/wt.elf: $(OBJS) $(SRC_DIR)/arch/$(PLATFORM)/linker.ld | $(OUTDIR)
+	$(CC) $(LDFLAGS) -T $(SRC_DIR)/arch/$(PLATFORM)/linker.ld $(OBJS) -o $@
 ifeq ($(MODE),Release)
 	strip --strip-debug $@
 endif

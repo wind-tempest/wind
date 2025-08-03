@@ -15,7 +15,7 @@ docs/        - Documentation files
     ...
 include/     - Public header files
     ...
-kernel/      - Kernel source code
+sys/         - Kernel source code
     arch/    - Architecture-specific files
     core/    - Core kernel functions (memory manager, entry, kernel panic, etc.)
     drivers/ - Hardware device drivers
