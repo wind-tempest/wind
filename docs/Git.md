@@ -27,6 +27,7 @@ Signed-off-by: Russian95CrE <russian95@tempestfoundation.org>
 ## Common Subsystems
 
 - `kernel:` core kernel logic
+- `arch:` platform-specific code (like x86, arm, etc...)
 - `mm:` memory management
 - `fs:` file systems
 - `drivers:` generic drivers (like Video, Serial, PCI, USB, etc...)
