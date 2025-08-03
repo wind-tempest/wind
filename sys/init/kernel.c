@@ -140,9 +140,7 @@ void
 		__asm__("cli; hlt");
 
 	parse_multiboot_info(mb_info);
-
-	if ( kis_video_ready() )
-		kvideo_init(&fb_info);
+	kvideo_init(&fb_info);
 
 	kmemory_init(mb_info);
 	init_memory_pools();
