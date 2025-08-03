@@ -18,8 +18,7 @@
 #include <wt/kstdio/kstdint.h>
 #include <wt/kstring/kmemcpy.h>
 
-#define CPU_BRAND_STRING_LEN 128
-#define CPUID_EXT_BASE	     0x80000002
+#define CPUID_EXT_BASE 0x80000002
 
 char cpu_brand_string[CPU_BRAND_STRING_LEN + 1] = "Unknown CPU";
 
