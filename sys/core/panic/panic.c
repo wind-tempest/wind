@@ -189,6 +189,7 @@ void
 
 	kmemset(buff, 0, sizeof(buff));
 
+	//  ̄\_(ツ)_/ ̄
 	for ( unsigned int i = seconds_to_reboot; i > 0; i-- ) {
 		pputs("Rebooting in ");
 		kitoa(buff, buff + 14, i, 10, 0);
