@@ -5,7 +5,7 @@ LD      := ld
 RM      := rm -rf
 
 # Directory structure
-SRC_DIR     := kernel
+SRC_DIR     := sys
 BUILD_DIR   := build
 IO_DIR      := include
 OBJDIR      := $(BUILD_DIR)/obj
