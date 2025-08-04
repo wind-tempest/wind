@@ -24,6 +24,11 @@ static volatile kuint32_t *framebuffer = KNULL;
 static kuint32_t cursor_x = 0;
 static kuint32_t cursor_y = 0;
 
+kbool
+    kis_video_ready (void) {
+	return fb_info.addr != 0 && fb_info.width > 0 && fb_info.height > 0;
+}
+
 // Convert 24-bit RGB (0xRRGGBB) to 16-bit RGB565
 static inline kuint16_t
     krgb888_to_rgb565 (kuint32_t rgb) {
@@ -35,7 +40,7 @@ static inline kuint16_t
 
 void
     kvideo_clear (kuint32_t color) {
-	if ( framebuffer == KNULL )
+	if ( !kis_video_ready() )
 		return;
 
 	for ( kuint32_t y = 0; y < fb_info.height; y++ ) {
@@ -68,11 +73,6 @@ void
 
 	cursor_x = 0;
 	cursor_y = 0;
-}
-
-kbool
-    kis_video_ready (void) {
-	return fb_info.addr != 0 && fb_info.width > 0 && fb_info.height > 0;
 }
 
 static kbool
