@@ -7,7 +7,6 @@ This document defines the commit message convention used in the Wind/Tempest pro
 ```
 <subsystem>: Short description (no period)
 
-
 (Optional longer description explaining what changed, why it changed, and any side effects)
 (Or you can add additional parts of change in description)
 
