@@ -12,8 +12,7 @@
 #include <wt/kmath/kmath.h>
 
 double
-    katan (double x)
-{
+    katan (double x) {
 	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");
@@ -23,8 +22,7 @@ double
 		return 0.0;
 
 	// Use series expansion for small values
-	if ( kfabs(x) < 1.0 )
-	{
+	if ( kfabs(x) < 1.0 ) {
 		double x2 = x * x;
 		double x3 = x2 * x;
 		double x5 = x3 * x2;

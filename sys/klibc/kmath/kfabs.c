@@ -12,7 +12,6 @@
 #include <wt/kmath/kmath.h>
 
 double
-    kfabs (double x)
-{
+    kfabs (double x) {
 	return x < 0.0 ? -x : x;
 }

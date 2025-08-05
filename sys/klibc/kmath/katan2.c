@@ -12,8 +12,7 @@
 #include <wt/kmath/kmath.h>
 
 double
-    katan2 (double y, double x)
-{
+    katan2 (double y, double x) {
 	// Handle special cases
 	if ( kisnan(x) || kisnan(y) )
 		return knan("");
@@ -21,8 +20,7 @@ double
 		return knan("");
 
 	// If x is zero
-	if ( x == 0.0 )
-	{
+	if ( x == 0.0 ) {
 		if ( y > 0.0 )
 			return K_M_PI_2;
 		if ( y < 0.0 )
@@ -31,8 +29,7 @@ double
 	}
 
 	// If y is zero
-	if ( y == 0.0 )
-	{
+	if ( y == 0.0 ) {
 		if ( x > 0.0 )
 			return 0.0;
 		if ( x < 0.0 )
@@ -41,8 +38,7 @@ double
 	}
 
 	// If x is infinite
-	if ( kisinf(x) )
-	{
+	if ( kisinf(x) ) {
 		if ( x > 0.0 )
 			return y > 0.0 ? 0.0 : -0.0;
 		else
@@ -50,16 +46,14 @@ double
 	}
 
 	// If y is infinite
-	if ( kisinf(y) )
-	{
+	if ( kisinf(y) ) {
 		return y > 0.0 ? K_M_PI_2 : -K_M_PI_2;
 	}
 
 	// Normal case: use atan(y/x) with proper quadrant adjustment
 	double result = katan(y / x);
 
-	if ( x < 0.0 )
-	{
+	if ( x < 0.0 ) {
 		if ( y >= 0.0 )
 			result += K_M_PI;
 		else

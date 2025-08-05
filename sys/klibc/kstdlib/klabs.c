@@ -12,7 +12,6 @@
 #include <wt/kstdlib/kstdlib.h>
 
 long
-    labs (long a)
-{
+    labs (long a) {
 	return a > 0 ? a : -a;
 }

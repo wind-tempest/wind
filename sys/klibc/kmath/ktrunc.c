@@ -12,8 +12,7 @@
 #include <wt/kmath/ktrunc.h>
 
 double
-    ktrunc (double x)
-{
+    ktrunc (double x) {
 	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");

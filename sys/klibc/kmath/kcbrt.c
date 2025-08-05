@@ -12,8 +12,7 @@
 #include <wt/kmath/kmath.h>
 
 double
-    kcbrt (double x)
-{
+    kcbrt (double x) {
 	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");
@@ -33,8 +32,7 @@ double
 		guess = y * 2.0 / 3.0;
 
 	// Newton iteration: x_{n+1} = (2*x_n + y/x_n^2) / 3
-	for ( int i = 0; i < 10; i++ )
-	{
+	for ( int i = 0; i < 10; i++ ) {
 		double guess2	 = guess * guess;
 		double new_guess = (2.0 * guess + y / guess2) / 3.0;
 		if ( kfabs(new_guess - guess) < 1e-15 )

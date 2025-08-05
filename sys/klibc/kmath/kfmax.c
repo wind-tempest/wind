@@ -12,8 +12,7 @@
 #include <wt/kmath/kmath.h>
 
 double
-    kfmax (double x, double y)
-{
+    kfmax (double x, double y) {
 	// Handle NaN cases
 	if ( x != x )
 		return y;
