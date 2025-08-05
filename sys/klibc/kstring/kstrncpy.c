@@ -18,15 +18,15 @@ char *
 	const char *s = src;
 
 	while ( n && *s )
-		{
-			*d++ = *s++;
-			n--;
-		}
+	{
+		*d++ = *s++;
+		n--;
+	}
 
 	while ( n-- )
-		{
-			*d++ = '\0';
-		}
+	{
+		*d++ = '\0';
+	}
 
 	return dest;
 }

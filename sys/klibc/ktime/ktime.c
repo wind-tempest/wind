@@ -73,38 +73,38 @@ void
 
 	// Convert BCD to decimal if needed
 	if ( is_bcd )
-		{
-			time->second	  = kbcd_to_decimal(seconds);
-			time->minute	  = kbcd_to_decimal(minutes);
-			time->hour	  = kbcd_to_decimal(hours);
-			time->day	  = kbcd_to_decimal(day);
-			time->month	  = kbcd_to_decimal(month);
-			time->year	  = (kuint16_t) (kbcd_to_decimal(year)
-							 + (kbcd_to_decimal(century) * 100));
-			time->day_of_week = kbcd_to_decimal(day_of_week);
-		}
+	{
+		time->second	  = kbcd_to_decimal(seconds);
+		time->minute	  = kbcd_to_decimal(minutes);
+		time->hour	  = kbcd_to_decimal(hours);
+		time->day	  = kbcd_to_decimal(day);
+		time->month	  = kbcd_to_decimal(month);
+		time->year	  = (kuint16_t) (kbcd_to_decimal(year)
+						 + (kbcd_to_decimal(century) * 100));
+		time->day_of_week = kbcd_to_decimal(day_of_week);
+	}
 	else
-		{
-			time->second	  = seconds;
-			time->minute	  = minutes;
-			time->hour	  = hours;
-			time->day	  = day;
-			time->month	  = month;
-			time->year	  = (kuint16_t) (year + (century * 100));
-			time->day_of_week = day_of_week;
-		}
+	{
+		time->second	  = seconds;
+		time->minute	  = minutes;
+		time->hour	  = hours;
+		time->day	  = day;
+		time->month	  = month;
+		time->year	  = (kuint16_t) (year + (century * 100));
+		time->day_of_week = day_of_week;
+	}
 
 	// Handle 12-hour format (bit 6 of hours register indicates PM)
 	if ( !(hours & 0x80) && (hours & 0x40) )
-		{
-			// 12-hour format, PM
-			time->hour = (kuint8_t) (((time->hour % 12) + 12) % 24);
-		}
+	{
+		// 12-hour format, PM
+		time->hour = (kuint8_t) (((time->hour % 12) + 12) % 24);
+	}
 	else if ( !(hours & 0x80) )
-		{
-			// 12-hour format, AM
-			time->hour = time->hour % 12;
-		}
+	{
+		// 12-hour format, AM
+		time->hour = time->hour % 12;
+	}
 }
 
 // Get date string in DD-MM-YYYY format
@@ -173,8 +173,8 @@ const char *
 	    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
 	if ( day_of_week >= 1 && day_of_week <= 7 )
-		{
-			return days[day_of_week - 1];
-		}
+	{
+		return days[day_of_week - 1];
+	}
 	return "Unknown";
 }

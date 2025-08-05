@@ -26,39 +26,39 @@ int
 		s++;
 
 	if ( *s == '+' || *s == '-' )
-		{
-			if ( *s == '-' )
-				sign = -1;
-			s++;
-		}
+	{
+		if ( *s == '-' )
+			sign = -1;
+		s++;
+	}
 
 	if ( !kisdigit(*s) )
-		{
-			kerrno = KEINVAL;
-			return 0;
-		}
+	{
+		kerrno = KEINVAL;
+		return 0;
+	}
 
 	while ( kisdigit(*s) )
+	{
+		int digit = *s - '0';
+
+		if ( result > (KLONG_MAX - digit) / 10 )
 		{
-			int digit = *s - '0';
-
-			if ( result > (KLONG_MAX - digit) / 10 )
-				{
-					kerrno = KERANGE;
-					return sign == 1 ? KINT_MAX : KINT_MIN;
-				}
-
-			result = result * 10 + digit;
-			s++;
+			kerrno = KERANGE;
+			return sign == 1 ? KINT_MAX : KINT_MIN;
 		}
+
+		result = result * 10 + digit;
+		s++;
+	}
 
 	result *= sign;
 
 	if ( result < KINT_MIN || result > KINT_MAX )
-		{
-			kerrno = KERANGE;
-			return result > 0 ? KINT_MAX : KINT_MIN;
-		}
+	{
+		kerrno = KERANGE;
+		return result > 0 ? KINT_MAX : KINT_MIN;
+	}
 
 	return (int) result;
 }

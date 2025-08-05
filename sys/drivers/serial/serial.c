@@ -56,9 +56,9 @@ void
 	if ( !is_serial_available() || !s )
 		return;	 // Exit if serial not available or if string is null.
 	while ( *s )
-		{
-			serial_write(*s++);
-		}
+	{
+		serial_write(*s++);
+	}
 }
 
 void

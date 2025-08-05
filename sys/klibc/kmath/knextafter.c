@@ -29,17 +29,16 @@ double
 
 	// For zero, return smallest subnormal in the direction of y
 	if ( x == 0.0 )
+	{
+		union
 		{
-			union
-			{
-				double		   d;
-				unsigned long long u;
-			} u;
+			double		   d;
+			unsigned long long u;
+		} u;
 
-			u.u =
-			    direction > 0 ? 0x0000000000000001ULL : 0x8000000000000001ULL;
-			return u.d;
-		}
+		u.u = direction > 0 ? 0x0000000000000001ULL : 0x8000000000000001ULL;
+		return u.d;
+	}
 
 	// For finite non-zero values, use a simple approximation
 	// This is a simplified implementation - a full implementation would

@@ -30,9 +30,9 @@ static int
     kread_sectors (kuint64_t lba, kuint32_t cnt, void *dst)
 {
 	if ( !g_read_sector )
-		{
-			return EXT2_ERR_IO;
-		}
+	{
+		return EXT2_ERR_IO;
+	}
 	return g_read_sector(lba, cnt, dst);
 }
 
@@ -61,9 +61,9 @@ int
     kext2_mount (kuint64_t base_lba)
 {
 	if ( !g_read_sector )
-		{
-			return EXT2_ERR_IO;
-		}
+	{
+		return EXT2_ERR_IO;
+	}
 
 	g_base_lba = base_lba;
 
@@ -74,20 +74,20 @@ int
 	 */
 	kuint8_t sb_raw[1024];
 	if ( kread_sectors(base_lba + EXT2_SUPERBLOCK_OFFSET / 512, 2, sb_raw) != 0 )
-		{
-			return EXT2_ERR_IO;
-		}
+	{
+		return EXT2_ERR_IO;
+	}
 	kmemcpy(&g_superblock, sb_raw, sizeof(ext2_superblock_t));
 
 	if ( g_superblock.magic != EXT2_SUPER_MAGIC )
-		{
+	{
 #ifdef EXT2_DEBUG
-			kprintf("EXT2: bad magic 0x%04x (expected 0x%04x)\n",
-				g_superblock.magic,
-				EXT2_SUPER_MAGIC);
+		kprintf("EXT2: bad magic 0x%04x (expected 0x%04x)\n",
+			g_superblock.magic,
+			EXT2_SUPER_MAGIC);
 #endif
-			return EXT2_ERR_BAD_MAGIC;
-		}
+		return EXT2_ERR_BAD_MAGIC;
+	}
 
 	/*
 	 * Compute block size and validate (EXT2 supports 1K,2K,4K). Anything
@@ -95,13 +95,13 @@ int
 	 * Reject filesystems with block sizes >4 KiB.
 	 */
 	if ( g_superblock.log_block_size > 2 )
-		{
+	{
 #ifdef EXT2_DEBUG
-			kprintf("EXT2: unsupported block size (log=%u)\n",
-				g_superblock.log_block_size);
+		kprintf("EXT2: unsupported block size (log=%u)\n",
+			g_superblock.log_block_size);
 #endif
-			return EXT2_ERR_UNSUPPORTED;
-		}
+		return EXT2_ERR_UNSUPPORTED;
+	}
 	g_block_size = 1024U << g_superblock.log_block_size;
 
 	kuint32_t groups = (g_superblock.blocks_count + g_superblock.blocks_per_group - 1)
@@ -112,9 +112,9 @@ int
 
 	g_group_desc = (ext2_group_desc_t *) kmalloc(gd_table_blocks * g_block_size);
 	if ( !g_group_desc )
-		{
-			return EXT2_ERR_IO;
-		}
+	{
+		return EXT2_ERR_IO;
+	}
 
 	/*
 	 * Group descriptor table starts right after superblock (block 2 for 1K blk)
@@ -125,14 +125,14 @@ int
 	 */
 	kuint32_t gd_start_blk = (g_block_size == 1024) ? 2 : 1;
 	for ( kuint32_t i = 0; i < gd_table_blocks; i++ )
+	{
+		if ( kread_block(gd_start_blk + i,
+				 (kuint8_t *) g_group_desc + i * g_block_size)
+		     != 0 )
 		{
-			if ( kread_block(gd_start_blk + i,
-					 (kuint8_t *) g_group_desc + i * g_block_size)
-			     != 0 )
-				{
-					return EXT2_ERR_IO;
-				}
+			return EXT2_ERR_IO;
 		}
+	}
 
 #ifdef EXT2_DEBUG
 	kprintf("EXT2: mounted. Block size %u, groups %u\n", g_block_size, groups);
@@ -150,12 +150,12 @@ int
 
 	// If path is just "/" open root directory
 	if ( kstrcmp(path, "/") == 0 )
-		{
-			if ( kread_inode(EXT2_ROOT_INODE, &out_file->inode) != EXT2_OK )
-				return EXT2_ERR_IO;
-			out_file->pos = 0;
-			return EXT2_OK;
-		}
+	{
+		if ( kread_inode(EXT2_ROOT_INODE, &out_file->inode) != EXT2_OK )
+			return EXT2_ERR_IO;
+		out_file->pos = 0;
+		return EXT2_OK;
+	}
 
 	// Make a modifiable copy of path without leading '/'
 	char	tmp[256];
@@ -172,74 +172,67 @@ int
 	char *tok = kstrtok(tmp, "/");
 	char *next_tok;
 	while ( tok )
+	{
+		next_tok = kstrtok(KNULL, "/");
+
+		// Search for tok in cur_inode directory entries (direct blocks only)
+		kuint32_t found_ino = 0;
+
+		kuint8_t *blk_buf = kmalloc(g_block_size);
+		if ( !blk_buf )
+			return EXT2_ERR_IO;
+
+		for ( int i = 0; i < 12 && found_ino == 0; i++ )
 		{
-			next_tok = kstrtok(KNULL, "/");
-
-			// Search for tok in cur_inode directory entries (direct blocks only)
-			kuint32_t found_ino = 0;
-
-			kuint8_t *blk_buf = kmalloc(g_block_size);
-			if ( !blk_buf )
+			kuint32_t blk = cur_inode.block[i];
+			if ( blk == 0 )
+				continue;
+			if ( kread_block(blk, blk_buf) != 0 )
+			{
+				kfree(blk_buf);
 				return EXT2_ERR_IO;
-
-			for ( int i = 0; i < 12 && found_ino == 0; i++ )
+			}
+			kuint32_t off = 0;
+			while ( off < g_block_size )
+			{
+				ext2_dir_entry_t *ent =
+				    (ext2_dir_entry_t *) (blk_buf + off);
+				if ( ent->rec_len == 0 )
+					break;
+				if ( ent->inode != 0
+				     && ent->name_len == (kuint8_t) kstrlen(tok)
+				     && kmemcmp(ent->name, tok, ent->name_len) == 0 )
 				{
-					kuint32_t blk = cur_inode.block[i];
-					if ( blk == 0 )
-						continue;
-					if ( kread_block(blk, blk_buf) != 0 )
-						{
-							kfree(blk_buf);
-							return EXT2_ERR_IO;
-						}
-					kuint32_t off = 0;
-					while ( off < g_block_size )
-						{
-							ext2_dir_entry_t *ent =
-							    (ext2_dir_entry_t *) (blk_buf
-										  + off);
-							if ( ent->rec_len == 0 )
-								break;
-							if ( ent->inode != 0
-							     && ent->name_len
-								    == (kuint8_t) kstrlen(
-									tok)
-							     && kmemcmp(ent->name,
-									tok,
-									ent->name_len)
-								    == 0 )
-								{
-									found_ino =
-									    ent->inode;
-									break;
-								}
-							off += ent->rec_len;
-						}
+					found_ino = ent->inode;
+					break;
 				}
-			kfree(blk_buf);
-			if ( found_ino == 0 )
-				return EXT2_ERR_PATH_NOT_FOUND;
-
-			// Load inode
-			if ( kread_inode(found_ino, &cur_inode) != EXT2_OK )
-				return EXT2_ERR_IO;
-
-			if ( next_tok )
-				{
-					// Expect directory
-					if ( !(cur_inode.mode & 0x4000) )
-						return EXT2_ERR_INVALID;  // Not a directory
-				}
-			else
-				{
-					// Last component -- should be file (or directory, we allow both)
-					out_file->inode = cur_inode;
-					out_file->pos	= 0;
-					return EXT2_OK;
-				}
-
-			tok = next_tok;
+				off += ent->rec_len;
+			}
 		}
+		kfree(blk_buf);
+		if ( found_ino == 0 )
+			return EXT2_ERR_PATH_NOT_FOUND;
+
+		// Load inode
+		if ( kread_inode(found_ino, &cur_inode) != EXT2_OK )
+			return EXT2_ERR_IO;
+
+		if ( next_tok )
+		{
+			// Expect directory
+			if ( !(cur_inode.mode & 0x4000) )
+				return EXT2_ERR_INVALID;  // Not a directory
+		}
+		else
+		{
+			// Last component -- should be file (or directory, we allow both)
+			out_file->inode = cur_inode;
+			out_file->pos	= 0;
+			return EXT2_OK;
+		}
+
+		tok = next_tok;
+	}
 	return EXT2_ERR_INVALID;
 }
 
@@ -269,32 +262,32 @@ static int
 
 	// Read the first block that contains (part of) the inode
 	if ( kread_block(inode_tbl_blk + blk_offset, tmp) != 0 )
-		{
-			kfree(tmp);
-			return EXT2_ERR_IO;
-		}
+	{
+		kfree(tmp);
+		return EXT2_ERR_IO;
+	}
 
 	kuint32_t bytes_first = g_block_size - off_in_block;
 	kuint32_t need	      = sizeof(ext2_inode_t);
 
 	if ( bytes_first >= need )
-		{
-			// Inode fits entirely in this block
-			kmemcpy(out, tmp + off_in_block, need);
-		}
+	{
+		// Inode fits entirely in this block
+		kmemcpy(out, tmp + off_in_block, need);
+	}
 	else
-		{
-			// Copy first portion
-			kmemcpy(out, tmp + off_in_block, bytes_first);
+	{
+		// Copy first portion
+		kmemcpy(out, tmp + off_in_block, bytes_first);
 
-			// Read next block for the remaining bytes
-			if ( kread_block(inode_tbl_blk + blk_offset + 1, tmp) != 0 )
-				{
-					kfree(tmp);
-					return EXT2_ERR_IO;
-				}
-			kmemcpy((kuint8_t *) out + bytes_first, tmp, need - bytes_first);
+		// Read next block for the remaining bytes
+		if ( kread_block(inode_tbl_blk + blk_offset + 1, tmp) != 0 )
+		{
+			kfree(tmp);
+			return EXT2_ERR_IO;
 		}
+		kmemcpy((kuint8_t *) out + bytes_first, tmp, need - bytes_first);
+	}
 
 	kfree(tmp);
 	return EXT2_OK;
@@ -305,26 +298,26 @@ static void
 {
 	kuint32_t off = 0;
 	while ( off < block_size )
+	{
+		ext2_dir_entry_t *ent	  = (ext2_dir_entry_t *) (block_buf + off);
+		kuint16_t	  rec_len = ent->rec_len;
+		kuint8_t	  nlen	  = ent->name_len;
+		if ( rec_len < 8 || rec_len > block_size - off )
+			break;
+		if ( ent->inode != 0 && nlen == 0 )
+			break;
+		kuint16_t min_len = (kuint16_t) (((8 + nlen + 3) / 4) * 4);
+		if ( rec_len < min_len )
+			break;
+		if ( ent->inode != 0 && nlen > 0 )
 		{
-			ext2_dir_entry_t *ent = (ext2_dir_entry_t *) (block_buf + off);
-			kuint16_t	  rec_len = ent->rec_len;
-			kuint8_t	  nlen	  = ent->name_len;
-			if ( rec_len < 8 || rec_len > block_size - off )
-				break;
-			if ( ent->inode != 0 && nlen == 0 )
-				break;
-			kuint16_t min_len = (kuint16_t) (((8 + nlen + 3) / 4) * 4);
-			if ( rec_len < min_len )
-				break;
-			if ( ent->inode != 0 && nlen > 0 )
-				{
-					char name[256] = {0};
-					kmemcpy(name, ent->name, nlen);
-					name[nlen] = '\0';
-					cb(name, ent->file_type);
-				}
-			off += rec_len;
+			char name[256] = {0};
+			kmemcpy(name, ent->name, nlen);
+			name[nlen] = '\0';
+			cb(name, ent->file_type);
 		}
+		off += rec_len;
+	}
 }
 
 static int
@@ -341,17 +334,17 @@ static int
 		return EXT2_ERR_IO;
 
 	for ( int i = 0; i < 12; i++ )
+	{
+		kuint32_t blk_id = dir_inode->block[i];
+		if ( blk_id == 0 )
+			continue;
+		if ( kread_block(blk_id, block_buf) != 0 )
 		{
-			kuint32_t blk_id = dir_inode->block[i];
-			if ( blk_id == 0 )
-				continue;
-			if ( kread_block(blk_id, block_buf) != 0 )
-				{
-					kfree(block_buf);
-					return EXT2_ERR_IO;
-				}
-			kprocess_dir_block(block_buf, g_block_size, cb);
+			kfree(block_buf);
+			return EXT2_ERR_IO;
 		}
+		kprocess_dir_block(block_buf, g_block_size, cb);
+	}
 	kfree(block_buf);
 	return EXT2_OK;
 }
@@ -364,14 +357,14 @@ int
 
 	// Special case: root directory
 	if ( kstrcmp(path, "/") == 0 || path[0] == '\0' )
-		{
-			ext2_inode_t root;
-			if ( kread_inode(EXT2_ROOT_INODE, &root) != EXT2_OK )
-				return EXT2_ERR_IO;
-			if ( !(root.mode & 0x4000) )
-				return EXT2_ERR_INVALID;
-			return klist_dir_entries(&root, cb);
-		}
+	{
+		ext2_inode_t root;
+		if ( kread_inode(EXT2_ROOT_INODE, &root) != EXT2_OK )
+			return EXT2_ERR_IO;
+		if ( !(root.mode & 0x4000) )
+			return EXT2_ERR_INVALID;
+		return klist_dir_entries(&root, cb);
+	}
 
 	char	tmp[256];
 	ksize_t plen = (ksize_t) kstrlen(path);
@@ -386,69 +379,62 @@ int
 	char *tok = kstrtok(tmp, "/");
 	char *next_tok;
 	while ( tok )
+	{
+		next_tok = kstrtok(KNULL, "/");
+
+		kuint32_t found_ino = 0;
+		kuint8_t *blk_buf   = kmalloc(g_block_size);
+		if ( !blk_buf )
+			return EXT2_ERR_IO;
+
+		for ( int i = 0; i < 12 && found_ino == 0; i++ )
 		{
-			next_tok = kstrtok(KNULL, "/");
-
-			kuint32_t found_ino = 0;
-			kuint8_t *blk_buf   = kmalloc(g_block_size);
-			if ( !blk_buf )
+			kuint32_t blk = cur_inode.block[i];
+			if ( blk == 0 )
+				continue;
+			if ( kread_block(blk, blk_buf) != 0 )
+			{
+				kfree(blk_buf);
 				return EXT2_ERR_IO;
-
-			for ( int i = 0; i < 12 && found_ino == 0; i++ )
+			}
+			kuint32_t off = 0;
+			while ( off < g_block_size )
+			{
+				ext2_dir_entry_t *ent =
+				    (ext2_dir_entry_t *) (blk_buf + off);
+				if ( ent->rec_len == 0 )
+					break;
+				if ( ent->inode != 0
+				     && ent->name_len == (kuint8_t) kstrlen(tok)
+				     && kmemcmp(ent->name, tok, ent->name_len) == 0 )
 				{
-					kuint32_t blk = cur_inode.block[i];
-					if ( blk == 0 )
-						continue;
-					if ( kread_block(blk, blk_buf) != 0 )
-						{
-							kfree(blk_buf);
-							return EXT2_ERR_IO;
-						}
-					kuint32_t off = 0;
-					while ( off < g_block_size )
-						{
-							ext2_dir_entry_t *ent =
-							    (ext2_dir_entry_t *) (blk_buf
-										  + off);
-							if ( ent->rec_len == 0 )
-								break;
-							if ( ent->inode != 0
-							     && ent->name_len
-								    == (kuint8_t) kstrlen(
-									tok)
-							     && kmemcmp(ent->name,
-									tok,
-									ent->name_len)
-								    == 0 )
-								{
-									found_ino =
-									    ent->inode;
-									break;
-								}
-							off += ent->rec_len;
-						}
+					found_ino = ent->inode;
+					break;
 				}
-			kfree(blk_buf);
-			if ( found_ino == 0 )
-				return EXT2_ERR_PATH_NOT_FOUND;
-
-			if ( kread_inode(found_ino, &cur_inode) != EXT2_OK )
-				return EXT2_ERR_IO;
-
-			if ( next_tok )
-				{
-					if ( !(cur_inode.mode & 0x4000) )
-						return EXT2_ERR_INVALID;
-				}
-			else
-				{
-					if ( !(cur_inode.mode & 0x4000) )
-						return EXT2_ERR_INVALID;
-					return klist_dir_entries(&cur_inode, cb);
-				}
-
-			tok = next_tok;
+				off += ent->rec_len;
+			}
 		}
+		kfree(blk_buf);
+		if ( found_ino == 0 )
+			return EXT2_ERR_PATH_NOT_FOUND;
+
+		if ( kread_inode(found_ino, &cur_inode) != EXT2_OK )
+			return EXT2_ERR_IO;
+
+		if ( next_tok )
+		{
+			if ( !(cur_inode.mode & 0x4000) )
+				return EXT2_ERR_INVALID;
+		}
+		else
+		{
+			if ( !(cur_inode.mode & 0x4000) )
+				return EXT2_ERR_INVALID;
+			return klist_dir_entries(&cur_inode, cb);
+		}
+
+		tok = next_tok;
+	}
 	return EXT2_ERR_INVALID;
 }
 
@@ -471,17 +457,17 @@ int
 
 	// Direct blocks
 	for ( int i = 0; i < 12; i++ )	// Only direct blocks for now
+	{
+		kuint32_t blk_id = root.block[i];
+		if ( blk_id == 0 )
+			continue;
+		if ( kread_block(blk_id, block_buf) != 0 )
 		{
-			kuint32_t blk_id = root.block[i];
-			if ( blk_id == 0 )
-				continue;
-			if ( kread_block(blk_id, block_buf) != 0 )
-				{
-					kfree(block_buf);
-					return EXT2_ERR_IO;
-				}
-			kprocess_dir_block(block_buf, g_block_size, cb);
+			kfree(block_buf);
+			return EXT2_ERR_IO;
 		}
+		kprocess_dir_block(block_buf, g_block_size, cb);
+	}
 	kfree(block_buf);
 	return EXT2_OK;
 }
@@ -494,37 +480,36 @@ static kuint32_t
 
 	// Direct blocks (0-11)
 	if ( logical_block < 12 )
-		{
-			return inode->block[logical_block];
-		}
+	{
+		return inode->block[logical_block];
+	}
 
 	// Single indirect blocks (12 to 12 + blocks_per_indirect - 1)
 	kuint64_t single_indirect_start = 12;
 	kuint64_t single_indirect_end	= single_indirect_start + blocks_per_indirect;
 
 	if ( logical_block < single_indirect_end )
+	{
+		kuint32_t indirect_block = inode->block[12];
+		if ( indirect_block == 0 )
+			return 0;  // Sparse
+
+		// Read the indirect block
+		kuint32_t *indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !indirect_buf )
+			return 0;
+
+		if ( kread_block(indirect_block, indirect_buf) != 0 )
 		{
-			kuint32_t indirect_block = inode->block[12];
-			if ( indirect_block == 0 )
-				return 0;  // Sparse
-
-			// Read the indirect block
-			kuint32_t *indirect_buf = (kuint32_t *) kmalloc(g_block_size);
-			if ( !indirect_buf )
-				return 0;
-
-			if ( kread_block(indirect_block, indirect_buf) != 0 )
-				{
-					kfree(indirect_buf);
-					return 0;
-				}
-
-			kuint32_t index =
-			    (kuint32_t) (logical_block - single_indirect_start);
-			kuint32_t result = indirect_buf[index];
 			kfree(indirect_buf);
-			return result;
+			return 0;
 		}
+
+		kuint32_t index	 = (kuint32_t) (logical_block - single_indirect_start);
+		kuint32_t result = indirect_buf[index];
+		kfree(indirect_buf);
+		return result;
+	}
 
 	// Double indirect blocks
 	kuint64_t double_indirect_start = single_indirect_end;
@@ -532,56 +517,51 @@ static kuint32_t
 	    double_indirect_start + (kuint64_t) blocks_per_indirect * blocks_per_indirect;
 
 	if ( logical_block < double_indirect_end )
+	{
+		kuint32_t double_indirect_block = inode->block[13];
+		if ( double_indirect_block == 0 )
+			return 0;  // Sparse
+
+		// Calculate which single indirect block we need
+		kuint64_t offset_in_double = logical_block - double_indirect_start;
+		kuint32_t single_indirect_index =
+		    (kuint32_t) (offset_in_double / blocks_per_indirect);
+		kuint32_t data_block_index =
+		    (kuint32_t) (offset_in_double % blocks_per_indirect);
+
+		// Read the double indirect block to get the single indirect block pointer
+		kuint32_t *double_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !double_indirect_buf )
+			return 0;
+
+		if ( kread_block(double_indirect_block, double_indirect_buf) != 0 )
 		{
-			kuint32_t double_indirect_block = inode->block[13];
-			if ( double_indirect_block == 0 )
-				return 0;  // Sparse
-
-			// Calculate which single indirect block we need
-			kuint64_t offset_in_double =
-			    logical_block - double_indirect_start;
-			kuint32_t single_indirect_index =
-			    (kuint32_t) (offset_in_double / blocks_per_indirect);
-			kuint32_t data_block_index =
-			    (kuint32_t) (offset_in_double % blocks_per_indirect);
-
-			// Read the double indirect block to get the single indirect block pointer
-			kuint32_t *double_indirect_buf =
-			    (kuint32_t *) kmalloc(g_block_size);
-			if ( !double_indirect_buf )
-				return 0;
-
-			if ( kread_block(double_indirect_block, double_indirect_buf)
-			     != 0 )
-				{
-					kfree(double_indirect_buf);
-					return 0;
-				}
-
-			kuint32_t single_indirect_block =
-			    double_indirect_buf[single_indirect_index];
 			kfree(double_indirect_buf);
-
-			if ( single_indirect_block == 0 )
-				return 0;  // Sparse
-
-			// Now read the single indirect block to get the data block pointer
-			kuint32_t *single_indirect_buf =
-			    (kuint32_t *) kmalloc(g_block_size);
-			if ( !single_indirect_buf )
-				return 0;
-
-			if ( kread_block(single_indirect_block, single_indirect_buf)
-			     != 0 )
-				{
-					kfree(single_indirect_buf);
-					return 0;
-				}
-
-			kuint32_t result = single_indirect_buf[data_block_index];
-			kfree(single_indirect_buf);
-			return result;
+			return 0;
 		}
+
+		kuint32_t single_indirect_block =
+		    double_indirect_buf[single_indirect_index];
+		kfree(double_indirect_buf);
+
+		if ( single_indirect_block == 0 )
+			return 0;  // Sparse
+
+		// Now read the single indirect block to get the data block pointer
+		kuint32_t *single_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !single_indirect_buf )
+			return 0;
+
+		if ( kread_block(single_indirect_block, single_indirect_buf) != 0 )
+		{
+			kfree(single_indirect_buf);
+			return 0;
+		}
+
+		kuint32_t result = single_indirect_buf[data_block_index];
+		kfree(single_indirect_buf);
+		return result;
+	}
 
 	// Triple indirect blocks
 	kuint64_t triple_indirect_start = double_indirect_end;
@@ -590,81 +570,74 @@ static kuint32_t
 	    + (kuint64_t) blocks_per_indirect * blocks_per_indirect * blocks_per_indirect;
 
 	if ( logical_block < triple_indirect_end )
+	{
+		kuint32_t triple_indirect_block = inode->block[14];
+		if ( triple_indirect_block == 0 )
+			return 0;  // Sparse
+
+		// Calculate indices for triple indirection
+		kuint64_t offset_in_triple = logical_block - triple_indirect_start;
+		kuint32_t double_indirect_index =
+		    (kuint32_t) (offset_in_triple
+				 / (blocks_per_indirect * blocks_per_indirect));
+		kuint32_t single_indirect_index =
+		    (kuint32_t) ((offset_in_triple
+				  % (blocks_per_indirect * blocks_per_indirect))
+				 / blocks_per_indirect);
+		kuint32_t data_block_index =
+		    (kuint32_t) (offset_in_triple % blocks_per_indirect);
+
+		// Read the triple indirect block to get the double indirect block pointer
+		kuint32_t *triple_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !triple_indirect_buf )
+			return 0;
+
+		if ( kread_block(triple_indirect_block, triple_indirect_buf) != 0 )
 		{
-			kuint32_t triple_indirect_block = inode->block[14];
-			if ( triple_indirect_block == 0 )
-				return 0;  // Sparse
-
-			// Calculate indices for triple indirection
-			kuint64_t offset_in_triple =
-			    logical_block - triple_indirect_start;
-			kuint32_t double_indirect_index =
-			    (kuint32_t) (offset_in_triple
-					 / (blocks_per_indirect * blocks_per_indirect));
-			kuint32_t single_indirect_index =
-			    (kuint32_t) ((offset_in_triple
-					  % (blocks_per_indirect * blocks_per_indirect))
-					 / blocks_per_indirect);
-			kuint32_t data_block_index =
-			    (kuint32_t) (offset_in_triple % blocks_per_indirect);
-
-			// Read the triple indirect block to get the double indirect block pointer
-			kuint32_t *triple_indirect_buf =
-			    (kuint32_t *) kmalloc(g_block_size);
-			if ( !triple_indirect_buf )
-				return 0;
-
-			if ( kread_block(triple_indirect_block, triple_indirect_buf)
-			     != 0 )
-				{
-					kfree(triple_indirect_buf);
-					return 0;
-				}
-
-			kuint32_t double_indirect_block =
-			    triple_indirect_buf[double_indirect_index];
 			kfree(triple_indirect_buf);
-
-			if ( double_indirect_block == 0 )
-				return 0;  // Sparse
-
-			// Read the double indirect block to get the single indirect block pointer
-			kuint32_t *double_indirect_buf =
-			    (kuint32_t *) kmalloc(g_block_size);
-			if ( !double_indirect_buf )
-				return 0;
-
-			if ( kread_block(double_indirect_block, double_indirect_buf)
-			     != 0 )
-				{
-					kfree(double_indirect_buf);
-					return 0;
-				}
-
-			kuint32_t single_indirect_block =
-			    double_indirect_buf[single_indirect_index];
-			kfree(double_indirect_buf);
-
-			if ( single_indirect_block == 0 )
-				return 0;  // Sparse
-
-			// Finally read the single indirect block to get the data block pointer
-			kuint32_t *single_indirect_buf =
-			    (kuint32_t *) kmalloc(g_block_size);
-			if ( !single_indirect_buf )
-				return 0;
-
-			if ( kread_block(single_indirect_block, single_indirect_buf)
-			     != 0 )
-				{
-					kfree(single_indirect_buf);
-					return 0;
-				}
-
-			kuint32_t result = single_indirect_buf[data_block_index];
-			kfree(single_indirect_buf);
-			return result;
+			return 0;
 		}
+
+		kuint32_t double_indirect_block =
+		    triple_indirect_buf[double_indirect_index];
+		kfree(triple_indirect_buf);
+
+		if ( double_indirect_block == 0 )
+			return 0;  // Sparse
+
+		// Read the double indirect block to get the single indirect block pointer
+		kuint32_t *double_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !double_indirect_buf )
+			return 0;
+
+		if ( kread_block(double_indirect_block, double_indirect_buf) != 0 )
+		{
+			kfree(double_indirect_buf);
+			return 0;
+		}
+
+		kuint32_t single_indirect_block =
+		    double_indirect_buf[single_indirect_index];
+		kfree(double_indirect_buf);
+
+		if ( single_indirect_block == 0 )
+			return 0;  // Sparse
+
+		// Finally read the single indirect block to get the data block pointer
+		kuint32_t *single_indirect_buf = (kuint32_t *) kmalloc(g_block_size);
+		if ( !single_indirect_buf )
+			return 0;
+
+		if ( kread_block(single_indirect_block, single_indirect_buf) != 0 )
+		{
+			kfree(single_indirect_buf);
+			return 0;
+		}
+
+		kuint32_t result = single_indirect_buf[data_block_index];
+		kfree(single_indirect_buf);
+		return result;
+	}
 
 	// Fuck you if you want more than triple indirect blocks.
 	return 0;
@@ -692,50 +665,50 @@ int
 		return EXT2_ERR_IO;
 
 	while ( remaining > 0 )
+	{
+		kuint64_t block_idx    = file->pos / g_block_size;
+		kuint32_t off_in_block = (kuint32_t) (file->pos % g_block_size);
+
+		// Calculate maximum supported blocks
+		kuint32_t blocks_per_indirect = g_block_size / sizeof(kuint32_t);
+		kuint64_t max_blocks =
+		    12 + blocks_per_indirect
+		    + (kuint64_t) blocks_per_indirect * blocks_per_indirect
+		    + (kuint64_t) blocks_per_indirect * blocks_per_indirect
+			  * blocks_per_indirect;
+		// Direct + single indirect + double indirect + triple indirect
+		if ( block_idx >= max_blocks )
 		{
-			kuint64_t block_idx    = file->pos / g_block_size;
-			kuint32_t off_in_block = (kuint32_t) (file->pos % g_block_size);
+			kfree(block_buf);
+			return EXT2_ERR_UNSUPPORTED;
+		}
 
-			// Calculate maximum supported blocks
-			kuint32_t blocks_per_indirect = g_block_size / sizeof(kuint32_t);
-			kuint64_t max_blocks =
-			    12 + blocks_per_indirect
-			    + (kuint64_t) blocks_per_indirect * blocks_per_indirect
-			    + (kuint64_t) blocks_per_indirect * blocks_per_indirect
-				  * blocks_per_indirect;
-			// Direct + single indirect + double indirect + triple indirect
-			if ( block_idx >= max_blocks )
-				{
-					kfree(block_buf);
-					return EXT2_ERR_UNSUPPORTED;
-				}
-
-			kuint32_t blk_id = kget_file_block(&file->inode, block_idx);
-			if ( blk_id == 0 )
-				{
-					// Sparse region – treat as zero
-					ksize_t chunk = g_block_size - off_in_block;
-					if ( chunk > remaining )
-						chunk = remaining;
-					kmemset(dst, 0, chunk);
-					dst += chunk;
-					file->pos += chunk;
-					remaining -= chunk;
-					continue;
-				}
-			if ( kread_block(blk_id, block_buf) != 0 )
-				{
-					kfree(block_buf);
-					return EXT2_ERR_IO;
-				}
+		kuint32_t blk_id = kget_file_block(&file->inode, block_idx);
+		if ( blk_id == 0 )
+		{
+			// Sparse region – treat as zero
 			ksize_t chunk = g_block_size - off_in_block;
 			if ( chunk > remaining )
 				chunk = remaining;
-			kmemcpy(dst, block_buf + off_in_block, chunk);
+			kmemset(dst, 0, chunk);
 			dst += chunk;
 			file->pos += chunk;
 			remaining -= chunk;
+			continue;
 		}
+		if ( kread_block(blk_id, block_buf) != 0 )
+		{
+			kfree(block_buf);
+			return EXT2_ERR_IO;
+		}
+		ksize_t chunk = g_block_size - off_in_block;
+		if ( chunk > remaining )
+			chunk = remaining;
+		kmemcpy(dst, block_buf + off_in_block, chunk);
+		dst += chunk;
+		file->pos += chunk;
+		remaining -= chunk;
+	}
 	kfree(block_buf);
 	return (int) len;
 }

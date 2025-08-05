@@ -21,11 +21,10 @@ const char *
 	const char *last = KNULL;
 
 	do
-		{
-			if ( *str == ch )
-				last = str;
-		}
-	while ( *str++ );
+	{
+		if ( *str == ch )
+			last = str;
+	} while ( *str++ );
 
 	return last;
 }

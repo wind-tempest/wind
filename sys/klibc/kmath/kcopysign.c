@@ -15,11 +15,11 @@ double
     kcopysign (double x, double y)
 {
 	if ( y >= 0.0 )
-		{
-			return kfabs(x);
-		}
+	{
+		return kfabs(x);
+	}
 	else
-		{
-			return -kfabs(x);
-		}
+	{
+		return -kfabs(x);
+	}
 }

@@ -30,9 +30,9 @@ void
     kduts (const char *s)
 {
 	if ( !kuse_debug )
-		{
-			return;
-		}
+	{
+		return;
+	}
 	if ( !s || *s == '\0' )
 		return;
 	serial_writes(debug_type_message);
@@ -57,181 +57,149 @@ int
 	count += (int) kstrlen(debug_type_message);
 
 	for ( const char *p = format; *p; ++p )
+	{
+		if ( *p != '%' )
 		{
-			if ( *p != '%' )
-				{
-					serial_write(*p);
-					count++;
-					continue;
-				}
-
-			p++;
-
-			int left_align = 0;
-			int width      = 0;
-
-			if ( *p == '-' )
-				{
-					left_align = 1;
-					p++;
-				}
-
-			while ( *p >= '0' && *p <= '9' )
-				{
-					width = width * 10 + (*p - '0');
-					p++;
-				}
-
-			switch ( *p )
-				{
-					case 's':
-						{
-							const char *s =
-							    k_va_arg(args, const char *);
-							int	    len = 0;
-							const char *t	= s;
-							while ( *t++ )
-								len++;
-
-							int pad = (width > len)
-								      ? (width - len)
-								      : 0;
-
-							if ( !left_align )
-								{
-									for ( int i = 0;
-									      i < pad;
-									      ++i )
-										{
-											serial_write(
-											    ' ');
-											count++;
-										}
-								}
-
-							serial_writes(s);
-							count += len;
-
-							if ( left_align )
-								{
-									for ( int i = 0;
-									      i < pad;
-									      ++i )
-										{
-											serial_write(
-											    ' ');
-											count++;
-										}
-								}
-							break;
-						}
-
-					case 'd':
-						{
-							int   n = k_va_arg(args, int);
-							char  buf[12];
-							char *ptr = buf;
-
-							if ( n < 0 )
-								{
-									*ptr++ = '-';
-									n      = -n;
-								}
-
-							char *end_ptr =
-							    kutoa(ptr,
-								  buf + sizeof(buf) - 1,
-								  (unsigned int) n,
-								  10,
-								  0);
-							*end_ptr = '\0';
-							serial_writes(buf);
-							count += (int) (end_ptr - buf);
-							break;
-						}
-
-					case 'x':
-						{
-							unsigned int n =
-							    k_va_arg(args, unsigned int);
-							char  buf[12];
-							char *end_ptr =
-							    kutoa(buf,
-								  buf + sizeof(buf) - 1,
-								  n,
-								  16,
-								  0);
-							*end_ptr = '\0';
-							serial_writes(buf);
-							count += (int) (end_ptr - buf);
-							break;
-						}
-					case 'l':
-						{
-							// Handle long/long long modifiers
-							if ( *(p + 1) == 'l' )
-								{
-									p++;  // Skip second 'l'
-									if ( *(p + 1)
-									     == 'x' )
-										{
-											p++;  // Skip 'x'
-											kuint64_t
-											    n = k_va_arg(
-												args,
-												kuint64_t);
-											char buf
-											    [20];
-											char *end_ptr = kutoa(
-											    buf,
-											    buf
-												+ sizeof(
-												    buf)
-												- 1,
-											    (unsigned int) (n
-													    & 0xFFFFFFFF),
-											    16,
-											    0);
-											*end_ptr =
-											    '\0';
-											serial_writes(
-											    buf);
-											count +=
-											    (int) (end_ptr
-												   - buf);
-											break;
-										}
-								}
-							// Fall through to default for single 'l'
-							goto default_case;
-						}
-
-					case 'c':
-						{
-							char c =
-							    (char) k_va_arg(args, int);
-							serial_write(c);
-							count++;
-							break;
-						}
-
-					case '%':
-						{
-							serial_write('%');
-							count++;
-							break;
-						}
-
-					default:
-					default_case:
-						{
-							serial_write('%');
-							serial_write(*p);
-							count += 2;
-							break;
-						}
-				}
+			serial_write(*p);
+			count++;
+			continue;
 		}
+
+		p++;
+
+		int left_align = 0;
+		int width      = 0;
+
+		if ( *p == '-' )
+		{
+			left_align = 1;
+			p++;
+		}
+
+		while ( *p >= '0' && *p <= '9' )
+		{
+			width = width * 10 + (*p - '0');
+			p++;
+		}
+
+		switch ( *p )
+		{
+			case 's':
+			{
+				const char *s	= k_va_arg(args, const char *);
+				int	    len = 0;
+				const char *t	= s;
+				while ( *t++ )
+					len++;
+
+				int pad = (width > len) ? (width - len) : 0;
+
+				if ( !left_align )
+				{
+					for ( int i = 0; i < pad; ++i )
+					{
+						serial_write(' ');
+						count++;
+					}
+				}
+
+				serial_writes(s);
+				count += len;
+
+				if ( left_align )
+				{
+					for ( int i = 0; i < pad; ++i )
+					{
+						serial_write(' ');
+						count++;
+					}
+				}
+				break;
+			}
+
+			case 'd':
+			{
+				int   n = k_va_arg(args, int);
+				char  buf[12];
+				char *ptr = buf;
+
+				if ( n < 0 )
+				{
+					*ptr++ = '-';
+					n      = -n;
+				}
+
+				char *end_ptr = kutoa(
+				    ptr, buf + sizeof(buf) - 1, (unsigned int) n, 10, 0);
+				*end_ptr = '\0';
+				serial_writes(buf);
+				count += (int) (end_ptr - buf);
+				break;
+			}
+
+			case 'x':
+			{
+				unsigned int n = k_va_arg(args, unsigned int);
+				char	     buf[12];
+				char	    *end_ptr =
+				    kutoa(buf, buf + sizeof(buf) - 1, n, 16, 0);
+				*end_ptr = '\0';
+				serial_writes(buf);
+				count += (int) (end_ptr - buf);
+				break;
+			}
+			case 'l':
+			{
+				// Handle long/long long modifiers
+				if ( *(p + 1) == 'l' )
+				{
+					p++;  // Skip second 'l'
+					if ( *(p + 1) == 'x' )
+					{
+						p++;  // Skip 'x'
+						kuint64_t n = k_va_arg(args, kuint64_t);
+						char	  buf[20];
+						char	 *end_ptr =
+						    kutoa(buf,
+							  buf + sizeof(buf) - 1,
+							  (unsigned int) (n & 0xFFFFFFFF),
+							  16,
+							  0);
+						*end_ptr = '\0';
+						serial_writes(buf);
+						count += (int) (end_ptr - buf);
+						break;
+					}
+				}
+				// Fall through to default for single 'l'
+				goto default_case;
+			}
+
+			case 'c':
+			{
+				char c = (char) k_va_arg(args, int);
+				serial_write(c);
+				count++;
+				break;
+			}
+
+			case '%':
+			{
+				serial_write('%');
+				count++;
+				break;
+			}
+
+			default:
+			default_case:
+			{
+				serial_write('%');
+				serial_write(*p);
+				count += 2;
+				break;
+			}
+		}
+	}
 
 	k_va_end(args);
 	return count;
@@ -246,20 +214,19 @@ void
 	if ( !message || *message == '\0' )
 		return;
 	if ( !extra || *extra == '\0' )
-		{
-			if ( subsystem && *subsystem != '\0' )
-				kprintf("[%s] %s: %s\n", type, subsystem, message);
-			else
-				kprintf("[%s] %s\n", type, message);
-		}
+	{
+		if ( subsystem && *subsystem != '\0' )
+			kprintf("[%s] %s: %s\n", type, subsystem, message);
+		else
+			kprintf("[%s] %s\n", type, message);
+	}
 	else
-		{
-			if ( subsystem && *subsystem != '\0' )
-				kprintf(
-				    "[%s] %s: %s: %s\n", type, subsystem, message, extra);
-			else
-				kprintf("[%s] %s: %s\n", type, message, extra);
-		}
+	{
+		if ( subsystem && *subsystem != '\0' )
+			kprintf("[%s] %s: %s: %s\n", type, subsystem, message, extra);
+		else
+			kprintf("[%s] %s: %s\n", type, message, extra);
+	}
 }
 
 void

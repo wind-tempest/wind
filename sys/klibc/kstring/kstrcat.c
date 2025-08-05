@@ -19,17 +19,17 @@ char *
 	// Find the end of dest
 	char *end = dest;
 	while ( *end )
-		{
-			end++;
-		}
+	{
+		end++;
+	}
 
 	// Copy src to the end of dest
 	while ( *src )
-		{
-			*end = *src;
-			end++;
-			src++;
-		}
+	{
+		*end = *src;
+		end++;
+		src++;
+	}
 
 	*end = '\0';
 	return dest;

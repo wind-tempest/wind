@@ -16,15 +16,15 @@ double
 {
 	// Handle special cases
 	if ( kisnan(x) )
-		{
-			*iptr = knan("");
-			return knan("");
-		}
+	{
+		*iptr = knan("");
+		return knan("");
+	}
 	if ( kisinf(x) )
-		{
-			*iptr = x;
-			return 0.0;
-		}
+	{
+		*iptr = x;
+		return 0.0;
+	}
 
 	// Extract integer part
 	if ( x >= 0.0 )

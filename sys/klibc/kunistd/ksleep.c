@@ -27,9 +27,9 @@ void
     khpet_enable (void)
 {
 	if ( (hpet[HPET_GEN_CONF / 8] & HPET_GEN_CONF_ENABLE) == 0 )
-		{
-			hpet[HPET_GEN_CONF / 8] |= HPET_GEN_CONF_ENABLE;
-		}
+	{
+		hpet[HPET_GEN_CONF / 8] |= HPET_GEN_CONF_ENABLE;
+	}
 }
 
 // PIT busy-wait ~1ms per tick
@@ -43,39 +43,37 @@ void
 	koutb(PIT_CHANNEL0, (kuint8_t) ((reload >> 8) & 0xFF));
 
 	for ( int i = 0; i < ms; i++ )
+	{
+		kuint8_t prev = 0xFF, curr = 0;
+		do
 		{
-			kuint8_t prev = 0xFF, curr = 0;
-			do
-				{
-					curr = kinb(PIT_CHANNEL0);
-					if ( curr > prev )
-						break;
-					prev = curr;
-				}
-			while ( curr != 0 );
-		}
+			curr = kinb(PIT_CHANNEL0);
+			if ( curr > prev )
+				break;
+			prev = curr;
+		} while ( curr != 0 );
+	}
 }
 
 void
     ksleep (int ms)
 {
 	if ( hpet != KNULL )
+	{
+		khpet_enable();
+
+		kuint64_t period_fs = hpet[HPET_CAP_ID / 8] >> 32;
+		kuint64_t start	    = hpet[HPET_MAIN_COUNTER / 8];
+
+		kuint64_t ticks = (kuint64_t) ms * 1000000000ULL / (period_fs / 1000);
+
+		while ( (hpet[HPET_MAIN_COUNTER / 8] - start) < ticks )
 		{
-			khpet_enable();
-
-			kuint64_t period_fs = hpet[HPET_CAP_ID / 8] >> 32;
-			kuint64_t start	    = hpet[HPET_MAIN_COUNTER / 8];
-
-			kuint64_t ticks =
-			    (kuint64_t) ms * 1000000000ULL / (period_fs / 1000);
-
-			while ( (hpet[HPET_MAIN_COUNTER / 8] - start) < ticks )
-				{
-					kcpu_relax();
-				}
+			kcpu_relax();
 		}
+	}
 	else
-		{
-			kpit_wait(ms);
-		}
+	{
+		kpit_wait(ms);
+	}
 }

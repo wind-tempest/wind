@@ -175,59 +175,59 @@ void
 	int panic_code = PANIC_UNKNOWN_ERROR;
 
 	switch ( regs->int_no )
-		{
-			case 0:
-				panic_code = PANIC_DIVISION_BY_ZERO;
-				break;
-			case 6:
-				panic_code = PANIC_INVALID_OPCODE;  // Invalid opcode
-				break;
-			case 8:
-				panic_code = PANIC_DOUBLE_FAULT;
-				break;
-			case 13:
-				panic_code = PANIC_GENERAL_PROTECTION;
-				break;
-			case 14:
-				panic_code = PANIC_PAGE_FAULT;
-				break;
-			case 12:
-				panic_code = PANIC_STACK_SEGMENT;
-				break;
-			case 11:
-				panic_code = PANIC_SEGMENT_NOT_PRESENT;
-				break;
-			case 10:
-				panic_code = PANIC_INVALID_TSS;
-				break;
-			case 17:
-				panic_code = PANIC_ALIGNMENT_CHECK;
-				break;
-			case 18:
-				panic_code = PANIC_MACHINE_CHECK;
-				break;
-			case 19:
-				panic_code = PANIC_SIMD_EXCEPTION;
-				break;
-			case 20:
-				panic_code = PANIC_VIRTUALIZATION;
-				break;
-			case 21:
-				panic_code = PANIC_CONTROL_PROTECTION;
-				break;
-			case 28:
-				panic_code = PANIC_HYPERVISOR;
-				break;
-			case 29:
-				panic_code = PANIC_VMM_COMMUNICATION;
-				break;
-			case 30:
-				panic_code = PANIC_SECURITY;
-				break;
-			default:
-				panic_code = PANIC_UNKNOWN_ERROR;
-				break;
-		}
+	{
+		case 0:
+			panic_code = PANIC_DIVISION_BY_ZERO;
+			break;
+		case 6:
+			panic_code = PANIC_INVALID_OPCODE;  // Invalid opcode
+			break;
+		case 8:
+			panic_code = PANIC_DOUBLE_FAULT;
+			break;
+		case 13:
+			panic_code = PANIC_GENERAL_PROTECTION;
+			break;
+		case 14:
+			panic_code = PANIC_PAGE_FAULT;
+			break;
+		case 12:
+			panic_code = PANIC_STACK_SEGMENT;
+			break;
+		case 11:
+			panic_code = PANIC_SEGMENT_NOT_PRESENT;
+			break;
+		case 10:
+			panic_code = PANIC_INVALID_TSS;
+			break;
+		case 17:
+			panic_code = PANIC_ALIGNMENT_CHECK;
+			break;
+		case 18:
+			panic_code = PANIC_MACHINE_CHECK;
+			break;
+		case 19:
+			panic_code = PANIC_SIMD_EXCEPTION;
+			break;
+		case 20:
+			panic_code = PANIC_VIRTUALIZATION;
+			break;
+		case 21:
+			panic_code = PANIC_CONTROL_PROTECTION;
+			break;
+		case 28:
+			panic_code = PANIC_HYPERVISOR;
+			break;
+		case 29:
+			panic_code = PANIC_VMM_COMMUNICATION;
+			break;
+		case 30:
+			panic_code = PANIC_SECURITY;
+			break;
+		default:
+			panic_code = PANIC_UNKNOWN_ERROR;
+			break;
+	}
 
 	// Call kpanic with the appropriate error code and registers.
 	kpanic(panic_code, regs);
@@ -238,19 +238,19 @@ void
 {
 	// If a custom handler is registered, call it.
 	if ( regs->int_no >= 32 && regs->int_no <= 47 )
+	{
+		irq_handler_t handler = irq_handlers[regs->int_no - 32];
+		if ( handler )
 		{
-			irq_handler_t handler = irq_handlers[regs->int_no - 32];
-			if ( handler )
-				{
-					handler(regs);
-				}
+			handler(regs);
 		}
+	}
 
 	// Send End-of-Interrupt (EOI) to the PICs.
 	if ( regs->int_no >= 40 )
-		{
-			koutb(PIC2_CMD, PIC_EOI);  // EOI to slave PIC.
-		}
+	{
+		koutb(PIC2_CMD, PIC_EOI);  // EOI to slave PIC.
+	}
 	koutb(PIC1_CMD, PIC_EOI);  // EOI to master PIC.
 }
 

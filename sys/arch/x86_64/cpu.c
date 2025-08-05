@@ -37,15 +37,13 @@ void
 		return;
 	char *brand = cpu_brand_string;
 	for ( kuint32_t i = 0; i < CPU_BRAND_STRING_LEN / 16; ++i )
+	{
+		cpuid(CPUID_EXT_BASE + i, 0, regs);
+		for ( int j = 0; j < 4; ++j )
 		{
-			cpuid(CPUID_EXT_BASE + i, 0, regs);
-			for ( int j = 0; j < 4; ++j )
-				{
-					kmemcpy(brand + i * 16 + j * 4,
-						&regs[j],
-						sizeof(kuint32_t));
-				}
+			kmemcpy(brand + i * 16 + j * 4, &regs[j], sizeof(kuint32_t));
 		}
+	}
 
 	cpu_brand_string[CPU_BRAND_STRING_LEN] = '\0';
 }

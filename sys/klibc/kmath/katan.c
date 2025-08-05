@@ -24,14 +24,14 @@ double
 
 	// Use series expansion for small values
 	if ( kfabs(x) < 1.0 )
-		{
-			double x2 = x * x;
-			double x3 = x2 * x;
-			double x5 = x3 * x2;
-			double x7 = x5 * x2;
-			double x9 = x7 * x2;
-			return x - x3 / 3.0 + x5 / 5.0 - x7 / 7.0 + x9 / 9.0;
-		}
+	{
+		double x2 = x * x;
+		double x3 = x2 * x;
+		double x5 = x3 * x2;
+		double x7 = x5 * x2;
+		double x9 = x7 * x2;
+		return x - x3 / 3.0 + x5 / 5.0 - x7 / 7.0 + x9 / 9.0;
+	}
 
 	// For large values, use atan(x) = π/2 - atan(1/x)
 	if ( x > 0 )

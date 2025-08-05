@@ -28,11 +28,11 @@ double
 	double factorial = 1.0;
 
 	for ( int i = 1; i <= 20; i++ )
-		{
-			term *= x;
-			factorial *= i;
-			result += term / factorial;
-		}
+	{
+		term *= x;
+		factorial *= i;
+		result += term / factorial;
+	}
 
 	return result;
 }

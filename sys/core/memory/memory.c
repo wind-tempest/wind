@@ -58,10 +58,10 @@ void
     kmemory_init (void *multiboot_info)
 {
 	if ( !multiboot_info )
-		{
-			kpanic(1, KNULL);
-			return;
-		}
+	{
+		kpanic(1, KNULL);
+		return;
+	}
 
 	// Parse multiboot memory map
 	kuint32_t total_size  = *(kuint32_t *) multiboot_info;
@@ -69,43 +69,41 @@ void
 	kuint8_t *end_tags    = (kuint8_t *) ((kuintptr_t) multiboot_info + total_size);
 
 	while ( current_tag < end_tags )
+	{
+		struct multiboot_tag *tag = (struct multiboot_tag *) current_tag;
+
+		if ( tag->type == MULTIBOOT_TAG_TYPE_MMAP )
 		{
-			struct multiboot_tag *tag = (struct multiboot_tag *) current_tag;
-
-			if ( tag->type == MULTIBOOT_TAG_TYPE_MMAP )
-				{
-					struct multiboot_tag_mmap *mmap_tag =
-					    (struct multiboot_tag_mmap *) tag;
-					memory_map =
-					    (memory_map_entry_t
-						 *) ((kuint8_t *) mmap_tag
-						     + sizeof(struct multiboot_tag_mmap));
-					memory_map_entries =
-					    (kuint32_t) ((mmap_tag->size
-							  - sizeof(
-							      struct multiboot_tag_mmap))
-							 / mmap_tag->entry_size);
-					break;
-				}
-
-			current_tag += (kuint32_t) ((tag->size + 7) & ~(kuint32_t) 0x7);
+			struct multiboot_tag_mmap *mmap_tag =
+			    (struct multiboot_tag_mmap *) tag;
+			memory_map =
+			    (memory_map_entry_t *) ((kuint8_t *) mmap_tag
+						    + sizeof(struct multiboot_tag_mmap));
+			memory_map_entries =
+			    (kuint32_t) ((mmap_tag->size
+					  - sizeof(struct multiboot_tag_mmap))
+					 / mmap_tag->entry_size);
+			break;
 		}
+
+		current_tag += (kuint32_t) ((tag->size + 7) & ~(kuint32_t) 0x7);
+	}
 
 	if ( !memory_map )
-		{
-			kpanic(2, KNULL);
-			return;
-		}
+	{
+		kpanic(2, KNULL);
+		return;
+	}
 
 	// Calculate total usable memory
 	total_pages = 0;
 	for ( kuint32_t i = 0; i < memory_map_entries; i++ )
+	{
+		if ( memory_map[i].type == MEMORY_USABLE )
 		{
-			if ( memory_map[i].type == MEMORY_USABLE )
-				{
-					total_pages += memory_map[i].length / PAGE_SIZE;
-				}
+			total_pages += memory_map[i].length / PAGE_SIZE;
 		}
+	}
 
 	free_pages = total_pages;
 	used_pages = 0;
@@ -124,29 +122,29 @@ void
 
 	// Initialize page frame structures
 	for ( kuint64_t i = 0; i < total_pages; i++ )
-		{
-			page_frames[i].next	     = KNULL;
-			page_frames[i].physical_addr = i * PAGE_SIZE;
-			page_frames[i].ref_count     = 0;
-			page_frames[i].is_free	     = ktrue;
-		}
+	{
+		page_frames[i].next	     = KNULL;
+		page_frames[i].physical_addr = i * PAGE_SIZE;
+		page_frames[i].ref_count     = 0;
+		page_frames[i].is_free	     = ktrue;
+	}
 
 	// Build free page list
 	free_page_list = KNULL;
 	for ( kuint64_t i = 0; i < total_pages; i++ )
+	{
+		// Skip pages used by kernel
+		if ( page_frames[i].physical_addr < KERNEL_HEAP_BASE )
 		{
-			// Skip pages used by kernel
-			if ( page_frames[i].physical_addr < KERNEL_HEAP_BASE )
-				{
-					page_frames[i].is_free = kfalse;
-					used_pages++;
-					free_pages--;
-					continue;
-				}
-
-			page_frames[i].next = free_page_list;
-			free_page_list	    = &page_frames[i];
+			page_frames[i].is_free = kfalse;
+			used_pages++;
+			free_pages--;
+			continue;
 		}
+
+		page_frames[i].next = free_page_list;
+		free_page_list	    = &page_frames[i];
+	}
 
 	// Initialize virtual memory
 	vm_init();
@@ -159,9 +157,9 @@ page_frame_t *
     allocate_page_frame (void)
 {
 	if ( !free_page_list )
-		{
-			return KNULL;  // Out of memory
-		}
+	{
+		return KNULL;  // Out of memory
+	}
 
 	page_frame_t *frame = free_page_list;
 	free_page_list	    = frame->next;
@@ -180,15 +178,15 @@ void
     free_page_frame (page_frame_t *frame)
 {
 	if ( !frame || frame->is_free )
-		{
-			return;
-		}
+	{
+		return;
+	}
 
 	frame->ref_count--;
 	if ( frame->ref_count > 0 )
-		{
-			return;	 // Still referenced
-		}
+	{
+		return;	 // Still referenced
+	}
 
 	frame->next    = free_page_list;
 	free_page_list = frame;
@@ -209,9 +207,9 @@ page_frame_t *
 {
 	kuint64_t page_index = physical_addr / PAGE_SIZE;
 	if ( page_index >= total_pages )
-		{
-			return KNULL;
-		}
+	{
+		return KNULL;
+	}
 	return &page_frames[page_index];
 }
 
@@ -238,69 +236,66 @@ kbool
 
 	pml3_t *pml3 = KNULL;
 	if ( !(current_pml4->entries[pml4_index] & PAGE_PRESENT) )
-		{
-			page_frame_t *frame = allocate_page_frame();
-			if ( !frame )
-				return kfalse;
+	{
+		page_frame_t *frame = allocate_page_frame();
+		if ( !frame )
+			return kfalse;
 
-			kuint64_t phys = get_physical_addr(frame);
-			pml3	       = (pml3_t *) (phys + KERNEL_BASE);
-			kmemset(pml3, 0, PAGE_SIZE);
+		kuint64_t phys = get_physical_addr(frame);
+		pml3	       = (pml3_t *) (phys + KERNEL_BASE);
+		kmemset(pml3, 0, PAGE_SIZE);
 
-			current_pml4->entries[pml4_index] =
-			    phys | PAGE_PRESENT | PAGE_WRITABLE;
-		}
+		current_pml4->entries[pml4_index] = phys | PAGE_PRESENT | PAGE_WRITABLE;
+	}
 	else
-		{
-			kuint64_t pml3_phys =
-			    current_pml4->entries[pml4_index] & ~(kuint64_t) 0xFFF;
-			pml3 = (pml3_t *) (pml3_phys + KERNEL_BASE);
-		}
+	{
+		kuint64_t pml3_phys =
+		    current_pml4->entries[pml4_index] & ~(kuint64_t) 0xFFF;
+		pml3 = (pml3_t *) (pml3_phys + KERNEL_BASE);
+	}
 
 	pml2_t *pml2 = KNULL;
 	if ( !(pml3->entries[pml3_index] & PAGE_PRESENT) )
-		{
-			page_frame_t *frame = allocate_page_frame();
-			if ( !frame )
-				return kfalse;
+	{
+		page_frame_t *frame = allocate_page_frame();
+		if ( !frame )
+			return kfalse;
 
-			kuint64_t phys = get_physical_addr(frame);
-			pml2	       = (pml2_t *) (phys + KERNEL_BASE);
-			kmemset(pml2, 0, PAGE_SIZE);
+		kuint64_t phys = get_physical_addr(frame);
+		pml2	       = (pml2_t *) (phys + KERNEL_BASE);
+		kmemset(pml2, 0, PAGE_SIZE);
 
-			pml3->entries[pml3_index] = phys | PAGE_PRESENT | PAGE_WRITABLE;
-		}
+		pml3->entries[pml3_index] = phys | PAGE_PRESENT | PAGE_WRITABLE;
+	}
 	else
-		{
-			kuint64_t pml2_phys =
-			    pml3->entries[pml3_index] & ~(kuint64_t) 0xFFF;
-			pml2 = (pml2_t *) (pml2_phys + KERNEL_BASE);
-		}
+	{
+		kuint64_t pml2_phys = pml3->entries[pml3_index] & ~(kuint64_t) 0xFFF;
+		pml2		    = (pml2_t *) (pml2_phys + KERNEL_BASE);
+	}
 
 	pml1_t *pml1 = KNULL;
 	if ( !(pml2->entries[pml2_index] & PAGE_PRESENT) )
-		{
-			page_frame_t *frame = allocate_page_frame();
-			if ( !frame )
-				return kfalse;
+	{
+		page_frame_t *frame = allocate_page_frame();
+		if ( !frame )
+			return kfalse;
 
-			kuint64_t phys = get_physical_addr(frame);
-			pml1	       = (pml1_t *) (phys + KERNEL_BASE);
-			kmemset(pml1, 0, PAGE_SIZE);
+		kuint64_t phys = get_physical_addr(frame);
+		pml1	       = (pml1_t *) (phys + KERNEL_BASE);
+		kmemset(pml1, 0, PAGE_SIZE);
 
-			pml2->entries[pml2_index] = phys | PAGE_PRESENT | PAGE_WRITABLE;
-		}
+		pml2->entries[pml2_index] = phys | PAGE_PRESENT | PAGE_WRITABLE;
+	}
 	else
-		{
-			kuint64_t pml1_phys =
-			    pml2->entries[pml2_index] & ~(kuint64_t) 0xFFF;
-			pml1 = (pml1_t *) (pml1_phys + KERNEL_BASE);
-		}
+	{
+		kuint64_t pml1_phys = pml2->entries[pml2_index] & ~(kuint64_t) 0xFFF;
+		pml1		    = (pml1_t *) (pml1_phys + KERNEL_BASE);
+	}
 
 	if ( pml1->entries[pml1_index] & PAGE_PRESENT )
-		{
-			// return kfalse;
-		}
+	{
+		// return kfalse;
+	}
 
 	pml1->entries[pml1_index] = physical_addr | flags;
 
@@ -320,41 +315,41 @@ kbool
 	kuint64_t pml1_index = (virtual_addr >> 12) & 0x1FF;
 
 	if ( !(current_pml4->entries[pml4_index] & PAGE_PRESENT) )
-		{
-			return kfalse;
-		}
+	{
+		return kfalse;
+	}
 
 	kuint64_t pml3_phys = current_pml4->entries[pml4_index] & ~(kuint64_t) 0xFFF;
 	pml3_t	 *pml3	    = (pml3_t *) (pml3_phys + KERNEL_BASE);
 
 	if ( !(pml3->entries[pml3_index] & PAGE_PRESENT) )
-		{
-			return kfalse;
-		}
+	{
+		return kfalse;
+	}
 
 	kuint64_t pml2_phys = pml3->entries[pml3_index] & ~(kuint64_t) 0xFFF;
 	pml2_t	 *pml2	    = (pml2_t *) (pml2_phys + KERNEL_BASE);
 
 	if ( !(pml2->entries[pml2_index] & PAGE_PRESENT) )
-		{
-			return kfalse;
-		}
+	{
+		return kfalse;
+	}
 
 	kuint64_t pml1_phys = pml2->entries[pml2_index] & ~(kuint64_t) 0xFFF;
 	pml1_t	 *pml1	    = (pml1_t *) (pml1_phys + KERNEL_BASE);
 
 	if ( !(pml1->entries[pml1_index] & PAGE_PRESENT) )
-		{
-			return kfalse;
-		}
+	{
+		return kfalse;
+	}
 
 	// Get physical address and free the page frame
 	kuint64_t     physical_addr = pml1->entries[pml1_index] & ~(kuint64_t) 0xFFF;
 	page_frame_t *frame	    = get_page_frame(physical_addr);
 	if ( frame )
-		{
-			free_page_frame(frame);
-		}
+	{
+		free_page_frame(frame);
+	}
 
 	// Clear the page table entry
 	pml1->entries[pml1_index] = 0;
@@ -374,33 +369,33 @@ kuint64_t
 	kuint64_t pml1_index = (virtual_addr >> 12) & 0x1FF;
 
 	if ( !(current_pml4->entries[pml4_index] & PAGE_PRESENT) )
-		{
-			return 0;
-		}
+	{
+		return 0;
+	}
 
 	kuint64_t pml3_phys = current_pml4->entries[pml4_index] & ~(kuint64_t) 0xFFF;
 	pml3_t	 *pml3	    = (pml3_t *) (pml3_phys + KERNEL_BASE);
 
 	if ( !(pml3->entries[pml3_index] & PAGE_PRESENT) )
-		{
-			return 0;
-		}
+	{
+		return 0;
+	}
 
 	kuint64_t pml2_phys = pml3->entries[pml3_index] & ~(kuint64_t) 0xFFF;
 	pml2_t	 *pml2	    = (pml2_t *) (pml2_phys + KERNEL_BASE);
 
 	if ( !(pml2->entries[pml2_index] & PAGE_PRESENT) )
-		{
-			return 0;
-		}
+	{
+		return 0;
+	}
 
 	kuint64_t pml1_phys = pml2->entries[pml2_index] & ~(kuint64_t) 0xFFF;
 	pml1_t	 *pml1	    = (pml1_t *) (pml1_phys + KERNEL_BASE);
 
 	if ( !(pml1->entries[pml1_index] & PAGE_PRESENT) )
-		{
-			return 0;
-		}
+	{
+		return 0;
+	}
 
 	return (pml1->entries[pml1_index] & ~(kuint64_t) 0xFFF) | (virtual_addr & 0xFFF);
 }
@@ -447,44 +442,37 @@ void *
 
 	heap_block_t *current = heap_start;
 	while ( current )
+	{
+		if ( current->is_free && current->size >= total_size )
 		{
-			if ( current->is_free && current->size >= total_size )
+			// Split block if it's much larger than needed
+			if ( current->size >= total_size + sizeof(heap_block_t) + 64 )
+			{
+				heap_block_t *new_block =
+				    (heap_block_t *) ((kuint8_t *) current
+						      + sizeof(heap_block_t)
+						      + total_size);
+				new_block->size =
+				    current->size - total_size - sizeof(heap_block_t);
+				new_block->is_free = ktrue;
+				new_block->next	   = current->next;
+				new_block->prev	   = current;
+
+				if ( current->next )
 				{
-					// Split block if it's much larger than needed
-					if ( current->size
-					     >= total_size + sizeof(heap_block_t) + 64 )
-						{
-							heap_block_t *new_block =
-							    (heap_block_t
-								 *) ((kuint8_t *) current
-								     + sizeof(
-									 heap_block_t)
-								     + total_size);
-							new_block->size =
-							    current->size - total_size
-							    - sizeof(heap_block_t);
-							new_block->is_free = ktrue;
-							new_block->next = current->next;
-							new_block->prev = current;
-
-							if ( current->next )
-								{
-									current->next
-									    ->prev =
-									    new_block;
-								}
-							current->next = new_block;
-							current->size = total_size;
-						}
-
-					current->is_free = kfalse;
-					heap_used += current->size;
-
-					return (kuint8_t *) current
-					       + sizeof(heap_block_t);
+					current->next->prev = new_block;
 				}
-			current = current->next;
+				current->next = new_block;
+				current->size = total_size;
+			}
+
+			current->is_free = kfalse;
+			heap_used += current->size;
+
+			return (kuint8_t *) current + sizeof(heap_block_t);
 		}
+		current = current->next;
+	}
 
 	return KNULL;  // Out of memory
 }
@@ -495,9 +483,9 @@ void *
 	ksize_t total_size = count * size;
 	void   *ptr	   = kmalloc(total_size);
 	if ( ptr )
-		{
-			kmemset(ptr, 0, total_size);
-		}
+	{
+		kmemset(ptr, 0, total_size);
+	}
 	return ptr;
 }
 
@@ -507,23 +495,23 @@ void *
 	if ( !ptr )
 		return kmalloc(size);
 	if ( size == 0 )
-		{
-			kfree(ptr);
-			return KNULL;
-		}
+	{
+		kfree(ptr);
+		return KNULL;
+	}
 
 	heap_block_t *block = (heap_block_t *) ((kuint8_t *) ptr - sizeof(heap_block_t));
 	if ( block->size >= size )
-		{
-			return ptr;  // No need to reallocate
-		}
+	{
+		return ptr;  // No need to reallocate
+	}
 
 	void *new_ptr = kmalloc(size);
 	if ( new_ptr )
-		{
-			kmemcpy(new_ptr, ptr, block->size);
-			kfree(ptr);
-		}
+	{
+		kmemcpy(new_ptr, ptr, block->size);
+		kfree(ptr);
+	}
 	return new_ptr;
 }
 
@@ -542,25 +530,25 @@ void
 
 	// Merge with next block if it's free
 	if ( block->next && block->next->is_free )
+	{
+		block->size += sizeof(heap_block_t) + block->next->size;
+		block->next = block->next->next;
+		if ( block->next )
 		{
-			block->size += sizeof(heap_block_t) + block->next->size;
-			block->next = block->next->next;
-			if ( block->next )
-				{
-					block->next->prev = block;
-				}
+			block->next->prev = block;
 		}
+	}
 
 	// Merge with previous block if it's free
 	if ( block->prev && block->prev->is_free )
+	{
+		block->prev->size += sizeof(heap_block_t) + block->size;
+		block->prev->next = block->next;
+		if ( block->next )
 		{
-			block->prev->size += sizeof(heap_block_t) + block->size;
-			block->prev->next = block->next;
-			if ( block->next )
-				{
-					block->next->prev = block->prev;
-				}
+			block->next->prev = block->prev;
 		}
+	}
 }
 
 void
@@ -571,51 +559,44 @@ void
 	heap_block_t *last_free = KNULL;
 
 	while ( current )
+	{
+		if ( current->is_free )
 		{
-			if ( current->is_free )
+			if ( last_free )
+			{
+				// Move this free block after last_free
+				heap_block_t *next = current->next;
+
+				if ( current->prev )
 				{
-					if ( last_free )
-						{
-							// Move this free block after last_free
-							heap_block_t *next =
-							    current->next;
-
-							if ( current->prev )
-								{
-									current->prev
-									    ->next =
-									    current->next;
-								}
-							if ( current->next )
-								{
-									current->next
-									    ->prev =
-									    current->prev;
-								}
-
-							current->next	= last_free->next;
-							current->prev	= last_free;
-							last_free->next = current;
-							if ( current->next )
-								{
-									current->next
-									    ->prev =
-									    current;
-								}
-
-							current = next;
-						}
-					else
-						{
-							last_free = current;
-							current	  = current->next;
-						}
+					current->prev->next = current->next;
 				}
+				if ( current->next )
+				{
+					current->next->prev = current->prev;
+				}
+
+				current->next	= last_free->next;
+				current->prev	= last_free;
+				last_free->next = current;
+				if ( current->next )
+				{
+					current->next->prev = current;
+				}
+
+				current = next;
+			}
 			else
-				{
-					current = current->next;
-				}
+			{
+				last_free = current;
+				current	  = current->next;
+			}
 		}
+		else
+		{
+			current = current->next;
+		}
+	}
 }
 
 // Memory statistics
@@ -678,15 +659,15 @@ void *
 	// Map physical memory to kernel virtual space
 	kuint64_t virtual_addr = KERNEL_BASE + 0x1000000;  // Temporary mapping area
 	for ( ksize_t i = 0; i < (size + PAGE_SIZE - 1) / PAGE_SIZE; i++ )
-		{
-			kuint64_t page_virt = virtual_addr + i * PAGE_SIZE;
-			kuint64_t page_phys = physical_addr + i * PAGE_SIZE;
+	{
+		kuint64_t page_virt = virtual_addr + i * PAGE_SIZE;
+		kuint64_t page_phys = physical_addr + i * PAGE_SIZE;
 
-			if ( !vm_map_page(page_virt, page_phys, flags) )
-				{
-					return KNULL;
-				}
+		if ( !vm_map_page(page_virt, page_phys, flags) )
+		{
+			return KNULL;
 		}
+	}
 
 	return (void *) virtual_addr;
 }
@@ -697,7 +678,7 @@ void
 	kuint64_t addr = (kuint64_t) virtual_addr;
 
 	for ( ksize_t i = 0; i < (size + PAGE_SIZE - 1) / PAGE_SIZE; i++ )
-		{
-			vm_unmap_page(addr + i * PAGE_SIZE);
-		}
+	{
+		vm_unmap_page(addr + i * PAGE_SIZE);
+	}
 }

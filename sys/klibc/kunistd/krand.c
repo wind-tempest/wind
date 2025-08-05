@@ -43,10 +43,10 @@ static void
     kensure_pcg_init (void)
 {
 	if ( !pcg_inited )
-		{
-			kuint32_t t = krdtsc32();
-			ksrand32(t, t ^ PCG32_INIT_SEQ);
-		}
+	{
+		kuint32_t t = krdtsc32();
+		ksrand32(t, t ^ PCG32_INIT_SEQ);
+	}
 }
 
 kuint32_t

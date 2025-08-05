@@ -36,26 +36,26 @@ void *
 
 	// Fill byte-by-byte until aligned
 	for ( ; i < n && to_align--; ++i )
-		{
-			byte_ptr[i] = (unsigned char) c;
-		}
+	{
+		byte_ptr[i] = (unsigned char) c;
+	}
 
 	// Fill word-by-word
 	ksize_t	    words    = (n - i) / align;
 	kuintptr_t *word_ptr = (kuintptr_t *) (byte_ptr + i);
 	for ( ksize_t w = 0; w < words; ++w )
-		{
-			word_ptr[w] = pattern;
-		}
+	{
+		word_ptr[w] = pattern;
+	}
 
 	// Advance index
 	i += words * align;
 
 	// Fill remaining bytes
 	for ( ; i < n; ++i )
-		{
-			byte_ptr[i] = (unsigned char) c;
-		}
+	{
+		byte_ptr[i] = (unsigned char) c;
+	}
 
 	return s;
 }

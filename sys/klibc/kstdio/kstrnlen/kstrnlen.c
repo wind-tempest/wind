@@ -16,8 +16,8 @@ ksize_t
 {
 	ksize_t len = 0;
 	while ( len < maxlen && str[len] != '\0' )
-		{
-			len++;
-		}
+	{
+		len++;
+	}
 	return len;
 }

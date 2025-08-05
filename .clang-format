@@ -20,7 +20,7 @@ PenaltyReturnTypeOnItsOwnLine: 0
 PenaltyBreakAssignment: 2
 PenaltyBreakBeforeFirstCallParameter: 1
 
-BreakBeforeBraces: GNU
+BreakBeforeBraces: Attach
 BreakAfterReturnType: TopLevel
 BreakConstructorInitializers: BeforeComma
 ConstructorInitializerAllOnOneLineOrOnePerLine: true

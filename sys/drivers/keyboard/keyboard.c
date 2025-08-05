@@ -64,41 +64,38 @@ static void
 
 	// Caps Lock pressed
 	if ( scancode == 0x3A )
-		{
-			caps_lock = !caps_lock;	 // Toggle caps lock
-			return;
-		}
+	{
+		caps_lock = !caps_lock;	 // Toggle caps lock
+		return;
+	}
 
 	if ( scancode == 0x2A || scancode == 0x36 )
-		{
-			shift_pressed = ktrue;
-			return;
-		}
+	{
+		shift_pressed = ktrue;
+		return;
+	}
 	if ( scancode == 0xAA || scancode == 0xB6 )
-		{
-			shift_pressed = kfalse;
-			return;
-		}
+	{
+		shift_pressed = kfalse;
+		return;
+	}
 
 	if ( scancode < 128 )
+	{
+		unsigned char c =
+		    shift_pressed ? kbd_us_shift[scancode] : kbd_us[scancode];
+
+		c = adjust_case(c);
+
+		if ( c != 0 )
 		{
-			unsigned char c =
-			    shift_pressed ? kbd_us_shift[scancode] : kbd_us[scancode];
-
-			c = adjust_case(c);
-
-			if ( c != 0 )
-				{
-					if ( (kbd_buffer_head + 1) % KBD_BUFFER_SIZE
-					     != kbd_buffer_tail )
-						{
-							kbd_buffer[kbd_buffer_head] = c;
-							kbd_buffer_head =
-							    (kbd_buffer_head + 1)
-							    % KBD_BUFFER_SIZE;
-						}
-				}
+			if ( (kbd_buffer_head + 1) % KBD_BUFFER_SIZE != kbd_buffer_tail )
+			{
+				kbd_buffer[kbd_buffer_head] = c;
+				kbd_buffer_head = (kbd_buffer_head + 1) % KBD_BUFFER_SIZE;
+			}
 		}
+	}
 }
 
 /*
@@ -110,9 +107,9 @@ int
 {
 	// Wait for a character to be available
 	while ( kbd_buffer_head == kbd_buffer_tail )
-		{
-			__asm__ volatile("sti; hlt");
-		}
+	{
+		__asm__ volatile("sti; hlt");
+	}
 	__asm__ volatile("cli");
 
 	int c		= kbd_buffer[kbd_buffer_tail];
