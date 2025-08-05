@@ -1,4 +1,4 @@
-BasedOnStyle: LLVM
+BasedOnStyle: Google
 
 IndentWidth: 8
 UseTab: Always
@@ -12,8 +12,7 @@ AlignConsecutiveDeclarations: true
 AlignConsecutiveMacros: true
 AlignOperands: true
 AlignTrailingComments: true
-AlignAfterOpenBracket: AlwaysBreak
-AlignConsecutiveBitFields: true
+AlignAfterOpenBracket: Align
 
 ColumnLimit: 90
 MaxEmptyLinesToKeep: 1
@@ -21,12 +20,12 @@ PenaltyReturnTypeOnItsOwnLine: 0
 PenaltyBreakAssignment: 2
 PenaltyBreakBeforeFirstCallParameter: 1
 
-BreakBeforeBraces: Attach
+BreakBeforeBraces: GNU
 BreakAfterReturnType: TopLevel
-AlwaysBreakAfterReturnType: TopLevel
 BreakConstructorInitializers: BeforeComma
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 AlwaysBreakTemplateDeclarations: true
+AlwaysBreakAfterReturnType: TopLevel
 BreakBeforeTernaryOperators: true
 
 AllowShortFunctionsOnASingleLine: Empty
@@ -86,3 +85,5 @@ IncludeCategories:
     Priority: 2
   - Regex: '.*'
     Priority: 3
+
+AlignConsecutiveBitFields: false

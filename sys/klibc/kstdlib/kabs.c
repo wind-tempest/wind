@@ -12,6 +12,7 @@
 #include <wt/kstdlib/kstdlib.h>
 
 int
-    kabs (int a) {
+    kabs (int a)
+{
 	return a > 0 ? a : -a;
 }

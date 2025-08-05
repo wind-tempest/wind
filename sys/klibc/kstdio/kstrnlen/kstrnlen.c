@@ -12,10 +12,12 @@
 #include <wt/kstdio/kstrnlen/kstrnlen.h>
 
 ksize_t
-    kstrnlen (const char *str, ksize_t maxlen) {
+    kstrnlen (const char *str, ksize_t maxlen)
+{
 	ksize_t len = 0;
-	while ( len < maxlen && str[len] != '\0' ) {
-		len++;
-	}
+	while ( len < maxlen && str[len] != '\0' )
+		{
+			len++;
+		}
 	return len;
 }

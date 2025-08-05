@@ -12,16 +12,19 @@
 #include <wt/kmath/kmodf.h>
 
 double
-    kmodf (double x, double *iptr) {
+    kmodf (double x, double *iptr)
+{
 	// Handle special cases
-	if ( kisnan(x) ) {
-		*iptr = knan("");
-		return knan("");
-	}
-	if ( kisinf(x) ) {
-		*iptr = x;
-		return 0.0;
-	}
+	if ( kisnan(x) )
+		{
+			*iptr = knan("");
+			return knan("");
+		}
+	if ( kisinf(x) )
+		{
+			*iptr = x;
+			return 0.0;
+		}
 
 	// Extract integer part
 	if ( x >= 0.0 )

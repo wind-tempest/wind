@@ -11,12 +11,13 @@
 #pragma once
 
 #ifdef _STDARG_H
-#	error                                                                            \
+#	error \
 	    "Do NOT include <stdarg.h> before kstdarg.h! Use only kstdarg.h in this project."
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*
@@ -27,8 +28,8 @@ extern "C" {
  */
 #if defined(__GNUC__)
 
-// va_list type built-in to the compiler
-typedef __builtin_va_list va_list;
+	// va_list type built-in to the compiler
+	typedef __builtin_va_list va_list;
 
 // Initialize ap to point to first unnamed argument after last named parameter
 #	define k_va_start(ap, last) __builtin_va_start((ap), (last))

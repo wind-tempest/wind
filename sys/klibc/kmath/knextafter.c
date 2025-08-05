@@ -12,7 +12,8 @@
 #include <wt/kmath/knextafter.h>
 
 double
-    knextafter (double x, double y) {
+    knextafter (double x, double y)
+{
 	// Handle special cases
 	if ( kisnan(x) || kisnan(y) )
 		return knan("");
@@ -27,15 +28,18 @@ double
 	int direction = (y > x) ? 1 : -1;
 
 	// For zero, return smallest subnormal in the direction of y
-	if ( x == 0.0 ) {
-		union {
-			double		   d;
-			unsigned long long u;
-		} u;
+	if ( x == 0.0 )
+		{
+			union
+			{
+				double		   d;
+				unsigned long long u;
+			} u;
 
-		u.u = direction > 0 ? 0x0000000000000001ULL : 0x8000000000000001ULL;
-		return u.d;
-	}
+			u.u =
+			    direction > 0 ? 0x0000000000000001ULL : 0x8000000000000001ULL;
+			return u.d;
+		}
 
 	// For finite non-zero values, use a simple approximation
 	// This is a simplified implementation - a full implementation would

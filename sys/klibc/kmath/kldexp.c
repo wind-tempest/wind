@@ -12,7 +12,8 @@
 #include <wt/kmath/kmath.h>
 
 double
-    kldexp (double x, int exp) {
+    kldexp (double x, int exp)
+{
 	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");

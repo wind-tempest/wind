@@ -25,8 +25,8 @@
 
 // Virtual memory layout
 #define KERNEL_BASE	 0xFFFFFFFF80000000
-#define KERNEL_HEAP_BASE 0x01000000 // 16 MB, identity-mapped in early paging setup
-#define KERNEL_HEAP_SIZE (64 * 1024 * 1024) // 64MB
+#define KERNEL_HEAP_BASE 0x01000000  // 16 MB, identity-mapped in early paging setup
+#define KERNEL_HEAP_SIZE (64 * 1024 * 1024)  // 64MB
 #define USER_SPACE_BASE	 0x0000000000400000
 #define USER_SPACE_SIZE	 (0x800000000000 - USER_SPACE_BASE)
 
@@ -49,7 +49,8 @@
 #define MEMORY_EXECUTABLE 0x008
 
 // Physical memory regions
-typedef enum {
+typedef enum
+{
 	MEMORY_USABLE		= 1,
 	MEMORY_RESERVED		= 2,
 	MEMORY_ACPI_RECLAIMABLE = 3,
@@ -57,7 +58,8 @@ typedef enum {
 	MEMORY_BAD		= 5
 } memory_type_t;
 
-typedef struct {
+typedef struct
+{
 	kuint64_t     base_addr;
 	kuint64_t     length;
 	memory_type_t type;
@@ -65,7 +67,8 @@ typedef struct {
 } memory_map_entry_t;
 
 // Page frame structure
-typedef struct page_frame {
+typedef struct page_frame
+{
 	struct page_frame *next;
 	kuint64_t	   physical_addr;
 	kuint32_t	   ref_count;
@@ -73,7 +76,8 @@ typedef struct page_frame {
 } page_frame_t;
 
 // Virtual memory region
-typedef struct vm_region {
+typedef struct vm_region
+{
 	kuint64_t	  start;
 	kuint64_t	  end;
 	kuint64_t	  flags;
@@ -81,7 +85,8 @@ typedef struct vm_region {
 } vm_region_t;
 
 // Heap block header
-typedef struct heap_block {
+typedef struct heap_block
+{
 	ksize_t		   size;
 	kbool		   is_free;
 	struct heap_block *next;
@@ -89,7 +94,8 @@ typedef struct heap_block {
 } heap_block_t;
 
 // Memory pool
-typedef struct memory_pool {
+typedef struct memory_pool
+{
 	void   *pool_start;
 	ksize_t block_size;
 	ksize_t total_blocks;
@@ -98,7 +104,8 @@ typedef struct memory_pool {
 } memory_pool_t;
 
 // Memory statistics
-typedef struct {
+typedef struct
+{
 	kuint64_t total_physical_pages;
 	kuint64_t free_physical_pages;
 	kuint64_t used_physical_pages;
@@ -113,19 +120,23 @@ typedef kuint64_t pml3e_t;
 typedef kuint64_t pml2e_t;
 typedef kuint64_t pml1e_t;
 
-typedef struct {
+typedef struct
+{
 	pml4e_t entries[512];
 } pml4_t;
 
-typedef struct {
+typedef struct
+{
 	pml3e_t entries[512];
 } pml3_t;
 
-typedef struct {
+typedef struct
+{
 	pml2e_t entries[512];
 } pml2_t;
 
-typedef struct {
+typedef struct
+{
 	pml1e_t entries[512];
 } pml1_t;
 

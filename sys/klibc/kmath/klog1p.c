@@ -12,7 +12,8 @@
 #include <wt/kmath/kmath.h>
 
 double
-    klog1p (double x) {
+    klog1p (double x)
+{
 	// Handle special cases
 	if ( kisnan(x) )
 		return knan("");
@@ -24,13 +25,14 @@ double
 		return x > 0 ? K_INFINITY : knan("");
 
 	// For small values, use Taylor series to avoid loss of precision
-	if ( kfabs(x) < 0.1 ) {
-		double x2 = x * x;
-		double x3 = x2 * x;
-		double x4 = x3 * x;
-		double x5 = x4 * x;
-		return x - x2 / 2.0 + x3 / 3.0 - x4 / 4.0 + x5 / 5.0;
-	}
+	if ( kfabs(x) < 0.1 )
+		{
+			double x2 = x * x;
+			double x3 = x2 * x;
+			double x4 = x3 * x;
+			double x5 = x4 * x;
+			return x - x2 / 2.0 + x3 / 3.0 - x4 / 4.0 + x5 / 5.0;
+		}
 
 	// For larger values, use log(1 + x)
 	return klog(1.0 + x);

@@ -35,50 +35,52 @@
 #define PANIC_HYPERVISOR	  13
 #define PANIC_VMM_COMMUNICATION	  14
 #define PANIC_SECURITY		  15
-#define PANIC_INVALID_OPCODE                                                             \
-	16 // For some reason, this is every time used instead of the proper ones.
+#define PANIC_INVALID_OPCODE \
+	16  // For some reason, this is every time used instead of the proper ones.
 
 unsigned int seconds_to_reboot = 5;
 
 // Get kpanic message based on error code.
 static const char *
-    get_panic_message (int code) {
-	switch ( code ) {
-		case PANIC_DIVISION_BY_ZERO:
-			return "Division by zero";
-		case PANIC_DOUBLE_FAULT:
-			return "Double fault";
-		case PANIC_GENERAL_PROTECTION:
-			return "General protection fault";
-		case PANIC_PAGE_FAULT:
-			return "Page fault";
-		case PANIC_STACK_SEGMENT:
-			return "Stack segment fault";
-		case PANIC_SEGMENT_NOT_PRESENT:
-			return "Segment not present";
-		case PANIC_INVALID_TSS:
-			return "Invalid TSS";
-		case PANIC_ALIGNMENT_CHECK:
-			return "Alignment check";
-		case PANIC_MACHINE_CHECK:
-			return "Machine check";
-		case PANIC_SIMD_EXCEPTION:
-			return "SIMD exception";
-		case PANIC_VIRTUALIZATION:
-			return "Virtualization exception";
-		case PANIC_CONTROL_PROTECTION:
-			return "Control protection exception";
-		case PANIC_HYPERVISOR:
-			return "Hypervisor injection exception";
-		case PANIC_VMM_COMMUNICATION:
-			return "VMM communication exception";
-		case PANIC_SECURITY:
-			return "Security exception";
-		case PANIC_INVALID_OPCODE:
-			return "Invalid opcode"; // I hate you.
-		default:
-			return "Unknown error";
-	}
+    get_panic_message (int code)
+{
+	switch ( code )
+		{
+			case PANIC_DIVISION_BY_ZERO:
+				return "Division by zero";
+			case PANIC_DOUBLE_FAULT:
+				return "Double fault";
+			case PANIC_GENERAL_PROTECTION:
+				return "General protection fault";
+			case PANIC_PAGE_FAULT:
+				return "Page fault";
+			case PANIC_STACK_SEGMENT:
+				return "Stack segment fault";
+			case PANIC_SEGMENT_NOT_PRESENT:
+				return "Segment not present";
+			case PANIC_INVALID_TSS:
+				return "Invalid TSS";
+			case PANIC_ALIGNMENT_CHECK:
+				return "Alignment check";
+			case PANIC_MACHINE_CHECK:
+				return "Machine check";
+			case PANIC_SIMD_EXCEPTION:
+				return "SIMD exception";
+			case PANIC_VIRTUALIZATION:
+				return "Virtualization exception";
+			case PANIC_CONTROL_PROTECTION:
+				return "Control protection exception";
+			case PANIC_HYPERVISOR:
+				return "Hypervisor injection exception";
+			case PANIC_VMM_COMMUNICATION:
+				return "VMM communication exception";
+			case PANIC_SECURITY:
+				return "Security exception";
+			case PANIC_INVALID_OPCODE:
+				return "Invalid opcode";  // I hate you.
+			default:
+				return "Unknown error";
+		}
 }
 
 /*
@@ -93,13 +95,15 @@ static kbool panic_in_progress = kfalse;
  * I don't want the code to repeat so much.
  */
 void
-    pputs (const char *s) {
+    pputs (const char *s)
+{
 	serial_writes(s);
 	kvideo_puts(s);
 }
 
 static void
-    dump_registers (registers_t *r) {
+    dump_registers (registers_t *r)
+{
 	char buff[32];
 
 	pputs(" RAX=");
@@ -156,7 +160,8 @@ static void
 }
 
 void
-    kpanic (int code, registers_t *regs) {
+    kpanic (int code, registers_t *regs)
+{
 	panic_in_progress = ktrue;
 	__asm__ volatile("cli");
 
@@ -173,10 +178,11 @@ void
 	pputs(error_msg);
 	pputs("\n");
 
-	if ( regs ) {
-		pputs("\nRegister dump:\n");
-		dump_registers(regs);
-	}
+	if ( regs )
+		{
+			pputs("\nRegister dump:\n");
+			dump_registers(regs);
+		}
 
 	kmemset(buff, 0, sizeof(buff));
 
@@ -188,13 +194,14 @@ void
 	kmemset(buff, 0, sizeof(buff));
 
 	//  ̄\_(ツ)_/ ̄
-	for ( unsigned int i = seconds_to_reboot; i > 0; i-- ) {
-		pputs("Rebooting in ");
-		kitoa(buff, buff + 14, i, 10, 0);
-		pputs(buff);
-		pputs(" seconds...\n");
-		ksleep(1000);
-	}
+	for ( unsigned int i = seconds_to_reboot; i > 0; i-- )
+		{
+			pputs("Rebooting in ");
+			kitoa(buff, buff + 14, i, 10, 0);
+			pputs(buff);
+			pputs(" seconds...\n");
+			ksleep(1000);
+		}
 
 	pputs("Rebooting now...\n");
 
@@ -203,7 +210,8 @@ void
 
 	// If reboot fails, halt the system.
 	pputs("Reboot failed! System halted.\n");
-	while ( 1 ) {
-		__asm__ volatile("hlt");
-	}
+	while ( 1 )
+		{
+			__asm__ volatile("hlt");
+		}
 }

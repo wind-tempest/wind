@@ -15,7 +15,8 @@
 #include <wt/kstdlib/kstdlib.h>
 
 int
-    katoi (const char *s) {
+    katoi (const char *s)
+{
 	long result = 0;
 	int  sign   = 1;
 
@@ -24,35 +25,40 @@ int
 	while ( kisspace(*s) )
 		s++;
 
-	if ( *s == '+' || *s == '-' ) {
-		if ( *s == '-' )
-			sign = -1;
-		s++;
-	}
-
-	if ( !kisdigit(*s) ) {
-		kerrno = KEINVAL;
-		return 0;
-	}
-
-	while ( kisdigit(*s) ) {
-		int digit = *s - '0';
-
-		if ( result > (KLONG_MAX - digit) / 10 ) {
-			kerrno = KERANGE;
-			return sign == 1 ? KINT_MAX : KINT_MIN;
+	if ( *s == '+' || *s == '-' )
+		{
+			if ( *s == '-' )
+				sign = -1;
+			s++;
 		}
 
-		result = result * 10 + digit;
-		s++;
-	}
+	if ( !kisdigit(*s) )
+		{
+			kerrno = KEINVAL;
+			return 0;
+		}
+
+	while ( kisdigit(*s) )
+		{
+			int digit = *s - '0';
+
+			if ( result > (KLONG_MAX - digit) / 10 )
+				{
+					kerrno = KERANGE;
+					return sign == 1 ? KINT_MAX : KINT_MIN;
+				}
+
+			result = result * 10 + digit;
+			s++;
+		}
 
 	result *= sign;
 
-	if ( result < KINT_MIN || result > KINT_MAX ) {
-		kerrno = KERANGE;
-		return result > 0 ? KINT_MAX : KINT_MIN;
-	}
+	if ( result < KINT_MIN || result > KINT_MAX )
+		{
+			kerrno = KERANGE;
+			return result > 0 ? KINT_MAX : KINT_MIN;
+		}
 
 	return (int) result;
 }
