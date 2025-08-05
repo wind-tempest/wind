@@ -10,7 +10,7 @@
 
 #include "kernel.h"
 
-#include "arch/x86_64/cpu.h"
+#include "arch/x86_64/cpuid.h"
 #include "arch/x86_64/idt.h"
 #include "core/memory/memory.h"
 #include "drivers/driver.h"

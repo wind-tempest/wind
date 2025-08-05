@@ -1,4 +1,4 @@
-// cpu.c
+// cpuid.c
 
 // SPDX-License-Identifier: GPL-3.0-or-later
 /*
@@ -8,7 +8,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "cpu.h"
+#include "cpuid.h"
 
 #include "init/kernel.h"
 
