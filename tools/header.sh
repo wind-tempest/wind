@@ -5,20 +5,17 @@ headers_bad=false
 read -r -d '' license_header <<'EOF'
 // SPDX-License-Identifier: GPL-3.0-or-later
 /*
- * Wind/Tempest Project
+ * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
- * Copyright (C) 2025 Wind Foundation <https://wind.tempestfoundation.org>
- *
- * This file is part of the Wind (Operating System) and Tempest (The Kernel).
- * It is licensed under the GNU General Public License version 3.0  (GPLv3).
+ * Authors:
+ *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 EOF
 
-for file in $(find . -type f -name "*.c" -o -name "*.h"); do
+find . -type f \( -name "*.c" -o -name "*.h" \) | while IFS= read -r file; do
     header=$(head -n 25 "$file")
 
-    # Check if header text already exists
-    if ! echo "$header" | grep -q "Copyright (C) 2025 Wind Foundation <https://wind.tempestfoundation.org>"; then
+    if ! echo "$header" | grep -q "Copyright (C) 2025 Tempest Foundation"; then
         echo "Incorrect or missing header in: $file"
         headers_bad=true
 
@@ -30,6 +27,7 @@ for file in $(find . -type f -name "*.c" -o -name "*.h"); do
             echo "$license_header"
             echo ""
             cat "$file"
+            echo ""
         } > "$tmpfile"
 
         mv "$tmpfile" "$file"
