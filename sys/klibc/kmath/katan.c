@@ -1,6 +1,6 @@
 // katan.c
 
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -37,3 +37,4 @@ double
 	else
 		return -K_M_PI_2 - katan(1.0 / x);
 }
+

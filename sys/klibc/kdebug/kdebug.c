@@ -1,6 +1,6 @@
 // kdebug.c
 
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -237,3 +237,4 @@ void
     kinfo (const char *message, const char *subsystem, const char *extra) {
 	kdbgtype("INFO", subsystem, message, extra);
 }
+

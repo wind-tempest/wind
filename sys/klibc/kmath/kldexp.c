@@ -1,6 +1,6 @@
 // kldexp.c
 
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -24,3 +24,4 @@ double
 	// Use the relationship: ldexp(x, exp) = x * 2^exp
 	return x * kpow(2.0, exp);
 }
+

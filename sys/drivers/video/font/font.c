@@ -1,6 +1,6 @@
 // font.c
 
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -146,3 +146,4 @@ const unsigned char font[128][8] = {
     {0x76, 0xDC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // U+007E (~)
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // U+007F
 };
+

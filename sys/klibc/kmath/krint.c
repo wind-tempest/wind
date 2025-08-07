@@ -1,6 +1,6 @@
 // krint.c
 
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -34,3 +34,4 @@ double
 			return kfloor(x);
 	}
 }
+
