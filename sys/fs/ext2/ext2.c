@@ -625,7 +625,7 @@ int
 
 		kuint32_t blk_id = kget_file_block(&file->inode, block_idx);
 		if ( blk_id == 0 ) {
-			// Sparse region – treat as zero
+			// Sparse region -- treat as zero
 			ksize_t chunk = g_block_size - off_in_block;
 			if ( chunk > remaining )
 				chunk = remaining;
@@ -650,4 +650,3 @@ int
 	kfree(block_buf);
 	return (int) len;
 }
-

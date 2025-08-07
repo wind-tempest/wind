@@ -106,7 +106,7 @@ void
 	 * Map the page frames array:
 	 * The first 4 GiB is identity-mapped by the bootstrap page tables, so
 	 * the 16 MiB heap area we chose (0x01000000-0x05000000) is already
-	 * accessible.  Therefore we don’t need extra page-table work here –
+	 * accessible.  Therefore we don’t need extra page-table work here --
 	 * attempting to allocate page frames before the free list exists would
 	 * fail. We can safely skip explicit mapping at this early stage.
 	 */
@@ -599,4 +599,3 @@ void
 		vm_unmap_page(addr + i * PAGE_SIZE);
 	}
 }
-
