@@ -32,4 +32,3 @@ double
 	// Return fractional part
 	return x - *iptr;
 }
-

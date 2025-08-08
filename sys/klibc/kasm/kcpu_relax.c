@@ -14,4 +14,3 @@ void
     kcpu_relax (void) {
 	__asm__ volatile("pause");
 }
-

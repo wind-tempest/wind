@@ -317,4 +317,3 @@ void
 	// Load the IDT.
 	__asm__ volatile("lidt %0" : : "m"(idtp));
 }
-

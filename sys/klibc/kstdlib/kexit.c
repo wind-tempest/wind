@@ -16,4 +16,3 @@ int
     kexit (int code) {
 	return code;
 }
-

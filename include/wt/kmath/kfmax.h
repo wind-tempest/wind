@@ -12,4 +12,3 @@
 
 double
     kfmax (double x, double y);
-

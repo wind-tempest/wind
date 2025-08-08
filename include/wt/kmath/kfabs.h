@@ -12,4 +12,3 @@
 
 double
     kfabs (double x);
-

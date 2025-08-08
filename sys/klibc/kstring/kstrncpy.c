@@ -27,4 +27,3 @@ char *
 
 	return dest;
 }
-

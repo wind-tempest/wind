@@ -114,4 +114,3 @@ void
     keyboard_init (void) {
 	register_irq_handler(1, keyboard_handler);
 }
-

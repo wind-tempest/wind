@@ -88,4 +88,3 @@ extern int *
 #ifdef __cplusplus
 }
 #endif
-

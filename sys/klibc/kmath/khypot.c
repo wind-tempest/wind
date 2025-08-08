@@ -25,4 +25,3 @@ double
 	// Use the formula: ksqrt(x^2 + y^2)
 	return ksqrt(x * x + y * y);
 }
-

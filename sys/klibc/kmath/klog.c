@@ -47,4 +47,3 @@ double
 
 	return y;
 }
-

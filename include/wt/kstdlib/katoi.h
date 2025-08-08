@@ -12,4 +12,3 @@
 
 int
     katoi (const char *s);
-

@@ -37,4 +37,3 @@ double
 	else
 		return -K_M_PI_2 - katan(1.0 / x);
 }
-

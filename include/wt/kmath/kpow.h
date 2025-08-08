@@ -12,4 +12,3 @@
 
 double
     kpow (double x, double y);
-

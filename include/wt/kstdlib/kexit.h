@@ -12,4 +12,3 @@
 
 int
     kexit (int code);
-

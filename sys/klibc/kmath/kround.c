@@ -19,4 +19,3 @@ double
 		return kceil(x - 0.5);
 	}
 }
-

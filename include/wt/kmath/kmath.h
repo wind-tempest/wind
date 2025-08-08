@@ -81,4 +81,3 @@
 #define K_FP_ZERO      2
 #define K_FP_SUBNORMAL 3
 #define K_FP_NORMAL    4
-

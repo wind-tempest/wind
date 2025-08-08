@@ -12,4 +12,3 @@
 
 double
     katan (double x);
-

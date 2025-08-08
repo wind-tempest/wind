@@ -24,4 +24,3 @@ double
 	// Use the relationship: ldexp(x, exp) = x * 2^exp
 	return x * kpow(2.0, exp);
 }
-

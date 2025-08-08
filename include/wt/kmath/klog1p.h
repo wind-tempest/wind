@@ -12,4 +12,3 @@
 
 double
     log1p (double x);
-

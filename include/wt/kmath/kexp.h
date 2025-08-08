@@ -12,4 +12,3 @@
 
 double
     kexp (double x);
-

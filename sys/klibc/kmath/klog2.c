@@ -22,4 +22,3 @@ double
 	// Use the relationship: log2(x) = ln(x) / ln(2)
 	return klog(x) / K_M_LN2;
 }
-

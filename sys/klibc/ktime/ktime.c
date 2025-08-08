@@ -163,4 +163,3 @@ const char *
 	}
 	return "Unknown";
 }
-

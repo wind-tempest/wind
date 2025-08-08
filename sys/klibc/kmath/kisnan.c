@@ -15,4 +15,3 @@ int
     kisnan (double x) {
 	return x != x;
 }
-

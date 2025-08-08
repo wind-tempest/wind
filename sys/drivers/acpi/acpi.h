@@ -14,4 +14,3 @@ void
     kpoweroff (void);
 void
     kreboot (void);
-

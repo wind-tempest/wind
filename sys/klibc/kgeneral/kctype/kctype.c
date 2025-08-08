@@ -79,4 +79,3 @@ int
     ktoupper (int c) {
 	return kislower(c) ? (c - 'a' + 'A') : c;
 }
-

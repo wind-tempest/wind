@@ -35,4 +35,3 @@ void
 // Canonicalise path: resolves '.', '..', duplicate slashes; assumes input absolute or produced by vfs_resolve
 void
     vfs_normalize_path (const char *path, char *out, ksize_t size);
-

@@ -35,4 +35,3 @@ double
 	// For larger values, use log(1 + x)
 	return klog(1.0 + x);
 }
-

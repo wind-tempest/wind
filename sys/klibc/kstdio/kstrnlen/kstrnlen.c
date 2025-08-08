@@ -19,4 +19,3 @@ ksize_t
 	}
 	return len;
 }
-

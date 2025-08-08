@@ -44,4 +44,3 @@ double
 
 	return result;
 }
-

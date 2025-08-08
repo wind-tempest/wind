@@ -50,4 +50,3 @@ double
 
 	return r;
 }
-

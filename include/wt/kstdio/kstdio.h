@@ -18,4 +18,3 @@
 #include <wt/kstdio/kstdbool.h>
 #include <wt/kstdio/kstddef.h>
 #include <wt/kstdio/kstdint.h>
-

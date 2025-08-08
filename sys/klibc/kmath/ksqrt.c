@@ -33,4 +33,3 @@ double
 
 	return guess;
 }
-

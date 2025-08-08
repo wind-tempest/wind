@@ -43,4 +43,3 @@ double
 	double epsilon = 1e-15;
 	return x + direction * epsilon * kfabs(x);
 }
-

@@ -25,4 +25,3 @@ double
 		return (double) (int_part + 1);
 	}
 }
-

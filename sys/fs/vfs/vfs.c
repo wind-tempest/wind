@@ -120,4 +120,3 @@ int
 	kstrcpy(cwd_path, resolved);
 	return 0;
 }
-

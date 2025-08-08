@@ -22,4 +22,3 @@
 #include "kstrncpy.h"
 #include "kstrrchr.h"
 #include "kstrtok.h"
-

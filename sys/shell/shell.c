@@ -516,4 +516,3 @@ static void
 
 	kpanic(code, KNULL);
 }
-

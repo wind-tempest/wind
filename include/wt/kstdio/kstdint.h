@@ -33,4 +33,3 @@ typedef unsigned long long kuintptr_t;
 
 // Maximum value for kuintptr_t
 #define KUINTPTR_MAX 18446744073709551615ULL
-

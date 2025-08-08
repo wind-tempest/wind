@@ -12,4 +12,3 @@
 
 double
     kceil (double x);
-

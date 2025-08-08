@@ -12,4 +12,3 @@
 
 double
     ksin (double x);
-

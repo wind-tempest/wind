@@ -11,4 +11,3 @@
 #include <wt/kgeneral/kerrno/kerrno.h>
 
 int kerrno = 0;
-

@@ -43,4 +43,3 @@ void
 
 	cpu_brand_string[CPU_BRAND_STRING_LEN] = '\0';
 }
-

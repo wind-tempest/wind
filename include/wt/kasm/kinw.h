@@ -14,4 +14,3 @@
 
 kuint16_t
     kinw (kuint16_t port);
-

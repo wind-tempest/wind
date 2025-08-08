@@ -12,4 +12,3 @@
 
 double
     knearbyint (double x);
-

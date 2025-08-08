@@ -12,4 +12,3 @@
 
 double
     kfloor (double x);
-

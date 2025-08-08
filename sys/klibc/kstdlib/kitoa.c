@@ -60,4 +60,3 @@ char *
 
 	return rev;
 }
-

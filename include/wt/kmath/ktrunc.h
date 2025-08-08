@@ -12,4 +12,3 @@
 
 double
     ktrunc (double x);
-

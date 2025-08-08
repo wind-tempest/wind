@@ -12,4 +12,3 @@
 
 double
     kacos (double x);
-

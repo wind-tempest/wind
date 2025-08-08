@@ -237,4 +237,3 @@ void
     kinfo (const char *message, const char *subsystem, const char *extra) {
 	kdbgtype("INFO", subsystem, message, extra);
 }
-

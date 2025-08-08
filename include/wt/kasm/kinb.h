@@ -12,4 +12,3 @@
 
 unsigned char
     kinb (unsigned short port);
-

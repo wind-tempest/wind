@@ -25,4 +25,3 @@ double
 	else
 		return kceil(x);
 }
-

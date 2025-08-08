@@ -34,4 +34,3 @@
 // Panic function - halts the system with error information
 void
     kpanic (int code, registers_t *regs);
-

@@ -42,4 +42,3 @@ void
 	// If reboot fails, log warning
 	kerror("Legacy reboot failed. System may not restart.", "acpi", KNULL);
 }
-

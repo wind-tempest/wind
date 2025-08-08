@@ -56,4 +56,3 @@ double
 	// General case: use exp(y * log(x))
 	return kexp(y * klog(x));
 }
-

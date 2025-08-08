@@ -12,4 +12,3 @@
 
 double
     kfrexp (double x, int *exp);
-

@@ -14,4 +14,3 @@
 #include "ksleep.h"
 
 #include <wt/kstdio/kstdint.h>
-

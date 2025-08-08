@@ -12,4 +12,3 @@
 
 double
     kround (double x);
-

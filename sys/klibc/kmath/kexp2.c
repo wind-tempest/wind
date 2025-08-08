@@ -22,4 +22,3 @@ double
 	// Use the relationship: exp2(x) = exp(x * ln(2))
 	return kexp(x * K_M_LN2);
 }
-

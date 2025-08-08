@@ -22,4 +22,3 @@ void
     serial_writes (const char *s);
 kbool
     is_serial_available (void);
-

@@ -18,4 +18,3 @@ int
 	}
 	return *(const unsigned char *) s1 - *(const unsigned char *) s2;
 }
-

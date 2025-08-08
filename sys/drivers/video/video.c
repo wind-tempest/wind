@@ -234,4 +234,3 @@ void
 		kvideo_putchar(*s++);
 	}
 }
-

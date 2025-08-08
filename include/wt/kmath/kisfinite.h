@@ -12,4 +12,3 @@
 
 int
     kisfinite (double x);
-

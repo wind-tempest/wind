@@ -20,4 +20,3 @@ double
 	}
 	return ksin(x) / cos_x;
 }
-

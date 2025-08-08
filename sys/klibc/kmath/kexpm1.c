@@ -31,4 +31,3 @@ double
 	// For larger values, use exp(x) - 1
 	return kexp(x) - 1.0;
 }
-

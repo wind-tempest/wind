@@ -45,4 +45,3 @@ double
 
 	return result;
 }
-

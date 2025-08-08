@@ -42,4 +42,3 @@ double
 
 	return x < 0.0 ? -guess : guess;
 }
-

@@ -12,4 +12,3 @@
 
 void
     kcpu_relax (void);
-

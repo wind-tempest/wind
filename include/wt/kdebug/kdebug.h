@@ -28,4 +28,3 @@ void
     knotice (const char *message, const char *subsystem, const char *extra);
 void
     kinfo (const char *message, const char *subsystem, const char *extra);
-
