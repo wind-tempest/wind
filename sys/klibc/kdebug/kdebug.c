@@ -24,7 +24,7 @@
  * or Tempest (the Kernel).
  */
 
-const char *debug_type_message = "[DEBUG] ";
+const char *debug_type_message = "[    debug] ";
 
 void
     kduts (const char *s) {
