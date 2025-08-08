@@ -29,7 +29,7 @@ void
 
 	ksleep(POWEROFF_TIMEOUT_MS);
 	// If poweroff fails, log warning
-	kerror("Legacy poweroff failed. System may not shut down.", "acpi", KNULL);
+	kerror("Legacy poweroff failed", "acpi", KNULL);
 }
 
 void
@@ -40,5 +40,5 @@ void
 
 	ksleep(POWEROFF_TIMEOUT_MS);
 	// If reboot fails, log warning
-	kerror("Legacy reboot failed. System may not restart.", "acpi", KNULL);
+	kerror("Legacy reboot failed", "acpi", KNULL);
 }
