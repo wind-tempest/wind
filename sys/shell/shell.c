@@ -504,13 +504,13 @@ static void
     cmd_panic (const char *args) {
 	if ( args == KNULL || *args == '\0' ) {
 		kputs("Usage: kpanic <error_code>");
-		kputs("Error codes: 0-15 (0=unknown, 1=div_by_zero, etc.)");
+		kputs("Error codes: 0-16 (0=unknown, 1=div_by_zero, etc.)");
 		return;
 	}
 
 	int code = katoi(args);
-	if ( code < 0 || code > 15 ) {
-		kputs("Error code must be between 0 and 15");
+	if ( code < 0 || code > 16 ) {
+		kputs("Error code must be between 0 and 16");
 		return;
 	}
 
