@@ -206,7 +206,7 @@ void
 
 void
     kcritical (const char *message, const char *subsystem, const char *extra) {
-	kdbgtype("critical", subsystem, message, extra);
+	kdbgtype("crit", subsystem, message, extra);
 }
 
 void
@@ -226,7 +226,7 @@ void
 
 void
     kerror (const char *message, const char *subsystem, const char *extra) {
-	kdbgtype("error", subsystem, message, extra);
+	kdbgtype("err", subsystem, message, extra);
 }
 
 void
