@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kstdio/kstddef.h>
-#include <tempest/kstring/kmemcpy.h>
+#include <tempest/klibc/kstdio/kstddef.h>
+#include <tempest/klibc/kstring/kmemcpy.h>
 
 void *
     kmemcpy (void *restrict dest, const void *restrict src, ksize_t n) {

@@ -9,14 +9,12 @@
  */
 
 #include "arch/x86_64/registers.h"
-#include "drivers/acpi/acpi.h"
-#include "drivers/serial/serial.h"
-#include "drivers/video/video.h"
 
-#include <tempest/kstdio/kstdio.h>
-#include <tempest/kstdlib/kitoa.h>
-#include <tempest/kstring/kmemset.h>
-#include <tempest/kunistd/ksleep.h>
+#include <tempest/drivers/driver.h>
+#include <tempest/klibc/kstdio/kstdio.h>
+#include <tempest/klibc/kstdlib/kitoa.h>
+#include <tempest/klibc/kstring/kmemset.h>
+#include <tempest/klibc/kunistd/ksleep.h>
 
 // Panic error codes.
 #define PANIC_UNKNOWN_ERROR	  0

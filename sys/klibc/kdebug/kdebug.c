@@ -8,15 +8,15 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "drivers/serial/serial.h"
 #include "init/kernel.h"
 
-#include <tempest/kdebug/kdebug.h>
-#include <tempest/kstdarg.h>
-#include <tempest/kstdio/kprint/kprint.h>
-#include <tempest/kstdio/kstrlen/kstrlen.h>
-#include <tempest/kstdlib/kutoa.h>
-#include <tempest/kstring/kstrcmp.h>
+#include <tempest/drivers/serial.h>
+#include <tempest/klibc/kdebug/kdebug.h>
+#include <tempest/klibc/kstdarg.h>
+#include <tempest/klibc/kstdio/kprint/kprint.h>
+#include <tempest/klibc/kstdio/kstrlen/kstrlen.h>
+#include <tempest/klibc/kstdlib/kutoa.h>
+#include <tempest/klibc/kstring/kstrcmp.h>
 
 /*
  * This debugging tool is only for early days of development. It is not

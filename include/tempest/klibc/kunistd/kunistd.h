@@ -1,4 +1,4 @@
-// kstrncpy.h
+// kunistd.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <tempest/kstdio/kstddef.h>
+#include "krand.h"
+#include "ksleep.h"
 
-char *
-    kstrncpy (char *dest, const char *src, ksize_t n);
+#include <tempest/klibc/kstdio/kstdint.h>

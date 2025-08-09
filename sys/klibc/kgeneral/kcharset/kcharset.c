@@ -8,7 +8,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kgeneral/kcharset/kcharset.h>
+#include <tempest/klibc/kgeneral/kcharset/kcharset.h>
 
 const char kdigits_lower[] = "0123456789abcdef";
 const char kdigits_upper[] = "0123456789ABCDEF";

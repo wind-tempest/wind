@@ -8,9 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "font.h"
-
-#include <tempest/kstdio/kstdint.h>
+#include <tempest/drivers/font.h>
+#include <tempest/klibc/kstdio/kstdint.h>
 
 // Font dimensions are 8x8
 const kuint32_t FONT_WIDTH  = 8;

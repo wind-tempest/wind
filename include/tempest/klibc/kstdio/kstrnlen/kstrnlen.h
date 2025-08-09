@@ -1,4 +1,4 @@
-// kstrlen.h
+// kstrnlen.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <tempest/kstdio/kstddef.h>
+#include <tempest/klibc/kstdio/kstddef.h>
 
 ksize_t
-    kstrlen (const char *str);
+    kstrnlen (const char *str, ksize_t maxlen);

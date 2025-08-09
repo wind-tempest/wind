@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <tempest/kstdio/kstddef.h>
+#include <tempest/klibc/kstdio/kstddef.h>
 
 /*
  * Very small VFS helpers for current working directory handling.

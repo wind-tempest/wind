@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kstdio/kstddef.h>
-#include <tempest/kstdio/kstdint.h>
+#include <tempest/klibc/kstdio/kstddef.h>
+#include <tempest/klibc/kstdio/kstdint.h>
 
 void *
     kmemset (void *restrict s, int c, ksize_t n) {

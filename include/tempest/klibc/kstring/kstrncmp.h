@@ -1,4 +1,4 @@
-// driver.h
+// kstrncmp.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,8 +10,7 @@
 
 #pragma once
 
-#include "acpi/acpi.h"
-#include "ata/ata.h"
-#include "keyboard/keyboard.h"
-#include "serial/serial.h"
-#include "video/video.h"
+#include <tempest/klibc/kstdio/kstddef.h>
+
+int
+    kstrncmp (const char *s1, const char *s2, ksize_t n);

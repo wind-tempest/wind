@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kmath/kcbrt.h>
-#include <tempest/kmath/kmath.h>
+#include <tempest/klibc/kmath/kcbrt.h>
+#include <tempest/klibc/kmath/kmath.h>
 
 double
     kcbrt (double x) {

@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kmath/kisinf.h>
-#include <tempest/kmath/kmath.h>
+#include <tempest/klibc/kmath/kisinf.h>
+#include <tempest/klibc/kmath/kmath.h>
 
 int
     kisinf (double x) {

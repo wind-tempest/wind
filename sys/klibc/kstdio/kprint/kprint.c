@@ -8,10 +8,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "drivers/driver.h"
-
-#include <tempest/kstdio/kstdio.h>
-#include <tempest/kstdlib/kutoa.h>
+#include <tempest/drivers/driver.h>
+#include <tempest/klibc/kstdio/kstdio.h>
+#include <tempest/klibc/kstdlib/kutoa.h>
 
 // ? I think this is... safe?
 void

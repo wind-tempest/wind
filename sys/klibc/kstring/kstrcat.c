@@ -8,7 +8,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kstring/kstrcat.h>
+#include <tempest/klibc/kstring/kstrcat.h>
 
 char *
     kstrcat (char *dest, const char *src) {

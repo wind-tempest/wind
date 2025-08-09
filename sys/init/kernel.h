@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <tempest/kstdio/kstdbool.h>
+#include <tempest/klibc/kstdio/kstdbool.h>
 
 extern kbool kuse_debug;
 

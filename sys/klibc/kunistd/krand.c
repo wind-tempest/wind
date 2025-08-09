@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kstdio/kstdbool.h>
-#include <tempest/kstdio/kstdint.h>
+#include <tempest/klibc/kstdio/kstdbool.h>
+#include <tempest/klibc/kstdio/kstdint.h>
 
 #define PCG32_MULT     6364136223846793005ULL
 #define PCG32_INIT_SEQ 0xDEADBEEFULL

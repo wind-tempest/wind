@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kmath/kfmax.h>
-#include <tempest/kmath/kmath.h>
+#include <tempest/klibc/kmath/kfmax.h>
+#include <tempest/klibc/kmath/kmath.h>
 
 double
     kfmax (double x, double y) {

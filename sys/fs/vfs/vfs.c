@@ -12,8 +12,8 @@
 
 #include "fs/ext2/ext2.h"
 
-#include <tempest/kstdio/kstdio.h>
-#include <tempest/kstring/kstring.h>
+#include <tempest/klibc/kstdio/kstdio.h>
+#include <tempest/klibc/kstring/kstring.h>
 
 // TODO: Implement a redirect to ext2 to not use hardcode calls to ext2
 

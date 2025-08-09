@@ -13,12 +13,12 @@
 #include "arch/x86_64/cpuid.h"
 #include "arch/x86_64/idt.h"
 #include "core/memory/memory.h"
-#include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
 #include "shell/shell.h"
 
-#include <tempest/kdebug/kdebug.h>
-#include <tempest/kstdio/kprint/kprint.h>
+#include <tempest/drivers/driver.h>
+#include <tempest/klibc/kdebug/kdebug.h>
+#include <tempest/klibc/kstdio/kprint/kprint.h>
 
 kbool kuse_debug = kfalse;
 

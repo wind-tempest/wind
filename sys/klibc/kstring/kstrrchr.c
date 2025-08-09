@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kstdio/kstddef.h>
-#include <tempest/kstring/kstrrchr.h>
+#include <tempest/klibc/kstdio/kstddef.h>
+#include <tempest/klibc/kstring/kstrrchr.h>
 
 const char *
     kstrrchr (const char *str, int c) {

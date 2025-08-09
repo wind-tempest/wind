@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kstdlib/klabs.h>
-#include <tempest/kstdlib/kstdlib.h>
+#include <tempest/klibc/kstdlib/klabs.h>
+#include <tempest/klibc/kstdlib/kstdlib.h>
 
 long
     labs (long a) {

@@ -12,9 +12,9 @@
 
 #include "init/kernel.h"
 
-#include <tempest/kstdio/kstddef.h>
-#include <tempest/kstdio/kstdint.h>
-#include <tempest/kstring/kmemcpy.h>
+#include <tempest/klibc/kstdio/kstddef.h>
+#include <tempest/klibc/kstdio/kstdint.h>
+#include <tempest/klibc/kstring/kmemcpy.h>
 
 #define CPUID_EXT_BASE 0x80000002
 

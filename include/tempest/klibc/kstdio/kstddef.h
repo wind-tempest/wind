@@ -1,4 +1,4 @@
-// kunistd.h
+// kstddef.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,7 +10,11 @@
 
 #pragma once
 
-#include "krand.h"
-#include "ksleep.h"
+#include <tempest/klibc/kstdio/kstdint.h>
 
-#include <tempest/kstdio/kstdint.h>
+#ifndef KNULL
+#	define KNULL ((void *) 0)
+#endif
+
+typedef kuint64_t ksize_t;
+typedef long	  kptrdiff_t;

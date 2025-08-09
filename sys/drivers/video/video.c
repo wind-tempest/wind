@@ -8,14 +8,13 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "video.h"
-
-#include "font/font.h"
 #include "init/kernel.h"
 
-#include <tempest/kdebug/kdebug.h>
-#include <tempest/kstdio/kstdbool.h>
-#include <tempest/kstdio/kstddef.h>
+#include <tempest/drivers/font.h>
+#include <tempest/drivers/video.h>
+#include <tempest/klibc/kdebug/kdebug.h>
+#include <tempest/klibc/kstdio/kstdbool.h>
+#include <tempest/klibc/kstdio/kstddef.h>
 
 static volatile kuint32_t *framebuffer = KNULL;
 

@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include <tempest/kstdio/kstdbool.h>
-#include <tempest/kstdio/kstddef.h>
-#include <tempest/kstdio/kstdint.h>
+#include <tempest/klibc/kstdio/kstdbool.h>
+#include <tempest/klibc/kstdio/kstddef.h>
+#include <tempest/klibc/kstdio/kstdint.h>
 
 // Memory constants
 #define PAGE_SIZE	      4096

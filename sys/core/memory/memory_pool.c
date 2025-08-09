@@ -10,9 +10,9 @@
 
 #include "memory.h"
 
-#include <tempest/kdebug/kdebug.h>
-#include <tempest/kstdio/kstdio.h>
-#include <tempest/kstring/kstring.h>
+#include <tempest/klibc/kdebug/kdebug.h>
+#include <tempest/klibc/kstdio/kstdio.h>
+#include <tempest/klibc/kstring/kstring.h>
 
 // Memory pool management
 memory_pool_t *

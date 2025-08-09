@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kmath/katan2.h>
-#include <tempest/kmath/kmath.h>
+#include <tempest/klibc/kmath/katan2.h>
+#include <tempest/klibc/kmath/kmath.h>
 
 double
     katan2 (double y, double x) {

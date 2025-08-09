@@ -12,8 +12,8 @@
 
 #include "core/panic/panic.h"
 
-#include <tempest/kstdio/kstdio.h>
-#include <tempest/kstring/kstring.h>
+#include <tempest/klibc/kstdio/kstdio.h>
+#include <tempest/klibc/kstring/kstring.h>
 
 struct multiboot_tag {
 	kuint32_t type;

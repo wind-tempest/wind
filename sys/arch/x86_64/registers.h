@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <tempest/kstdio/kstdint.h>
+#include <tempest/klibc/kstdio/kstdint.h>
 
 // This struct defines the registers that our ISR/IRQ stubs push to the stack.
 // We receive a pointer to this in our C-level interrupt handlers.

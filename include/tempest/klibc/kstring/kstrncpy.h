@@ -1,4 +1,4 @@
-// kstddef.h
+// kstrncpy.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,11 +10,7 @@
 
 #pragma once
 
-#include <tempest/kstdio/kstdint.h>
+#include <tempest/klibc/kstdio/kstddef.h>
 
-#ifndef KNULL
-#	define KNULL ((void *) 0)
-#endif
-
-typedef kuint64_t ksize_t;
-typedef long	  kptrdiff_t;
+char *
+    kstrncpy (char *dest, const char *src, ksize_t n);

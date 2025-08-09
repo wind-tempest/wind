@@ -1,4 +1,4 @@
-// krand.h
+// kmemcpy.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,9 +10,7 @@
 
 #pragma once
 
-#include <tempest/kstdio/kstdint.h>
+#include <tempest/klibc/kstdio/kstddef.h>
 
-kuint32_t
-    k_u_rand32 (void);
-kint32_t
-    krand32 (void);
+void *
+    kmemcpy (void *dest, const void *src, ksize_t n);

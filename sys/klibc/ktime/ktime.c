@@ -8,9 +8,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kasm/kio.h>
-#include <tempest/kstdio/kstdio.h>
-#include <tempest/ktime/ktime.h>
+#include <tempest/klibc/kasm/kio.h>
+#include <tempest/klibc/kstdio/kstdio.h>
+#include <tempest/klibc/ktime/ktime.h>
 
 // BIOS interrupt for getting RTC (Real Time Clock) data
 #define RTC_COMMAND_PORT 0x70

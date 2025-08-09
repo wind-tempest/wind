@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include <tempest/kstdio/kstddef.h>
-#include <tempest/kstdio/kstdint.h>
+#include <tempest/klibc/kstdio/kstddef.h>
+#include <tempest/klibc/kstdio/kstdint.h>
 
 #ifdef __cplusplus
 extern "C" {

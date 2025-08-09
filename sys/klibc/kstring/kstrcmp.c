@@ -8,7 +8,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kstring/kstrcmp.h>
+#include <tempest/klibc/kstring/kstrcmp.h>
 
 int
     kstrcmp (const char *s1, const char *s2) {

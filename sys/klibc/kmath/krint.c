@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/kmath/kmath.h>
-#include <tempest/kmath/krint.h>
+#include <tempest/klibc/kmath/kmath.h>
+#include <tempest/klibc/kmath/krint.h>
 
 double
     krint (double x) {

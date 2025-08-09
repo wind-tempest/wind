@@ -8,11 +8,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "serial.h"
-
-#include <tempest/kasm/kio.h>
-#include <tempest/kstdio/kstdbool.h>
-#include <tempest/kstdlib/kitoa.h>
+#include <tempest/drivers/serial.h>
+#include <tempest/klibc/kasm/kio.h>
+#include <tempest/klibc/kstdio/kstdbool.h>
+#include <tempest/klibc/kstdlib/kitoa.h>
 
 #define PORT 0x3f8  // COM1
 

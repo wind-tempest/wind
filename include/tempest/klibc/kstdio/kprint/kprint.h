@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include <tempest/kstdarg.h>
-#include <tempest/kstdio/kstddef.h>
-#include <tempest/kstdio/kstdint.h>
+#include <tempest/klibc/kstdarg.h>
+#include <tempest/klibc/kstdio/kstddef.h>
+#include <tempest/klibc/kstdio/kstdint.h>
 
 void
     kputhex (kuint64_t n);
