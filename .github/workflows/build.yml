@@ -2,14 +2,14 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - 'sys/**'
       - 'Makefile'
       - '.github/workflows/**'
       - 'include/**'
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - 'sys/**'
       - 'Makefile'
