@@ -139,7 +139,7 @@ void
 
 static void
     kvideo_draw_glyph_at (char c, kuint32_t x, kuint32_t y, kuint32_t rgb_color) {
-	if ( framebuffer == KNULL || (unsigned int) c >= 256 ) {
+	if ( !kis_video_ready() || (unsigned int) c >= 256 ) {
 		return;
 	}
 
