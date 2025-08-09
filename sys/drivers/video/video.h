@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include <wt/kstdio/kstdbool.h>
-#include <wt/kstdio/kstdint.h>
+#include <tempest/kstdio/kstdbool.h>
+#include <tempest/kstdio/kstdint.h>
 
 // Framebuffer information structure
 struct framebuffer_info {

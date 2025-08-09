@@ -8,9 +8,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kgeneral/kcharset/kcharset.h>
-#include <wt/kstdlib/kstdlib.h>
-#include <wt/kstdlib/kutoa.h>
+#include <tempest/kgeneral/kcharset/kcharset.h>
+#include <tempest/kstdlib/kstdlib.h>
+#include <tempest/kstdlib/kutoa.h>
 
 char *
     kutoa (char *buf, char *end, unsigned long value, int base, int is_uppercase) {

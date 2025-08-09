@@ -13,9 +13,9 @@
 #include "font/font.h"
 #include "init/kernel.h"
 
-#include <wt/kdebug/kdebug.h>
-#include <wt/kstdio/kstdbool.h>
-#include <wt/kstdio/kstddef.h>
+#include <tempest/kdebug/kdebug.h>
+#include <tempest/kstdio/kstdbool.h>
+#include <tempest/kstdio/kstddef.h>
 
 static volatile kuint32_t *framebuffer = KNULL;
 

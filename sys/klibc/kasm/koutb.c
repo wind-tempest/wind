@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kasm/kio.h>
-#include <wt/kasm/koutb.h>
+#include <tempest/kasm/kio.h>
+#include <tempest/kasm/koutb.h>
 
 void
     koutb (unsigned short port, unsigned char val) {

@@ -10,8 +10,8 @@
 
 #include "ata.h"
 
-#include <wt/kasm/kio.h>
-#include <wt/kstdio/kstddef.h>
+#include <tempest/kasm/kio.h>
+#include <tempest/kstdio/kstddef.h>
 
 #define ATA_PRIMARY_IO	 0x1F0
 #define ATA_PRIMARY_CTRL 0x3F6

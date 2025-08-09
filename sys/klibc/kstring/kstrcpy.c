@@ -8,9 +8,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kstdio/kstrlen/kstrlen.h>
-#include <wt/kstring/kmemcpy.h>
-#include <wt/kstring/kstrcpy.h>
+#include <tempest/kstdio/kstrlen/kstrlen.h>
+#include <tempest/kstring/kmemcpy.h>
+#include <tempest/kstring/kstrcpy.h>
 
 char *
     kstrcpy (char *dest, const char *src) {

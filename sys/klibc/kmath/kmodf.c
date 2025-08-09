@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kmath.h>
-#include <wt/kmath/kmodf.h>
+#include <tempest/kmath/kmath.h>
+#include <tempest/kmath/kmodf.h>
 
 double
     kmodf (double x, double *iptr) {

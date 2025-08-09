@@ -1,4 +1,4 @@
-// krand.h
+// kstrncpy.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,9 +10,7 @@
 
 #pragma once
 
-#include <wt/kstdio/kstdint.h>
+#include <tempest/kstdio/kstddef.h>
 
-kuint32_t
-    k_u_rand32 (void);
-kint32_t
-    krand32 (void);
+char *
+    kstrncpy (char *dest, const char *src, ksize_t n);

@@ -13,10 +13,10 @@
 #include "drivers/serial/serial.h"
 #include "drivers/video/video.h"
 
-#include <wt/kstdio/kstdio.h>
-#include <wt/kstdlib/kitoa.h>
-#include <wt/kstring/kmemset.h>
-#include <wt/kunistd/ksleep.h>
+#include <tempest/kstdio/kstdio.h>
+#include <tempest/kstdlib/kitoa.h>
+#include <tempest/kstring/kmemset.h>
+#include <tempest/kunistd/ksleep.h>
 
 // Panic error codes.
 #define PANIC_UNKNOWN_ERROR	  0

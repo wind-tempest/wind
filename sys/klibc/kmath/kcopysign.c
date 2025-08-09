@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kcopysign.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/kcopysign.h>
+#include <tempest/kmath/kmath.h>
 
 double
     kcopysign (double x, double y) {

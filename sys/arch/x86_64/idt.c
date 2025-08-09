@@ -12,8 +12,8 @@
 
 #include "core/panic/panic.h"
 
-#include <wt/kasm/kio.h>
-#include <wt/kstdio/kstdio.h>
+#include <tempest/kasm/kio.h>
+#include <tempest/kstdio/kstdio.h>
 
 // PIC (Programmable Interrupt Controller) ports.
 #define PIC1_CMD  0x20

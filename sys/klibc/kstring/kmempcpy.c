@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kstdio/kstddef.h>
-#include <wt/kstring/kmempcpy.h>
+#include <tempest/kstdio/kstddef.h>
+#include <tempest/kstring/kmempcpy.h>
 
 void *
     kmempcpy (void *dest, const void *src, ksize_t n) {

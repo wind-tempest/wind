@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kcos.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/kcos.h>
+#include <tempest/kmath/kmath.h>
 
 double
     kcos (double x) {

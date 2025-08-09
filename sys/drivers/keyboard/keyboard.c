@@ -12,8 +12,8 @@
 
 #include "arch/x86_64/idt.h"
 
-#include <wt/kasm/kio.h>
-#include <wt/kstdio/kstdio.h>
+#include <tempest/kasm/kio.h>
+#include <tempest/kstdio/kstdio.h>
 
 #define KBD_DATA_PORT	0x60
 #define KBD_BUFFER_SIZE 256

@@ -1,4 +1,4 @@
-// kinw.h
+// kstrlen.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <wt/kstdio/kstdint.h>
+#include <tempest/kstdio/kstddef.h>
 
-kuint16_t
-    kinw (kuint16_t port);
+ksize_t
+    kstrlen (const char *str);

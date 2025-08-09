@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include <wt/kstdio/kstdbool.h>
-#include <wt/kstdio/kstddef.h>
-#include <wt/kstdio/kstdint.h>
+#include <tempest/kstdio/kstdbool.h>
+#include <tempest/kstdio/kstddef.h>
+#include <tempest/kstdio/kstdint.h>
 
 #ifdef __cplusplus
 extern "C" {

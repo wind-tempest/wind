@@ -1,4 +1,4 @@
-// kstdio.h
+// kstrncmp.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,11 +10,7 @@
 
 #pragma once
 
-// stdio implementations
-#include "kprint/kprint.h"
-#include "kstrlen/kstrlen.h"
-#include "kstrnlen/kstrnlen.h"
+#include <tempest/kstdio/kstddef.h>
 
-#include <wt/kstdio/kstdbool.h>
-#include <wt/kstdio/kstddef.h>
-#include <wt/kstdio/kstdint.h>
+int
+    kstrncmp (const char *s1, const char *s2, ksize_t n);

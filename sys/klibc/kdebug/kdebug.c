@@ -11,12 +11,12 @@
 #include "drivers/serial/serial.h"
 #include "init/kernel.h"
 
-#include <wt/kdebug/kdebug.h>
-#include <wt/kstdarg.h>
-#include <wt/kstdio/kprint/kprint.h>
-#include <wt/kstdio/kstrlen/kstrlen.h>
-#include <wt/kstdlib/kutoa.h>
-#include <wt/kstring/kstrcmp.h>
+#include <tempest/kdebug/kdebug.h>
+#include <tempest/kstdarg.h>
+#include <tempest/kstdio/kprint/kprint.h>
+#include <tempest/kstdio/kstrlen/kstrlen.h>
+#include <tempest/kstdlib/kutoa.h>
+#include <tempest/kstring/kstrcmp.h>
 
 /*
  * This debugging tool is only for early days of development. It is not

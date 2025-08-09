@@ -1,4 +1,4 @@
-// kstrncmp.h
+// kunistd.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <wt/kstdio/kstddef.h>
+#include "krand.h"
+#include "ksleep.h"
 
-int
-    kstrncmp (const char *s1, const char *s2, ksize_t n);
+#include <tempest/kstdio/kstdint.h>

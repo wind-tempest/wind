@@ -17,8 +17,8 @@
 #include "fs/ext2/ext2.h"
 #include "shell/shell.h"
 
-#include <wt/kdebug/kdebug.h>
-#include <wt/kstdio/kprint/kprint.h>
+#include <tempest/kdebug/kdebug.h>
+#include <tempest/kstdio/kprint/kprint.h>
 
 kbool kuse_debug = kfalse;
 

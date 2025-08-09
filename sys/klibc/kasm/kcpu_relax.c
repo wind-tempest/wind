@@ -8,7 +8,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kasm/kcpu_relax.h>
+#include <tempest/kasm/kcpu_relax.h>
 
 void
     kcpu_relax (void) {

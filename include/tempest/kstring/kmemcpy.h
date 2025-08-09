@@ -1,4 +1,4 @@
-// kstrncpy.h
+// kmemcpy.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <wt/kstdio/kstddef.h>
+#include <tempest/kstdio/kstddef.h>
 
-char *
-    kstrncpy (char *dest, const char *src, ksize_t n);
+void *
+    kmemcpy (void *dest, const void *src, ksize_t n);

@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kfmin.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/kfmin.h>
+#include <tempest/kmath/kmath.h>
 
 double
     kfmin (double x, double y) {

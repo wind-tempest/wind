@@ -1,4 +1,4 @@
-// kunistd.h
+// kmempcpy.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "krand.h"
-#include "ksleep.h"
+#include <tempest/kstdio/kstddef.h>
 
-#include <wt/kstdio/kstdint.h>
+void *
+    kmempcpy (void *dest, const void *src, ksize_t n);

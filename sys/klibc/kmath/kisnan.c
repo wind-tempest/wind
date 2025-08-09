@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kisnan.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/kisnan.h>
+#include <tempest/kmath/kmath.h>
 
 int
     kisnan (double x) {

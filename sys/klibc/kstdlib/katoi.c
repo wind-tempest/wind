@@ -8,11 +8,11 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kgeneral/kctype/kctype.h>
-#include <wt/kgeneral/kerrno/kerrno.h>
-#include <wt/klimits.h>
-#include <wt/kstdlib/katoi.h>
-#include <wt/kstdlib/kstdlib.h>
+#include <tempest/kgeneral/kctype/kctype.h>
+#include <tempest/kgeneral/kerrno/kerrno.h>
+#include <tempest/klimits.h>
+#include <tempest/kstdlib/katoi.h>
+#include <tempest/kstdlib/kstdlib.h>
 
 int
     katoi (const char *s) {

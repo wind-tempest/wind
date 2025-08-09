@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kfabs.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/kfabs.h>
+#include <tempest/kmath/kmath.h>
 
 double
     kfabs (double x) {

@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kexp2.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/kexp2.h>
+#include <tempest/kmath/kmath.h>
 
 double
     kexp2 (double x) {

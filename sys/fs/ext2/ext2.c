@@ -12,8 +12,8 @@
 
 #include "core/memory/memory.h"
 
-#include <wt/kstdio/kstdio.h>
-#include <wt/kstring/kstring.h>
+#include <tempest/kstdio/kstdio.h>
+#include <tempest/kstring/kstring.h>
 
 static kuint64_t	  g_base_lba = 0;  // Partition/LBA base of filesystem
 static ext2_superblock_t  g_superblock;

@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/klog10.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/klog10.h>
+#include <tempest/kmath/kmath.h>
 
 double
     klog10 (double x) {

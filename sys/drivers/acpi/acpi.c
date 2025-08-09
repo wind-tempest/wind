@@ -8,10 +8,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kasm/kio.h>
-#include <wt/kdebug/kdebug.h>
-#include <wt/kstdio/kstddef.h>
-#include <wt/kunistd/ksleep.h>
+#include <tempest/kasm/kio.h>
+#include <tempest/kdebug/kdebug.h>
+#include <tempest/kstdio/kstddef.h>
+#include <tempest/kunistd/ksleep.h>
 
 /*
  * THIS IS NOT ACPI YET! THIS IS A PLACEHOLDER FOR ACPI

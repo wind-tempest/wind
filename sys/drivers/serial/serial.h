@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <wt/kstdio/kstdbool.h>
+#include <tempest/kstdio/kstdbool.h>
 
 void
     serial_init (void);

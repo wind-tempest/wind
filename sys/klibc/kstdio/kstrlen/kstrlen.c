@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kstdio/kstddef.h>
-#include <wt/kstdio/kstrlen/kstrlen.h>
+#include <tempest/kstdio/kstddef.h>
+#include <tempest/kstdio/kstrlen/kstrlen.h>
 
 ksize_t
     kstrlen (const char *str) {

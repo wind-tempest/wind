@@ -8,6 +8,6 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kgeneral/kerrno/kerrno.h>
+#include <tempest/kgeneral/kerrno/kerrno.h>
 
 int kerrno = 0;

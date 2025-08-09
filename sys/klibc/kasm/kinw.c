@@ -8,7 +8,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kasm/kinw.h>
+#include <tempest/kasm/kinw.h>
 
 kuint16_t
     kinw (kuint16_t port) {

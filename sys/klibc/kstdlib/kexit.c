@@ -8,9 +8,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kstdio/kstdio.h>
-#include <wt/kstdlib/kexit.h>
-#include <wt/kstdlib/kstdlib.h>
+#include <tempest/kstdio/kstdio.h>
+#include <tempest/kstdlib/kexit.h>
+#include <tempest/kstdlib/kstdlib.h>
 
 int
     kexit (int code) {

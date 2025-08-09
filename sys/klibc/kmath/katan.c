@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/katan.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/katan.h>
+#include <tempest/kmath/kmath.h>
 
 double
     katan (double x) {

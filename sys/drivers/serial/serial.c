@@ -10,9 +10,9 @@
 
 #include "serial.h"
 
-#include <wt/kasm/kio.h>
-#include <wt/kstdio/kstdbool.h>
-#include <wt/kstdlib/kitoa.h>
+#include <tempest/kasm/kio.h>
+#include <tempest/kstdio/kstdbool.h>
+#include <tempest/kstdlib/kitoa.h>
 
 #define PORT 0x3f8  // COM1
 

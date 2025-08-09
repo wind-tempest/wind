@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kmath.h>
-#include <wt/kmath/kpow.h>
+#include <tempest/kmath/kmath.h>
+#include <tempest/kmath/kpow.h>
 
 double
     kpow (double x, double y) {

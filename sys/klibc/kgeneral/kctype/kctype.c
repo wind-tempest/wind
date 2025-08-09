@@ -8,7 +8,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kgeneral/kctype/kctype.h>
+#include <tempest/kgeneral/kctype/kctype.h>
 
 int
     kisupper (int c) {

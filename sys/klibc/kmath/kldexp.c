@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kldexp.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/kldexp.h>
+#include <tempest/kmath/kmath.h>
 
 double
     kldexp (double x, int exp) {

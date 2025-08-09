@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kfrexp.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/kfrexp.h>
+#include <tempest/kmath/kmath.h>
 
 double
     kfrexp (double x, int *exp) {

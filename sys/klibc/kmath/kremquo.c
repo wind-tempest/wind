@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kmath.h>
-#include <wt/kmath/kremquo.h>
+#include <tempest/kmath/kmath.h>
+#include <tempest/kmath/kremquo.h>
 
 double
     kremquo (double x, double y, int *quo) {

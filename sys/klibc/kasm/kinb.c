@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kasm/kinb.h>
-#include <wt/kasm/kio.h>
+#include <tempest/kasm/kinb.h>
+#include <tempest/kasm/kio.h>
 
 unsigned char
     kinb (unsigned short port) {

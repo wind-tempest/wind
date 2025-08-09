@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/khypot.h>
-#include <wt/kmath/kmath.h>
+#include <tempest/kmath/khypot.h>
+#include <tempest/kmath/kmath.h>
 
 double
     khypot (double x, double y) {

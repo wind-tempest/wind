@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kasm/kio.h>
-#include <wt/kasm/koutw.h>
+#include <tempest/kasm/kio.h>
+#include <tempest/kasm/koutw.h>
 
 void
     koutw (unsigned short port, unsigned short val) {

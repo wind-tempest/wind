@@ -10,8 +10,8 @@
 
 #include "drivers/driver.h"
 
-#include <wt/kstdio/kstdio.h>
-#include <wt/kstdlib/kutoa.h>
+#include <tempest/kstdio/kstdio.h>
+#include <tempest/kstdlib/kutoa.h>
 
 // ? I think this is... safe?
 void

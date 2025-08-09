@@ -1,4 +1,4 @@
-// kstddef.h
+// kstrnlen.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -10,11 +10,7 @@
 
 #pragma once
 
-#include <wt/kstdio/kstdint.h>
+#include <tempest/kstdio/kstddef.h>
 
-#ifndef KNULL
-#	define KNULL ((void *) 0)
-#endif
-
-typedef kuint64_t ksize_t;
-typedef long	  kptrdiff_t;
+ksize_t
+    kstrnlen (const char *str, ksize_t maxlen);

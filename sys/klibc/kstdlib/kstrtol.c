@@ -8,11 +8,11 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kgeneral/kctype/kctype.h>
-#include <wt/kgeneral/kerrno/kerrno.h>
-#include <wt/klimits.h>
-#include <wt/kstdlib/kstdlib.h>
-#include <wt/kstdlib/kstrtol.h>
+#include <tempest/kgeneral/kctype/kctype.h>
+#include <tempest/kgeneral/kerrno/kerrno.h>
+#include <tempest/klimits.h>
+#include <tempest/kstdlib/kstdlib.h>
+#include <tempest/kstdlib/kstrtol.h>
 
 long
     kstrtol (const char *nptr, char **endptr, int base) {

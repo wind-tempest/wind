@@ -8,8 +8,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <wt/kmath/kmath.h>
-#include <wt/kmath/ksin.h>
+#include <tempest/kmath/kmath.h>
+#include <tempest/kmath/ksin.h>
 
 double
     ksin (double x) {
