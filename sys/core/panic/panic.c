@@ -199,8 +199,6 @@ void
 	// Reboot the system.
 	kreboot();
 
-	// If reboot fails, halt the system.
-	pputs("Reboot failed! System halted.\n");
 	while ( 1 ) {
 		__asm__ volatile("hlt");
 	}
