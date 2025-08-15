@@ -1,4 +1,4 @@
-// kernel.h
+// main.h
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*

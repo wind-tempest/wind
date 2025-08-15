@@ -1,4 +1,4 @@
-// kernel.c
+// main.c
 
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
@@ -8,12 +8,11 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "kernel.h"
-
 #include "arch/x86_64/cpuid.h"
 #include "arch/x86_64/idt.h"
 #include "core/memory/memory.h"
 #include "fs/ext2/ext2.h"
+#include "kernel.h"
 #include "shell/shell.h"
 
 #include <tempest/drivers/driver.h>
