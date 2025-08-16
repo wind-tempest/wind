@@ -42,22 +42,22 @@ if debugfs -R "ls /lost+found" "$IMAGE_PATH" >/dev/null 2>&1; then
 fi
 
 MNT_DIR="build/mnt-$$"
-# If a folder named 'disk' exists at repository root, copy its contents into
+# If a folder named 'testfs' exists at repository root, copy its contents into
 # the image (recursively) using debugfs. This avoids needing sudo/loop mounts.
-if [[ -d "disk" ]]; then
-  echo "[*] Copying contents of ./disk into disk.img via debugfs"
+if [[ -d "testfs" ]]; then
+  echo "[*] Copying contents of ./testfs into disk.img via debugfs"
   # Iterate directories from shallowest to deepest to make sure parents exist first
-  # Create directories inside disk/ (but not disk/ itself)
-  find disk -mindepth 1 -type d -print0 | while IFS= read -r -d '' dir; do
-    rel="${dir#disk/}"
+  # Create directories inside testfs/ (but not testfs/ itself)
+  find testfs -mindepth 1 -type d -print0 | while IFS= read -r -d '' dir; do
+    rel="${dir#testfs/}"
     debugfs -w -R "mkdir /$rel" "$IMAGE_PATH" >/dev/null 2>&1 || true
   done
 
-  # Copy files inside disk/ (but not disk/ itself)
-  find disk -type f -print0 | while IFS= read -r -d '' file; do
-    rel="${file#disk/}"
+  # Copy files inside testfs/ (but not testfs/ itself)
+  find testfs -type f -print0 | while IFS= read -r -d '' file; do
+    rel="${file#testfs/}"
     debugfs -w -R "write $file /$rel" "$IMAGE_PATH" >/dev/null 2>&1
   done
 else
-  echo "[*] No ./disk directory found; skipping copy step."
+  echo "[*] No ./testfs directory found; skipping copy step."
 fi

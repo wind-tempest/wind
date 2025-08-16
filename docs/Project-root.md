@@ -10,7 +10,7 @@ This document is talking about Wind (Operating System) and Tempest (Kernel) sour
 boot/        - Default bootloader (Limine) configuration
     limine/  - Limine bootloader files
     ...
-disk/        - Virtual hard drive used for filesystem testing
+testfs/      - Virtual hard drive used for filesystem testing
 docs/        - Documentation files
     ...
 include/     - Public header files
