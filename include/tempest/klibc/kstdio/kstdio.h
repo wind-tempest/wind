@@ -1,5 +1,3 @@
-// kstdio.h
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -18,3 +16,4 @@
 #include <tempest/klibc/kstdio/kstdbool.h>
 #include <tempest/klibc/kstdio/kstddef.h>
 #include <tempest/klibc/kstdio/kstdint.h>
+

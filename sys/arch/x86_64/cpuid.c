@@ -1,5 +1,3 @@
-// cpuid.c
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -43,3 +41,4 @@ void
 
 	cpu_brand_string[CPU_BRAND_STRING_LEN] = '\0';
 }
+

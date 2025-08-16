@@ -1,5 +1,3 @@
-// kstrnlen.h
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -14,3 +12,4 @@
 
 ksize_t
     kstrnlen (const char *str, ksize_t maxlen);
+

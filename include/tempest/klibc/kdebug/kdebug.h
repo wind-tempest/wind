@@ -1,5 +1,3 @@
-// kdebug.h
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -28,3 +26,4 @@ void
     knotice (const char *message, const char *subsystem, const char *extra);
 void
     kinfo (const char *message, const char *subsystem, const char *extra);
+

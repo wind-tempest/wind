@@ -1,5 +1,3 @@
-// keyboard.h
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -14,3 +12,4 @@ void
     keyboard_init (void);
 int
     getchar (void);
+

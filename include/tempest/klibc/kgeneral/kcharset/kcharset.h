@@ -1,5 +1,3 @@
-// kcharset.h
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -19,3 +17,4 @@ extern const char kuppercase[];
 extern const char kspecial_3[];
 extern const char klowercase[];
 extern const char kspecial_4[];
+

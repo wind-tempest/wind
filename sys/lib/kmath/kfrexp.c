@@ -1,5 +1,3 @@
-// kfrexp.c
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -33,3 +31,4 @@ double
 	// Calculate mantissa: x / 2^exp
 	return x / kpow(2.0, *exp);
 }
+

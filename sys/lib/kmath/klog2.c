@@ -1,5 +1,3 @@
-// klog2.c
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -22,3 +20,4 @@ double
 	// Use the relationship: log2(x) = ln(x) / ln(2)
 	return klog(x) / K_M_LN2;
 }
+

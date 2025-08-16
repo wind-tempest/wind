@@ -1,5 +1,3 @@
-// kstrlen.c
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -21,3 +19,4 @@ ksize_t
 		s++;
 	return (ksize_t) (s - str);
 }
+

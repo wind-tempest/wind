@@ -1,5 +1,3 @@
-// klimits.h
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -78,3 +76,4 @@
 #define KWCHAR_MAX 4294967295U
 #define KWINT_MIN  0u
 #define KWINT_MAX  4294967295u
+

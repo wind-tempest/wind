@@ -1,5 +1,3 @@
-// kctype.h
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -38,3 +36,4 @@ int
     ktolower (int c);
 int
     ktoupper (int c);
+

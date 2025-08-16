@@ -1,5 +1,3 @@
-// kstrcmp.h
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -12,3 +10,4 @@
 
 int
     kstrcmp (const char *s1, const char *s2);
+

@@ -1,5 +1,3 @@
-// cpuid.h
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -14,3 +12,4 @@
 extern char cpu_brand_string[CPU_BRAND_STRING_LEN + 1];
 void
     kcpu_init_brand (void);
+

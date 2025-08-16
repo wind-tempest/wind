@@ -1,5 +1,3 @@
-// kinb.c
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -17,3 +15,4 @@ unsigned char
 	__asm__ __volatile__("inb %1, %0" : "=a"(ret) : "Nd"(port));
 	return ret;
 }
+

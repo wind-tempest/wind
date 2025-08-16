@@ -1,5 +1,3 @@
-// serial.c
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -94,3 +92,4 @@ kbool
 	// If read value matches test value, port is available.
 	return (read_value == test_value);
 }
+
