@@ -31,4 +31,3 @@ double
 	else
 		return -K_M_PI_2 + kasin(ksqrt(1.0 - x * x));
 }
-

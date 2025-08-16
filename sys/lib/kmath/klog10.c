@@ -20,4 +20,3 @@ double
 	// Use the relationship: log10(x) = ln(x) / ln(10)
 	return klog(x) / klog(10);
 }
-

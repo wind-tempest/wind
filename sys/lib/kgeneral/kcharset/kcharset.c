@@ -17,4 +17,3 @@ const char kuppercase[]	   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const char kspecial_3[]	   = "[\\]^_`";
 const char klowercase[]	   = "abcdefghijklmnopqrstuvwxyz";
 const char kspecial_4[]	   = "{|}~";
-

@@ -420,4 +420,3 @@ void
     kputchar (int c) {
 	kvideo_putchar((char) c);
 }
-

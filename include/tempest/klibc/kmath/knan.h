@@ -10,4 +10,3 @@
 
 double
     knan (const char *tagp);
-

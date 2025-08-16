@@ -6,7 +6,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "init/kernel.h"
+#include "core/init/main.h"
 
 #include <tempest/drivers/font.h>
 #include <tempest/drivers/video.h>
@@ -231,4 +231,3 @@ void
 		kvideo_putchar(*s++);
 	}
 }
-

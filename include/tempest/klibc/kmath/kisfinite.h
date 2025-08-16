@@ -10,4 +10,3 @@
 
 int
     kisfinite (double x);
-

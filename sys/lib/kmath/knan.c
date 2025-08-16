@@ -23,4 +23,3 @@ double
 	u.u = 0x7ff8000000000000ULL;  // Quiet NaN
 	return u.d;
 }
-

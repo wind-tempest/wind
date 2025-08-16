@@ -60,4 +60,3 @@ double
 
 	return result;
 }
-

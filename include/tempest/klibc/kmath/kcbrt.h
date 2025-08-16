@@ -10,4 +10,3 @@
 
 double
     cbrt (double x);
-

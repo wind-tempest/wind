@@ -13,4 +13,3 @@
 extern kbool kuse_debug;
 
 extern struct framebuffer_info fb_info;
-

@@ -6,7 +6,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "init/kernel.h"
+#include "core/init/main.h"
 
 #include <tempest/drivers/serial.h>
 #include <tempest/klibc/kdebug/kdebug.h>
@@ -236,4 +236,3 @@ void
     kinfo (const char *message, const char *subsystem, const char *extra) {
 	kdbgtype("info", subsystem, message, extra);
 }
-

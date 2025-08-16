@@ -8,7 +8,7 @@
 
 #include "cpuid.h"
 
-#include "init/kernel.h"
+#include "core/init/main.h"
 
 #include <tempest/klibc/kstdio/kstddef.h>
 #include <tempest/klibc/kstdio/kstdint.h>
@@ -41,4 +41,3 @@ void
 
 	cpu_brand_string[CPU_BRAND_STRING_LEN] = '\0';
 }
-

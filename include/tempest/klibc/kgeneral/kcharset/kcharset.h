@@ -17,4 +17,3 @@ extern const char kuppercase[];
 extern const char kspecial_3[];
 extern const char klowercase[];
 extern const char kspecial_4[];
-

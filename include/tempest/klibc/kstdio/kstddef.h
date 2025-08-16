@@ -16,4 +16,3 @@
 
 typedef kuint64_t ksize_t;
 typedef long	  kptrdiff_t;
-

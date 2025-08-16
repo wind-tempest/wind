@@ -16,4 +16,3 @@ char *
 	kmemcpy(dest, src, len + 1);  // +1 for null terminator
 	return dest;
 }
-

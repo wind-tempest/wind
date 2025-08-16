@@ -10,4 +10,3 @@
 
 double
     kcos (double x);
-

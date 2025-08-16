@@ -41,4 +41,3 @@ char *
 
 	return rev;
 }
-

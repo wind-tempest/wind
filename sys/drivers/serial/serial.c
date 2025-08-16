@@ -92,4 +92,3 @@ kbool
 	// If read value matches test value, port is available.
 	return (read_value == test_value);
 }
-

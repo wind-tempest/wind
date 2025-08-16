@@ -13,4 +13,3 @@
 #include <tempest/drivers/keyboard.h>
 #include <tempest/drivers/serial.h>
 #include <tempest/drivers/video.h>
-

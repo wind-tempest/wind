@@ -64,4 +64,3 @@ kint32_t
 	kuint32_t rot	     = (kuint32_t) (prev_state >> 59u);
 	return (kint32_t) ((xorshifted >> rot) | (xorshifted << ((-rot) & 31)));
 }
-

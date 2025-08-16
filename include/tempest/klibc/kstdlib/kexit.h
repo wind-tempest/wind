@@ -10,4 +10,3 @@
 
 int
     kexit (int code);
-

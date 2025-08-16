@@ -10,4 +10,3 @@
 
 double
     kasin (double x);
-

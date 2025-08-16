@@ -10,4 +10,3 @@
 
 double
     kfmod (double x, double y);
-

@@ -32,4 +32,3 @@ double
 
 	return result;
 }
-

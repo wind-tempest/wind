@@ -10,4 +10,3 @@
 
 double
     expm1 (double x);
-

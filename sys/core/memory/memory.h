@@ -232,4 +232,3 @@ kbool
     user_copy_to_kernel (void *kernel_dest, const void *user_src, ksize_t size);
 kbool
     user_copy_from_kernel (void *user_dest, const void *kernel_src, ksize_t size);
-

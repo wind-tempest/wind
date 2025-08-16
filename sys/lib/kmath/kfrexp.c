@@ -31,4 +31,3 @@ double
 	// Calculate mantissa: x / 2^exp
 	return x / kpow(2.0, *exp);
 }
-

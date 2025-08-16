@@ -10,4 +10,3 @@
 
 double
     klog2 (double x);
-

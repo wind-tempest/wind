@@ -46,4 +46,3 @@ char *
 
 	return token_start;
 }
-

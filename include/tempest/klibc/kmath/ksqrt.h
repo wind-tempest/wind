@@ -10,4 +10,3 @@
 
 double
     ksqrt (double x);
-

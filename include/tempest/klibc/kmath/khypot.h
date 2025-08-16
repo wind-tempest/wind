@@ -10,4 +10,3 @@
 
 double
     khypot (double x, double y);
-

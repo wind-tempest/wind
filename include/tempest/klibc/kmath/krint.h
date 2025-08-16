@@ -10,4 +10,3 @@
 
 double
     rint (double x);
-

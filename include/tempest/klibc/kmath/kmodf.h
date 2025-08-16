@@ -10,4 +10,3 @@
 
 double
     modf (double x, double *iptr);
-

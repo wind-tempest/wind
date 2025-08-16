@@ -54,4 +54,3 @@ int
 
 	return (int) result;
 }
-

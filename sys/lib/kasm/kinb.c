@@ -15,4 +15,3 @@ unsigned char
 	__asm__ __volatile__("inb %1, %0" : "=a"(ret) : "Nd"(port));
 	return ret;
 }
-

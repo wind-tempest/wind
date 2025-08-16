@@ -25,4 +25,3 @@ char *
 
 	return dest;
 }
-

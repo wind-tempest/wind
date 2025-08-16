@@ -65,4 +65,3 @@ void
 		kpit_wait(ms);
 	}
 }
-

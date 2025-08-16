@@ -16,4 +16,3 @@
 #include <tempest/klibc/kstdio/kstdbool.h>
 #include <tempest/klibc/kstdio/kstddef.h>
 #include <tempest/klibc/kstdio/kstdint.h>
-

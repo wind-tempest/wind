@@ -10,4 +10,3 @@
 
 void
     koutw (unsigned short port, unsigned short val);
-

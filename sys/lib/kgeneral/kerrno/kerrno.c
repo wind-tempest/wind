@@ -9,4 +9,3 @@
 #include <tempest/klibc/kgeneral/kerrno/kerrno.h>
 
 int kerrno = 0;
-
