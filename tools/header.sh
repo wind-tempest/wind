@@ -22,8 +22,6 @@ find . -type f \( -name "*.c" -o -name "*.h" \) | while IFS= read -r file; do
         tmpfile="$file.tmp"
 
         {
-            echo "// $(basename "$file")"
-            echo ""
             echo "$license_header"
             echo ""
             cat "$file"

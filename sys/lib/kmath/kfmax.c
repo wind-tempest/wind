@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: LSL-1.2-or-later
+/*
+ * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
+ *
+ * Authors:
+ *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
+ */
+
+#include <tempest/klibc/kmath/kfmax.h>
+#include <tempest/klibc/kmath/kmath.h>
+
+double
+    kfmax (double x, double y) {
+	// Handle NaN cases
+	if ( x != x )
+		return y;
+	if ( y != y )
+		return x;
+
+	return x > y ? x : y;
+}

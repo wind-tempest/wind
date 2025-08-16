@@ -1,5 +1,3 @@
-// acpi.c
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
@@ -14,10 +12,12 @@
 #include <tempest/klibc/kunistd/ksleep.h>
 
 /*
- * THIS IS NOT ACPI YET! THIS IS A PLACEHOLDER FOR ACPI
- * SINCE I WILL POLISH THE TEMPEST KERNEL BEFORE I DECIDE
- * TO LOSE MY PRECIOUS TIME ON ACPI.
+ * This is not ACPI yet, this is a placeholder for ACPI.
+ * Since I will polish the Tempest kernel before I decide
+ * to lose my precious time on ACPI.
  */
+
+// ? Maybe use uACPI?
 
 // Define timeout for poweroff in milliseconds
 #define POWEROFF_TIMEOUT_MS 5000

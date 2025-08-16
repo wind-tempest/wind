@@ -1,8 +1,8 @@
-// shell.c
-
 // SPDX-License-Identifier: LSL-1.2-or-later
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
+ *
+ * Shell placeholder for early days of development...
  *
  * Authors:
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
@@ -10,11 +10,11 @@
 
 #include "shell.h"
 
+#include "core/init/main.h"
 #include "core/memory/memory.h"
 #include "core/panic/panic.h"
 #include "fs/ext2/ext2.h"
 #include "fs/vfs/vfs.h"
-#include "init/kernel.h"
 
 #include <tempest/drivers/driver.h>
 #include <tempest/klibc/kgeneral/kerrno/kerrno.h>
