@@ -1,5 +1,9 @@
-; Interrupt Service Routines for amd64
-; Basic ISR stubs
+; SPDX-License-Identifier: LSL-1.3
+;
+; Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
+;
+; Authors:
+;	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
 
 global isr0, isr1, isr2, isr3, isr4, isr5, isr6, isr7
 global isr8, isr9, isr10, isr11, isr12, isr13, isr14, isr15
