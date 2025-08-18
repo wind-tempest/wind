@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.2-or-later
+// SPDX-License-Identifier: LSL-1.3
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -18,3 +18,4 @@ double
 	// Use the relationship: acos(x) = π/2 - asin(x)
 	return K_M_PI_2 - kasin(x);
 }
+

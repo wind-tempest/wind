@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.2-or-later
+// SPDX-License-Identifier: LSL-1.3
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -14,3 +14,4 @@ kuint16_t
 	__asm__ __volatile__("inw %1, %0" : "=a"(val) : "Nd"(port));
 	return val;
 }
+

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.2-or-later
+// SPDX-License-Identifier: LSL-1.3
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -16,3 +16,4 @@ int
 	}
 	return *(const unsigned char *) s1 - *(const unsigned char *) s2;
 }
+

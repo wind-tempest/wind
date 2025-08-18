@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.2-or-later
+// SPDX-License-Identifier: LSL-1.3
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -40,3 +40,4 @@ const char *
 #ifdef __cplusplus
 }
 #endif
+

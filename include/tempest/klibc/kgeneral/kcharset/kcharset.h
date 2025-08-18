@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.2-or-later
+// SPDX-License-Identifier: LSL-1.3
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -17,3 +17,4 @@ extern const char kuppercase[];
 extern const char kspecial_3[];
 extern const char klowercase[];
 extern const char kspecial_4[];
+
