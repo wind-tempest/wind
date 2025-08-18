@@ -1,4 +1,4 @@
-; Interrupt Service Routines for x86_64
+; Interrupt Service Routines for amd64
 ; Basic ISR stubs
 
 global isr0, isr1, isr2, isr3, isr4, isr5, isr6, isr7

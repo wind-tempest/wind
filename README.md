@@ -7,14 +7,14 @@
     </a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-LSL-blue.svg" alt="License: LSL1.3"></a>
     <a href="docs/Main.md"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
-    <img src="https://img.shields.io/badge/platform-x86__64-lightgrey.svg" alt="Platform: x86_64">
+    <img src="https://img.shields.io/badge/platform-x86__64-lightgrey.svg" alt="Platform: amd64">
     <a href="https://github.com/wind-tempest/wind/actions/workflows/build.yml?branch=main">
       <img src="https://github.com/wind-tempest/wind/actions/workflows/build.yml/badge.svg?branch=main" alt="Build Status">
     </a>
   </p>
 </div>
 
-Wind/Tempest is a barebones POSIX-like OS. Built from scratch, for x86_64.
+Wind/Tempest is a barebones POSIX-like OS. Built from scratch, for amd64.
 
 ## Core Features
 

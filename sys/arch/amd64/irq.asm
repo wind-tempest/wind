@@ -1,4 +1,4 @@
-; Interrupt Request handlers for x86_64
+; Interrupt Request handlers for amd64
 ; IRQ stubs
 
 global irq0, irq1, irq2, irq3, irq4, irq5, irq6, irq7

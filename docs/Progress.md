@@ -35,7 +35,7 @@
 
 ## Hardware Support
 
-- [x] x86_64 support (mostly stable)
+- [x] Amd64 support (mostly stable)
 - [x] Drivers: video, serial, keyboard (more to come)
 - [ ] Networking stack
 - [ ] Sound support (optional/future)
