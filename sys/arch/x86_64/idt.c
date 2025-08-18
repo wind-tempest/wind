@@ -18,7 +18,7 @@
 #define PIC1_DATA 0x21
 #define PIC2_CMD  0xA0
 #define PIC2_DATA 0xA1
-#define PIC_EOI	  0x20	// End-of-Interrupt command.
+#define PIC_EOI   0x20  // End-of-Interrupt command.
 
 // External declarations for ISR and IRQ handlers.
 extern void
@@ -147,7 +147,7 @@ struct idt_ptr {
 } __attribute__((packed));
 
 static struct idt_entry idt[256];
-static struct idt_ptr	idtp;
+static struct idt_ptr   idtp;
 
 // Set up an IDT entry.
 static void
@@ -155,9 +155,9 @@ static void
 	idt[num].base_lo  = (kuint16_t) (base & 0xFFFF);
 	idt[num].base_mid = (kuint16_t) ((base >> 16) & 0xFFFF);
 	idt[num].base_hi  = (kuint32_t) ((base >> 32) & 0xFFFFFFFF);
-	idt[num].sel	  = sel;
-	idt[num].ist	  = 0;
-	idt[num].flags	  = flags;
+	idt[num].sel      = sel;
+	idt[num].ist      = 0;
+	idt[num].flags    = flags;
 	idt[num].reserved = 0;
 }
 
@@ -167,7 +167,7 @@ void
 	// Map interrupt numbers to kpanic codes.
 	int panic_code = PANIC_UNKNOWN_ERROR;
 
-	switch ( regs->int_no ) {
+	switch (regs->int_no) {
 		case 0:
 			panic_code = PANIC_DIVISION_BY_ZERO;
 			break;
@@ -228,15 +228,15 @@ void
 void
     irq_handler (registers_t *regs) {
 	// If a custom handler is registered, call it.
-	if ( regs->int_no >= 32 && regs->int_no <= 47 ) {
+	if (regs->int_no >= 32 && regs->int_no <= 47) {
 		irq_handler_t handler = irq_handlers[regs->int_no - 32];
-		if ( handler ) {
+		if (handler) {
 			handler(regs);
 		}
 	}
 
 	// Send End-of-Interrupt (EOI) to the PICs.
-	if ( regs->int_no >= 40 ) {
+	if (regs->int_no >= 40) {
 		koutb(PIC2_CMD, PIC_EOI);  // EOI to slave PIC.
 	}
 	koutb(PIC1_CMD, PIC_EOI);  // EOI to master PIC.
@@ -251,11 +251,11 @@ void
 	// Remap the PIC.
 	koutb(PIC1_CMD, 0x11);
 	koutb(PIC2_CMD, 0x11);
-	koutb(PIC1_DATA, 0x20);	 // Master PIC vector offset.
-	koutb(PIC2_DATA, 0x28);	 // Slave PIC vector offset.
-	koutb(PIC1_DATA, 0x04);	 // Tell Master PIC there is a slave PIC at IRQ2.
-	koutb(PIC2_DATA, 0x02);	 // Tell Slave PIC its cascade identity.
-	koutb(PIC1_DATA, 0x01);	 // 8086/88 (MCS-80/85) mode.
+	koutb(PIC1_DATA, 0x20);  // Master PIC vector offset.
+	koutb(PIC2_DATA, 0x28);  // Slave PIC vector offset.
+	koutb(PIC1_DATA, 0x04);  // Tell Master PIC there is a slave PIC at IRQ2.
+	koutb(PIC2_DATA, 0x02);  // Tell Slave PIC its cascade identity.
+	koutb(PIC1_DATA, 0x01);  // 8086/88 (MCS-80/85) mode.
 	koutb(PIC2_DATA, 0x01);
 	koutb(PIC1_DATA, 0x0);
 	koutb(PIC2_DATA, 0x0);

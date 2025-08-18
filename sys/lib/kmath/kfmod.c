@@ -11,12 +11,12 @@
 
 double
     kfmod (double x, double y) {
-	if ( y == 0.0 ) {
+	if (y == 0.0) {
 		// Return NaN for division by zero
 		return 0.0 / 0.0;
 	}
 
-	if ( x == 0.0 ) {
+	if (x == 0.0) {
 		return 0.0;
 	}
 

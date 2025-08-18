@@ -12,11 +12,11 @@
 double
     kasin (double x) {
 	// Check for invalid input
-	if ( x < -1.0 || x > 1.0 )
+	if (x < -1.0 || x > 1.0)
 		return knan("");
 
 	// Use Newton's method to find arcsin
-	if ( kfabs(x) < 0.5 ) {
+	if (kfabs(x) < 0.5) {
 		double y  = x;
 		double y2 = y * y;
 		double y3 = y2 * y;
@@ -26,7 +26,7 @@ double
 	}
 
 	// For values closer to ±1, use different approach
-	if ( x > 0 )
+	if (x > 0)
 		return K_M_PI_2 - kasin(ksqrt(1.0 - x * x));
 	else
 		return -K_M_PI_2 + kasin(ksqrt(1.0 - x * x));

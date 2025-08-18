@@ -13,46 +13,46 @@
 #include <tempest/klibc/kstdio/kstdint.h>
 
 // Memory constants
-#define PAGE_SIZE	      4096
-#define PAGE_SIZE_2MB	      (2 * 1024 * 1024)
-#define PAGE_SIZE_1GB	      (1024 * 1024 * 1024)
-#define PAGE_MASK	      (PAGE_SIZE - 1)
+#define PAGE_SIZE             4096
+#define PAGE_SIZE_2MB         (2 * 1024 * 1024)
+#define PAGE_SIZE_1GB         (1024 * 1024 * 1024)
+#define PAGE_MASK             (PAGE_SIZE - 1)
 #define PAGE_ALIGN_UP(addr)   (((addr) + PAGE_MASK) & ~PAGE_MASK)
 #define PAGE_ALIGN_DOWN(addr) ((addr) & ~PAGE_MASK)
 #define PAGE_INDEX(addr)      ((addr) >> 12)
 
 // Virtual memory layout
-#define KERNEL_BASE	 0xFFFFFFFF80000000
+#define KERNEL_BASE      0xFFFFFFFF80000000
 #define KERNEL_HEAP_BASE 0x01000000  // 16 MB, identity-mapped in early paging setup
 #define KERNEL_HEAP_SIZE (64 * 1024 * 1024)  // 64MB
-#define USER_SPACE_BASE	 0x0000000000400000
-#define USER_SPACE_SIZE	 (0x800000000000 - USER_SPACE_BASE)
+#define USER_SPACE_BASE  0x0000000000400000
+#define USER_SPACE_SIZE  (0x800000000000 - USER_SPACE_BASE)
 
 // Page table entry flags
-#define PAGE_PRESENT	   0x001
-#define PAGE_WRITABLE	   0x002
-#define PAGE_USER	   0x004
+#define PAGE_PRESENT       0x001
+#define PAGE_WRITABLE      0x002
+#define PAGE_USER          0x004
 #define PAGE_WRITETHROUGH  0x008
 #define PAGE_CACHE_DISABLE 0x010
-#define PAGE_ACCESSED	   0x020
-#define PAGE_DIRTY	   0x040
-#define PAGE_HUGE	   0x080
-#define PAGE_GLOBAL	   0x100
-#define PAGE_NX		   0x8000000000000000
+#define PAGE_ACCESSED      0x020
+#define PAGE_DIRTY         0x040
+#define PAGE_HUGE          0x080
+#define PAGE_GLOBAL        0x100
+#define PAGE_NX            0x8000000000000000
 
 // Memory allocation flags
-#define MEMORY_ZERO	  0x001
-#define MEMORY_USER	  0x002
-#define MEMORY_WRITABLE	  0x004
+#define MEMORY_ZERO       0x001
+#define MEMORY_USER       0x002
+#define MEMORY_WRITABLE   0x004
 #define MEMORY_EXECUTABLE 0x008
 
 // Physical memory regions
 typedef enum {
-	MEMORY_USABLE		= 1,
-	MEMORY_RESERVED		= 2,
+	MEMORY_USABLE           = 1,
+	MEMORY_RESERVED         = 2,
 	MEMORY_ACPI_RECLAIMABLE = 3,
-	MEMORY_ACPI_NVS		= 4,
-	MEMORY_BAD		= 5
+	MEMORY_ACPI_NVS         = 4,
+	MEMORY_BAD              = 5
 } memory_type_t;
 
 typedef struct {
@@ -65,23 +65,23 @@ typedef struct {
 // Page frame structure
 typedef struct page_frame {
 	struct page_frame *next;
-	kuint64_t	   physical_addr;
-	kuint32_t	   ref_count;
-	kbool		   is_free;
+	kuint64_t          physical_addr;
+	kuint32_t          ref_count;
+	kbool              is_free;
 } page_frame_t;
 
 // Virtual memory region
 typedef struct vm_region {
-	kuint64_t	  start;
-	kuint64_t	  end;
-	kuint64_t	  flags;
+	kuint64_t         start;
+	kuint64_t         end;
+	kuint64_t         flags;
 	struct vm_region *next;
 } vm_region_t;
 
 // Heap block header
 typedef struct heap_block {
-	ksize_t		   size;
-	kbool		   is_free;
+	ksize_t            size;
+	kbool              is_free;
 	struct heap_block *next;
 	struct heap_block *prev;
 } heap_block_t;

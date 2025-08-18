@@ -12,9 +12,9 @@
 double
     klog2 (double x) {
 	// Handle special cases
-	if ( kisnan(x) )
+	if (kisnan(x))
 		return knan("");
-	if ( x <= 0.0 )
+	if (x <= 0.0)
 		return knan("");
 
 	// Use the relationship: log2(x) = ln(x) / ln(2)

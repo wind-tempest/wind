@@ -14,29 +14,29 @@
 
 long
     kstrtol (const char *nptr, char **endptr, int base) {
-	const char *s	= nptr;
-	long	    acc = 0;
-	int	    c;
-	int	    neg = 0;
-	long	    cutoff;
-	int	    cutlim;
+	const char *s   = nptr;
+	long        acc = 0;
+	int         c;
+	int         neg = 0;
+	long        cutoff;
+	int         cutlim;
 
 	// skip whitespace
-	while ( kisspace((unsigned char) *s) )
+	while (kisspace((unsigned char) *s))
 		s++;
 
 	// sign
-	if ( *s == '-' ) {
+	if (*s == '-') {
 		neg = 1;
 		s++;
-	} else if ( *s == '+' ) {
+	} else if (*s == '+') {
 		s++;
 	}
 
 	// detect base if 0
-	if ( base == 0 ) {
-		if ( *s == '0' ) {
-			if ( s[1] == 'x' || s[1] == 'X' ) {
+	if (base == 0) {
+		if (*s == '0') {
+			if (s[1] == 'x' || s[1] == 'X') {
 				base = 16;
 				s += 2;
 			} else {
@@ -46,8 +46,8 @@ long
 		} else {
 			base = 10;
 		}
-	} else if ( base == 16 ) {
-		if ( s[0] == '0' && (s[1] == 'x' || s[1] == 'X') ) {
+	} else if (base == 16) {
+		if (s[0] == '0' && (s[1] == 'x' || s[1] == 'X')) {
 			s += 2;
 		}
 	}
@@ -56,26 +56,26 @@ long
 	cutoff = neg ? KLONG_MIN : KLONG_MAX;
 	cutlim = (int) (cutoff % base);
 	cutoff /= base;
-	if ( cutlim < 0 ) {
+	if (cutlim < 0) {
 		cutlim += base;
 		cutoff += 1;
 	}
 
 	// convert digits
-	for ( ;; s++ ) {
+	for (;; s++) {
 		c = (unsigned char) *s;
-		if ( kisdigit(c) )
+		if (kisdigit(c))
 			c -= '0';
-		else if ( kisalpha(c) )
+		else if (kisalpha(c))
 			c = ktoupper(c) - 'A' + 10;
 		else
 			break;
-		if ( c >= base )
+		if (c >= base)
 			break;
 
 		// check overflow
-		if ( neg ) {
-			if ( acc < cutoff || (acc == cutoff && c > cutlim) ) {
+		if (neg) {
+			if (acc < cutoff || (acc == cutoff && c > cutlim)) {
 				acc    = KLONG_MIN;
 				kerrno = KERANGE;
 				neg    = 0;  // to avoid negating again
@@ -84,7 +84,7 @@ long
 				acc -= c;
 			}
 		} else {
-			if ( acc > cutoff || (acc == cutoff && c > cutlim) ) {
+			if (acc > cutoff || (acc == cutoff && c > cutlim)) {
 				acc    = KLONG_MAX;
 				kerrno = KERANGE;
 				neg    = 0;  // to avoid negating again
@@ -95,7 +95,7 @@ long
 		}
 	}
 
-	if ( endptr )
+	if (endptr)
 		*endptr = (char *) (acc == 0 && s == nptr ? nptr : s);
 
 	return acc;

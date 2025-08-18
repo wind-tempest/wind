@@ -12,15 +12,15 @@
 double
     katan (double x) {
 	// Handle special cases
-	if ( kisnan(x) )
+	if (kisnan(x))
 		return knan("");
-	if ( kisinf(x) )
+	if (kisinf(x))
 		return x > 0 ? K_M_PI_2 : -K_M_PI_2;
-	if ( x == 0.0 )
+	if (x == 0.0)
 		return 0.0;
 
 	// Use series expansion for small values
-	if ( kfabs(x) < 1.0 ) {
+	if (kfabs(x) < 1.0) {
 		double x2 = x * x;
 		double x3 = x2 * x;
 		double x5 = x3 * x2;
@@ -30,7 +30,7 @@ double
 	}
 
 	// For large values, use atan(x) = π/2 - atan(1/x)
-	if ( x > 0 )
+	if (x > 0)
 		return K_M_PI_2 - katan(1.0 / x);
 	else
 		return -K_M_PI_2 - katan(1.0 / x);

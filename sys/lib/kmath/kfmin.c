@@ -12,9 +12,9 @@
 double
     kfmin (double x, double y) {
 	// Handle NaN cases
-	if ( x != x )
+	if (x != x)
 		return y;
-	if ( y != y )
+	if (y != y)
 		return x;
 
 	return x < y ? x : y;

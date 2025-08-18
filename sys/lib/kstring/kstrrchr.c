@@ -11,16 +11,16 @@
 
 const char *
     kstrrchr (const char *str, int c) {
-	if ( !str )
+	if (!str)
 		return KNULL;
 
-	const char  ch	 = (char) c;
+	const char  ch   = (char) c;
 	const char *last = KNULL;
 
 	do {
-		if ( *str == ch )
+		if (*str == ch)
 			last = str;
-	} while ( *str++ );
+	} while (*str++);
 
 	return last;
 }

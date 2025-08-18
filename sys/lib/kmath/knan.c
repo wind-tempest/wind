@@ -16,7 +16,7 @@ double
 
 	// Return a quiet NaN
 	union {
-		double		   d;
+		double             d;
 		unsigned long long u;
 	} u;
 

@@ -12,9 +12,9 @@
 double
     kexp2 (double x) {
 	// Handle special cases
-	if ( kisnan(x) )
+	if (kisnan(x))
 		return knan("");
-	if ( kisinf(x) )
+	if (kisinf(x))
 		return x > 0 ? K_INFINITY : 0.0;
 
 	// Use the relationship: exp2(x) = exp(x * ln(2))

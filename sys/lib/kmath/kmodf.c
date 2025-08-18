@@ -12,17 +12,17 @@
 double
     kmodf (double x, double *iptr) {
 	// Handle special cases
-	if ( kisnan(x) ) {
+	if (kisnan(x)) {
 		*iptr = knan("");
 		return knan("");
 	}
-	if ( kisinf(x) ) {
+	if (kisinf(x)) {
 		*iptr = x;
 		return 0.0;
 	}
 
 	// Extract integer part
-	if ( x >= 0.0 )
+	if (x >= 0.0)
 		*iptr = kfloor(x);
 	else
 		*iptr = kceil(x);

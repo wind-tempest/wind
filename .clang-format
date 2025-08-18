@@ -1,7 +1,7 @@
 BasedOnStyle: Google
 
 IndentWidth: 8
-UseTab: Always
+UseTab: ForIndentation
 TabWidth: 8
 IndentCaseLabels: true
 NamespaceIndentation: All
@@ -17,8 +17,8 @@ AlignAfterOpenBracket: Align
 ColumnLimit: 90
 MaxEmptyLinesToKeep: 1
 PenaltyReturnTypeOnItsOwnLine: 0
-PenaltyBreakAssignment: 2
-PenaltyBreakBeforeFirstCallParameter: 1
+PenaltyBreakAssignment: 5
+PenaltyBreakBeforeFirstCallParameter: 5
 
 BreakBeforeBraces: Attach
 BreakAfterReturnType: TopLevel
@@ -50,13 +50,6 @@ SpaceBeforeParensOptions:
   AfterIfMacros: true
   BeforeNonEmptyParentheses: false
 
-SpacesInParens: Custom
-SpacesInParensOptions:
-  InConditionalStatements: true
-  ExceptDoubleParentheses: false
-  InCStyleCasts: false
-  InEmptyParentheses: false
-  Other: false
 SpacesInContainerLiterals: false
 SpacesInAngles: false
 

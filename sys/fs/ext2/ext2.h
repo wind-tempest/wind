@@ -20,21 +20,21 @@ extern kbool is_mounted;
 
 #define EXT2_SUPERBLOCK_OFFSET 1024  // bytes from start of partition
 #define EXT2_SUPER_MAGIC       0xEF53
-#define EXT2_N_BLOCKS	       15  // Direct + indirect block ptrs
-#define EXT2_ROOT_INODE	       2
+#define EXT2_N_BLOCKS          15  // Direct + indirect block ptrs
+#define EXT2_ROOT_INODE        2
 
 // Error codes returned by driver functions
-#define EXT2_OK			0
-#define EXT2_ERR_IO		-1
-#define EXT2_ERR_BAD_MAGIC	-2
-#define EXT2_ERR_UNSUPPORTED	-3
+#define EXT2_OK                 0
+#define EXT2_ERR_IO             -1
+#define EXT2_ERR_BAD_MAGIC      -2
+#define EXT2_ERR_UNSUPPORTED    -3
 #define EXT2_ERR_PATH_NOT_FOUND -4
-#define EXT2_ERR_INVALID	-5
+#define EXT2_ERR_INVALID        -5
 
 // Superblock — stored at offset 1024 bytes from partition start
 typedef struct __attribute__((packed)) ext2_superblock {
-	kuint32_t inodes_count;	      // Total number of inodes
-	kuint32_t blocks_count;	      // Total number of blocks
+	kuint32_t inodes_count;       // Total number of inodes
+	kuint32_t blocks_count;       // Total number of blocks
 	kuint32_t r_blocks_count;     // Reserved blocks
 	kuint32_t free_blocks_count;  // Free blocks
 	kuint32_t free_inodes_count;  // Free inodes
@@ -66,17 +66,17 @@ typedef struct __attribute__((packed)) ext2_superblock {
 	kuint32_t feature_incompat;
 	kuint32_t feature_ro_compat;
 	kuint8_t  uuid[16];
-	char	  volume_name[16];
-	char	  last_mounted[64];
+	char      volume_name[16];
+	char      last_mounted[64];
 	kuint32_t algorithm_usage_bitmap;
 	// Fields beyond this are rarely needed for read-only support
 } ext2_superblock_t;
 
 // Block Group Descriptor (size 32 bytes)
 typedef struct __attribute__((packed)) ext2_group_desc {
-	kuint32_t block_bitmap;	 // Block bitmap block id
-	kuint32_t inode_bitmap;	 // Inode bitmap block id
-	kuint32_t inode_table;	 // Inode table starting block id
+	kuint32_t block_bitmap;  // Block bitmap block id
+	kuint32_t inode_bitmap;  // Inode bitmap block id
+	kuint32_t inode_table;   // Inode table starting block id
 	kuint16_t free_blocks_count;
 	kuint16_t free_inodes_count;
 	kuint16_t used_dirs_count;
@@ -112,7 +112,7 @@ typedef struct __attribute__((packed)) ext2_dir_entry {
 	kuint16_t rec_len;    // Directory entry length
 	kuint8_t  name_len;   // Name length
 	kuint8_t  file_type;  // EXT2_FT_...
-	char	  name[255];  // File name (not null-terminated)
+	char      name[255];  // File name (not null-terminated)
 } ext2_dir_entry_t;
 
 // File handle used by driver functions
@@ -129,9 +129,9 @@ typedef struct ext2_file {
 // Application supplies block-device callbacks (sector-based, 512-byte)
 void
     kext2_set_block_device (int (*read)(kuint64_t lba, kuint32_t count, void *buf),
-			    int (*write)(kuint64_t   lba,
-					 kuint32_t   count,
-					 const void *buf));
+                            int (*write)(kuint64_t   lba,
+                                         kuint32_t   count,
+                                         const void *buf));
 
 // Mount an EXT2 filesystem located at @base_lba. Returns EXT2_OK on success.
 int

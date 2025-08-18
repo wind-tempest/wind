@@ -11,15 +11,15 @@
 
 char *
     kstrncpy (char *dest, const char *src, ksize_t n) {
-	char	   *d = dest;
+	char       *d = dest;
 	const char *s = src;
 
-	while ( n && *s ) {
+	while (n && *s) {
 		*d++ = *s++;
 		n--;
 	}
 
-	while ( n-- ) {
+	while (n--) {
 		*d++ = '\0';
 	}
 

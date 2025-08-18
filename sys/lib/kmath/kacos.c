@@ -12,7 +12,7 @@
 double
     kacos (double x) {
 	// Check for invalid input
-	if ( x < -1.0 || x > 1.0 )
+	if (x < -1.0 || x > 1.0)
 		return knan("");
 
 	// Use the relationship: acos(x) = π/2 - asin(x)

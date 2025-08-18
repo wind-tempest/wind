@@ -50,12 +50,12 @@
 #include "ktrunc.h"
 
 // Mathematical constants
-#define K_M_E	     2.7182818284590452354   // e //
+#define K_M_E        2.7182818284590452354   // e //
 #define K_M_LOG2E    1.4426950408889634074   // log_2 e //
 #define K_M_LOG10E   0.43429448190325182765  // log_10 e //
-#define K_M_LN2	     0.69314718055994530942  // log_e 2 //
+#define K_M_LN2      0.69314718055994530942  // log_e 2 //
 #define K_M_LN10     2.30258509299404568402  // log_e 10 //
-#define K_M_PI	     3.14159265358979323846  // pi //
+#define K_M_PI       3.14159265358979323846  // pi //
 #define K_M_PI_2     1.57079632679489661923  // pi/2 //
 #define K_M_PI_4     0.78539816339744830962  // pi/4 //
 #define K_M_1_PI     0.31830988618379067154  // 1/pi //
@@ -72,7 +72,7 @@
 
 // Infinity and NaN constants
 #define K_INFINITY (1.0 / 0.0)
-#define K_NAN	   (0.0 / 0.0)
+#define K_NAN      (0.0 / 0.0)
 
 // Classification macros
 #define K_FP_NAN       0

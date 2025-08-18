@@ -12,11 +12,11 @@
 double
     kldexp (double x, int exp) {
 	// Handle special cases
-	if ( kisnan(x) )
+	if (kisnan(x))
 		return knan("");
-	if ( kisinf(x) )
+	if (kisinf(x))
 		return x;
-	if ( x == 0.0 )
+	if (x == 0.0)
 		return 0.0;
 
 	// Use the relationship: ldexp(x, exp) = x * 2^exp

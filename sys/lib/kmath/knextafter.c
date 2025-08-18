@@ -12,22 +12,22 @@
 double
     knextafter (double x, double y) {
 	// Handle special cases
-	if ( kisnan(x) || kisnan(y) )
+	if (kisnan(x) || kisnan(y))
 		return knan("");
-	if ( kisinf(x) )
+	if (kisinf(x))
 		return x;
 
 	// If x equals y, return y
-	if ( x == y )
+	if (x == y)
 		return y;
 
 	// Determine direction
 	int direction = (y > x) ? 1 : -1;
 
 	// For zero, return smallest subnormal in the direction of y
-	if ( x == 0.0 ) {
+	if (x == 0.0) {
 		union {
-			double		   d;
+			double             d;
 			unsigned long long u;
 		} u;
 

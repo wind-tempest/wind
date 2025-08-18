@@ -12,13 +12,13 @@
 double
     ktrunc (double x) {
 	// Handle special cases
-	if ( kisnan(x) )
+	if (kisnan(x))
 		return knan("");
-	if ( kisinf(x) )
+	if (kisinf(x))
 		return x;
 
 	// For positive numbers, truncate towards zero
-	if ( x >= 0.0 )
+	if (x >= 0.0)
 		return kfloor(x);
 	else
 		return kceil(x);

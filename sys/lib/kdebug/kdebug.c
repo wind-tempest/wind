@@ -26,10 +26,10 @@ const char *debug_type_message = "[    debug] ";
 
 void
     kduts (const char *s) {
-	if ( !kuse_debug ) {
+	if (!kuse_debug) {
 		return;
 	}
-	if ( !s || *s == '\0' )
+	if (!s || *s == '\0')
 		return;
 	serial_writes(debug_type_message);
 	serial_writes(s);
@@ -38,10 +38,10 @@ void
 
 int
     kdebugf (const char *format, ...) {
-	if ( !kuse_debug )
+	if (!kuse_debug)
 		return 0;
 
-	if ( !format || *format == '\0' )
+	if (!format || *format == '\0')
 		return 1;
 
 	va_list args;
@@ -51,8 +51,8 @@ int
 	serial_writes(debug_type_message);
 	count += (int) kstrlen(debug_type_message);
 
-	for ( const char *p = format; *p; ++p ) {
-		if ( *p != '%' ) {
+	for (const char *p = format; *p; ++p) {
+		if (*p != '%') {
 			serial_write(*p);
 			count++;
 			continue;
@@ -63,28 +63,28 @@ int
 		int left_align = 0;
 		int width      = 0;
 
-		if ( *p == '-' ) {
+		if (*p == '-') {
 			left_align = 1;
 			p++;
 		}
 
-		while ( *p >= '0' && *p <= '9' ) {
+		while (*p >= '0' && *p <= '9') {
 			width = width * 10 + (*p - '0');
 			p++;
 		}
 
-		switch ( *p ) {
+		switch (*p) {
 			case 's': {
-				const char *s	= k_va_arg(args, const char *);
-				int	    len = 0;
-				const char *t	= s;
-				while ( *t++ )
+				const char *s   = k_va_arg(args, const char *);
+				int         len = 0;
+				const char *t   = s;
+				while (*t++)
 					len++;
 
 				int pad = (width > len) ? (width - len) : 0;
 
-				if ( !left_align ) {
-					for ( int i = 0; i < pad; ++i ) {
+				if (!left_align) {
+					for (int i = 0; i < pad; ++i) {
 						serial_write(' ');
 						count++;
 					}
@@ -93,8 +93,8 @@ int
 				serial_writes(s);
 				count += len;
 
-				if ( left_align ) {
-					for ( int i = 0; i < pad; ++i ) {
+				if (left_align) {
+					for (int i = 0; i < pad; ++i) {
 						serial_write(' ');
 						count++;
 					}
@@ -107,7 +107,7 @@ int
 				char  buf[12];
 				char *ptr = buf;
 
-				if ( n < 0 ) {
+				if (n < 0) {
 					*ptr++ = '-';
 					n      = -n;
 				}
@@ -122,8 +122,8 @@ int
 
 			case 'x': {
 				unsigned int n = k_va_arg(args, unsigned int);
-				char	     buf[12];
-				char	    *end_ptr =
+				char         buf[12];
+				char        *end_ptr =
 				    kutoa(buf, buf + sizeof(buf) - 1, n, 16, 0);
 				*end_ptr = '\0';
 				serial_writes(buf);
@@ -132,18 +132,18 @@ int
 			}
 			case 'l': {
 				// Handle long/long long modifiers
-				if ( *(p + 1) == 'l' ) {
+				if (*(p + 1) == 'l') {
 					p++;  // Skip second 'l'
-					if ( *(p + 1) == 'x' ) {
+					if (*(p + 1) == 'x') {
 						p++;  // Skip 'x'
 						kuint64_t n = k_va_arg(args, kuint64_t);
-						char	  buf[20];
-						char	 *end_ptr =
+						char      buf[20];
+						char     *end_ptr =
 						    kutoa(buf,
-							  buf + sizeof(buf) - 1,
-							  (unsigned int) (n & 0xFFFFFFFF),
-							  16,
-							  0);
+						          buf + sizeof(buf) - 1,
+						          (unsigned int) (n & 0xFFFFFFFF),
+						          16,
+						          0);
 						*end_ptr = '\0';
 						serial_writes(buf);
 						count += (int) (end_ptr - buf);
@@ -183,20 +183,20 @@ int
 
 void
     kdbgtype (const char *type,
-	      const char *subsystem,
-	      const char *message,
-	      const char *extra) {
-	if ( !message || *message == '\0' )
+              const char *subsystem,
+              const char *message,
+              const char *extra) {
+	if (!message || *message == '\0')
 		return;
 
 	kprintf("[    %s", type);
 
-	if ( subsystem && *subsystem != '\0' )
+	if (subsystem && *subsystem != '\0')
 		kprintf("::%s", subsystem);
 
 	kprintf("] %s", message);
 
-	if ( extra && *extra != '\0' )
+	if (extra && *extra != '\0')
 		kprintf(": %s", extra);
 
 	kprintf("\n");
