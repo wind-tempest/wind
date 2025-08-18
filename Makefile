@@ -12,7 +12,7 @@ OBJDIR      := $(BUILD_DIR)/obj
 OUTDIR      := $(BUILD_DIR)/out
 ISODIR      := $(BUILD_DIR)/isodir
 BOOTDIR     := $(ISODIR)/boot
-PLATFORM    := x86_64
+PLATFORM    := amd64
 
 # Limine
 LIMINE_DIR   := stand/limine

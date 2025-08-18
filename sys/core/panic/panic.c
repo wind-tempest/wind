@@ -6,7 +6,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "arch/x86_64/registers.h"
+#include "arch/amd64/registers.h"
 #include "drivers/driver.h"
 
 #include <lib/kstdio/kstdio.h>

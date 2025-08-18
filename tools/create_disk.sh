@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# create_disk.sh — helper to create an EXT2 disk image for QEMU
+# create_disk.sh -- helper to create an EXT2 disk image for QEMU
 #
 # Usage: ./create_disk.sh [SIZE]
-#   SIZE — optional disk size (default 64M). Accepts any dd-compatible
+#   SIZE -- optional disk size (default 64M). Accepts any dd-compatible
 #           size suffix (e.g. 32M, 128M, 1G).
 #
 # The script produces build/disk.img, formatted with an empty EXT2

@@ -8,7 +8,7 @@
 
 #include "drivers/keyboard/keyboard.h"
 
-#include "arch/x86_64/idt.h"
+#include "arch/amd64/idt.h"
 
 #include <lib/kasm/kio.h>
 #include <lib/kstdio/kstdio.h>

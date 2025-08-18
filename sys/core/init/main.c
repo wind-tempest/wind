@@ -8,8 +8,8 @@
 
 #include "main.h"
 
-#include "arch/x86_64/cpuid.h"
-#include "arch/x86_64/idt.h"
+#include "arch/amd64/cpuid.h"
+#include "arch/amd64/idt.h"
 #include "core/memory/memory.h"
 #include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
