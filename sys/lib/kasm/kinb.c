@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kasm/kinb.h>
-#include <tempest/klibc/kasm/kio.h>
+#include <lib/kasm/kinb.h>
+#include <lib/kasm/kio.h>
 
 unsigned char
     kinb (unsigned short port) {
@@ -15,4 +15,3 @@ unsigned char
 	__asm__ __volatile__("inb %1, %0" : "=a"(ret) : "Nd"(port));
 	return ret;
 }
-

@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "arch/x86_64/registers.h"
+#include "arch/amd64/registers.h"
 
 // Panic error codes
 #define PANIC_UNKNOWN_ERROR       0
@@ -32,4 +32,3 @@
 // Panic function - halts the system with error information
 void
     kpanic (int code, registers_t *regs);
-

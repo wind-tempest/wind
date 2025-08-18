@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/katan.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/katan.h>
+#include <lib/kmath/kmath.h>
 
 double
     katan (double x) {
@@ -35,4 +35,3 @@ double
 	else
 		return -K_M_PI_2 - katan(1.0 / x);
 }
-

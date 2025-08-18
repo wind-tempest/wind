@@ -6,9 +6,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstring/kstrchr.h>
-#include <tempest/klibc/kstring/kstrtok.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstring/kstrchr.h>
+#include <lib/kstring/kstrtok.h>
 
 static char *strtok_save = KNULL;
 
@@ -46,4 +46,3 @@ char *
 
 	return token_start;
 }
-

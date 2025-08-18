@@ -7,14 +7,14 @@
  */
 
 #include "core/init/main.h"
+#include "drivers/serial/serial.h"
 
-#include <tempest/drivers/serial.h>
-#include <tempest/klibc/kdebug/kdebug.h>
-#include <tempest/klibc/kstdarg.h>
-#include <tempest/klibc/kstdio/kprint/kprint.h>
-#include <tempest/klibc/kstdio/kstrlen/kstrlen.h>
-#include <tempest/klibc/kstdlib/kutoa.h>
-#include <tempest/klibc/kstring/kstrcmp.h>
+#include <lib/kdebug/kdebug.h>
+#include <lib/kstdarg.h>
+#include <lib/kstdio/kprint/kprint.h>
+#include <lib/kstdio/kstrlen/kstrlen.h>
+#include <lib/kstdlib/kutoa.h>
+#include <lib/kstring/kstrcmp.h>
 
 /*
  * This debugging tool is only for early days of development. It is not
@@ -236,4 +236,3 @@ void
     kinfo (const char *message, const char *subsystem, const char *extra) {
 	kdbgtype("info", subsystem, message, extra);
 }
-

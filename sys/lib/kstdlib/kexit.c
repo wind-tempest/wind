@@ -6,12 +6,11 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstdio.h>
-#include <tempest/klibc/kstdlib/kexit.h>
-#include <tempest/klibc/kstdlib/kstdlib.h>
+#include <lib/kstdio/kstdio.h>
+#include <lib/kstdlib/kexit.h>
+#include <lib/kstdlib/kstdlib.h>
 
 int
     kexit (int code) {
 	return code;
 }
-

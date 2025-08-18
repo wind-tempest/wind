@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kacos.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kacos.h>
+#include <lib/kmath/kmath.h>
 
 double
     kacos (double x) {
@@ -18,4 +18,3 @@ double
 	// Use the relationship: acos(x) = π/2 - asin(x)
 	return K_M_PI_2 - kasin(x);
 }
-

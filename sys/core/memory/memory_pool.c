@@ -8,9 +8,9 @@
 
 #include "memory.h"
 
-#include <tempest/klibc/kdebug/kdebug.h>
-#include <tempest/klibc/kstdio/kstdio.h>
-#include <tempest/klibc/kstring/kstring.h>
+#include <lib/kdebug/kdebug.h>
+#include <lib/kstdio/kstdio.h>
+#include <lib/kstring/kstring.h>
 
 // Memory pool management
 memory_pool_t *
@@ -190,4 +190,3 @@ void
 		kfree(ptr);
 	}
 }
-

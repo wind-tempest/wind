@@ -6,11 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kisinf.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kisinf.h>
+#include <lib/kmath/kmath.h>
 
 int
     kisinf (double x) {
 	return x == 1.0 / 0.0 || x == -1.0 / 0.0;
 }
-

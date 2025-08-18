@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/klog2.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/klog2.h>
+#include <lib/kmath/kmath.h>
 
 double
     klog2 (double x) {
@@ -20,4 +20,3 @@ double
 	// Use the relationship: log2(x) = ln(x) / ln(2)
 	return klog(x) / K_M_LN2;
 }
-

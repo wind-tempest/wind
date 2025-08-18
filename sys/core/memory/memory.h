@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include <tempest/klibc/kstdio/kstdbool.h>
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstdio/kstdint.h>
+#include <lib/kstdio/kstdbool.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstdio/kstdint.h>
 
 // Memory constants
 #define PAGE_SIZE             4096
@@ -232,4 +232,3 @@ kbool
     user_copy_to_kernel (void *kernel_dest, const void *user_src, ksize_t size);
 kbool
     user_copy_from_kernel (void *user_dest, const void *kernel_src, ksize_t size);
-

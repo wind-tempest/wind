@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstdio/kstrnlen/kstrnlen.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstdio/kstrnlen/kstrnlen.h>
 
 ksize_t
     kstrnlen (const char *str, ksize_t maxlen) {
@@ -17,4 +17,3 @@ ksize_t
 	}
 	return len;
 }
-

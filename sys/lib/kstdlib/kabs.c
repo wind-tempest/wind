@@ -6,11 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdlib/kabs.h>
-#include <tempest/klibc/kstdlib/kstdlib.h>
+#include <lib/kstdlib/kabs.h>
+#include <lib/kstdlib/kstdlib.h>
 
 int
     kabs (int a) {
 	return a > 0 ? a : -a;
 }
-

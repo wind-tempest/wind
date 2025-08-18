@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kmath.h>
-#include <tempest/klibc/kmath/kmodf.h>
+#include <lib/kmath/kmath.h>
+#include <lib/kmath/kmodf.h>
 
 double
     kmodf (double x, double *iptr) {
@@ -30,4 +30,3 @@ double
 	// Return fractional part
 	return x - *iptr;
 }
-

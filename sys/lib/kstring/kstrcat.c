@@ -6,7 +6,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstring/kstrcat.h>
+#include <lib/kstring/kstrcat.h>
 
 char *
     kstrcat (char *dest, const char *src) {
@@ -29,4 +29,3 @@ char *
 	*end = '\0';
 	return dest;
 }
-

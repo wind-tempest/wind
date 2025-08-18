@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kcopysign.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kcopysign.h>
+#include <lib/kmath/kmath.h>
 
 double
     kcopysign (double x, double y) {
@@ -17,4 +17,3 @@ double
 		return -kfabs(x);
 	}
 }
-

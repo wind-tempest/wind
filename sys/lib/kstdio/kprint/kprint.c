@@ -6,9 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/drivers/driver.h>
-#include <tempest/klibc/kstdio/kstdio.h>
-#include <tempest/klibc/kstdlib/kutoa.h>
+#include "drivers/driver.h"
+
+#include <lib/kstdio/kstdio.h>
+#include <lib/kstdlib/kutoa.h>
 
 // ? I think this is... safe?
 void
@@ -420,4 +421,3 @@ void
     kputchar (int c) {
 	kvideo_putchar((char) c);
 }
-

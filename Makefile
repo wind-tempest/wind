@@ -12,10 +12,10 @@ OBJDIR      := $(BUILD_DIR)/obj
 OUTDIR      := $(BUILD_DIR)/out
 ISODIR      := $(BUILD_DIR)/isodir
 BOOTDIR     := $(ISODIR)/boot
-PLATFORM    := x86_64
+PLATFORM    := amd64
 
 # Limine
-LIMINE_DIR   := boot/limine
+LIMINE_DIR   := stand/limine
 LIMINE_FILES := $(LIMINE_DIR)/limine-bios.sys \
                 $(LIMINE_DIR)/limine-bios-cd.bin \
                 $(LIMINE_DIR)/limine-uefi-cd.bin \

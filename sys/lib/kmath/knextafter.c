@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kmath.h>
-#include <tempest/klibc/kmath/knextafter.h>
+#include <lib/kmath/kmath.h>
+#include <lib/kmath/knextafter.h>
 
 double
     knextafter (double x, double y) {
@@ -41,4 +41,3 @@ double
 	double epsilon = 1e-15;
 	return x + direction * epsilon * kfabs(x);
 }
-

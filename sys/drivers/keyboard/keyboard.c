@@ -6,11 +6,12 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "arch/x86_64/idt.h"
+#include "drivers/keyboard/keyboard.h"
 
-#include <tempest/drivers/keyboard.h>
-#include <tempest/klibc/kasm/kio.h>
-#include <tempest/klibc/kstdio/kstdio.h>
+#include "arch/amd64/idt.h"
+
+#include <lib/kasm/kio.h>
+#include <lib/kstdio/kstdio.h>
 
 #define KBD_DATA_PORT   0x60
 #define KBD_BUFFER_SIZE 256
@@ -110,4 +111,3 @@ void
     keyboard_init (void) {
 	register_irq_handler(1, keyboard_handler);
 }
-

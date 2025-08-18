@@ -6,11 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdlib/klabs.h>
-#include <tempest/klibc/kstdlib/kstdlib.h>
+#include <lib/kstdlib/klabs.h>
+#include <lib/kstdlib/kstdlib.h>
 
 long
     labs (long a) {
 	return a > 0 ? a : -a;
 }
-

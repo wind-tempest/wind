@@ -6,7 +6,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kgeneral/kctype/kctype.h>
+#include <lib/kgeneral/kctype/kctype.h>
 
 int
     kisupper (int c) {
@@ -77,4 +77,3 @@ int
     ktoupper (int c) {
 	return kislower(c) ? (c - 'a' + 'A') : c;
 }
-

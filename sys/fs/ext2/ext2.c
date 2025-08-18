@@ -10,8 +10,8 @@
 
 #include "core/memory/memory.h"
 
-#include <tempest/klibc/kstdio/kstdio.h>
-#include <tempest/klibc/kstring/kstring.h>
+#include <lib/kstdio/kstdio.h>
+#include <lib/kstring/kstring.h>
 
 static kuint64_t          g_base_lba = 0;  // Partition/LBA base of filesystem
 static ext2_superblock_t  g_superblock;
@@ -648,4 +648,3 @@ int
 	kfree(block_buf);
 	return (int) len;
 }
-

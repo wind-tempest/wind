@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kfmin.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kfmin.h>
+#include <lib/kmath/kmath.h>
 
 double
     kfmin (double x, double y) {
@@ -19,4 +19,3 @@ double
 
 	return x < y ? x : y;
 }
-

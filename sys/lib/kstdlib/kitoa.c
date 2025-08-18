@@ -6,9 +6,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kgeneral/kcharset/kcharset.h>
-#include <tempest/klibc/kstdlib/kitoa.h>
-#include <tempest/klibc/kstdlib/kstdlib.h>
+#include <lib/kgeneral/kcharset/kcharset.h>
+#include <lib/kstdlib/kitoa.h>
+#include <lib/kstdlib/kstdlib.h>
 
 char *
     kitoa (char *buf, char *end, long value, int base, int is_uppercase) {
@@ -58,4 +58,3 @@ char *
 
 	return rev;
 }
-

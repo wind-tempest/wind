@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kldexp.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kldexp.h>
+#include <lib/kmath/kmath.h>
 
 double
     kldexp (double x, int exp) {
@@ -22,4 +22,3 @@ double
 	// Use the relationship: ldexp(x, exp) = x * 2^exp
 	return x * kpow(2.0, exp);
 }
-

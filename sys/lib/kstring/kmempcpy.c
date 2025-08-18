@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstring/kmempcpy.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstring/kmempcpy.h>
 
 void *
     kmempcpy (void *dest, const void *src, ksize_t n) {
@@ -17,4 +17,3 @@ void *
 		d[i] = s[i];
 	return d + n;
 }
-

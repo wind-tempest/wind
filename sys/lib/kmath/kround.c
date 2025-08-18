@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kmath.h>
-#include <tempest/klibc/kmath/kround.h>
+#include <lib/kmath/kmath.h>
+#include <lib/kmath/kround.h>
 
 double
     kround (double x) {
@@ -17,4 +17,3 @@ double
 		return kceil(x - 0.5);
 	}
 }
-

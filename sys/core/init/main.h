@@ -8,9 +8,8 @@
 
 #pragma once
 
-#include <tempest/klibc/kstdio/kstdbool.h>
+#include <lib/kstdio/kstdbool.h>
 
 extern kbool kuse_debug;
 
 extern struct framebuffer_info fb_info;
-

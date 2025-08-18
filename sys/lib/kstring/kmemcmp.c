@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstring/kmemcmp.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstring/kmemcmp.h>
 
 int
     kmemcmp (const void *s1, const void *s2, ksize_t n) {
@@ -19,4 +19,3 @@ int
 	}
 	return 0;
 }
-

@@ -6,11 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kfabs.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kfabs.h>
+#include <lib/kmath/kmath.h>
 
 double
     kfabs (double x) {
 	return x < 0.0 ? -x : x;
 }
-

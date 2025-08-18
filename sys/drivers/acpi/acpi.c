@@ -6,10 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kasm/kio.h>
-#include <tempest/klibc/kdebug/kdebug.h>
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kunistd/ksleep.h>
+#include <lib/kasm/kio.h>
+#include <lib/kdebug/kdebug.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kunistd/ksleep.h>
 
 /*
  * This is not ACPI yet, this is a placeholder for ACPI.
@@ -42,4 +42,3 @@ void
 	// If reboot fails, log warning
 	kerror("Legacy reboot failed", "acpi", KNULL);
 }
-

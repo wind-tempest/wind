@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include <tempest/klibc/kstdio/kstdbool.h>
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstdio/kstdint.h>
+#include <lib/kstdio/kstdbool.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstdio/kstdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -155,4 +155,3 @@ int
 #ifdef __cplusplus
 }
 #endif
-

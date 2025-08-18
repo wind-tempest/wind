@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/klog1p.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/klog1p.h>
+#include <lib/kmath/kmath.h>
 
 double
     klog1p (double x) {
@@ -33,4 +33,3 @@ double
 	// For larger values, use log(1 + x)
 	return klog(1.0 + x);
 }
-
