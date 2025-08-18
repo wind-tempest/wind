@@ -11,12 +11,12 @@
 #include "arch/x86_64/cpuid.h"
 #include "arch/x86_64/idt.h"
 #include "core/memory/memory.h"
+#include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
 #include "shell/shell.h"
 
-#include <tempest/drivers/driver.h>
-#include <tempest/klibc/kdebug/kdebug.h>
-#include <tempest/klibc/kstdio/kprint/kprint.h>
+#include <lib/kdebug/kdebug.h>
+#include <lib/kstdio/kprint/kprint.h>
 
 kbool kuse_debug = kfalse;
 
@@ -152,4 +152,3 @@ void
 
 	kshell();
 }
-

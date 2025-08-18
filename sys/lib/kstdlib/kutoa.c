@@ -6,9 +6,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kgeneral/kcharset/kcharset.h>
-#include <tempest/klibc/kstdlib/kstdlib.h>
-#include <tempest/klibc/kstdlib/kutoa.h>
+#include <lib/kgeneral/kcharset/kcharset.h>
+#include <lib/kstdlib/kstdlib.h>
+#include <lib/kstdlib/kutoa.h>
 
 char *
     kutoa (char *buf, char *end, unsigned long value, int base, int is_uppercase) {
@@ -41,4 +41,3 @@ char *
 
 	return rev;
 }
-

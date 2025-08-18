@@ -6,11 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kasm/kio.h>
-#include <tempest/klibc/kasm/koutw.h>
+#include <lib/kasm/kio.h>
+#include <lib/kasm/koutw.h>
 
 void
     koutw (unsigned short port, unsigned short val) {
 	__asm__ __volatile__("outw %0, %1" : : "a"(val), "Nd"(port));
 }
-

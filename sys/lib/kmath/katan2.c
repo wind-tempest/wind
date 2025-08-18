@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/katan2.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/katan2.h>
+#include <lib/kmath/kmath.h>
 
 double
     katan2 (double y, double x) {
@@ -60,4 +60,3 @@ double
 
 	return result;
 }
-

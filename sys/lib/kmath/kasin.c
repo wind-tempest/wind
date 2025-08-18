@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kasin.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kasin.h>
+#include <lib/kmath/kmath.h>
 
 double
     kasin (double x) {
@@ -31,4 +31,3 @@ double
 	else
 		return -K_M_PI_2 + kasin(ksqrt(1.0 - x * x));
 }
-

@@ -6,11 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kisnan.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kisnan.h>
+#include <lib/kmath/kmath.h>
 
 int
     kisnan (double x) {
 	return x != x;
 }
-

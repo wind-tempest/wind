@@ -15,7 +15,7 @@ BOOTDIR     := $(ISODIR)/boot
 PLATFORM    := x86_64
 
 # Limine
-LIMINE_DIR   := boot/limine
+LIMINE_DIR   := stand/limine
 LIMINE_FILES := $(LIMINE_DIR)/limine-bios.sys \
                 $(LIMINE_DIR)/limine-bios-cd.bin \
                 $(LIMINE_DIR)/limine-uefi-cd.bin \

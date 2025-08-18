@@ -10,8 +10,8 @@
 
 #include "core/panic/panic.h"
 
-#include <tempest/klibc/kasm/kio.h>
-#include <tempest/klibc/kstdio/kstdio.h>
+#include <lib/kasm/kio.h>
+#include <lib/kstdio/kstdio.h>
 
 // PIC (Programmable Interrupt Controller) ports.
 #define PIC1_CMD  0x20
@@ -315,4 +315,3 @@ void
 	// Load the IDT.
 	__asm__ volatile("lidt %0" : : "m"(idtp));
 }
-

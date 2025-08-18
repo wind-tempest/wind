@@ -6,7 +6,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstring/kstrcmp.h>
+#include <lib/kstring/kstrcmp.h>
 
 int
     kstrcmp (const char *s1, const char *s2) {
@@ -16,4 +16,3 @@ int
 	}
 	return *(const unsigned char *) s1 - *(const unsigned char *) s2;
 }
-

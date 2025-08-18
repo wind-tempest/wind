@@ -6,7 +6,6 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kgeneral/kerrno/kerrno.h>
+#include <lib/kgeneral/kerrno/kerrno.h>
 
 int kerrno = 0;
-

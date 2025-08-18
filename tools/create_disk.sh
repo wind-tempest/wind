@@ -28,11 +28,6 @@ echo "[*] Creating disk image ($SIZE) at $IMAGE_PATH"
 dd if=/dev/zero of="$IMAGE_PATH" bs="$SIZE" count=0 seek=1
 
 echo "[*] Formatting image with EXT2 filesystem"
-#  -O none     : disable all optional features (keeps it at revision 0)
-#  -b 1024     : 1 KiB block size (matches driver defaults)
-#  -I 128      : inode size 128 bytes (rev 0 standard)
-# Enable default safe features (filetype) but disable journaling which our
-# read-only driver can't handle. Keep 1 KiB block, 128-byte inodes.
 mkfs.ext2 -F -q -O ^has_journal -b 1024 -I 128 "$IMAGE_PATH"
 
 # Remove lost+found directory from the image
@@ -41,23 +36,22 @@ if debugfs -R "ls /lost+found" "$IMAGE_PATH" >/dev/null 2>&1; then
   debugfs -w -R "rmdir /lost+found" "$IMAGE_PATH"
 fi
 
-MNT_DIR="build/mnt-$$"
-# If a folder named 'testfs' exists at repository root, copy its contents into
-# the image (recursively) using debugfs. This avoids needing sudo/loop mounts.
-if [[ -d "testfs" ]]; then
-  echo "[*] Copying contents of ./testfs into disk.img via debugfs"
-  # Iterate directories from shallowest to deepest to make sure parents exist first
-  # Create directories inside testfs/ (but not testfs/ itself)
-  find testfs -mindepth 1 -type d -print0 | while IFS= read -r -d '' dir; do
-    rel="${dir#testfs/}"
+# Copy contents from tests/testfs instead of ./testfs
+SOURCE_DIR="tests/testfs"
+if [[ -d "$SOURCE_DIR" ]]; then
+  echo "[*] Copying contents of $SOURCE_DIR into disk.img via debugfs"
+  
+  # Create directories first
+  find "$SOURCE_DIR" -mindepth 1 -type d -print0 | while IFS= read -r -d '' dir; do
+    rel="${dir#$SOURCE_DIR/}"
     debugfs -w -R "mkdir /$rel" "$IMAGE_PATH" >/dev/null 2>&1 || true
   done
 
-  # Copy files inside testfs/ (but not testfs/ itself)
-  find testfs -type f -print0 | while IFS= read -r -d '' file; do
-    rel="${file#testfs/}"
+  # Copy files
+  find "$SOURCE_DIR" -type f -print0 | while IFS= read -r -d '' file; do
+    rel="${file#$SOURCE_DIR/}"
     debugfs -w -R "write $file /$rel" "$IMAGE_PATH" >/dev/null 2>&1
   done
 else
-  echo "[*] No ./testfs directory found; skipping copy step."
+  echo "[*] No $SOURCE_DIR directory found; skipping copy step."
 fi

@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstdio/kstrlen/kstrlen.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstdio/kstrlen/kstrlen.h>
 
 ksize_t
     kstrlen (const char *str) {
@@ -19,4 +19,3 @@ ksize_t
 		s++;
 	return (ksize_t) (s - str);
 }
-

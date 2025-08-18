@@ -6,11 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kisfinite.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kisfinite.h>
+#include <lib/kmath/kmath.h>
 
 int
     kisfinite (double x) {
 	return !kisnan(x) && !kisinf(x);
 }
-

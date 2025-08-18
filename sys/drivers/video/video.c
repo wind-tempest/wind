@@ -6,13 +6,14 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "core/init/main.h"
+#include "drivers/video/video.h"
 
-#include <tempest/drivers/font.h>
-#include <tempest/drivers/video.h>
-#include <tempest/klibc/kdebug/kdebug.h>
-#include <tempest/klibc/kstdio/kstdbool.h>
-#include <tempest/klibc/kstdio/kstddef.h>
+#include "core/init/main.h"
+#include "drivers/video/font/font.h"
+
+#include <lib/kdebug/kdebug.h>
+#include <lib/kstdio/kstdbool.h>
+#include <lib/kstdio/kstddef.h>
 
 static volatile kuint32_t *framebuffer = KNULL;
 
@@ -231,4 +232,3 @@ void
 		kvideo_putchar(*s++);
 	}
 }
-

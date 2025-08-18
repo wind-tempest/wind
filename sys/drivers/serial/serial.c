@@ -6,10 +6,11 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/drivers/serial.h>
-#include <tempest/klibc/kasm/kio.h>
-#include <tempest/klibc/kstdio/kstdbool.h>
-#include <tempest/klibc/kstdlib/kitoa.h>
+#include "serial.h"
+
+#include <lib/kasm/kio.h>
+#include <lib/kstdio/kstdbool.h>
+#include <lib/kstdlib/kitoa.h>
 
 #define PORT 0x3f8  // COM1
 
@@ -92,4 +93,3 @@ kbool
 	// If read value matches test value, port is available.
 	return (read_value == test_value);
 }
-

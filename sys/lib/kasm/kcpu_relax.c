@@ -6,10 +6,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kasm/kcpu_relax.h>
+#include <lib/kasm/kcpu_relax.h>
 
 void
     kcpu_relax (void) {
 	__asm__ volatile("pause");
 }
-

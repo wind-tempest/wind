@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kcbrt.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kcbrt.h>
+#include <lib/kmath/kmath.h>
 
 double
     kcbrt (double x) {
@@ -40,4 +40,3 @@ double
 
 	return x < 0.0 ? -guess : guess;
 }
-

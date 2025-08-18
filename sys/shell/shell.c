@@ -13,16 +13,16 @@
 #include "core/init/main.h"
 #include "core/memory/memory.h"
 #include "core/panic/panic.h"
+#include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
 #include "fs/vfs/vfs.h"
 
-#include <tempest/drivers/driver.h>
-#include <tempest/klibc/kgeneral/kerrno/kerrno.h>
-#include <tempest/klibc/kstdio/kstdio.h>
-#include <tempest/klibc/kstdlib/kstdlib.h>
-#include <tempest/klibc/kstring/kstring.h>
-#include <tempest/klibc/ktime/ktime.h>
-#include <tempest/klibc/kunistd/kunistd.h>
+#include <lib/kgeneral/kerrno/kerrno.h>
+#include <lib/kstdio/kstdio.h>
+#include <lib/kstdlib/kstdlib.h>
+#include <lib/kstring/kstring.h>
+#include <lib/ktime/ktime.h>
+#include <lib/kunistd/kunistd.h>
 
 #define CMD_BUFFER_SIZE 512
 #define MAX_HISTORY     128

@@ -6,8 +6,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/drivers/font.h>
-#include <tempest/klibc/kstdio/kstdint.h>
+#include "drivers/video/font/font.h"
+
+#include <lib/kstdio/kstdint.h>
 
 // Font dimensions are 8x8
 const kuint32_t FONT_WIDTH  = 8;
@@ -143,4 +144,3 @@ const unsigned char font[128][8] = {
     {0x76, 0xDC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // U+007E (~)
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // U+007F
 };
-

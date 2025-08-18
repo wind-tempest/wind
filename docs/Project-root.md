@@ -10,7 +10,9 @@ This document is talking about Wind (Operating System) and Tempest (Kernel) sour
 boot/        - Default bootloader (Limine) configuration
     limine/  - Limine bootloader files
     ...
-testfs/      - Virtual hard drive used for filesystem testing
+tests/
+    testfs/  - Virtual hard drive used for filesystem testing
+    ...  
 docs/        - Documentation files
     ...
 include/     - Public header files
@@ -22,7 +24,7 @@ sys/         - Kernel source code
     fs/      - Filesystem implementation
     klibc/   - Kernel libc library
     shell/   - Hardcoded shell (placeholder)
-media/       - README image and other files
+share/       - README image and other files
     logo/    - Logo of Wind/Tempest
 	...
     screenshots/ - Screenshots of Wind/Tempest

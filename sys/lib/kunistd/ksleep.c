@@ -6,10 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kasm/kio.h>
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstdio/kstdint.h>
-#include <tempest/klibc/kunistd/ksleep.h>
+#include <lib/kasm/kio.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstdio/kstdint.h>
+#include <lib/kunistd/ksleep.h>
 
 volatile kuint64_t *hpet = (volatile kuint64_t *) 0xFED00000;
 
@@ -65,4 +65,3 @@ void
 		kpit_wait(ms);
 	}
 }
-

@@ -10,8 +10,8 @@
 
 #include "core/panic/panic.h"
 
-#include <tempest/klibc/kstdio/kstdio.h>
-#include <tempest/klibc/kstring/kstring.h>
+#include <lib/kstdio/kstdio.h>
+#include <lib/kstring/kstring.h>
 
 struct multiboot_tag {
 	kuint32_t type;
@@ -597,4 +597,3 @@ void
 		vm_unmap_page(addr + i * PAGE_SIZE);
 	}
 }
-

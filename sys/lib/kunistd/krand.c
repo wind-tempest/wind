@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstdbool.h>
-#include <tempest/klibc/kstdio/kstdint.h>
+#include <lib/kstdio/kstdbool.h>
+#include <lib/kstdio/kstdint.h>
 
 #define PCG32_MULT     6364136223846793005ULL
 #define PCG32_INIT_SEQ 0xDEADBEEFULL
@@ -64,4 +64,3 @@ kint32_t
 	kuint32_t rot        = (kuint32_t) (prev_state >> 59u);
 	return (kint32_t) ((xorshifted >> rot) | (xorshifted << ((-rot) & 31)));
 }
-

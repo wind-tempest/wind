@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kmath.h>
-#include <tempest/klibc/kmath/kpow.h>
+#include <lib/kmath/kmath.h>
+#include <lib/kmath/kpow.h>
 
 double
     kpow (double x, double y) {
@@ -54,4 +54,3 @@ double
 	// General case: use exp(y * log(x))
 	return kexp(y * klog(x));
 }
-

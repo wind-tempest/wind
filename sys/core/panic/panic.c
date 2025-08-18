@@ -7,12 +7,12 @@
  */
 
 #include "arch/x86_64/registers.h"
+#include "drivers/driver.h"
 
-#include <tempest/drivers/driver.h>
-#include <tempest/klibc/kstdio/kstdio.h>
-#include <tempest/klibc/kstdlib/kitoa.h>
-#include <tempest/klibc/kstring/kmemset.h>
-#include <tempest/klibc/kunistd/ksleep.h>
+#include <lib/kstdio/kstdio.h>
+#include <lib/kstdlib/kitoa.h>
+#include <lib/kstring/kmemset.h>
+#include <lib/kunistd/ksleep.h>
 
 // Panic error codes.
 #define PANIC_UNKNOWN_ERROR       0
@@ -201,4 +201,3 @@ void
 		__asm__ volatile("hlt");
 	}
 }
-

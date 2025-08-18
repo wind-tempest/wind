@@ -6,9 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/drivers/ata.h>
-#include <tempest/klibc/kasm/kio.h>
-#include <tempest/klibc/kstdio/kstddef.h>
+#include "drivers/ata/ata.h"
+
+#include <lib/kasm/kio.h>
+#include <lib/kstdio/kstddef.h>
 
 #define ATA_PRIMARY_IO   0x1F0
 #define ATA_PRIMARY_CTRL 0x3F6
@@ -95,4 +96,3 @@ int
 	}
 	return 0;
 }
-

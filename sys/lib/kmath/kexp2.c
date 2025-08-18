@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kexp2.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kexp2.h>
+#include <lib/kmath/kmath.h>
 
 double
     kexp2 (double x) {
@@ -20,4 +20,3 @@ double
 	// Use the relationship: exp2(x) = exp(x * ln(2))
 	return kexp(x * K_M_LN2);
 }
-

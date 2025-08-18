@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstring/kstrncpy.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstring/kstrncpy.h>
 
 char *
     kstrncpy (char *dest, const char *src, ksize_t n) {
@@ -25,4 +25,3 @@ char *
 
 	return dest;
 }
-

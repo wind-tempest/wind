@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstring/kstrncmp.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstring/kstrncmp.h>
 
 int
     kstrncmp (const char *s1, const char *s2, ksize_t n) {
@@ -21,4 +21,3 @@ int
 	}
 	return 0;
 }
-

@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kmath.h>
-#include <tempest/klibc/kmath/knan.h>
+#include <lib/kmath/kmath.h>
+#include <lib/kmath/knan.h>
 
 double
     knan (const char *tagp) {
@@ -23,4 +23,3 @@ double
 	u.u = 0x7ff8000000000000ULL;  // Quiet NaN
 	return u.d;
 }
-

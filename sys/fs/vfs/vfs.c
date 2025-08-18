@@ -10,8 +10,8 @@
 
 #include "fs/ext2/ext2.h"
 
-#include <tempest/klibc/kstdio/kstdio.h>
-#include <tempest/klibc/kstring/kstring.h>
+#include <lib/kstdio/kstdio.h>
+#include <lib/kstring/kstring.h>
 
 // TODO: Implement a redirect to ext2 to not use hardcode calls to ext2
 
@@ -118,4 +118,3 @@ int
 	kstrcpy(cwd_path, resolved);
 	return 0;
 }
-

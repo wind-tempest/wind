@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstring/kstrchr.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstring/kstrchr.h>
 
 char *
     kstrchr (const char *str, int c) {
@@ -24,4 +24,3 @@ char *
 
 	return KNULL;
 }
-

@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kfloor.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kfloor.h>
+#include <lib/kmath/kmath.h>
 
 double
     kfloor (double x) {
@@ -23,4 +23,3 @@ double
 		return (double) (int_part - 1);
 	}
 }
-

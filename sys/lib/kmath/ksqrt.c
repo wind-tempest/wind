@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kmath.h>
-#include <tempest/klibc/kmath/ksqrt.h>
+#include <lib/kmath/kmath.h>
+#include <lib/kmath/ksqrt.h>
 
 double
     ksqrt (double x) {
@@ -31,4 +31,3 @@ double
 
 	return guess;
 }
-

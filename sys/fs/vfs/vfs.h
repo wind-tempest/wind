@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <tempest/klibc/kstdio/kstddef.h>
+#include <lib/kstdio/kstddef.h>
 
 /*
  * Very small VFS helpers for current working directory handling.
@@ -33,4 +33,3 @@ void
 // Canonicalise path: resolves '.', '..', duplicate slashes; assumes input absolute or produced by vfs_resolve
 void
     vfs_normalize_path (const char *path, char *out, ksize_t size);
-

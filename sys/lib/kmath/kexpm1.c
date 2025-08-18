@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kexpm1.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kexpm1.h>
+#include <lib/kmath/kmath.h>
 
 double
     kexpm1 (double x) {
@@ -29,4 +29,3 @@ double
 	// For larger values, use exp(x) - 1
 	return kexp(x) - 1.0;
 }
-

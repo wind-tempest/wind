@@ -10,9 +10,9 @@
 
 #include "core/init/main.h"
 
-#include <tempest/klibc/kstdio/kstddef.h>
-#include <tempest/klibc/kstdio/kstdint.h>
-#include <tempest/klibc/kstring/kmemcpy.h>
+#include <lib/kstdio/kstddef.h>
+#include <lib/kstdio/kstdint.h>
+#include <lib/kstring/kmemcpy.h>
 
 #define CPUID_EXT_BASE 0x80000002
 
@@ -41,4 +41,3 @@ void
 
 	cpu_brand_string[CPU_BRAND_STRING_LEN] = '\0';
 }
-

@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kmath/kcos.h>
-#include <tempest/klibc/kmath/kmath.h>
+#include <lib/kmath/kcos.h>
+#include <lib/kmath/kmath.h>
 
 double
     kcos (double x) {
@@ -42,4 +42,3 @@ double
 
 	return result;
 }
-

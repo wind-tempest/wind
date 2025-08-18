@@ -6,11 +6,11 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <tempest/klibc/kgeneral/kctype/kctype.h>
-#include <tempest/klibc/kgeneral/kerrno/kerrno.h>
-#include <tempest/klibc/klimits.h>
-#include <tempest/klibc/kstdlib/katoi.h>
-#include <tempest/klibc/kstdlib/kstdlib.h>
+#include <lib/kgeneral/kctype/kctype.h>
+#include <lib/kgeneral/kerrno/kerrno.h>
+#include <lib/klimits.h>
+#include <lib/kstdlib/katoi.h>
+#include <lib/kstdlib/kstdlib.h>
 
 int
     katoi (const char *s) {
@@ -54,4 +54,3 @@ int
 
 	return (int) result;
 }
-
