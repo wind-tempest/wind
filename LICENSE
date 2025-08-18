@@ -47,19 +47,19 @@ The Liberty Software License (LSL), which was developed with the principles of r
 
 5. Liberty Clauses.
 
-    * 5.1. No Use for AI Systems.
+	* 5.1. No Use for AI Systems.
 
-        The Program and any derivative works may not be used, directly or indirectly, in any manner, to train, improve, validate, test, mine, or supply data to Artificial Intelligence or Machine Learning Systems ("AI Systems"), including but not limited to:
+		The Program and any derivative works may not be used, directly or indirectly, in any manner, to train, improve, validate, test, mine, or supply data to Artificial Intelligence or Machine Learning Systems ("AI Systems"), including but not limited to:
 
-        Collection, extraction, analysis, or incorporation of any part of the Program’s code, data, output, or documentation;
+		Collection, extraction, analysis, or incorporation of any part of the Program’s code, data, output, or documentation;
 
-        Providing the Program or its derivatives to third parties for the purpose of use in AI Systems;
+		Providing the Program or its derivatives to third parties for the purpose of use in AI Systems;
 
-        Inclusion of the Program in datasets, pipelines, libraries, or services that feed, train, or fine-tune AI models.
+		Inclusion of the Program in datasets, pipelines, libraries, or services that feed, train, or fine-tune AI models.
 
-        Any attempt to circumvent this restriction, including anonymization, encryption, combination with other software, or indirect usage, shall be considered a serious violation of this License.
+		Any attempt to circumvent this restriction, including anonymization, encryption, combination with other software, or indirect usage, shall be considered a serious violation of this License.
 
-        All users must maintain verifiable records of any interaction of the Program with automated systems or data processing and provide such records to the author upon request within 15 days. Failure to comply with this requirement will result in immediate termination of rights under this License, without prejudice to further legal action.
+		All users must maintain verifiable records of any interaction of the Program with automated systems or data processing and provide such records to the author upon request within 15 days. Failure to comply with this requirement will result in immediate termination of rights under this License, without prejudice to further legal action.
 
 	* 5.2. Anti-DRM.
 
