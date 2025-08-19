@@ -1,5 +1,5 @@
 # Compiler tools
-CC      := ccache clang
+CC      := clang
 NASM    := nasm
 LD      := ld
 RM      := rm -rf
