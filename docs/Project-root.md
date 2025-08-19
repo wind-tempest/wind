@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document is talking about Wind (Operating System) and Tempest (Kernel) source code root. Explaning the structure of Wind/Tempest.
+This document is talking about Wind (Operating System) and Tempest (Kernel) source code root.  Explaning the structure of Wind/Tempest.
 
 ```
 .github/     - GitHub Actions files for deployment

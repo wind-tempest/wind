@@ -51,5 +51,5 @@
 
 > **yes.**
 
-Because POSIX tree is too big and complex. It's a mess.  
+Because POSIX tree is too big and complex.  It's a mess.  
 Wind/Tempest is designed for humans, not for 40-year-old standards made for UNIX servers.

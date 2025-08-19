@@ -1,6 +1,6 @@
 # Wind/Tempest Commit Message Style Guide
 
-This document defines the commit message convention used in the Wind/Tempest project. Following this convention keeps the Git history clean and searchable.
+This document defines the commit message convention used in the Wind/Tempest project.  Following this convention keeps the Git history clean and searchable.
 
 ## Commit Structure
 
@@ -18,7 +18,7 @@ Signed-off-by: Name <email>
 ```
 kernel: Fix panic in division by zero
 
-There is no check in start_kernel() and if the value is 0 then we panic. This fixes that.
+There is no check in start_kernel() and if the value is 0 then we panic.  This fixes that.
 
 Signed-off-by: Russian95CrE <russian95@tempestfoundation.org>
 ```
