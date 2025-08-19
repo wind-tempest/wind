@@ -27,16 +27,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup ccache
-        uses: actions/cache@v4
-        with:
-          path: ~/.ccache
-          key: ${{ runner.os }}-ccache-${{ hashFiles('**/*.c', '**/*.h', '**/*.asm') }}
-          restore-keys: |
-            ${{ runner.os }}-ccache-
-
       - name: Install dependencies
-        run: sudo apt install -y clang gcc nasm xorriso ccache
+        run: sudo apt install -y clang gcc nasm xorriso
 
       - name: Build project (Release Mode)
         run: time make -j$(nproc) MODE=Release CC=${{ matrix.compiler }}
