@@ -17,6 +17,7 @@
 #include "fs/ext2/ext2.h"
 #include "fs/vfs/vfs.h"
 
+#include <lib/kdebug/kdebug.h>
 #include <lib/kgeneral/kerrno/kerrno.h>
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kstdlib.h>

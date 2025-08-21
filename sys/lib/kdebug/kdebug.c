@@ -203,7 +203,7 @@ void
 }
 
 void
-    kcritical (const char *message, const char *subsystem, const char *extra) {
+    kcrit (const char *message, const char *subsystem, const char *extra) {
 	kdbgtype("crit", subsystem, message, extra);
 }
 
@@ -223,7 +223,7 @@ void
 }
 
 void
-    kerror (const char *message, const char *subsystem, const char *extra) {
+    kerr (const char *message, const char *subsystem, const char *extra) {
 	kdbgtype("err", subsystem, message, extra);
 }
 

@@ -13,7 +13,7 @@ void
 int
     kdebugf (const char *format, ...);
 void
-    kcritical (const char *message, const char *subsystem, const char *extra);
+    kcrit (const char *message, const char *subsystem, const char *extra);
 void
     kalert (const char *message, const char *subsystem, const char *extra);
 void
@@ -21,7 +21,7 @@ void
 void
     kwarn (const char *message, const char *subsystem, const char *extra);
 void
-    kerror (const char *message, const char *subsystem, const char *extra);
+    kerr (const char *message, const char *subsystem, const char *extra);
 void
     knotice (const char *message, const char *subsystem, const char *extra);
 void
