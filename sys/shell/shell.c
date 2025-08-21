@@ -335,7 +335,7 @@ static void
 	if (args && *args) {
 		ksleep(katoi(args));
 	} else {
-		kputs("ZzzzzzzzzzzzzzzZZzZ...");
+		kputs("Zzzzzzzzzzzzzzzzzzz...");
 		kputs("Use: sleep <time in milliseconds>");
 	}
 }
