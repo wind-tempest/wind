@@ -6,12 +6,11 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <lib/kasm/kinb.h>
-#include <lib/kasm/kio.h>
+#include "arch/amd64/kasm/kinw.h"
 
-unsigned char
-    kinb (unsigned short port) {
-	unsigned char ret;
-	__asm__ __volatile__("inb %1, %0" : "=a"(ret) : "Nd"(port));
-	return ret;
+kuint16_t
+    kinw (kuint16_t port) {
+	kuint16_t val;
+	__asm__ __volatile__("inw %1, %0" : "=a"(val) : "Nd"(port));
+	return val;
 }

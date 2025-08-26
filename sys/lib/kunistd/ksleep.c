@@ -6,7 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <lib/kasm/kio.h>
+#include "arch/amd64/kasm/kio.h"
+
 #include <lib/kstdio/kstddef.h>
 #include <lib/kstdio/kstdint.h>
 #include <lib/kunistd/ksleep.h>

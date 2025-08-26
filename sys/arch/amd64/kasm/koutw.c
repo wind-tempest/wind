@@ -6,8 +6,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <lib/kasm/kio.h>
-#include <lib/kasm/koutw.h>
+#include "arch/amd64/kasm/koutw.h"
+
+#include "arch/amd64/kasm/kio.h"
 
 void
     koutw (unsigned short port, unsigned short val) {

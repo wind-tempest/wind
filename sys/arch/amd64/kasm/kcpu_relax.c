@@ -6,11 +6,9 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <lib/kasm/kinw.h>
+#include "arch/amd64/kasm/kcpu_relax.h"
 
-kuint16_t
-    kinw (kuint16_t port) {
-	kuint16_t val;
-	__asm__ __volatile__("inw %1, %0" : "=a"(val) : "Nd"(port));
-	return val;
+void
+    kcpu_relax (void) {
+	__asm__ volatile("pause");
 }

@@ -6,9 +6,11 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include <lib/kasm/kcpu_relax.h>
+#include "arch/amd64/kasm/koutb.h"
+
+#include "arch/amd64/kasm/kio.h"
 
 void
-    kcpu_relax (void) {
-	__asm__ volatile("pause");
+    koutb (unsigned short port, unsigned char val) {
+	__asm__ __volatile__("outb %0, %1" : : "a"(val), "Nd"(port));
 }
