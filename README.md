@@ -47,6 +47,20 @@ See [`docs/`](docs/Main.md).
 - Self-reliance: No hand-holding -- patches welcome.
 - Simplicity: Features exist because someone coded them.
 
+## Star History
+
+<p align="center">
+  <a href="https://star-history.com/#wind-tempest/wind&Date">
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=wind-tempest/wind&type=Date&theme=dark" onerror="this.src='https://api.star-history.com/svg?repos=wind-tempest/wind&type=Date'" />
+  </a>
+</p>
+
+## Contributors
+
+<a href="https://github.com/wind-tempest/wind/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=wind-tempest/wind" />
+</a>
+
 ## License
 
 Wind/Tempest is licensed under the Liberty Software License 1.3. See [LICENSE](LICENSE) for more details.
