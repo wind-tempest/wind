@@ -1,8 +1,6 @@
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
- *
- * Shell placeholder for early days of development...
  *
  * Authors:
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
@@ -517,3 +515,4 @@ static void
 
 	kpanic(code, KNULL);
 }
+

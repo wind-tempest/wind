@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -23,3 +23,4 @@ double
 	// Use the formula: ksqrt(x^2 + y^2)
 	return ksqrt(x * x + y * y);
 }
+

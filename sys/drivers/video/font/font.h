@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -16,3 +16,4 @@ extern const kuint32_t FONT_WIDTH;
 extern const kuint32_t FONT_HEIGHT;
 
 extern const unsigned char font[128][8];
+

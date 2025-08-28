@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -10,3 +10,4 @@
 
 double
     klog2 (double x);
+

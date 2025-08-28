@@ -3,7 +3,7 @@
 headers_bad=false
 
 read -r -d '' license_header <<'EOF'
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *

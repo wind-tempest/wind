@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -144,3 +144,4 @@ const unsigned char font[128][8] = {
     {0x76, 0xDC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // U+007E (~)
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // U+007F
 };
+

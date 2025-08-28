@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -32,3 +32,4 @@
 // Panic function - halts the system with error information
 void
     kpanic (int code, registers_t *regs);
+

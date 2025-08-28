@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -64,3 +64,4 @@ kint32_t
 	kuint32_t rot        = (kuint32_t) (prev_state >> 59u);
 	return (kint32_t) ((xorshifted >> rot) | (xorshifted << ((-rot) & 31)));
 }
+

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -41,3 +41,4 @@ double
 	double epsilon = 1e-15;
 	return x + direction * epsilon * kfabs(x);
 }
+

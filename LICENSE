@@ -1,7 +1,7 @@
-                                The Liberty Software License
-                                        Version 1.3
+The Liberty Software License
+	         Version 1.4
 
-                      All rights reserved. Tempest Foundation (C) 2025
+All rights reserved. Tempest Foundation (C) 2025
 
 This license document may be copied and distributed verbatim by anybody, but it cannot be altered.
 
@@ -19,15 +19,18 @@ The Liberty Software License (LSL), which was developed with the principles of r
 
 	* "The Program": Refers to any software or work licensed under this License.
 
-	* "You" or "User": Any individual or legal entity exercising rights under this License.
+	* "You" or "User": Any individual or legal entity exercising rights under this License
 
-	* "Source Code": The ideal format for program modifications, it includes all necessary files, scripts, documentation, configuration files, and instructions that a competent developer would need to completely comprehend, build, test, and alter the program without the need for extra proprietary, cryptic, or purposefully obfuscated materials.
+	* "Source code": The format for program modifications, it includes all files, scripts, documentation, configuration and instructions that a competent developer would need to completely
+	build, test and alter the program without the need for extra proprietary, cryptic or purposefully obfuscated materials.
+
+	* "DRM (Digital Rights Management)": Any technology, mechanism, or system that restricts, controls, or limits a user's ability to access, use, modify, share, or distribute the Program, including but not limited to license enforcement, online activation, encryption, or proprietary control mechanisms.
 
 	* "Object Code": Any version of the software that is not source code.
 
-	* "Modify": To alter the program or run it in accordance with it.
+	* "Modify": To change the program or run it consistent with it.
 
-	* "Distribute": To provide the program or copies of it to more individuals in whatever method. This license is expanded to cover contemporary issues like DRM and artificial intelligence by the "Liberty Clauses" in Section 6.
+	* "Distribute": To make copies of the software or the program itself available to other people in any way.  Section 6, the "Liberty Clauses," deals with modern topics like AI and DRM (Digital Rights Management)
 
 1. Basic Permissions.
 
@@ -35,7 +38,7 @@ The Liberty Software License (LSL), which was developed with the principles of r
 
 2. Conveying Modified Source Versions.
 
-	When you distribute a modified version, the entire work must be licensed under this License. You must retain all notices referencing this License.
+	When you distribute a modified version, the entire work must be licensed under this License.  You must retain all notices referencing this License.
 
 3. Network Use.
 
@@ -45,7 +48,7 @@ The Liberty Software License (LSL), which was developed with the principles of r
 
 	You may not impose any further restrictions on the exercise of the rights granted herein except those expressly permitted by this License.
 
-5. Liberty Clauses.
+5. Clauses of Liberty
 
 	* 5.1. No Use for AI Systems.
 
@@ -59,11 +62,11 @@ The Liberty Software License (LSL), which was developed with the principles of r
 
 		Any attempt to circumvent this restriction, including anonymization, encryption, combination with other software, or indirect usage, shall be considered a serious violation of this License.
 
-		All users must maintain verifiable records of any interaction of the Program with automated systems or data processing and provide such records to the author upon request within 15 days. Failure to comply with this requirement will result in immediate termination of rights under this License, without prejudice to further legal action.
+		All users must maintain verifiable records of any interaction of the Program with automated systems or data processing and provide such records to the author upon request within 15 days.  Failure to comply with this requirement will result in immediate termination of rights under this License, without prejudice to further legal action.
 
 	* 5.2. Anti-DRM.
 
-		No part of this software may be included in or linked to any system, service, or product that restricts users’ ability to use, study, modify, or share the Program by any means, including but not limited to Digital Restrictions Management (DRM), license enforcement, online activation, or proprietary control mechanisms.
+		No part of this software may be included in or linked to any system, service, or product that restricts users ability to use, study, modify, or share the Program by any means, including but not limited to Digital Restrictions Management (DRM), license enforcement, online activation, or proprietary control mechanisms.
 
 	* 5.3. Source Code Access.
 
@@ -71,11 +74,11 @@ The Liberty Software License (LSL), which was developed with the principles of r
 
 	* 5.4.1 Personal Use.
 
-		You may use, study, and modify the Program for personal, educational, or non-commercial purposes without being required to redistribute modifications.
+		For non-commercial, educational or personal use, you may study, use, and change the Program without having to redistribute changes.
 
 	* 5.4.2 Commercial Use.
 
-		Any commercial use of the Program or derivative works, including but not limited to selling, sublicensing, offering as a paid service, embedding in products sold or monetized, or any other use that directly or indirectly results in financial gain, requires that the complete corresponding source code be made publicly available under this License.
+		Any commercial use of the Program or derivative works, including but not limited to selling, sub-licensing, offering as a paid service, embedding in products sold or monetized, or any other use that directly or indirectly results in financial gain, requires that the complete corresponding source code be made publicly available under this License.
 
 6. No Additional Limitations.
 
@@ -89,16 +92,16 @@ The Liberty Software License (LSL), which was developed with the principles of r
 
 	Acceptance of this License is not required simply by using or owning a copy of the Program.
 
-9. Disclaimer of Warranty.
+9. Warranty Disclaimer.
 
-	The program is offered "as is," with no warranties, either explicit or implied.
+	The program is provided "as is,", there is no implicit or explicit warranties.
 
 10. Limitation of Liability.
 
 	In the event that the program causes injury, the developers will not be held responsible.
 
-11. The full agreement.
+11. Update of License.
 
-	The entire agreement between the parties about the Program is contained in this license.
+	This License can anytime be updated by the author.  You have the option of adopting the most recent version or sticking with the existing one.  Even if you choose not to use the updated version, all rights and responsibilities under this License are still in force.
 
-(END OF LICENSE)
+(LICENSE END)

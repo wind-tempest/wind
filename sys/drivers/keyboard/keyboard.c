@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.3
+// SPDX-License-Identifier: LSL-1.4
 /*
  * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
  *
@@ -111,3 +111,4 @@ void
     keyboard_init (void) {
 	register_irq_handler(1, keyboard_handler);
 }
+
