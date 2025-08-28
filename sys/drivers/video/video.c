@@ -8,8 +8,8 @@
 
 #include "drivers/video/video.h"
 
-#include "core/init/main.h"
 #include "drivers/video/font/font.h"
+#include "kern/init/main.h"
 
 #include <lib/kdebug/kdebug.h>
 #include <lib/kstdio/kstdbool.h>

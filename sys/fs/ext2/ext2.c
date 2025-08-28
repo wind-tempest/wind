@@ -8,7 +8,7 @@
 
 #include "ext2.h"
 
-#include "core/memory/memory.h"
+#include "kern/memory/memory.h"
 
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstring/kstring.h>

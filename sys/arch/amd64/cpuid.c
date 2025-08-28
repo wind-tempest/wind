@@ -8,7 +8,7 @@
 
 #include "cpuid.h"
 
-#include "core/init/main.h"
+#include "kern/init/main.h"
 
 #include <lib/kstdio/kstddef.h>
 #include <lib/kstdio/kstdint.h>

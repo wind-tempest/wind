@@ -6,8 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "core/init/main.h"
 #include "drivers/serial/serial.h"
+#include "kern/init/main.h"
 
 #include <lib/kdebug/kdebug.h>
 #include <lib/kstdarg.h>

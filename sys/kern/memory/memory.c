@@ -8,7 +8,7 @@
 
 #include "memory.h"
 
-#include "core/panic/panic.h"
+#include "kern/panic/panic.h"
 
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstring/kstring.h>

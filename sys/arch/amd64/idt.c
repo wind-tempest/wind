@@ -9,7 +9,7 @@
 #include "idt.h"
 
 #include "arch/amd64/kasm/kio.h"
-#include "core/panic/panic.h"
+#include "kern/panic/panic.h"
 
 #include <lib/kstdio/kstdio.h>
 

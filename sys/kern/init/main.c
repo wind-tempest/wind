@@ -10,9 +10,9 @@
 
 #include "arch/amd64/cpuid.h"
 #include "arch/amd64/idt.h"
-#include "core/memory/memory.h"
 #include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
+#include "kern/memory/memory.h"
 #include "shell/shell.h"
 
 #include <lib/kdebug/kdebug.h>
