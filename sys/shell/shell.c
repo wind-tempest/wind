@@ -136,7 +136,7 @@ void
 
 	while (ktrue) {
 		kprintf(
-		    "\n$[kernel] ");  // use kernel for determining it's kernel space (AKA: ring 0)
+		    "\n$[kern] ");  // use kernel for determining it's kernel space (AKA: ring 0)
 		cmd_ptr        = 0;
 		input_overflow = 0;
 
@@ -515,4 +515,3 @@ static void
 
 	kpanic(code, KNULL);
 }
-
