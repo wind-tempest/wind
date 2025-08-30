@@ -36,8 +36,8 @@ if debugfs -R "ls /lost+found" "$IMAGE_PATH" >/dev/null 2>&1; then
   debugfs -w -R "rmdir /lost+found" "$IMAGE_PATH"
 fi
 
-# Copy contents from tests/testfs instead of ./testfs
-SOURCE_DIR="tests/testfs"
+# Copy contents from tests/vfst instead of ./vfst
+SOURCE_DIR="tests/vfst"
 if [[ -d "$SOURCE_DIR" ]]; then
   echo "[*] Copying contents of $SOURCE_DIR into disk.img via debugfs"
   
