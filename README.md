@@ -32,10 +32,9 @@ See [`docs/`](docs/Main.md).
 
 ## Screenshots
 
-<p align="center">
-  <img src="share/screenshots/1.png" alt="yes" width="300">
-  <img src="share/screenshots/2.png" alt="no" width="300">
-</p>
+| Placeholder Shell and some commands for example  | Graphics Test using Framebuffer  |
+| ------------------------------------------------ | -------------------------------- |
+| ![1](share/screenshots/1.png)                    | ![2](share/screenshots/2.png)    |
 
 ## Philosophy
 
