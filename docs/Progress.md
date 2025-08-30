@@ -28,11 +28,6 @@
 - [ ] Module loading (e.g., drivers)
 - [ ] Package manager (not sure yet)
 
-## Compatibility Layers
-
-- [ ] NAVO (DOS compatibility layer)
-- [ ] BIOS / V86 support (if applicable)
-
 ## Hardware Support
 
 - [x] Amd64 support (mostly stable)
