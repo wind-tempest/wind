@@ -13,7 +13,7 @@ double
     ksqrt (double x) {
 	if (x < 0.0) {
 		// Return NaN for negative numbers
-		return 0.0 / 0.0;
+		return 0.0;
 	}
 
 	if (x == 0.0 || x == 1.0) {

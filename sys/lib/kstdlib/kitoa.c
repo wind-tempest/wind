@@ -23,9 +23,8 @@ char *
 
 	// Ensure we have at least 2 bytes for null terminator
 	if (buf >= end) {
-		if (buf < end) {
+		if (buf < end)
 			*buf = '\0';
-		}
 		return buf;
 	}
 
@@ -45,9 +44,8 @@ char *
 		value /= (unsigned) base;
 	}
 
-	if (negative && rev < end - 1) {
+	if (negative && rev < end - 1)
 		*rev++ = '-';
-	}
 
 	// Reverse string
 	for (char *p1 = buf, *p2 = rev - 1; p1 < p2; p1++, p2--) {

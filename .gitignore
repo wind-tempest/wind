@@ -1,6 +1,7 @@
 # Ignore the IDE folders
 .vscode/
 .idea/
+.codacy/
 
 # Ignore build folder
 build/
@@ -9,3 +10,6 @@ isodir/
 
 # Ignore tools generated files
 analyzed/
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md
