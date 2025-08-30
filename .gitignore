@@ -1,6 +1,7 @@
 # Ignore the IDE folders
 .vscode/
 .idea/
+.codacy/
 
 # Ignore build folder
 build/
