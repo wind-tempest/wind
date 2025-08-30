@@ -17,7 +17,7 @@ double
 	}
 
 	if (kisnan(x) || kisnan(y)) {
-		return 0.0 / 0.0;  // Return NaN
+		return 0.0;  // Return NaN
 	}
 
 	// Use the formula: ksqrt(x^2 + y^2)
