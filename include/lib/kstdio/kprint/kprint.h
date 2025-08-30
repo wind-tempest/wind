@@ -26,4 +26,3 @@ int
     kprintf (const char *format, ...);
 void
     kputchar (int c);
-

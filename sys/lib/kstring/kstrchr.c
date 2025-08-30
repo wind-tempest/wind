@@ -24,4 +24,3 @@ char *
 
 	return KNULL;
 }
-

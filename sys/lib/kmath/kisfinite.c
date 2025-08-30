@@ -13,4 +13,3 @@ int
     kisfinite (double x) {
 	return !kisnan(x) && !kisinf(x);
 }
-

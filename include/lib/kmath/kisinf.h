@@ -10,4 +10,3 @@
 
 int
     kisinf (double x);
-

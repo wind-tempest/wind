@@ -29,4 +29,3 @@ char *
 	*end = '\0';
 	return dest;
 }
-

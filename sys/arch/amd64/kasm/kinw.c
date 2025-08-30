@@ -14,4 +14,3 @@ kuint16_t
 	__asm__ __volatile__("inw %1, %0" : "=a"(val) : "Nd"(port));
 	return val;
 }
-

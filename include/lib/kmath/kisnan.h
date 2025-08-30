@@ -10,4 +10,3 @@
 
 int
     kisnan (double x);
-

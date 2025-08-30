@@ -58,4 +58,3 @@ char *
 
 	return rev;
 }
-

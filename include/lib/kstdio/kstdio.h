@@ -16,4 +16,3 @@
 #include <lib/kstdio/kstdbool.h>
 #include <lib/kstdio/kstddef.h>
 #include <lib/kstdio/kstdint.h>
-

@@ -17,4 +17,3 @@ double
 		return -kfabs(x);
 	}
 }
-

@@ -18,4 +18,3 @@ double
 	// Use the relationship: acos(x) = π/2 - asin(x)
 	return K_M_PI_2 - kasin(x);
 }
-

@@ -16,4 +16,3 @@ extern const kuint32_t FONT_WIDTH;
 extern const kuint32_t FONT_HEIGHT;
 
 extern const unsigned char font[128][8];
-

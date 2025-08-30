@@ -10,4 +10,3 @@
 
 double
     kacos (double x);
-

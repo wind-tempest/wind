@@ -10,4 +10,3 @@
 
 double
     kexp (double x);
-

@@ -76,4 +76,3 @@
 #define KWCHAR_MAX 4294967295U
 #define KWINT_MIN  0u
 #define KWINT_MAX  4294967295u
-

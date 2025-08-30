@@ -42,4 +42,3 @@ double
 
 	return result;
 }
-

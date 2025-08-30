@@ -48,4 +48,3 @@ double
 
 	return r;
 }
-

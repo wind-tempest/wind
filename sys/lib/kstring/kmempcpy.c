@@ -17,4 +17,3 @@ void *
 		d[i] = s[i];
 	return d + n;
 }
-

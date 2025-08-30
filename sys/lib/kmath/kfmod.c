@@ -25,4 +25,3 @@ double
 	double int_part = kfloor(quotient);
 	return x - y * int_part;
 }
-

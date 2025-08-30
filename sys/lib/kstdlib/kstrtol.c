@@ -100,4 +100,3 @@ long
 
 	return acc;
 }
-

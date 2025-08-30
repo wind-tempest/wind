@@ -40,4 +40,3 @@ const char *
 #ifdef __cplusplus
 }
 #endif
-

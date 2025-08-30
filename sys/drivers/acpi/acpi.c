@@ -43,4 +43,3 @@ void
 	// If reboot fails, log warning
 	kerr("Legacy reboot failed", "acpi", KNULL);
 }
-

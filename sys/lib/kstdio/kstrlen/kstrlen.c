@@ -19,4 +19,3 @@ ksize_t
 		s++;
 	return (ksize_t) (s - str);
 }
-

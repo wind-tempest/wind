@@ -19,4 +19,3 @@ double
 
 	return x > y ? x : y;
 }
-

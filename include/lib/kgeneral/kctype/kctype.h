@@ -36,4 +36,3 @@ int
     ktolower (int c);
 int
     ktoupper (int c);
-

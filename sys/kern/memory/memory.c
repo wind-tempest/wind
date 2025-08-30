@@ -597,4 +597,3 @@ void
 		vm_unmap_page(addr + i * PAGE_SIZE);
 	}
 }
-

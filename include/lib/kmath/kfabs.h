@@ -10,4 +10,3 @@
 
 double
     kfabs (double x);
-

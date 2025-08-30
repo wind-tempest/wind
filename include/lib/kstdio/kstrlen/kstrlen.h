@@ -12,4 +12,3 @@
 
 ksize_t
     kstrlen (const char *str);
-

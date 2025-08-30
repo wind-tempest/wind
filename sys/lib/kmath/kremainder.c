@@ -34,4 +34,3 @@ double
 
 	return r;
 }
-

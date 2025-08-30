@@ -24,4 +24,3 @@ const char *
 
 	return last;
 }
-

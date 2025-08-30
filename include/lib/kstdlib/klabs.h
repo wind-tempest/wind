@@ -10,4 +10,3 @@
 
 long
     klabs (long a);
-
