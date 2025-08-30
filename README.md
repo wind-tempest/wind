@@ -1,15 +1,17 @@
 <div align="center">
-  <h1>Wind / Tempest</h1>
-  <!-- Badges -->
+  <h1>Wind/Tempest Project</h1>
   <p>
     <a href="https://github.com/wind-tempest/wind/tree/main">
       <img src="https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=" alt="Most used language">
     </a>
-    <a href="LICENSE"><img src="https://img.shields.io/badge/license-LSL-blue.svg" alt="License: LSL-1.4"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-LSL-blue.svg" alt="LSL-1.4"></a>
     <a href="docs/Main.md"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
     <img src="https://img.shields.io/badge/platform-amd64-lightgrey.svg" alt="Platform: amd64">
     <a href="https://github.com/wind-tempest/wind/actions/workflows/build.yml?branch=main">
       <img src="https://github.com/wind-tempest/wind/actions/workflows/build.yml/badge.svg?branch=main" alt="Build Status">
+    </a>
+    <a href="https://app.codacy.com/gh/wind-tempest/wind/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
+      <img src="https://app.codacy.com/project/badge/Grade/7e4e0ee89b95461baf590c1ab5f96b20" alt="Code Quality">
     </a>
   </p>
 </div>
@@ -35,12 +37,6 @@ See [`docs/`](docs/Main.md).
   <img src="share/screenshots/2.png" alt="no" width="300">
 </p>
 
-## Why Wind?
-
-- No bloat.
-- No abstraction.
-- No excuses.
-
 ## Philosophy
 
 - Transparency: Inspect every line.
@@ -63,4 +59,4 @@ See [`docs/`](docs/Main.md).
 
 ## License
 
-Wind/Tempest is licensed under the Liberty Software License 1.4. See [LICENSE](LICENSE) for more details.
+Wind/Tempest is licensed under the `Liberty Software License 1.4`. See [LICENSE](LICENSE) for more details.
