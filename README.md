@@ -1,20 +1,11 @@
-<div align="center">
-  <h1>Wind/Tempest Project</h1>
-  <p>
-    <a href="https://github.com/wind-tempest/wind/tree/main">
-      <img src="https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=" alt="Most used language">
-    </a>
-    <a href="LICENSE"><img src="https://img.shields.io/badge/license-LSL-blue.svg" alt="LSL-1.4"></a>
-    <a href="docs/Main.md"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
-    <img src="https://img.shields.io/badge/platform-amd64-lightgrey.svg" alt="Platform: amd64">
-    <a href="https://github.com/wind-tempest/wind/actions/workflows/build.yml?branch=main">
-      <img src="https://github.com/wind-tempest/wind/actions/workflows/build.yml/badge.svg?branch=main" alt="Build Status">
-    </a>
-    <a href="https://app.codacy.com/gh/wind-tempest/wind/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
-      <img src="https://app.codacy.com/project/badge/Grade/7e4e0ee89b95461baf590c1ab5f96b20" alt="Code Quality">
-    </a>
-  </p>
-</div>
+# Wind/Tempest Project
+
+[![Most used language](https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=)](https://github.com/wind-tempest/wind/tree/main)
+[![License: LSL-1.4](https://img.shields.io/badge/license-LSL-blue.svg)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](docs/Main.md)
+[![Platform: amd64](https://img.shields.io/badge/platform-amd64-lightgrey.svg)]()
+[![Build Status](https://github.com/wind-tempest/wind/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/wind-tempest/wind/actions/workflows/build.yml?branch=main)
+[![Code Quality](https://app.codacy.com/project/badge/Grade/7e4e0ee89b95461baf590c1ab5f96b20)](https://app.codacy.com/gh/wind-tempest/wind/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 Wind/Tempest is a barebones POSIX-like OS. Built from scratch, for amd64.
 
