@@ -23,7 +23,6 @@ double
 	// Use Newton's method to find ln(x)
 	// We solve: e^y = x, so y = ln(x)
 	double y = 0.0;
-	double prev_y;
 
 	// Initial guess
 	if (x > 1.0) {
@@ -34,9 +33,9 @@ double
 
 	// Newton iteration: y_{n+1} = y_n + (x - e^y_n) / e^y_n
 	for (int i = 0; i < 10; i++) {
-		prev_y       = y;
-		double exp_y = kexp(y);
-		y            = y + (x - exp_y) / exp_y;
+		double prev_y = y;
+		double exp_y  = kexp(y);
+		y             = y + (x - exp_y) / exp_y;
 
 		if (kfabs(y - prev_y) < 1e-15) {
 			break;
