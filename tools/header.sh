@@ -12,7 +12,7 @@ read -r -d '' license_header <<'EOF'
  */
 EOF
 
-find . -type f \( -name "*.c" -o -name "*.h" \) | while IFS= read -r file; do
+while IFS= read -r -d '' file; do
     header=$(head -n 25 "$file")
 
     if ! echo "$header" | grep -q "Copyright (C) 2025 Tempest Foundation"; then
@@ -31,7 +31,8 @@ find . -type f \( -name "*.c" -o -name "*.h" \) | while IFS= read -r file; do
         mv "$tmpfile" "$file"
         echo "Fixed!"
     fi
-done
+
+done < <(find . -type f \( -name "*.c" -o -name "*.h" \) -print0)
 
 if [ "$headers_bad" = false ]; then
     echo "Nah, everything is good."
