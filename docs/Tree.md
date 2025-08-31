@@ -8,21 +8,26 @@
 ├── Applications
 │   ├── app1 -> ...
 │   ├── app2 -> ...
-│   └── app3 -> ...
+│   ├── app3 -> ...
+│   ├── SystemApps -> ...
+│   └── Utilities -> ...
 ├── System
 │   ├── lib
 │   ├── boot
 │   ├── mount
 │   ├── devices
-│   ├── temp
+│   ├── tmp
 │   ├── drivers
-│   ├── kernel
+│   ├── kern
 │   ├── logs
+│   │   ├── kern
+│   │   └── user
 │   ├── services
 │   └── config
 ├── Home
 │   ├── user1
 │   │   ├── .config
+│   │   ├── .local
 │   │   ├── Desktop
 │   │   ├── Documents
 │   │   ├── Downloads
@@ -31,6 +36,7 @@
 │   │   └── Videos
 │   ├── user2
 │   │   ├── .config
+│   │   ├── .local
 │   │   ├── Desktop
 │   │   ├── Documents
 │   │   ├── Downloads
@@ -39,6 +45,7 @@
 │   │   └── Videos
 │   └── user3
 │       ├── .config
+│       ├── .local
 │       ├── Desktop
 │       ├── Documents
 │       ├── Downloads
