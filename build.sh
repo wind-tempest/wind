@@ -2,14 +2,12 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-readonly BUILD_PATH="build"
 readonly TOOLS_PATH="tools"
 readonly CPU_COUNT="$(nproc)"
 
 # Colors
 readonly RED="\e[31m"
 readonly GREEN="\e[32m"
-readonly YELLOW="\e[33m"
 readonly RESET="\e[0m"
 readonly GRAY="\e[90m"
 
