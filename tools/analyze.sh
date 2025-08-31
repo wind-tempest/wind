@@ -21,7 +21,7 @@ find . -name "*.c" -print0 | while IFS= read -r -d '' file; do
     clang --analyze "${INCLUDE_PATHS[@]}" "$file" -Xanalyzer -analyzer-output=plist -o "$OUT_DIR/$out_file.plist"
 
     echo "Running clang-tidy on $file..."
-    clang-tidy "$file" "${INCLUDE_PATHS[@]}" -- -std=c11 "${CLANG_FLAGS[@]}" > "$OUT_DIR/$out_file.clang-tidy.txt" 2>&1
+    clang-tidy "$file" "${INCLUDE_PATHS[@]}" -- -std=c17 "${CLANG_FLAGS[@]}" > "$OUT_DIR/$out_file.clang-tidy.txt" 2>&1
 
     echo "Compiling $file with warnings hardcore..."
     clang "${CLANG_FLAGS[@]}" -fsyntax-only "$file"
