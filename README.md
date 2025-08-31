@@ -1,7 +1,7 @@
 # Wind/Tempest Project
 
 [![Most used language](https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=)](https://github.com/wind-tempest/wind/tree/main)
-[![License: LSL-1.4](https://img.shields.io/badge/license-LSL-blue.svg)](LICENSE)
+[![License: LSL-1.4](https://img.shields.io/badge/license-LSL-blue.svg)](LICENSE.md)
 [![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](docs/Main.md)
 [![Platform: amd64](https://img.shields.io/badge/platform-amd64-lightgrey.svg)](https://en.wikipedia.org/wiki/X86-64)
 [![Build Status](https://github.com/wind-tempest/wind/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/wind-tempest/wind/actions/workflows/build.yml?branch=main)
@@ -49,4 +49,4 @@ See [`docs/`](docs/Main.md).
 
 ## License
 
-Wind/Tempest is licensed under the `Liberty Software License 1.4`. See [LICENSE](LICENSE) for more details.
+Wind/Tempest is licensed under the `Liberty Software License 1.4`. See [LICENSE](LICENSE.md) for more details.
