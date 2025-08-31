@@ -4,7 +4,6 @@ IFS=$'\n\t'
 
 readonly BUILD_PATH="build"
 readonly TOOLS_PATH="tools"
-readonly ISO_PATH="${BUILD_PATH}/out/wind.iso"
 readonly CPU_COUNT="$(nproc)"
 
 # Colors

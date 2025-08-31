@@ -12,6 +12,6 @@ while IFS= read -r -d '' file; do
 done < <(find sys/ include/ -name "*.[ch]" -print0)
 
 files=$(find sys/ include/ -name "*.[ch]")
-if ! clang-format -i $files; then
+if ! clang-format -i "$files"; then
   echo -e "\n\e[33mclang-format failed!\e[0m\n"
 fi
