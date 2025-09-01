@@ -10,7 +10,8 @@
 #include <lib/kmath/kmath.h>
 
 double
-    kexp (double x) {
+    kexp (double x)
+{
 	// Handle special cases
 	if (x == 0.0)
 		return 1.0;
@@ -24,7 +25,8 @@ double
 	double term      = 1.0;
 	double factorial = 1.0;
 
-	for (int i = 1; i <= 20; i++) {
+	for (int i = 1; i <= 20; i++)
+	{
 		term *= x;
 		factorial *= i;
 		result += term / factorial;

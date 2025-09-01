@@ -10,7 +10,8 @@
 #include <lib/kstdio/kstrlen/kstrlen.h>
 
 ksize_t
-    kstrlen (const char *str) {
+    kstrlen (const char *str)
+{
 	if (!str)
 		return 0;
 

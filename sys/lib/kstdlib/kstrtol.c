@@ -13,7 +13,8 @@
 #include <lib/kstdlib/kstrtol.h>
 
 long
-    kstrtol (const char *nptr, char **endptr, int base) {
+    kstrtol (const char *nptr, char **endptr, int base)
+{
 	const char *s   = nptr;
 	long        acc = 0;
 	int         c;
@@ -26,28 +27,41 @@ long
 		s++;
 
 	// sign
-	if (*s == '-') {
+	if (*s == '-')
+	{
 		neg = 1;
 		s++;
-	} else if (*s == '+') {
+	}
+	else if (*s == '+')
+	{
 		s++;
 	}
 
 	// detect base if 0
-	if (base == 0) {
-		if (*s == '0') {
-			if (s[1] == 'x' || s[1] == 'X') {
+	if (base == 0)
+	{
+		if (*s == '0')
+		{
+			if (s[1] == 'x' || s[1] == 'X')
+			{
 				base = 16;
 				s += 2;
-			} else {
+			}
+			else
+			{
 				base = 8;
 				s++;
 			}
-		} else {
+		}
+		else
+		{
 			base = 10;
 		}
-	} else if (base == 16) {
-		if (s[0] == '0' && (s[1] == 'x' || s[1] == 'X')) {
+	}
+	else if (base == 16)
+	{
+		if (s[0] == '0' && (s[1] == 'x' || s[1] == 'X'))
+		{
 			s += 2;
 		}
 	}
@@ -56,13 +70,15 @@ long
 	cutoff = neg ? KLONG_MIN : KLONG_MAX;
 	cutlim = (int) (cutoff % base);
 	cutoff /= base;
-	if (cutlim < 0) {
+	if (cutlim < 0)
+	{
 		cutlim += base;
 		cutoff += 1;
 	}
 
 	// convert digits
-	for (;; s++) {
+	for (;; s++)
+	{
 		c = (unsigned char) *s;
 		if (kisdigit(c))
 			c -= '0';
@@ -74,21 +90,30 @@ long
 			break;
 
 		// check overflow
-		if (neg) {
-			if (acc < cutoff || (acc == cutoff && c > cutlim)) {
+		if (neg)
+		{
+			if (acc < cutoff || (acc == cutoff && c > cutlim))
+			{
 				acc    = KLONG_MIN;
 				kerrno = KERANGE;
 				neg    = 0;  // to avoid negating again
-			} else {
+			}
+			else
+			{
 				acc *= base;
 				acc -= c;
 			}
-		} else {
-			if (acc > cutoff || (acc == cutoff && c > cutlim)) {
+		}
+		else
+		{
+			if (acc > cutoff || (acc == cutoff && c > cutlim))
+			{
 				acc    = KLONG_MAX;
 				kerrno = KERANGE;
 				neg    = 0;  // to avoid negating again
-			} else {
+			}
+			else
+			{
 				acc *= base;
 				acc += c;
 			}

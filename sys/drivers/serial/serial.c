@@ -19,7 +19,8 @@ kbool
     is_serial_available (void);
 
 void
-    serial_init (void) {
+    serial_init (void)
+{
 	if (!is_serial_available())
 		return;         // Exit if serial not available.
 	koutb(PORT + 1, 0x00);  // Disable all interrupts.
@@ -33,12 +34,14 @@ void
 }
 
 static int
-    is_transmit_empty (void) {
+    is_transmit_empty (void)
+{
 	return kinb(PORT + 5) & 0x20;
 }
 
 void
-    serial_write (char a) {
+    serial_write (char a)
+{
 	if (!is_serial_available() || !a)
 		return;  // Exit if serial not available or if char is null.
 	while (is_transmit_empty() == 0)
@@ -47,16 +50,19 @@ void
 }
 
 void
-    serial_writes (const char *s) {
+    serial_writes (const char *s)
+{
 	if (!is_serial_available() || !s)
 		return;  // Exit if serial not available or if string is null.
-	while (*s) {
+	while (*s)
+	{
 		serial_write(*s++);
 	}
 }
 
 void
-    serial_write_int (int i) {
+    serial_write_int (int i)
+{
 	if (!is_serial_available())
 		return;  // Exit if serial not available.
 	char buf[16];
@@ -65,7 +71,8 @@ void
 }
 
 kbool
-    is_serial_available (void) {
+    is_serial_available (void)
+{
 	// Save original values.
 	unsigned char original_lcr = kinb(PORT + 3);
 	unsigned char original_mcr = kinb(PORT + 4);

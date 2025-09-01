@@ -1,8 +1,7 @@
 #!/usr/bin/bash
 
 find sys/ include/ -name "*.[ch]" -print0 \
-  | xargs -0 sed -i -E \
-    's#^([[:space:]]*)/\*\s*(.*?)\s*\*/\s*$#\1// \2#'
+  | xargs -0 sed -i -E 's#^([[:space:]]*)/\*\s*(.*?)\s*\*/\s*$#\1// \2#'
 
 while IFS= read -r -d '' file; do
   last_char=$(tail -c1 "$file")
@@ -11,7 +10,8 @@ while IFS= read -r -d '' file; do
   fi
 done < <(find sys/ include/ -name "*.[ch]" -print0)
 
-files=$(find sys/ include/ -name "*.[ch]")
-if ! clang-format -i "$files"; then
-  echo -e "\n\e[33mclang-format failed!\e[0m\n"
-fi
+find sys/ include/ -name "*.[ch]" -print0 | while IFS= read -r -d '' file; do
+  if ! clang-format -i "$file"; then
+    echo -e "\e[33mIgnored: $file (too long path or error)\e[0m"
+  fi
+done

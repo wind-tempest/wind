@@ -24,7 +24,8 @@
 #define POWEROFF_TIMEOUT_MS 5000
 
 void
-    kpoweroff (void) {
+    kpoweroff (void)
+{
 	koutw(0x604, 0x2000);   // Port 0x604
 	koutw(0xB004, 0x2000);  // Port 0xB004
 
@@ -34,7 +35,8 @@ void
 }
 
 void
-    kreboot (void) {
+    kreboot (void)
+{
 	while (kinb(0x64) & 0x02)
 		;           // Wait for keyboard controller ready
 	koutb(0x64, 0xFE);  // Send reset command

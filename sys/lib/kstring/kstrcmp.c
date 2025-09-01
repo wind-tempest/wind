@@ -9,8 +9,10 @@
 #include <lib/kstring/kstrcmp.h>
 
 int
-    kstrcmp (const char *s1, const char *s2) {
-	while (*s1 && (*s1 == *s2)) {
+    kstrcmp (const char *s1, const char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
 		s1++;
 		s2++;
 	}

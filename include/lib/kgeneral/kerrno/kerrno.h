@@ -9,10 +9,11 @@
 #pragma once
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-extern int kerrno;
+	extern int kerrno;
 
 // Error codes (POSIX / C Standard)
 #define KENONE        0   // No error information
@@ -79,8 +80,7 @@ extern int kerrno;
 #ifdef K__THREAD_LOCAL_ERRNO
 #	undef errno
 #	define errno (*K__errno_location())
-extern int *
-    K__errno_location (void);
+	extern int *K__errno_location (void);
 #endif
 
 #ifdef __cplusplus

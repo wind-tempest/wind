@@ -23,24 +23,29 @@ volatile kuint64_t *hpet = (volatile kuint64_t *) 0xFED00000;
 #define PIT_COMMAND  0x43
 
 void
-    khpet_enable (void) {
-	if ((hpet[HPET_GEN_CONF / 8] & HPET_GEN_CONF_ENABLE) == 0) {
+    khpet_enable (void)
+{
+	if ((hpet[HPET_GEN_CONF / 8] & HPET_GEN_CONF_ENABLE) == 0)
+	{
 		hpet[HPET_GEN_CONF / 8] |= HPET_GEN_CONF_ENABLE;
 	}
 }
 
 // PIT busy-wait ~1ms per tick
 void
-    kpit_wait (int ms) {
+    kpit_wait (int ms)
+{
 	koutb(PIT_COMMAND, 0x34);
 
 	kuint16_t reload = 1193;  // ~1 ms (1193182 Hz / 1000)
 	koutb(PIT_CHANNEL0, (kuint8_t) (reload & 0xFF));
 	koutb(PIT_CHANNEL0, (kuint8_t) ((reload >> 8) & 0xFF));
 
-	for (int i = 0; i < ms; i++) {
+	for (int i = 0; i < ms; i++)
+	{
 		kuint8_t prev = 0xFF, curr = 0;
-		do {
+		do
+		{
 			curr = kinb(PIT_CHANNEL0);
 			if (curr > prev)
 				break;
@@ -50,8 +55,10 @@ void
 }
 
 void
-    ksleep (int ms) {
-	if (hpet != KNULL) {
+    ksleep (int ms)
+{
+	if (hpet != KNULL)
+	{
 		khpet_enable();
 
 		kuint64_t period_fs = hpet[HPET_CAP_ID / 8] >> 32;
@@ -59,10 +66,13 @@ void
 
 		kuint64_t ticks = (kuint64_t) ms * 1000000000ULL / (period_fs / 1000);
 
-		while ((hpet[HPET_MAIN_COUNTER / 8] - start) < ticks) {
+		while ((hpet[HPET_MAIN_COUNTER / 8] - start) < ticks)
+		{
 			kcpu_relax();
 		}
-	} else {
+	}
+	else
+	{
 		kpit_wait(ms);
 	}
 }
