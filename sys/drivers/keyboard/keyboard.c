@@ -89,8 +89,8 @@ static void
 }
 
 /*
- * NOTE: This only works in single-tasking environments.
- * Needs locking or buffer protection for multi-tasking.
+ ! This only works in single-tasking environments.]
+ ! Needs locking or buffer protection for multi-tasking.
  */
 int
     getchar (void) {
