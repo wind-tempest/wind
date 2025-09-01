@@ -52,6 +52,10 @@
 │       ├── Music
 │       ├── Pictures
 │       └── Videos
+├── Volumes
+│	├── volume1
+│	├── volume2
+│	└── volume3
 ```
 
 ## Why is not POSIX?
