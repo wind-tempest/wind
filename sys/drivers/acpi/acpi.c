@@ -8,7 +8,7 @@
 
 #include "arch/amd64/kasm/kio.h"
 
-#include <lib/kdebug/kdebug.h>
+#include <debug/debug.h>
 #include <lib/kstdio/kstddef.h>
 #include <lib/kunistd/ksleep.h>
 
@@ -31,7 +31,7 @@ void
 
 	ksleep(POWEROFF_TIMEOUT_MS);
 	// If poweroff fails, log warning
-	kerr("Legacy poweroff failed", "acpi", KNULL);
+	debug.err("Legacy poweroff failed", "acpi", KNULL);
 }
 
 void
@@ -43,5 +43,5 @@ void
 
 	ksleep(POWEROFF_TIMEOUT_MS);
 	// If reboot fails, log warning
-	kerr("Legacy reboot failed", "acpi", KNULL);
+	debug.err("Legacy reboot failed", "acpi", KNULL);
 }

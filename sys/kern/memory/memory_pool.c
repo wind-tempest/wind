@@ -8,7 +8,7 @@
 
 #include "memory.h"
 
-#include <lib/kdebug/kdebug.h>
+#include <debug/debug.h>
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstring/kstring.h>
 
@@ -151,7 +151,7 @@ void
 
 	if (!small_pool || !medium_pool || !large_pool)
 	{
-		kwarn("Failed to create some memory pools", "mm", KNULL);
+		debug.warn("Failed to create some memory pools", " mm ", KNULL);
 	}
 }
 

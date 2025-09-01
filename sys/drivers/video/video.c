@@ -11,7 +11,7 @@
 #include "drivers/video/font/font.h"
 #include "kern/init/main.h"
 
-#include <lib/kdebug/kdebug.h>
+#include <debug/debug.h>
 #include <lib/kstdio/kstdbool.h>
 #include <lib/kstdio/kstddef.h>
 

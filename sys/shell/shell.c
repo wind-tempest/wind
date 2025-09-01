@@ -15,7 +15,7 @@
 #include "kern/memory/memory.h"
 #include "kern/panic/panic.h"
 
-#include <lib/kdebug/kdebug.h>
+#include <debug/debug.h>
 #include <lib/kgeneral/kerrno/kerrno.h>
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kstdlib.h>

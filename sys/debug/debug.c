@@ -7,25 +7,17 @@
  */
 
 #include "drivers/serial/serial.h"
-#include "kern/init/main.h"
 
-#include <lib/kdebug/kdebug.h>
-#include <lib/kstdarg.h>
-#include <lib/kstdio/kprint/kprint.h>
-#include <lib/kstdio/kstrlen/kstrlen.h>
+#include <debug/debug.h>
+#include <lib/kstdio/kstdbool.h>
+#include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kutoa.h>
-#include <lib/kstring/kstrcmp.h>
 
-/*
- * This debugging tool is only for early days of development. It is not
- * gonna be on the final release (AKA: v1.0.0) of the Wind (Operating System)
- * or Tempest (the Kernel).
- */
-
-const char *debug_type_message = "[    debug] ";
+kbool              kuse_debug         = kfalse;
+static const char *debug_type_message = "[    debug] ";
 
 void
-    kduts (const char *s)
+    d_uts (const char *s)
 {
 	if (!kuse_debug)
 	{
@@ -39,7 +31,7 @@ void
 }
 
 int
-    kdebugf (const char *format, ...)
+    d_printf (const char *format, ...)
 {
 	if (!kuse_debug)
 		return 0;
@@ -203,11 +195,11 @@ int
 	return count;
 }
 
-void
-    kdbgtype (const char *type,
-              const char *subsystem,
-              const char *message,
-              const char *extra)
+static void
+    d_dbgtype (const char *type,
+               const char *subsystem,
+               const char *message,
+               const char *extra)
 {
 	if (!message || *message == '\0')
 		return;
@@ -225,44 +217,54 @@ void
 	kprintf("\n");
 }
 
-void
-    kcrit (const char *message, const char *subsystem, const char *extra)
+static void
+    d_crit (const char *m, const char *s, const char *e)
 {
-	kdbgtype("crit", subsystem, message, extra);
+	d_dbgtype("crit", s, m, e);
 }
 
-void
-    kalert (const char *message, const char *subsystem, const char *extra)
+static void
+    d_alert (const char *m, const char *s, const char *e)
 {
-	kdbgtype("alert", subsystem, message, extra);
+	d_dbgtype("alert", s, m, e);
 }
 
-void
-    kemerg (const char *message, const char *subsystem, const char *extra)
+static void
+    d_emerg (const char *m, const char *s, const char *e)
 {
-	kdbgtype("emerg", subsystem, message, extra);
+	d_dbgtype("emerg", s, m, e);
 }
 
-void
-    kwarn (const char *message, const char *subsystem, const char *extra)
+static void
+    d_warn (const char *m, const char *s, const char *e)
 {
-	kdbgtype("warn", subsystem, message, extra);
+	d_dbgtype("warn", s, m, e);
 }
 
-void
-    kerr (const char *message, const char *subsystem, const char *extra)
+static void
+    d_err (const char *m, const char *s, const char *e)
 {
-	kdbgtype("err", subsystem, message, extra);
+	d_dbgtype("err", s, m, e);
 }
 
-void
-    knotice (const char *message, const char *subsystem, const char *extra)
+static void
+    d_notice (const char *m, const char *s, const char *e)
 {
-	kdbgtype("notice", subsystem, message, extra);
+	d_dbgtype("notice", s, m, e);
 }
 
-void
-    kinfo (const char *message, const char *subsystem, const char *extra)
+static void
+    d_info (const char *m, const char *s, const char *e)
 {
-	kdbgtype("info", subsystem, message, extra);
+	d_dbgtype("info", s, m, e);
 }
+
+struct Debug debug = {.crit   = d_crit,
+                      .alert  = d_alert,
+                      .emerg  = d_emerg,
+                      .warn   = d_warn,
+                      .err    = d_err,
+                      .notice = d_notice,
+                      .info   = d_info,
+                      .uts    = d_uts,
+                      .printf = d_printf};

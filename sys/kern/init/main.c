@@ -15,10 +15,8 @@
 #include "kern/memory/memory.h"
 #include "shell/shell.h"
 
-#include <lib/kdebug/kdebug.h>
+#include <debug/debug.h>
 #include <lib/kstdio/kprint/kprint.h>
-
-kbool kuse_debug = kfalse;
 
 // Multiboot2 header structure.
 struct multiboot_header
@@ -66,7 +64,7 @@ static void
 {
 	kuint64_t virt_addr = 0xFFFF800000000000ULL + phys_addr;
 
-	kdebugf("Mapping framebuffer 0x%llx -> 0x%llx\n", phys_addr, virt_addr);
+	debug.printf("Mapping framebuffer 0x%llx -> 0x%llx\n", phys_addr, virt_addr);
 
 	fb_info.addr = virt_addr;
 }
@@ -76,7 +74,7 @@ static void
 {
 	if (mb_info == KNULL)
 	{
-		kduts("mb_info is NULL!");
+		debug.uts("mb_info is NULL!");
 		return;
 	}
 
@@ -84,7 +82,7 @@ static void
 	kuint8_t *current    = (kuint8_t *) ((kuintptr_t) mb_info + 8);
 	kuint8_t *end        = (kuint8_t *) ((kuintptr_t) mb_info + total_size);
 
-	kduts("Parsing multiboot info...");
+	debug.uts("Parsing multiboot info...");
 
 	while (current < end)
 	{
@@ -92,19 +90,19 @@ static void
 
 		if (tag->size == 0)
 		{
-			kerr("Invalid tag size (0)", "multiboot", KNULL);
+			debug.err("Invalid tag size (0)", "multiboot", KNULL);
 			return;
 		}
 
 		switch ((multiboot_tag_type_t) tag->type)
 		{
 			case MULTIBOOT_TAG_TYPE_END:
-				kduts("End tag found. Parsing complete.");
+				debug.uts("End tag found. Parsing complete.");
 				return;
 
 			case MULTIBOOT_TAG_TYPE_FRAMEBUFFER:
 			{
-				kduts("Framebuffer tag found");
+				debug.uts("Framebuffer tag found");
 
 				struct multiboot_tag_framebuffer *fb_tag =
 				    (struct multiboot_tag_framebuffer *) tag;
@@ -135,7 +133,7 @@ static void
 		current += (tag->size + 7) & (kuint32_t) ~7;  // align to 8 bytes
 	}
 
-	kduts("Reached end of multiboot info (no END tag)");
+	debug.uts("Reached end of multiboot info (no END tag)");
 }
 
 void
@@ -155,7 +153,7 @@ void
 
 	kext2_set_block_device(ata_pio_read, KNULL);
 	if (kext2_mount(0) != 0)
-		kerr("EXT2 mount failed", "fs", KNULL);
+		debug.err("EXT2 mount failed", "fs", KNULL);
 
 	kcpu_init_brand();
 	keyboard_init();
