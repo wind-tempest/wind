@@ -19,20 +19,17 @@
 #include <lib/kstdio/kprint/kprint.h>
 
 // Multiboot2 header structure.
-struct multiboot_header
-{
+struct multiboot_header {
 	kuint32_t total_size;
 	kuint32_t reserved;
 } __attribute__((aligned(8)));
 
-struct multiboot_tag
-{
+struct multiboot_tag {
 	kuint32_t type;
 	kuint32_t size;
 } __attribute__((aligned(8)));
 
-struct multiboot_tag_framebuffer
-{
+struct multiboot_tag_framebuffer {
 	kuint32_t type;
 	kuint32_t size;
 	kuint64_t addr;
@@ -50,8 +47,7 @@ struct multiboot_tag_framebuffer
 	kuint8_t  reserved[2];
 } __attribute__((aligned(8)));
 
-typedef enum
-{
+typedef enum {
 	MULTIBOOT_TAG_TYPE_END         = 0,
 	MULTIBOOT_TAG_TYPE_FRAMEBUFFER = 8
 } multiboot_tag_type_t;
@@ -60,8 +56,7 @@ struct framebuffer_info fb_info = {0};
 
 // Map physical to virtual address
 static void
-    map_framebuffer_address (kuint64_t phys_addr)
-{
+    map_framebuffer_address (kuint64_t phys_addr) {
 	kuint64_t virt_addr = 0xFFFF800000000000ULL + phys_addr;
 
 	debug.printf("Mapping framebuffer 0x%llx -> 0x%llx\n", phys_addr, virt_addr);
@@ -70,10 +65,8 @@ static void
 }
 
 static void
-    parse_multiboot_info (void *mb_info)
-{
-	if (mb_info == KNULL)
-	{
+    parse_multiboot_info (void *mb_info) {
+	if (mb_info == KNULL) {
 		debug.uts("mb_info is NULL!");
 		return;
 	}
@@ -84,24 +77,20 @@ static void
 
 	debug.uts("Parsing multiboot info...");
 
-	while (current < end)
-	{
+	while (current < end) {
 		struct multiboot_tag *tag = (struct multiboot_tag *) current;
 
-		if (tag->size == 0)
-		{
+		if (tag->size == 0) {
 			debug.err("Invalid tag size (0)", "multiboot", KNULL);
 			return;
 		}
 
-		switch ((multiboot_tag_type_t) tag->type)
-		{
+		switch ((multiboot_tag_type_t) tag->type) {
 			case MULTIBOOT_TAG_TYPE_END:
 				debug.uts("End tag found. Parsing complete.");
 				return;
 
-			case MULTIBOOT_TAG_TYPE_FRAMEBUFFER:
-			{
+			case MULTIBOOT_TAG_TYPE_FRAMEBUFFER: {
 				debug.uts("Framebuffer tag found");
 
 				struct multiboot_tag_framebuffer *fb_tag =
@@ -137,8 +126,7 @@ static void
 }
 
 void
-    start_kernel (void *mb_info)
-{
+    start_kernel (void *mb_info) {
 	idt_init();
 	serial_init();
 

@@ -10,8 +10,7 @@
 
 extern struct Debug debug;
 
-struct Debug
-{
+struct Debug {
 	void (*crit)(const char *, const char *, const char *);
 	void (*alert)(const char *, const char *, const char *);
 	void (*emerg)(const char *, const char *, const char *);

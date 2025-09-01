@@ -10,8 +10,7 @@
 #include <lib/kmath/kmath.h>
 
 double
-    kacos (double x)
-{
+    kacos (double x) {
 	// Check for invalid input
 	if (x < -1.0 || x > 1.0)
 		return knan("");

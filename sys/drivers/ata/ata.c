@@ -39,8 +39,7 @@
 #define ATA_CMD_READ_SECTORS 0x20
 
 static inline void
-    io_wait (void)
-{
+    io_wait (void) {
 	// 400ns delay by reading alternate-status port 4 times
 	for (int i = 0; i < 4; i++)
 		(void) kinb(ATA_PRIMARY_CTRL);
@@ -48,8 +47,7 @@ static inline void
 
 // Poll until BSY=0 and either DRQ=1 or ERR=1. Return 0 on ready, -1 on error
 static int
-    ata_poll (void)
-{
+    ata_poll (void) {
 	kuint8_t status;
 	// Initial delay
 	io_wait();
@@ -63,16 +61,14 @@ static int
 }
 
 int
-    ata_pio_read (kuint64_t lba, kuint32_t count, void *buf)
-{
+    ata_pio_read (kuint64_t lba, kuint32_t count, void *buf) {
 	if (count == 0 || buf == KNULL)
 		return -1;
 	if (lba > 0x0FFFFFFF)  // 28-bit limit
 		return -1;
 
 	kuint8_t *ptr = (kuint8_t *) buf;
-	for (kuint32_t i = 0; i < count; i++)
-	{
+	for (kuint32_t i = 0; i < count; i++) {
 		kuint32_t cur_lba = (kuint32_t) (lba + i);
 
 		// Select drive + LBA bits 24-27
@@ -92,8 +88,7 @@ int
 			return -1;
 
 		// Transfer 256 words (512 bytes)
-		for (int w = 0; w < 256; w++)
-		{
+		for (int w = 0; w < 256; w++) {
 			kuint16_t data = kinw(ATA_PRIMARY_IO + ATA_REG_DATA);
 			ptr[0]         = (kuint8_t) data;
 			ptr[1]         = (kuint8_t) (data >> 8);

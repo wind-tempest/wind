@@ -20,7 +20,7 @@ PenaltyReturnTypeOnItsOwnLine: 0
 PenaltyBreakAssignment: 5
 PenaltyBreakBeforeFirstCallParameter: 5
 
-BreakBeforeBraces: Allman
+BreakBeforeBraces: Attach
 BreakAfterReturnType: TopLevel
 BreakConstructorInitializers: BeforeComma
 ConstructorInitializerAllOnOneLineOrOnePerLine: true

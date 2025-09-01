@@ -125,14 +125,12 @@ extern void *isr_stub_table[];
 static irq_handler_t irq_handlers[16];
 
 void
-    register_irq_handler (int irq, irq_handler_t handler)
-{
+    register_irq_handler (int irq, irq_handler_t handler) {
 	irq_handlers[irq] = handler;
 }
 
 // IDT entry structure.
-struct idt_entry
-{
+struct idt_entry {
 	kuint16_t base_lo;
 	kuint16_t sel;
 	kuint8_t  ist;
@@ -143,8 +141,7 @@ struct idt_entry
 } __attribute__((packed));
 
 // IDT pointer structure.
-struct idt_ptr
-{
+struct idt_ptr {
 	kuint16_t limit;
 	kuint64_t base;
 } __attribute__((packed));
@@ -154,8 +151,7 @@ static struct idt_ptr   idtp;
 
 // Set up an IDT entry.
 static void
-    idt_set_gate (kuint8_t num, kuint64_t base, kuint16_t sel, kuint8_t flags)
-{
+    idt_set_gate (kuint8_t num, kuint64_t base, kuint16_t sel, kuint8_t flags) {
 	idt[num].base_lo  = (kuint16_t) (base & 0xFFFF);
 	idt[num].base_mid = (kuint16_t) ((base >> 16) & 0xFFFF);
 	idt[num].base_hi  = (kuint32_t) ((base >> 32) & 0xFFFFFFFF);
@@ -167,13 +163,11 @@ static void
 
 // Default C-level handlers.
 void
-    isr_handler (registers_t *regs)
-{
+    isr_handler (registers_t *regs) {
 	// Map interrupt numbers to kpanic codes.
 	int panic_code = PANIC_UNKNOWN_ERROR;
 
-	switch (regs->int_no)
-	{
+	switch (regs->int_no) {
 		case 0:
 			panic_code = PANIC_DIVISION_BY_ZERO;
 			break;
@@ -232,29 +226,24 @@ void
 }
 
 void
-    irq_handler (registers_t *regs)
-{
+    irq_handler (registers_t *regs) {
 	// If a custom handler is registered, call it.
-	if (regs->int_no >= 32 && regs->int_no <= 47)
-	{
+	if (regs->int_no >= 32 && regs->int_no <= 47) {
 		irq_handler_t handler = irq_handlers[regs->int_no - 32];
-		if (handler)
-		{
+		if (handler) {
 			handler(regs);
 		}
 	}
 
 	// Send End-of-Interrupt (EOI) to the PICs.
-	if (regs->int_no >= 40)
-	{
+	if (regs->int_no >= 40) {
 		koutb(PIC2_CMD, PIC_EOI);  // EOI to slave PIC.
 	}
 	koutb(PIC1_CMD, PIC_EOI);  // EOI to master PIC.
 }
 
 void
-    idt_init (void)
-{
+    idt_init (void) {
 	// Set up the IDT pointer.
 	idtp.limit = (sizeof(struct idt_entry) * 256) - 1;
 	idtp.base  = (kuint64_t) &idt;
