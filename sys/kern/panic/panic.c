@@ -90,7 +90,7 @@ static kbool panic_in_progress = kfalse;
  */
 void
     pputs (const char *s) {
-	serial_writes(s);
+	serial.writes(s);
 	video.puts(s);
 }
 

@@ -10,13 +10,12 @@
 
 #include <lib/kstdio/kstdbool.h>
 
-void
-    serial_init (void);
-void
-    serial_write_int (int i);
-void
-    serial_write (char c);
-void
-    serial_writes (const char *s);
-kbool
-    is_serial_available (void);
+extern struct Serial serial;
+
+struct Serial {
+	void (*init)(void);
+	void (*write)(char a);
+	void (*writes)(const char *s);
+	void (*write_int)(int i);
+	kbool (*is_available)(void);
+};

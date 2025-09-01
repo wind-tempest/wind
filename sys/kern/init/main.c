@@ -128,7 +128,7 @@ static void
 void
     start_kernel (void *mb_info) {
 	idt_init();
-	serial_init();
+	serial.init();
 
 	if (mb_info == KNULL)
 		__asm__("cli; hlt");

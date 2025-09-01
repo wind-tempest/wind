@@ -23,9 +23,9 @@ void
 	}
 	if (!s || *s == '\0')
 		return;
-	serial_writes(debug_type_message);
-	serial_writes(s);
-	serial_write('\n');
+	serial.writes(debug_type_message);
+	serial.writes(s);
+	serial.write('\n');
 }
 
 int
@@ -40,12 +40,12 @@ int
 	k_va_start(args, format);
 	int count = 0;
 
-	serial_writes(debug_type_message);
+	serial.writes(debug_type_message);
 	count += (int) kstrlen(debug_type_message);
 
 	for (const char *p = format; *p; ++p) {
 		if (*p != '%') {
-			serial_write(*p);
+			serial.write(*p);
 			count++;
 			continue;
 		}
@@ -77,17 +77,17 @@ int
 
 				if (!left_align) {
 					for (int i = 0; i < pad; ++i) {
-						serial_write(' ');
+						serial.write(' ');
 						count++;
 					}
 				}
 
-				serial_writes(s);
+				serial.writes(s);
 				count += len;
 
 				if (left_align) {
 					for (int i = 0; i < pad; ++i) {
-						serial_write(' ');
+						serial.write(' ');
 						count++;
 					}
 				}
@@ -107,7 +107,7 @@ int
 				char *end_ptr = kutoa(
 				    ptr, buf + sizeof(buf) - 1, (unsigned int) n, 10, 0);
 				*end_ptr = '\0';
-				serial_writes(buf);
+				serial.writes(buf);
 				count += (int) (end_ptr - buf);
 				break;
 			}
@@ -118,7 +118,7 @@ int
 				char        *end_ptr =
 				    kutoa(buf, buf + sizeof(buf) - 1, n, 16, 0);
 				*end_ptr = '\0';
-				serial_writes(buf);
+				serial.writes(buf);
 				count += (int) (end_ptr - buf);
 				break;
 			}
@@ -137,7 +137,7 @@ int
 						          16,
 						          0);
 						*end_ptr = '\0';
-						serial_writes(buf);
+						serial.writes(buf);
 						count += (int) (end_ptr - buf);
 						break;
 					}
@@ -148,21 +148,21 @@ int
 
 			case 'c': {
 				char c = (char) k_va_arg(args, int);
-				serial_write(c);
+				serial.write(c);
 				count++;
 				break;
 			}
 
 			case '%': {
-				serial_write('%');
+				serial.write('%');
 				count++;
 				break;
 			}
 
 			default:
 			default_case: {
-				serial_write('%');
-				serial_write(*p);
+				serial.write('%');
+				serial.write(*p);
 				count += 2;
 				break;
 			}

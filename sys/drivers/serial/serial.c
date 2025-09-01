@@ -16,56 +16,7 @@
 #define PORT 0x3f8  // COM1
 
 kbool
-    is_serial_available (void);
-
-void
-    serial_init (void) {
-	if (!is_serial_available())
-		return;         // Exit if serial not available.
-	koutb(PORT + 1, 0x00);  // Disable all interrupts.
-	koutb(PORT + 3, 0x80);  // Enable DLAB (set baud rate divisor).
-	koutb(PORT + 0, 0x03);  // Set divisor to 3 (lo byte) 38400 baud
-	koutb(PORT + 1, 0x00);  //                  (hi byte)
-	koutb(PORT + 3, 0x03);  // 8 bits, no parity, one stop bit.
-	koutb(PORT + 2,
-	      0xC7);            // Enable FIFO, clear them, with 14-byte threshold.
-	koutb(PORT + 4, 0x0B);  // IRQs enabled, RTS/DSR set.
-}
-
-static int
-    is_transmit_empty (void) {
-	return kinb(PORT + 5) & 0x20;
-}
-
-void
-    serial_write (char a) {
-	if (!is_serial_available() || !a)
-		return;  // Exit if serial not available or if char is null.
-	while (is_transmit_empty() == 0)
-		;
-	koutb(PORT, (unsigned char) a);
-}
-
-void
-    serial_writes (const char *s) {
-	if (!is_serial_available() || !s)
-		return;  // Exit if serial not available or if string is null.
-	while (*s) {
-		serial_write(*s++);
-	}
-}
-
-void
-    serial_write_int (int i) {
-	if (!is_serial_available())
-		return;  // Exit if serial not available.
-	char buf[16];
-	kitoa(buf, buf + 15, i, 10, 0);
-	serial_writes(buf);
-}
-
-kbool
-    is_serial_available (void) {
+    s_is_available (void) {
 	// Save original values.
 	unsigned char original_lcr = kinb(PORT + 3);
 	unsigned char original_mcr = kinb(PORT + 4);
@@ -94,3 +45,55 @@ kbool
 	// If read value matches test value, port is available.
 	return (read_value == test_value);
 }
+
+void
+    s_init (void) {
+	if (!s_is_available())
+		return;         // Exit if serial not available.
+	koutb(PORT + 1, 0x00);  // Disable all interrupts.
+	koutb(PORT + 3, 0x80);  // Enable DLAB (set baud rate divisor).
+	koutb(PORT + 0, 0x03);  // Set divisor to 3 (lo byte) 38400 baud
+	koutb(PORT + 1, 0x00);  //                  (hi byte)
+	koutb(PORT + 3, 0x03);  // 8 bits, no parity, one stop bit.
+	koutb(PORT + 2,
+	      0xC7);            // Enable FIFO, clear them, with 14-byte threshold.
+	koutb(PORT + 4, 0x0B);  // IRQs enabled, RTS/DSR set.
+}
+
+static int
+    s_is_transmit_empty (void) {
+	return kinb(PORT + 5) & 0x20;
+}
+
+void
+    s_write (char a) {
+	if (!s_is_available() || !a)
+		return;  // Exit if serial not available or if char is null.
+	while (s_is_transmit_empty() == 0)
+		;
+	koutb(PORT, (unsigned char) a);
+}
+
+void
+    s_writes (const char *s) {
+	if (!s_is_available() || !s)
+		return;  // Exit if serial not available or if string is null.
+	while (*s) {
+		s_write(*s++);
+	}
+}
+
+void
+    s_write_int (int i) {
+	if (!s_is_available())
+		return;  // Exit if serial not available.
+	char buf[16];
+	kitoa(buf, buf + 15, i, 10, 0);
+	serial.writes(buf);
+}
+
+struct Serial serial = {.init         = s_init,
+                        .write        = s_write,
+                        .writes       = s_writes,
+                        .write_int    = s_write_int,
+                        .is_available = s_is_available};
