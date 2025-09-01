@@ -209,7 +209,7 @@ static void
 			color = (kuint32_t) val;
 		}
 	}
-	kvideo_clear(color);
+	video.clear(color);
 }
 
 static void
@@ -454,33 +454,33 @@ static void
 	(void) args;
 
 	// Safety check for division by zero
-	if (!kis_video_ready()) {
+	if (!video.is_ready()) {
 		return;
 	}
 
-	kvideo_clear(0xFFFFFF);
+	video.clear(0xFFFFFF);
 
 	kuint8_t  circle_diff = k_u_rand32() & 0xFF;
 	kuint32_t circle_x    = fb_info.width / 2;
 	kuint32_t circle_y    = fb_info.height / 2;
 	kuint32_t color       = k_u_rand32() & 0xFFFFFF;
-	kvideo_draw_circle((int) circle_x, (int) circle_y, 100, color);
+	video.draw_circle((int) circle_x, (int) circle_y, 100, color);
 
 	// First square: left
 	color               = k_u_rand32() & 0xFFFFFF;
 	kuint32_t square1_x = circle_x - circle_diff;
 	kuint32_t square1_y = circle_y;
-	kvideo_draw_square((int) square1_x, (int) square1_y, 100, color);
+	video.draw_square((int) square1_x, (int) square1_y, 100, color);
 
 	// Second square: right
 	color               = k_u_rand32() & 0xFFFFFF;
 	kuint32_t square2_x = circle_x + circle_diff;
 	kuint32_t square2_y = circle_y;
-	kvideo_draw_square((int) square2_x, (int) square2_y, 100, color);
+	video.draw_square((int) square2_x, (int) square2_y, 100, color);
 
 	ksleep(5000);
 
-	kvideo_clear(0x000000);
+	video.clear(0x000000);
 }
 
 static void

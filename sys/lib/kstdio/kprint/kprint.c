@@ -58,7 +58,7 @@ void
 
 void
     kputs (const char *s) {
-	kvideo_puts(s);
+	video.puts(s);
 	kputchar('\n');
 }
 
@@ -419,5 +419,5 @@ int
 
 void
     kputchar (int c) {
-	kvideo_putchar((char) c);
+	video.put_char((char) c);
 }

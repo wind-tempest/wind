@@ -91,7 +91,7 @@ static kbool panic_in_progress = kfalse;
 void
     pputs (const char *s) {
 	serial_writes(s);
-	kvideo_puts(s);
+	video.puts(s);
 }
 
 static void
@@ -156,7 +156,7 @@ void
 	panic_in_progress = ktrue;
 	__asm__ volatile("cli");
 
-	kvideo_clear(0x0000ff);
+	video.clear(0x0000ff);
 
 	const char *error_msg = get_panic_message(code);
 

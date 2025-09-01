@@ -21,13 +21,13 @@ static kuint32_t cursor_x = 0;
 static kuint32_t cursor_y = 0;
 
 kbool
-    kis_video_ready (void) {
+    v_is_ready (void) {
 	return fb_info.addr != 0 && fb_info.width > 0 && fb_info.height > 0;
 }
 
 // Convert 24-bit RGB (0xRRGGBB) to 16-bit RGB565
 static inline kuint16_t
-    krgb888_to_rgb565 (kuint32_t rgb) {
+    v_rgb888_to_rgb565 (kuint32_t rgb) {
 	kuint8_t r = (rgb >> 16) & 0xFF;
 	kuint8_t g = (rgb >> 8) & 0xFF;
 	kuint8_t b = rgb & 0xFF;
@@ -35,8 +35,8 @@ static inline kuint16_t
 }
 
 void
-    kvideo_clear (kuint32_t color) {
-	if (!kis_video_ready())
+    v_clear (kuint32_t color) {
+	if (!v_is_ready())
 		return;
 
 	for (kuint32_t y = 0; y < fb_info.height; y++) {
@@ -45,7 +45,7 @@ void
 
 		if (fb_info.bpp == 16) {
 			volatile kuint16_t *row     = (volatile kuint16_t *) row_base;
-			kuint16_t           color16 = krgb888_to_rgb565(color);
+			kuint16_t           color16 = v_rgb888_to_rgb565(color);
 			for (kuint32_t x = 0; x < fb_info.width; x++) {
 				row[x] = color16;
 			}
@@ -72,12 +72,12 @@ void
 }
 
 static kbool
-    kis_hex_char (char c) {
+    v_is_hex_char (char c) {
 	return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
 }
 
 kuint32_t
-    krgb_to_bgr (kuint32_t rgb) {
+    v_rgb_to_bgr (kuint32_t rgb) {
 	kuint8_t r = (rgb >> 16) & 0xFF;
 	kuint8_t g = (rgb >> 8) & 0xFF;
 	kuint8_t b = rgb & 0xFF;
@@ -85,14 +85,14 @@ kuint32_t
 }
 
 kuint32_t
-    khexstr_to_color (const char *hex) {
+    v_hex_to_color (const char *hex) {
 	if (hex[0] == '#')
 		hex++;  // Just fucks up the '#'
 	if (hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X'))
 		hex += 2;
 
 	kuint32_t value = 0;
-	for (int i = 0; i < 6 && kis_hex_char(hex[i]); i++) {
+	for (int i = 0; i < 6 && v_is_hex_char(hex[i]); i++) {
 		char c = hex[i];
 		value <<= 4;
 		if (c >= '0' && c <= '9')
@@ -107,8 +107,8 @@ kuint32_t
 }
 
 void
-    kvideo_init (struct framebuffer_info *fb) {
-	if (!kis_video_ready()) {
+    v_init (struct framebuffer_info *fb) {
+	if (!v_is_ready()) {
 		return;
 	}
 
@@ -119,25 +119,25 @@ void
 }
 
 void
-    kvideo_put_pixel (kuint32_t x, kuint32_t y, kuint32_t rgb_color) {
-	if (!kis_video_ready()) {
+    v_put_pixel (kuint32_t x, kuint32_t y, kuint32_t rgb_color) {
+	if (!video.is_ready()) {
 		return;
 	}
 
 	if (fb_info.bpp == 16) {
 		kuint16_t *row =
 		    (kuint16_t *) ((kuint8_t *) framebuffer + y * fb_info.pitch);
-		row[x] = krgb888_to_rgb565(rgb_color);
+		row[x] = v_rgb888_to_rgb565(rgb_color);
 	} else {
 		kuint32_t *row =
 		    (kuint32_t *) ((kuint8_t *) framebuffer + y * fb_info.pitch);
-		row[x] = krgb_to_bgr(rgb_color);
+		row[x] = v_rgb_to_bgr(rgb_color);
 	}
 }
 
 static void
-    kvideo_draw_glyph_at (char c, kuint32_t x, kuint32_t y, kuint32_t rgb_color) {
-	if (!kis_video_ready() || (unsigned int) c >= 256) {
+    v_draw_glyph_at (char c, kuint32_t x, kuint32_t y, kuint32_t rgb_color) {
+	if (!v_is_ready() || (unsigned int) c >= 256) {
 		return;
 	}
 
@@ -147,15 +147,15 @@ static void
 		unsigned char row_data = glyph[row];
 		for (kuint32_t col = 0; col < FONT_WIDTH; col++) {
 			if (row_data & (0x80 >> col)) {
-				kvideo_put_pixel(x + col, y + row, rgb_color);
+				v_put_pixel(x + col, y + row, rgb_color);
 			}
 		}
 	}
 }
 
 void
-    kvideo_putchar (char c) {
-	if (!kis_video_ready())
+    v_putchar (char c) {
+	if (!v_is_ready())
 		return;
 
 	if (c == '\b') {
@@ -169,8 +169,7 @@ void
 		}
 		for (kuint32_t row = 0; row < FONT_HEIGHT; row++) {
 			for (kuint32_t col = 0; col < FONT_WIDTH; col++) {
-				kvideo_put_pixel(
-				    cursor_x + col, cursor_y + row, 0x000000);
+				v_put_pixel(cursor_x + col, cursor_y + row, 0x000000);
 			}
 		}
 		return;
@@ -182,7 +181,7 @@ void
 	} else if (c == '\r') {
 		cursor_x = 0;
 	} else {
-		kvideo_draw_glyph_at(c, cursor_x, cursor_y, 0xFFFFFF);
+		v_draw_glyph_at(c, cursor_x, cursor_y, 0xFFFFFF);
 		cursor_x += FONT_WIDTH;
 	}
 
@@ -192,19 +191,19 @@ void
 	}
 
 	if (cursor_y + FONT_HEIGHT > fb_info.height) {
-		kvideo_clear(0x000000);
+		v_clear(0x000000);
 	}
 }
 
 void
-    kvideo_draw_circle (int cx, int cy, int radius, kuint32_t rgb_color) {
+    v_draw_circle (int cx, int cy, int radius, kuint32_t rgb_color) {
 	for (int y = -radius; y <= radius; y++) {
 		for (int x = -radius; x <= radius; x++) {
 			if (x * x + y * y <= radius * radius) {
 				int px = cx + x;
 				int py = cy + y;
 				if (px >= 0 && py >= 0) {
-					kvideo_put_pixel(
+					v_put_pixel(
 					    (kuint32_t) px, (kuint32_t) py, rgb_color);
 				}
 			}
@@ -213,22 +212,34 @@ void
 }
 
 void
-    kvideo_draw_square (int cx, int cy, int size, kuint32_t rgb_color) {
+    v_draw_square (int cx, int cy, int size, kuint32_t rgb_color) {
 	int half = size / 2;
 
 	for (int y = cy - half; y < cy + half; y++) {
 		for (int x = cx - half; x < cx + half; x++) {
 			if (x >= 0 && y >= 0 && x < (int) fb_info.width
 			    && y < (int) fb_info.height) {
-				kvideo_put_pixel((kuint32_t) x, (kuint32_t) y, rgb_color);
+				v_put_pixel((kuint32_t) x, (kuint32_t) y, rgb_color);
 			}
 		}
 	}
 }
 
 void
-    kvideo_puts (const char *s) {
+    v_puts (const char *s) {
 	while (*s) {
-		kvideo_putchar(*s++);
+		v_putchar(*s++);
 	}
 }
+
+struct video video = {.init             = v_init,
+                      .is_ready         = v_is_ready,
+                      .rgb888_to_rgb565 = v_rgb888_to_rgb565,
+                      .rgb_to_bgr       = v_rgb_to_bgr,
+                      .hex_to_color     = v_hex_to_color,
+                      .put_pixel        = v_put_pixel,
+                      .clear            = v_clear,
+                      .put_char         = v_putchar,
+                      .puts             = v_puts,
+                      .draw_circle      = v_draw_circle,
+                      .draw_square      = v_draw_square};
