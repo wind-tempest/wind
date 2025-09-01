@@ -15,26 +15,21 @@
 #include "kern/memory/memory.h"
 #include "shell/shell.h"
 
-#include <lib/kdebug/kdebug.h>
+#include <debug/debug.h>
 #include <lib/kstdio/kprint/kprint.h>
 
-kbool kuse_debug = kfalse;
-
 // Multiboot2 header structure.
-struct multiboot_header
-{
+struct multiboot_header {
 	kuint32_t total_size;
 	kuint32_t reserved;
 } __attribute__((aligned(8)));
 
-struct multiboot_tag
-{
+struct multiboot_tag {
 	kuint32_t type;
 	kuint32_t size;
 } __attribute__((aligned(8)));
 
-struct multiboot_tag_framebuffer
-{
+struct multiboot_tag_framebuffer {
 	kuint32_t type;
 	kuint32_t size;
 	kuint64_t addr;
@@ -52,8 +47,7 @@ struct multiboot_tag_framebuffer
 	kuint8_t  reserved[2];
 } __attribute__((aligned(8)));
 
-typedef enum
-{
+typedef enum {
 	MULTIBOOT_TAG_TYPE_END         = 0,
 	MULTIBOOT_TAG_TYPE_FRAMEBUFFER = 8
 } multiboot_tag_type_t;
@@ -62,21 +56,18 @@ struct framebuffer_info fb_info = {0};
 
 // Map physical to virtual address
 static void
-    map_framebuffer_address (kuint64_t phys_addr)
-{
+    map_framebuffer_address (kuint64_t phys_addr) {
 	kuint64_t virt_addr = 0xFFFF800000000000ULL + phys_addr;
 
-	kdebugf("Mapping framebuffer 0x%llx -> 0x%llx\n", phys_addr, virt_addr);
+	debug.printf("Mapping framebuffer 0x%llx -> 0x%llx\n", phys_addr, virt_addr);
 
 	fb_info.addr = virt_addr;
 }
 
 static void
-    parse_multiboot_info (void *mb_info)
-{
-	if (mb_info == KNULL)
-	{
-		kduts("mb_info is NULL!");
+    parse_multiboot_info (void *mb_info) {
+	if (mb_info == KNULL) {
+		debug.uts("mb_info is NULL!");
 		return;
 	}
 
@@ -84,27 +75,23 @@ static void
 	kuint8_t *current    = (kuint8_t *) ((kuintptr_t) mb_info + 8);
 	kuint8_t *end        = (kuint8_t *) ((kuintptr_t) mb_info + total_size);
 
-	kduts("Parsing multiboot info...");
+	debug.uts("Parsing multiboot info...");
 
-	while (current < end)
-	{
+	while (current < end) {
 		struct multiboot_tag *tag = (struct multiboot_tag *) current;
 
-		if (tag->size == 0)
-		{
-			kerr("Invalid tag size (0)", "multiboot", KNULL);
+		if (tag->size == 0) {
+			debug.err("Invalid tag size (0)", "multiboot", KNULL);
 			return;
 		}
 
-		switch ((multiboot_tag_type_t) tag->type)
-		{
+		switch ((multiboot_tag_type_t) tag->type) {
 			case MULTIBOOT_TAG_TYPE_END:
-				kduts("End tag found. Parsing complete.");
+				debug.uts("End tag found. Parsing complete.");
 				return;
 
-			case MULTIBOOT_TAG_TYPE_FRAMEBUFFER:
-			{
-				kduts("Framebuffer tag found");
+			case MULTIBOOT_TAG_TYPE_FRAMEBUFFER: {
+				debug.uts("Framebuffer tag found");
 
 				struct multiboot_tag_framebuffer *fb_tag =
 				    (struct multiboot_tag_framebuffer *) tag;
@@ -135,12 +122,11 @@ static void
 		current += (tag->size + 7) & (kuint32_t) ~7;  // align to 8 bytes
 	}
 
-	kduts("Reached end of multiboot info (no END tag)");
+	debug.uts("Reached end of multiboot info (no END tag)");
 }
 
 void
-    start_kernel (void *mb_info)
-{
+    start_kernel (void *mb_info) {
 	idt_init();
 	serial_init();
 
@@ -155,7 +141,7 @@ void
 
 	kext2_set_block_device(ata_pio_read, KNULL);
 	if (kext2_mount(0) != 0)
-		kerr("EXT2 mount failed", "fs", KNULL);
+		debug.err("EXT2 mount failed", "fs", KNULL);
 
 	kcpu_init_brand();
 	keyboard_init();

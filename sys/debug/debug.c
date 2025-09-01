@@ -7,28 +7,18 @@
  */
 
 #include "drivers/serial/serial.h"
-#include "kern/init/main.h"
 
-#include <lib/kdebug/kdebug.h>
-#include <lib/kstdarg.h>
-#include <lib/kstdio/kprint/kprint.h>
-#include <lib/kstdio/kstrlen/kstrlen.h>
+#include <debug/debug.h>
+#include <lib/kstdio/kstdbool.h>
+#include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kutoa.h>
-#include <lib/kstring/kstrcmp.h>
 
-/*
- * This debugging tool is only for early days of development. It is not
- * gonna be on the final release (AKA: v1.0.0) of the Wind (Operating System)
- * or Tempest (the Kernel).
- */
-
-const char *debug_type_message = "[    debug] ";
+kbool              kuse_debug         = kfalse;
+static const char *debug_type_message = "[    debug] ";
 
 void
-    kduts (const char *s)
-{
-	if (!kuse_debug)
-	{
+    d_uts (const char *s) {
+	if (!kuse_debug) {
 		return;
 	}
 	if (!s || *s == '\0')
@@ -39,8 +29,7 @@ void
 }
 
 int
-    kdebugf (const char *format, ...)
-{
+    d_printf (const char *format, ...) {
 	if (!kuse_debug)
 		return 0;
 
@@ -54,10 +43,8 @@ int
 	serial_writes(debug_type_message);
 	count += (int) kstrlen(debug_type_message);
 
-	for (const char *p = format; *p; ++p)
-	{
-		if (*p != '%')
-		{
+	for (const char *p = format; *p; ++p) {
+		if (*p != '%') {
 			serial_write(*p);
 			count++;
 			continue;
@@ -68,22 +55,18 @@ int
 		int left_align = 0;
 		int width      = 0;
 
-		if (*p == '-')
-		{
+		if (*p == '-') {
 			left_align = 1;
 			p++;
 		}
 
-		while (*p >= '0' && *p <= '9')
-		{
+		while (*p >= '0' && *p <= '9') {
 			width = width * 10 + (*p - '0');
 			p++;
 		}
 
-		switch (*p)
-		{
-			case 's':
-			{
+		switch (*p) {
+			case 's': {
 				const char *s   = k_va_arg(args, const char *);
 				int         len = 0;
 				const char *t   = s;
@@ -92,10 +75,8 @@ int
 
 				int pad = (width > len) ? (width - len) : 0;
 
-				if (!left_align)
-				{
-					for (int i = 0; i < pad; ++i)
-					{
+				if (!left_align) {
+					for (int i = 0; i < pad; ++i) {
 						serial_write(' ');
 						count++;
 					}
@@ -104,10 +85,8 @@ int
 				serial_writes(s);
 				count += len;
 
-				if (left_align)
-				{
-					for (int i = 0; i < pad; ++i)
-					{
+				if (left_align) {
+					for (int i = 0; i < pad; ++i) {
 						serial_write(' ');
 						count++;
 					}
@@ -115,14 +94,12 @@ int
 				break;
 			}
 
-			case 'd':
-			{
+			case 'd': {
 				int   n = k_va_arg(args, int);
 				char  buf[12];
 				char *ptr = buf;
 
-				if (n < 0)
-				{
+				if (n < 0) {
 					*ptr++ = '-';
 					n      = -n;
 				}
@@ -135,8 +112,7 @@ int
 				break;
 			}
 
-			case 'x':
-			{
+			case 'x': {
 				unsigned int n = k_va_arg(args, unsigned int);
 				char         buf[12];
 				char        *end_ptr =
@@ -146,14 +122,11 @@ int
 				count += (int) (end_ptr - buf);
 				break;
 			}
-			case 'l':
-			{
+			case 'l': {
 				// Handle long/long long modifiers
-				if (*(p + 1) == 'l')
-				{
+				if (*(p + 1) == 'l') {
 					p++;  // Skip second 'l'
-					if (*(p + 1) == 'x')
-					{
+					if (*(p + 1) == 'x') {
 						p++;  // Skip 'x'
 						kuint64_t n = k_va_arg(args, kuint64_t);
 						char      buf[20];
@@ -173,24 +146,21 @@ int
 				goto default_case;
 			}
 
-			case 'c':
-			{
+			case 'c': {
 				char c = (char) k_va_arg(args, int);
 				serial_write(c);
 				count++;
 				break;
 			}
 
-			case '%':
-			{
+			case '%': {
 				serial_write('%');
 				count++;
 				break;
 			}
 
 			default:
-			default_case:
-			{
+			default_case: {
 				serial_write('%');
 				serial_write(*p);
 				count += 2;
@@ -203,12 +173,11 @@ int
 	return count;
 }
 
-void
-    kdbgtype (const char *type,
-              const char *subsystem,
-              const char *message,
-              const char *extra)
-{
+static void
+    d_dbgtype (const char *type,
+               const char *subsystem,
+               const char *message,
+               const char *extra) {
 	if (!message || *message == '\0')
 		return;
 
@@ -225,44 +194,47 @@ void
 	kprintf("\n");
 }
 
-void
-    kcrit (const char *message, const char *subsystem, const char *extra)
-{
-	kdbgtype("crit", subsystem, message, extra);
+static void
+    d_crit (const char *m, const char *s, const char *e) {
+	d_dbgtype("crit", s, m, e);
 }
 
-void
-    kalert (const char *message, const char *subsystem, const char *extra)
-{
-	kdbgtype("alert", subsystem, message, extra);
+static void
+    d_alert (const char *m, const char *s, const char *e) {
+	d_dbgtype("alert", s, m, e);
 }
 
-void
-    kemerg (const char *message, const char *subsystem, const char *extra)
-{
-	kdbgtype("emerg", subsystem, message, extra);
+static void
+    d_emerg (const char *m, const char *s, const char *e) {
+	d_dbgtype("emerg", s, m, e);
 }
 
-void
-    kwarn (const char *message, const char *subsystem, const char *extra)
-{
-	kdbgtype("warn", subsystem, message, extra);
+static void
+    d_warn (const char *m, const char *s, const char *e) {
+	d_dbgtype("warn", s, m, e);
 }
 
-void
-    kerr (const char *message, const char *subsystem, const char *extra)
-{
-	kdbgtype("err", subsystem, message, extra);
+static void
+    d_err (const char *m, const char *s, const char *e) {
+	d_dbgtype("err", s, m, e);
 }
 
-void
-    knotice (const char *message, const char *subsystem, const char *extra)
-{
-	kdbgtype("notice", subsystem, message, extra);
+static void
+    d_notice (const char *m, const char *s, const char *e) {
+	d_dbgtype("notice", s, m, e);
 }
 
-void
-    kinfo (const char *message, const char *subsystem, const char *extra)
-{
-	kdbgtype("info", subsystem, message, extra);
+static void
+    d_info (const char *m, const char *s, const char *e) {
+	d_dbgtype("info", s, m, e);
 }
+
+struct Debug debug = {.crit   = d_crit,
+                      .alert  = d_alert,
+                      .emerg  = d_emerg,
+                      .warn   = d_warn,
+                      .err    = d_err,
+                      .notice = d_notice,
+                      .info   = d_info,
+                      .uts    = d_uts,
+                      .printf = d_printf};

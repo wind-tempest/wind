@@ -10,7 +10,6 @@
 #include <lib/kmath/kmath.h>
 
 int
-    kisnan (double x)
-{
+    kisnan (double x) {
 	return x != x;
 }

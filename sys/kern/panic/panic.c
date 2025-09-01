@@ -38,10 +38,8 @@ unsigned int seconds_to_reboot = 5;
 
 // Get kpanic message based on error code.
 static const char *
-    get_panic_message (int code)
-{
-	switch (code)
-	{
+    get_panic_message (int code) {
+	switch (code) {
 		case PANIC_DIVISION_BY_ZERO:
 			return "Division by zero";
 		case PANIC_DOUBLE_FAULT:
@@ -91,15 +89,13 @@ static kbool panic_in_progress = kfalse;
  * I don't want the code to repeat so much.
  */
 void
-    pputs (const char *s)
-{
+    pputs (const char *s) {
 	serial_writes(s);
 	kvideo_puts(s);
 }
 
 static void
-    dump_registers (registers_t *r)
-{
+    dump_registers (registers_t *r) {
 	char buff[32];
 
 	pputs(" RAX=");
@@ -156,8 +152,7 @@ static void
 }
 
 void
-    kpanic (int code, registers_t *regs)
-{
+    kpanic (int code, registers_t *regs) {
 	panic_in_progress = ktrue;
 	__asm__ volatile("cli");
 
@@ -174,8 +169,7 @@ void
 	pputs(error_msg);
 	pputs("\n");
 
-	if (regs)
-	{
+	if (regs) {
 		pputs("\nRegister dump:\n");
 		dump_registers(regs);
 	}
@@ -190,8 +184,7 @@ void
 	kmemset(buff, 0, sizeof(buff));
 
 	//  ̄\_(ツ)_/ ̄
-	for (unsigned int i = seconds_to_reboot; i > 0; i--)
-	{
+	for (unsigned int i = seconds_to_reboot; i > 0; i--) {
 		pputs("Rebooting in ");
 		kitoa(buff, buff + 14, i, 10, 0);
 		pputs(buff);
@@ -204,8 +197,7 @@ void
 	// Reboot the system.
 	kreboot();
 
-	while (1)
-	{
+	while (1) {
 		__asm__ volatile("hlt");
 	}
 }

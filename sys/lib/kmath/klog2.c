@@ -10,8 +10,7 @@
 #include <lib/kmath/kmath.h>
 
 double
-    klog2 (double x)
-{
+    klog2 (double x) {
 	// Handle special cases
 	if (kisnan(x))
 		return knan("");

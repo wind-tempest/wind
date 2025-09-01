@@ -10,11 +10,9 @@
 #include <lib/kmath/kpow.h>
 
 double
-    kpow (double x, double y)
-{
+    kpow (double x, double y) {
 	// Handle special cases
-	if (x == 0.0)
-	{
+	if (x == 0.0) {
 		if (y > 0.0)
 			return 0.0;
 		if (y == 0.0)
@@ -36,22 +34,18 @@ double
 		return ksqrt(x);
 
 	// For integer powers, use repeated multiplication
-	if (y == (int) y && y > 0 && y < 100)
-	{
+	if (y == (int) y && y > 0 && y < 100) {
 		double result = 1.0;
-		for (int i = 0; i < (int) y; i++)
-		{
+		for (int i = 0; i < (int) y; i++) {
 			result *= x;
 		}
 		return result;
 	}
 
 	// For negative integer powers
-	if (y == (int) y && y < 0 && y > -100)
-	{
+	if (y == (int) y && y < 0 && y > -100) {
 		double result = 1.0;
-		for (int i = 0; i < -(int) y; i++)
-		{
+		for (int i = 0; i < -(int) y; i++) {
 			result /= x;
 		}
 		return result;

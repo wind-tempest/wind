@@ -11,7 +11,6 @@
 #include <lib/kstdlib/kstdlib.h>
 
 int
-    kexit (int code)
-{
+    kexit (int code) {
 	return code;
 }

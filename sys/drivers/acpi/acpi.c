@@ -8,7 +8,7 @@
 
 #include "arch/amd64/kasm/kio.h"
 
-#include <lib/kdebug/kdebug.h>
+#include <debug/debug.h>
 #include <lib/kstdio/kstddef.h>
 #include <lib/kunistd/ksleep.h>
 
@@ -24,24 +24,22 @@
 #define POWEROFF_TIMEOUT_MS 5000
 
 void
-    kpoweroff (void)
-{
+    kpoweroff (void) {
 	koutw(0x604, 0x2000);   // Port 0x604
 	koutw(0xB004, 0x2000);  // Port 0xB004
 
 	ksleep(POWEROFF_TIMEOUT_MS);
 	// If poweroff fails, log warning
-	kerr("Legacy poweroff failed", "acpi", KNULL);
+	debug.err("Legacy poweroff failed", "acpi", KNULL);
 }
 
 void
-    kreboot (void)
-{
+    kreboot (void) {
 	while (kinb(0x64) & 0x02)
 		;           // Wait for keyboard controller ready
 	koutb(0x64, 0xFE);  // Send reset command
 
 	ksleep(POWEROFF_TIMEOUT_MS);
 	// If reboot fails, log warning
-	kerr("Legacy reboot failed", "acpi", KNULL);
+	debug.err("Legacy reboot failed", "acpi", KNULL);
 }

@@ -18,23 +18,19 @@
 static char cwd_path[256] = "/";
 
 void
-    vfs_getcwd (char *out, ksize_t size)
-{
+    vfs_getcwd (char *out, ksize_t size) {
 	kstrncpy(out, cwd_path, size);
 }
 
 void
-    vfs_normalize_path (const char *path, char *out, ksize_t size)
-{
-	if (!path || *path == '\0')
-	{
+    vfs_normalize_path (const char *path, char *out, ksize_t size) {
+	if (!path || *path == '\0') {
 		kstrncpy(out, "/", size);
 		return;
 	}
 
 	// Require absolute path
-	if (path[0] != '/')
-	{
+	if (path[0] != '/') {
 		kstrncpy(out, path, size);
 		return;
 	}
@@ -44,8 +40,7 @@ void
 	tmp[pos++]       = '/';
 
 	const char *p = path + 1;  // skip leading '/'
-	while (*p)
-	{
+	while (*p) {
 		// Skip repeated '/'
 		while (*p == '/')
 			++p;
@@ -63,11 +58,9 @@ void
 
 		if (len == 1 && comp[0] == '.')
 			continue;  // ignore '.'
-		if (len == 2 && comp[0] == '.' && comp[1] == '.')
-		{
+		if (len == 2 && comp[0] == '.' && comp[1] == '.') {
 			// Go up one directory
-			if (pos > 1)
-			{
+			if (pos > 1) {
 				// remove trailing '/'
 				if (tmp[pos - 1] == '/')
 					--pos;
@@ -94,20 +87,14 @@ void
 }
 
 void
-    vfs_resolve (const char *path, char *out, ksize_t size)
-{
+    vfs_resolve (const char *path, char *out, ksize_t size) {
 	char temp[256] = {0};
-	if (!path || *path == '\0')
-	{
+	if (!path || *path == '\0') {
 		kstrcpy(temp, cwd_path);
-	}
-	else if (path[0] == '/')
-	{
+	} else if (path[0] == '/') {
 		// Absolute
 		kstrcpy(temp, path);
-	}
-	else
-	{
+	} else {
 		if (kstrcmp(cwd_path, "/") == 0)
 			ksnprintf(temp, sizeof(temp), "/%s", path);
 		else
@@ -117,8 +104,7 @@ void
 }
 
 int
-    vfs_chdir (const char *path)
-{
+    vfs_chdir (const char *path) {
 	char resolved[256] = {0};
 	vfs_resolve(path, resolved, sizeof(resolved));
 
