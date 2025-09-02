@@ -14,12 +14,13 @@
 extern "C" {
 #endif
 
-/*
- * Read @count sectors (512 bytes each) starting at @lba into @buf. Returns 0
- * on success, non-zero on failure.
- */
-int
-    ata_pio_read (kuint64_t lba, kuint32_t count, void *buf);
+extern struct Ata ata;
+
+struct Ata {
+	void (*io_wait)(void);
+	int (*poll)(void);
+	int (*pio_read)(kuint64_t lba, kuint32_t count, void *buf);
+};
 
 #ifdef __cplusplus
 }

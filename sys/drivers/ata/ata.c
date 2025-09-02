@@ -97,3 +97,4 @@ int
 	}
 	return 0;
 }
+struct Ata ata = {.poll = ata_poll, .pio_read = ata_pio_read};
