@@ -8,7 +8,9 @@
 
 #pragma once
 
-void
-    kpoweroff (void);
-void
-    kreboot (void);
+extern struct Acpi acpi;
+
+struct Acpi {
+	void (*poweroff)(void);
+	void (*reboot)(void);
+};

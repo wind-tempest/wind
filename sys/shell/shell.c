@@ -260,13 +260,13 @@ static void
 static void
     cmd_poweroff (const char *args) {
 	(void) args;
-	kpoweroff();
+	acpi.poweroff();
 }
 
 static void
     cmd_reboot (const char *args) {
 	(void) args;
-	kreboot();
+	acpi.reboot();
 }
 
 static void

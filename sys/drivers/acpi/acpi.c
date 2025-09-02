@@ -6,6 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
+#include "acpi.h"
+
 #include "arch/amd64/kasm/kio.h"
 
 #include <debug/debug.h>
@@ -24,7 +26,7 @@
 #define POWEROFF_TIMEOUT_MS 5000
 
 void
-    kpoweroff (void) {
+    a_poweroff (void) {
 	koutw(0x604, 0x2000);   // Port 0x604
 	koutw(0xB004, 0x2000);  // Port 0xB004
 
@@ -34,7 +36,7 @@ void
 }
 
 void
-    kreboot (void) {
+    a_reboot (void) {
 	while (kinb(0x64) & 0x02)
 		;           // Wait for keyboard controller ready
 	koutb(0x64, 0xFE);  // Send reset command
@@ -43,3 +45,5 @@ void
 	// If reboot fails, log warning
 	debug.err("Legacy reboot failed", "acpi", KNULL);
 }
+
+struct Acpi acpi = {.poweroff = a_poweroff, .reboot = a_reboot};

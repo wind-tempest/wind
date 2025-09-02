@@ -195,7 +195,7 @@ void
 	pputs("Rebooting now...\n");
 
 	// Reboot the system.
-	kreboot();
+	acpi.reboot();
 
 	while (1) {
 		__asm__ volatile("hlt");
