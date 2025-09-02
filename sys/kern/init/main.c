@@ -144,7 +144,7 @@ void
 		debug.err("EXT2 mount failed", "fs", KNULL);
 
 	kcpu_init_brand();
-	keyboard_init();
+	keyboard.init();
 
 	__asm__ volatile("sti");
 

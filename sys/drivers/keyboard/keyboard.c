@@ -45,7 +45,7 @@ static unsigned char kbd_us_shift[128] = {
 };
 
 static unsigned char
-    adjust_case (unsigned char c) {
+    k_adjust_case (unsigned char c) {
 	if (caps_lock && !shift_pressed && c >= 'a' && c <= 'z')
 		return (unsigned char) (c - 32);
 	if (caps_lock && shift_pressed && c >= 'A' && c <= 'Z')
@@ -54,7 +54,7 @@ static unsigned char
 }
 
 static void
-    keyboard_handler (registers_t *regs) {
+    k_handler (registers_t *regs) {
 	(void) regs;
 	unsigned char scancode = kinb(KBD_DATA_PORT);
 
@@ -77,7 +77,7 @@ static void
 		unsigned char c = shift_pressed ? kbd_us_shift[scancode]
 		                                : kbd_us[scancode];
 
-		c = adjust_case(c);
+		c = keyboard.adjust_case(c);
 
 		if (c != 0) {
 			if ((kbd_buffer_head + 1) % KBD_BUFFER_SIZE != kbd_buffer_tail) {
@@ -108,6 +108,9 @@ int
 }
 
 void
-    keyboard_init (void) {
-	register_irq_handler(1, keyboard_handler);
+    k_init (void) {
+	register_irq_handler(1, k_handler);
 }
+
+struct Keyboard keyboard = {
+    .init = k_init, .handle = k_handler, .adjust_case = k_adjust_case};
