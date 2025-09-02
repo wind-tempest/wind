@@ -18,6 +18,8 @@ extern "C" {
 
 extern kbool is_mounted;
 
+extern struct Ext2 ext2;
+
 #define EXT2_SUPERBLOCK_OFFSET 1024  // bytes from start of partition
 #define EXT2_SUPER_MAGIC       0xEF53
 #define EXT2_N_BLOCKS          15  // Direct + indirect block ptrs
@@ -31,7 +33,7 @@ extern kbool is_mounted;
 #define EXT2_ERR_PATH_NOT_FOUND -4
 #define EXT2_ERR_INVALID        -5
 
-// Superblock — stored at offset 1024 bytes from partition start
+// Superblock -- stored at offset 1024 bytes from partition start
 typedef struct __attribute__((packed)) ext2_superblock {
 	kuint32_t inodes_count;       // Total number of inodes
 	kuint32_t blocks_count;       // Total number of blocks
@@ -84,7 +86,7 @@ typedef struct __attribute__((packed)) ext2_group_desc {
 	kuint32_t reserved[3];
 } ext2_group_desc_t;
 
-// Inode (dynamic size — 128 bytes for rev 0, 256+ for rev 1)
+// Inode (dynamic size -- 128 bytes for rev 0, 256+ for rev 1)
 typedef struct __attribute__((packed)) ext2_inode {
 	kuint16_t mode;
 	kuint16_t uid;
@@ -127,30 +129,17 @@ typedef struct ext2_file {
  * ------------------------------------------------------------------------
  */
 // Application supplies block-device callbacks (sector-based, 512-byte)
-void
-    kext2_set_block_device (int (*read)(kuint64_t lba, kuint32_t count, void *buf),
-                            int (*write)(kuint64_t   lba,
-                                         kuint32_t   count,
-                                         const void *buf));
-
-// Mount an EXT2 filesystem located at @base_lba. Returns EXT2_OK on success.
-int
-    kext2_mount (kuint64_t base_lba);
-
-// Open file by absolute POSIX path (e.g., "/etc/issue"). Read-only.
-int
-    kext2_open (const char *path, ext2_file_t *out_file);
-
-// Read up to @len bytes from file into @buf starting at current position.
-int
-    kext2_read (ext2_file_t *file, void *buf, ksize_t len);
-
-// Callback type for listing directory entries
 typedef void (*ext2_list_cb_t)(const char *name, kuint8_t file_type);
 
-// List entries in the directory specified by POSIX path (e.g. "/System/fonts").
-int
-    kext2_list (const char *path, ext2_list_cb_t cb);
+struct Ext2 {
+	void (*set_block_device)(int (*read)(kuint64_t, kuint32_t, void *),
+	                         int (*write)(kuint64_t, kuint32_t, const void *));
+	int (*mount)(kuint64_t base_lba);
+	int (*open)(const char *path, ext2_file_t *out_file);
+	int (*read)(ext2_file_t *file, void *buf, ksize_t len);
+	int (*list)(const char *path, ext2_list_cb_t cb);
+	int (*list_dir)(ext2_list_cb_t cb);
+};
 
 #ifdef __cplusplus
 }

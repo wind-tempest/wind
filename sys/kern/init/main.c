@@ -139,8 +139,8 @@ void
 	kmemory_init(mb_info);
 	init_memory_pools();
 
-	kext2_set_block_device(ata.pio_read, KNULL);
-	if (kext2_mount(0) != 0)
+	ext2.set_block_device(ata.pio_read, KNULL);
+	if (ext2.mount(0) != 0)
 		debug.err("EXT2 mount failed", "fs", KNULL);
 
 	kcpu_init_brand();

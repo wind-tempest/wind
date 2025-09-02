@@ -347,7 +347,7 @@ static void
 
 static void
     list_dir_path (const char *path) {
-	int rc = kext2_list(path, ls_print_cb);
+	int rc = ext2.list(path, ls_print_cb);
 	if (rc != 0) {
 		kprintf("ls: cannot access %s (err %d)\n", path, rc);
 	}
@@ -391,14 +391,14 @@ static void
 		path = abs_path;
 	}
 	ext2_file_t file;
-	int         rc = kext2_open(path, &file);
+	int         rc = ext2.open(path, &file);
 	if (rc != 0) {
 		kprintf("cat: cannot open %s (err %d)\n", path, rc);
 		return;
 	}
 	char buf[512];
 	int  read;
-	while ((read = kext2_read(&file, buf, sizeof(buf) - 1)) > 0) {
+	while ((read = ext2.read(&file, buf, sizeof(buf) - 1)) > 0) {
 		buf[read] = '\0';
 		kputs(buf);
 	}
@@ -417,7 +417,7 @@ static void
 		path = abs_path;
 	}
 	ext2_file_t file;
-	int         rc = kext2_open(path, &file);
+	int         rc = ext2.open(path, &file);
 	if (rc != 0) {
 		kprintf("fsize: cannot open %s (err %d)\n", path, rc);
 		return;

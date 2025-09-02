@@ -45,14 +45,14 @@ static int
     kread_inode (kuint32_t ino, ext2_inode_t *out);
 
 void
-    kext2_set_block_device (int (*read)(kuint64_t, kuint32_t, void *),
-                            int (*write)(kuint64_t, kuint32_t, const void *)) {
+    ext2_set_block_device (int (*read)(kuint64_t, kuint32_t, void *),
+                           int (*write)(kuint64_t, kuint32_t, const void *)) {
 	g_read_sector  = read;
 	g_write_sector = write;  // May be KNULL for read-only volumes
 }
 
 int
-    kext2_mount (kuint64_t base_lba) {
+    ext2_mount (kuint64_t base_lba) {
 	if (!g_read_sector) {
 		return EXT2_ERR_IO;
 	}
@@ -127,7 +127,7 @@ int
 }
 
 int
-    kext2_open (const char *path, ext2_file_t *out_file) {
+    ext2_open (const char *path, ext2_file_t *out_file) {
 	(void) path;
 	(void) out_file;
 	if (!path || !out_file)
@@ -314,7 +314,7 @@ static int
 }
 
 int
-    kext2_list (const char *path, ext2_list_cb_t cb) {
+    ext2_list (const char *path, ext2_list_cb_t cb) {
 	if (!path || !cb)
 		return EXT2_ERR_INVALID;
 
@@ -393,7 +393,7 @@ int
 }
 
 int
-    kext2_list_dir (ext2_list_cb_t cb) {
+    ext2_list_dir (ext2_list_cb_t cb) {
 	if (!cb)
 		return EXT2_ERR_INVALID;
 
@@ -585,7 +585,7 @@ static kuint32_t
 }
 
 int
-    kext2_read (ext2_file_t *file, void *buf, ksize_t len) {
+    ext2_read (ext2_file_t *file, void *buf, ksize_t len) {
 	if (!file || !buf)
 		return EXT2_ERR_INVALID;
 
@@ -648,3 +648,10 @@ int
 	kfree(block_buf);
 	return (int) len;
 }
+
+struct Ext2 ext2 = {.set_block_device = ext2_set_block_device,
+                    .mount            = ext2_mount,
+                    .open             = ext2_open,
+                    .read             = ext2_read,
+                    .list             = ext2_list,
+                    .list_dir         = ext2_list_dir};
