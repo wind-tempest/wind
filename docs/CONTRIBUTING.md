@@ -1,4 +1,4 @@
-# Contributing to Wind/Tempest
+# Wind/Tempest Project - Contributing
 
 Contributing is very easy in Wind/Tempest.  It is just a few steps:
 
