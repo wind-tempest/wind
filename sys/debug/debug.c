@@ -13,12 +13,12 @@
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kutoa.h>
 
-kbool              kuse_debug         = kfalse;
+kbool              d_enabled          = kfalse;
 static const char *debug_type_message = "[    debug] ";
 
 void
     d_uts (const char *s) {
-	if (!kuse_debug) {
+	if (!d_enabled) {
 		return;
 	}
 	if (!s || *s == '\0')
@@ -30,7 +30,7 @@ void
 
 int
     d_printf (const char *format, ...) {
-	if (!kuse_debug)
+	if (!d_enabled)
 		return 0;
 
 	if (!format || *format == '\0')

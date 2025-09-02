@@ -10,6 +10,6 @@
 
 #include <lib/kstdio/kstdbool.h>
 
-extern kbool kuse_debug;
+extern kbool d_enabled;
 
 extern struct framebuffer_info fb_info;
