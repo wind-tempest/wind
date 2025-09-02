@@ -13,3 +13,6 @@ analyzed/
 
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
+
+# Ignore KDE Plasma directory icons
+.directory
