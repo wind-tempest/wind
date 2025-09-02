@@ -10,6 +10,8 @@
 
 #include "arch/amd64/registers.h"
 
+extern struct Panic panic;
+
 // Panic error codes
 #define PANIC_UNKNOWN_ERROR       0
 #define PANIC_DIVISION_BY_ZERO    1
@@ -29,6 +31,9 @@
 #define PANIC_SECURITY            15
 #define PANIC_INVALID_OPCODE      16
 
-// Panic function - halts the system with error information
-void
-    kpanic (int code, registers_t *regs);
+struct Panic {
+	void (*puts)(const char *s);
+	void (*dump)(registers_t *r);
+	const char *(*message)(int code);
+	void (*main)(int code, registers_t *regs);
+};

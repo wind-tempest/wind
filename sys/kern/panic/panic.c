@@ -6,6 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
+#include "panic.h"
+
 #include "arch/amd64/registers.h"
 #include "drivers/driver.h"
 
@@ -38,7 +40,7 @@ unsigned int seconds_to_reboot = 5;
 
 // Get kpanic message based on error code.
 static const char *
-    get_panic_message (int code) {
+    p_get_message (int code) {
 	switch (code) {
 		case PANIC_DIVISION_BY_ZERO:
 			return "Division by zero";
@@ -89,110 +91,110 @@ static kbool panic_in_progress = kfalse;
  * I don't want the code to repeat so much.
  */
 void
-    pputs (const char *s) {
+    p_puts (const char *s) {
 	serial.writes(s);
 	video.puts(s);
 }
 
 static void
-    dump_registers (registers_t *r) {
+    p_dump_registers (registers_t *r) {
 	char buff[32];
 
-	pputs(" RAX=");
+	p_puts(" RAX=");
 	kitoa(buff, buff + 30, (long) r->rax, 16, 0);
-	pputs(buff);
-	pputs(" RBX=");
+	p_puts(buff);
+	p_puts(" RBX=");
 	kitoa(buff, buff + 30, (long) r->rbx, 16, 0);
-	pputs(buff);
-	pputs(" RCX=");
+	p_puts(buff);
+	p_puts(" RCX=");
 	kitoa(buff, buff + 30, (long) r->rcx, 16, 0);
-	pputs(buff);
-	pputs(" RDX=");
+	p_puts(buff);
+	p_puts(" RDX=");
 	kitoa(buff, buff + 30, (long) r->rdx, 16, 0);
-	pputs(buff);
-	pputs("\n");
+	p_puts(buff);
+	p_puts("\n");
 
-	pputs(" RSI=");
+	p_puts(" RSI=");
 	kitoa(buff, buff + 30, (long) r->rsi, 16, 0);
-	pputs(buff);
-	pputs(" RDI=");
+	p_puts(buff);
+	p_puts(" RDI=");
 	kitoa(buff, buff + 30, (long) r->rdi, 16, 0);
-	pputs(buff);
-	pputs(" RBP=");
+	p_puts(buff);
+	p_puts(" RBP=");
 	kitoa(buff, buff + 30, (long) r->rbp, 16, 0);
-	pputs(buff);
+	p_puts(buff);
 
-	pputs(" R8 =");
+	p_puts(" R8 =");
 	kitoa(buff, buff + 30, (long) r->r8, 16, 0);
-	pputs(buff);
-	pputs(" R9 =");
+	p_puts(buff);
+	p_puts(" R9 =");
 	kitoa(buff, buff + 30, (long) r->r9, 16, 0);
-	pputs(buff);
-	pputs(" R10=");
+	p_puts(buff);
+	p_puts(" R10=");
 	kitoa(buff, buff + 30, (long) r->r10, 16, 0);
-	pputs(buff);
-	pputs(" R11=");
+	p_puts(buff);
+	p_puts(" R11=");
 	kitoa(buff, buff + 30, (long) r->r11, 16, 0);
-	pputs(buff);
-	pputs("\n");
+	p_puts(buff);
+	p_puts("\n");
 
-	pputs(" R12=");
+	p_puts(" R12=");
 	kitoa(buff, buff + 30, (long) r->r12, 16, 0);
-	pputs(buff);
-	pputs(" R13=");
+	p_puts(buff);
+	p_puts(" R13=");
 	kitoa(buff, buff + 30, (long) r->r13, 16, 0);
-	pputs(buff);
-	pputs(" R14=");
+	p_puts(buff);
+	p_puts(" R14=");
 	kitoa(buff, buff + 30, (long) r->r14, 16, 0);
-	pputs(buff);
-	pputs(" R15=");
+	p_puts(buff);
+	p_puts(" R15=");
 	kitoa(buff, buff + 30, (long) r->r15, 16, 0);
-	pputs(buff);
-	pputs("\n");
+	p_puts(buff);
+	p_puts("\n");
 }
 
 void
-    kpanic (int code, registers_t *regs) {
+    p_main (int code, registers_t *regs) {
 	panic_in_progress = ktrue;
 	__asm__ volatile("cli");
 
 	video.clear(0x0000ff);
 
-	const char *error_msg = get_panic_message(code);
+	const char *error_msg = p_get_message(code);
 
-	pputs("\n\nOops! Your system crashed\n");
-	pputs("Error code: ");
+	p_puts("\n\nOops! Your system crashed\n");
+	p_puts("Error code: ");
 	char buff[16];
 	kitoa(buff, buff + 14, code, 10, 0);
-	pputs(buff);
-	pputs("\n\nError: ");
-	pputs(error_msg);
-	pputs("\n");
+	p_puts(buff);
+	p_puts("\n\nError: ");
+	p_puts(error_msg);
+	p_puts("\n");
 
 	if (regs) {
-		pputs("\nRegister dump:\n");
-		dump_registers(regs);
+		p_puts("\nRegister dump:\n");
+		p_dump_registers(regs);
 	}
 
 	kmemset(buff, 0, sizeof(buff));
 
-	pputs("System will reboot in ");
+	p_puts("System will reboot in ");
 	kitoa(buff, buff + 14, seconds_to_reboot, 10, 0);
-	pputs(buff);
-	pputs(" seconds...\n");
+	p_puts(buff);
+	p_puts(" seconds...\n");
 
 	kmemset(buff, 0, sizeof(buff));
 
 	//  ̄\_(ツ)_/ ̄
 	for (unsigned int i = seconds_to_reboot; i > 0; i--) {
-		pputs("Rebooting in ");
+		p_puts("Rebooting in ");
 		kitoa(buff, buff + 14, i, 10, 0);
-		pputs(buff);
-		pputs(" seconds...\n");
+		p_puts(buff);
+		p_puts(" seconds...\n");
 		ksleep(1000);
 	}
 
-	pputs("Rebooting now...\n");
+	p_puts("Rebooting now...\n");
 
 	// Reboot the system.
 	acpi.reboot();
@@ -201,3 +203,5 @@ void
 		__asm__ volatile("hlt");
 	}
 }
+struct Panic panic = {
+    .main = p_main, .puts = p_puts, .message = p_get_message, .dump = p_dump_registers};

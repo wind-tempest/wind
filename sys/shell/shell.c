@@ -513,5 +513,5 @@ static void
 		return;
 	}
 
-	kpanic(code, KNULL);
+	panic.main(code, KNULL);
 }

@@ -53,7 +53,7 @@ struct multiboot_tag_mmap {
 void
     kmemory_init (void *multiboot_info) {
 	if (!multiboot_info) {
-		kpanic(1, KNULL);
+		panic.main(1, KNULL);
 		return;
 	}
 
@@ -82,7 +82,7 @@ void
 	}
 
 	if (!memory_map) {
-		kpanic(2, KNULL);
+		panic.main(2, KNULL);
 		return;
 	}
 

@@ -222,7 +222,7 @@ void
 	}
 
 	// Call kpanic with the appropriate error code and registers.
-	kpanic(panic_code, regs);
+	panic.main(panic_code, regs);
 }
 
 void
