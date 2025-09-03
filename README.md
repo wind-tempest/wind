@@ -1,3 +1,5 @@
+![Wind and Tempest logo](share/logo/both/wind-tempest-low.png)
+
 # Wind/Tempest Project
 
 [![Most used language](https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=)](https://github.com/wind-tempest/wind/tree/main)
