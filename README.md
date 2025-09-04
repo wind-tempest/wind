@@ -38,15 +38,15 @@ See [`docs/`](docs/Main.md).
 ## Star History
 
 <p align="center">
-  <a href="https://star-history.com/#wind-tempest/wind&Date">
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=wind-tempest/wind&type=Date&theme=dark" onerror="this.src='https://api.star-history.com/svg?repos=wind-tempest/wind&type=Date'" />
+  <a href="https://star-history.com/#wind-tempest/wt-src&Date">
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=wind-tempest/wt-src&type=Date&theme=dark" onerror="this.src='https://api.star-history.com/svg?repos=wind-tempest/wt-src&type=Date'" />
   </a>
 </p>
 
 ## Contributors
 
-<a href="https://github.com/wind-tempest/wind/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=wind-tempest/wind" />
+<a href="https://github.com/wind-tempest/wt-src/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=wind-tempest/wt-src&max=150&columns=24&anon=1" />
 </a>
 
 ## License
