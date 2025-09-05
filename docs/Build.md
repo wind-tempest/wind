@@ -1,4 +1,4 @@
-# Compiling Wind/Tempest
+# Wind/Tempest - Compiling
 
 ## Prerequisites
 

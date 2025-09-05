@@ -1,4 +1,4 @@
-# Wind/Tempest used dependencies
+# Wind/Tempest - Used dependencies
 
 > [!WARNING]
 > The dependencies listed here are is not final and will probably change as the project evolves.

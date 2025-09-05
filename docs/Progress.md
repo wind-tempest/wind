@@ -1,4 +1,4 @@
-# Wind/Tempest Progress
+# Wind/Tempest - Progress
 
 > [!WARNING]
 > This progress list is not final and will probably change as the project evolves.
