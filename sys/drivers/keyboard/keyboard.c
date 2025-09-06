@@ -1,11 +1,18 @@
 // SPDX-License-Identifier: LSL-1.4
 /*
- * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
+ * -- BEGIN LICENSE HEADER --
+ * The Wind/Tempest Project
  *
- * Authors:
- *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
+ * File:        sys/drivers/keyboard/keyboard.c
+ * Author(s):   Russian95 <russian95@tempestfoundation.org>
+ *              (https://github.com/Russian95CrE)
+ * Maintainer:  Tempest Foundation <development@tempestfoundation.org>
+ * Link:        https://wtsrc.tempestfoundation.org
+ *
+ * Copyright (C) 2025 Tempest Foundation
+ * Licensed under the Liberty Software License, Version 1.4
+ * -- END OF LICENSE HEADER --
  */
-
 #include "drivers/keyboard/keyboard.h"
 
 #include <arch/amd64/idt.h>
@@ -87,29 +94,3 @@ static void
 	}
 }
 
-/*
- ! This only works in single-tasking environments.
- ! Needs locking or buffer protection for multi-tasking.
- */
-int
-    getchar (void) {
-	// Wait for a character to be available
-	while (kbd_buffer_head == kbd_buffer_tail) {
-		__asm__ volatile("sti; hlt");
-	}
-	__asm__ volatile("cli");
-
-	int c           = kbd_buffer[kbd_buffer_tail];
-	kbd_buffer_tail = (kbd_buffer_tail + 1) % KBD_BUFFER_SIZE;
-
-	__asm__ volatile("sti");
-	return c;
-}
-
-void
-    k_init (void) {
-	register_irq_handler(1, k_handler);
-}
-
-struct Keyboard keyboard = {
-    .init = k_init, .handle = k_handler, .adjust_case = k_adjust_case};

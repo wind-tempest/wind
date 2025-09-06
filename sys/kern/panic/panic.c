@@ -1,11 +1,18 @@
 // SPDX-License-Identifier: LSL-1.4
 /*
- * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
+ * -- BEGIN LICENSE HEADER --
+ * The Wind/Tempest Project
  *
- * Authors:
- *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
+ * File:        sys/kern/panic/panic.c
+ * Author(s):   Russian95 <russian95@tempestfoundation.org>
+ *              (https://github.com/Russian95CrE)
+ * Maintainer:  Tempest Foundation <development@tempestfoundation.org>
+ * Link:        https://wtsrc.tempestfoundation.org
+ *
+ * Copyright (C) 2025 Tempest Foundation
+ * Licensed under the Liberty Software License, Version 1.4
+ * -- END OF LICENSE HEADER --
  */
-
 #include "panic.h"
 
 #include "arch/amd64/registers.h"
@@ -79,129 +86,3 @@ static const char *
 	}
 }
 
-/*
- * Indicates whether we are already inside a kpanic handler. This prevents
- * recursive panics (e.g., if the kpanic handler itself triggers a fault),
- * which otherwise lead to double-/triple-faults and a silent reboot.
- */
-static kbool panic_in_progress = kfalse;
-
-/*
- * Why did I make this function? Well...
- * I don't want the code to repeat so much.
- */
-void
-    p_puts (const char *s) {
-	serial.writes(s);
-	video.puts(s);
-}
-
-static void
-    p_dump_registers (registers_t *r) {
-	char buff[32];
-
-	p_puts(" RAX=");
-	kitoa(buff, buff + 30, (long) r->rax, 16, 0);
-	p_puts(buff);
-	p_puts(" RBX=");
-	kitoa(buff, buff + 30, (long) r->rbx, 16, 0);
-	p_puts(buff);
-	p_puts(" RCX=");
-	kitoa(buff, buff + 30, (long) r->rcx, 16, 0);
-	p_puts(buff);
-	p_puts(" RDX=");
-	kitoa(buff, buff + 30, (long) r->rdx, 16, 0);
-	p_puts(buff);
-	p_puts("\n");
-
-	p_puts(" RSI=");
-	kitoa(buff, buff + 30, (long) r->rsi, 16, 0);
-	p_puts(buff);
-	p_puts(" RDI=");
-	kitoa(buff, buff + 30, (long) r->rdi, 16, 0);
-	p_puts(buff);
-	p_puts(" RBP=");
-	kitoa(buff, buff + 30, (long) r->rbp, 16, 0);
-	p_puts(buff);
-
-	p_puts(" R8 =");
-	kitoa(buff, buff + 30, (long) r->r8, 16, 0);
-	p_puts(buff);
-	p_puts(" R9 =");
-	kitoa(buff, buff + 30, (long) r->r9, 16, 0);
-	p_puts(buff);
-	p_puts(" R10=");
-	kitoa(buff, buff + 30, (long) r->r10, 16, 0);
-	p_puts(buff);
-	p_puts(" R11=");
-	kitoa(buff, buff + 30, (long) r->r11, 16, 0);
-	p_puts(buff);
-	p_puts("\n");
-
-	p_puts(" R12=");
-	kitoa(buff, buff + 30, (long) r->r12, 16, 0);
-	p_puts(buff);
-	p_puts(" R13=");
-	kitoa(buff, buff + 30, (long) r->r13, 16, 0);
-	p_puts(buff);
-	p_puts(" R14=");
-	kitoa(buff, buff + 30, (long) r->r14, 16, 0);
-	p_puts(buff);
-	p_puts(" R15=");
-	kitoa(buff, buff + 30, (long) r->r15, 16, 0);
-	p_puts(buff);
-	p_puts("\n");
-}
-
-void
-    p_main (int code, registers_t *regs) {
-	panic_in_progress = ktrue;
-	__asm__ volatile("cli");
-
-	video.clear(0x0000ff);
-
-	const char *error_msg = p_get_message(code);
-
-	p_puts("\n\nOops! Your system crashed\n");
-	p_puts("Error code: ");
-	char buff[16];
-	kitoa(buff, buff + 14, code, 10, 0);
-	p_puts(buff);
-	p_puts("\n\nError: ");
-	p_puts(error_msg);
-	p_puts("\n");
-
-	if (regs) {
-		p_puts("\nRegister dump:\n");
-		p_dump_registers(regs);
-	}
-
-	kmemset(buff, 0, sizeof(buff));
-
-	p_puts("System will reboot in ");
-	kitoa(buff, buff + 14, seconds_to_reboot, 10, 0);
-	p_puts(buff);
-	p_puts(" seconds...\n");
-
-	kmemset(buff, 0, sizeof(buff));
-
-	//  ̄\_(ツ)_/ ̄
-	for (unsigned int i = seconds_to_reboot; i > 0; i--) {
-		p_puts("Rebooting in ");
-		kitoa(buff, buff + 14, i, 10, 0);
-		p_puts(buff);
-		p_puts(" seconds...\n");
-		ksleep(1000);
-	}
-
-	p_puts("Rebooting now...\n");
-
-	// Reboot the system.
-	acpi.reboot();
-
-	while (1) {
-		__asm__ volatile("hlt");
-	}
-}
-struct Panic panic = {
-    .main = p_main, .puts = p_puts, .message = p_get_message, .dump = p_dump_registers};

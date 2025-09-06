@@ -1,11 +1,18 @@
 // SPDX-License-Identifier: LSL-1.4
 /*
- * Copyright (C) 2025 Tempest Foundation <https://wind.tempestfoundation.org>
+ * -- BEGIN LICENSE HEADER --
+ * The Wind/Tempest Project
  *
- * Authors:
- *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
+ * File:        include/lib/kmath/kmath.h
+ * Author(s):   Russian95 <russian95@tempestfoundation.org>
+ *              (https://github.com/Russian95CrE)
+ * Maintainer:  Tempest Foundation <development@tempestfoundation.org>
+ * Link:        https://wtsrc.tempestfoundation.org
+ *
+ * Copyright (C) 2025 Tempest Foundation
+ * Licensed under the Liberty Software License, Version 1.4
+ * -- END OF LICENSE HEADER --
  */
-
 #pragma once
 
 #include "kacos.h"
@@ -64,18 +71,3 @@
 #define K_M_SQRT2    1.41421356237309504880  // ksqrt(2)
 #define K_M_SQRT1_2  0.70710678118654752440  // 1/ksqrt(2)
 
-/*
-    Just a fucking warning!
-    FP_INFINITE: classification macro (integer)
-    INFINITY: floating-point constant (IEEE 754 positive infinity)
-*/
-
-// Infinity and NaN constants
-#define K_INFINITY (1.0 / 0.0)
-#define K_NAN      (0.0 / 0.0)
-
-// Classification macros
-#define K_FP_NAN       0
-#define K_FP_ZERO      2
-#define K_FP_SUBNORMAL 3
-#define K_FP_NORMAL    4
