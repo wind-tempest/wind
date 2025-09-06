@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "acpi/acpi.h"
-#include "ata/ata.h"
-#include "keyboard/keyboard.h"
-#include "serial/serial.h"
-#include "video/video.h"
+#include <drivers/acpi/acpi.h>
+#include <drivers/ata/ata.h>
+#include <drivers/keyboard/keyboard.h>
+#include <drivers/serial/serial.h>
+#include <drivers/video/video.h>

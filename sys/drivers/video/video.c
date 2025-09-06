@@ -6,13 +6,12 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "drivers/video/video.h"
-
-#include "drivers/video/font/font.h"
-#include "kern/framebuf/framebuf.h"
-#include "kern/init/main.h"
+#include "video.h"
 
 #include <debug/debug.h>
+#include <drivers/video/font/font.h>
+#include <kern/framebuf/framebuf.h>
+#include <kern/init/main.h>
 #include <lib/kstdio/kstdbool.h>
 #include <lib/kstdio/kstddef.h>
 

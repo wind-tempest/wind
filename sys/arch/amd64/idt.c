@@ -8,9 +8,8 @@
 
 #include "idt.h"
 
-#include "arch/amd64/kasm/kio.h"
-#include "kern/panic/panic.h"
-
+#include <arch/amd64/kasm/kio.h>
+#include <kern/panic/panic.h>
 #include <lib/kstdio/kstdio.h>
 
 // PIC (Programmable Interrupt Controller) ports.

@@ -8,8 +8,7 @@
 
 #include "vfs.h"
 
-#include "fs/ext2/ext2.h"
-
+#include <fs/ext2/ext2.h>
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstring/kstring.h>
 
