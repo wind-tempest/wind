@@ -13,7 +13,6 @@
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-
 #include "drivers/ata/ata.h"
 
 #include <arch/amd64/kasm/kio.h>

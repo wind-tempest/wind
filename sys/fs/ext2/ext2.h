@@ -13,7 +13,6 @@
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-
 #pragma once
 
 #include <lib/kstdio/kstdbool.h>
@@ -131,24 +130,3 @@ typedef struct ext2_file {
 	kuint64_t    pos;  // Current read offset
 } ext2_file_t;
 
-/*
- * --------------------------------------------------------------------------
- *  Public API (minimal)
- * ------------------------------------------------------------------------
- */
-// Application supplies block-device callbacks (sector-based, 512-byte)
-typedef void (*ext2_list_cb_t)(const char *name, kuint8_t file_type);
-
-struct Ext2 {
-	void (*set_block_device)(int (*read)(kuint64_t, kuint32_t, void *),
-	                         int (*write)(kuint64_t, kuint32_t, const void *));
-	int (*mount)(kuint64_t base_lba);
-	int (*open)(const char *path, ext2_file_t *out_file);
-	int (*read)(ext2_file_t *file, void *buf, ksize_t len);
-	int (*list)(const char *path, ext2_list_cb_t cb);
-	int (*list_dir)(ext2_list_cb_t cb);
-};
-
-#ifdef __cplusplus
-}
-#endif

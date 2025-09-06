@@ -13,7 +13,6 @@
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-
 #include <lib/kgeneral/kcharset/kcharset.h>
 #include <lib/kstdlib/kstdlib.h>
 #include <lib/kstdlib/kutoa.h>

@@ -13,7 +13,6 @@
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kexit.h>
 #include <lib/kstdlib/kstdlib.h>

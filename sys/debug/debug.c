@@ -13,7 +13,6 @@
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-
 #include <debug/debug.h>
 #include <drivers/serial/serial.h>
 #include <lib/kstdio/kstdbool.h>

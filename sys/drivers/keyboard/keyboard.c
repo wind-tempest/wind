@@ -13,7 +13,6 @@
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-
 #include "drivers/keyboard/keyboard.h"
 
 #include <arch/amd64/idt.h>
@@ -95,29 +94,3 @@ static void
 	}
 }
 
-/*
- ! This only works in single-tasking environments.
- ! Needs locking or buffer protection for multi-tasking.
- */
-int
-    getchar (void) {
-	// Wait for a character to be available
-	while (kbd_buffer_head == kbd_buffer_tail) {
-		__asm__ volatile("sti; hlt");
-	}
-	__asm__ volatile("cli");
-
-	int c           = kbd_buffer[kbd_buffer_tail];
-	kbd_buffer_tail = (kbd_buffer_tail + 1) % KBD_BUFFER_SIZE;
-
-	__asm__ volatile("sti");
-	return c;
-}
-
-void
-    k_init (void) {
-	register_irq_handler(1, k_handler);
-}
-
-struct Keyboard keyboard = {
-    .init = k_init, .handle = k_handler, .adjust_case = k_adjust_case};

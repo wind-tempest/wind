@@ -13,7 +13,6 @@
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-
 #include <lib/kstdio/kstddef.h>
 #include <lib/kstring/kmemcpy.h>
 

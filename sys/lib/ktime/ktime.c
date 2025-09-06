@@ -13,7 +13,6 @@
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-
 #include <arch/amd64/kasm/kio.h>
 #include <lib/kstdio/kstdio.h>
 #include <lib/ktime/ktime.h>
