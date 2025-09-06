@@ -18,6 +18,6 @@ struct Debug {
 	void (*err)(const char *, const char *, const char *);
 	void (*notice)(const char *, const char *, const char *);
 	void (*info)(const char *, const char *, const char *);
-	void (*uts)(const char *);               // debug.uts
-	int (*printf)(const char *format, ...);  // kdebugf
+	void (*puts)(const char *);
+	int (*printf)(const char *format, ...);
 };

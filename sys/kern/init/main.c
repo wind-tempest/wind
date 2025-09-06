@@ -67,7 +67,7 @@ static void
 static void
     parse_multiboot_info (void *mb_info) {
 	if (mb_info == KNULL) {
-		debug.uts("mb_info is NULL!");
+		debug.puts("mb_info is NULL!");
 		return;
 	}
 
@@ -75,7 +75,7 @@ static void
 	kuint8_t *current    = (kuint8_t *) ((kuintptr_t) mb_info + 8);
 	kuint8_t *end        = (kuint8_t *) ((kuintptr_t) mb_info + total_size);
 
-	debug.uts("Parsing multiboot info...");
+	debug.puts("Parsing multiboot info...");
 
 	while (current < end) {
 		struct multiboot_tag *tag = (struct multiboot_tag *) current;
@@ -87,11 +87,11 @@ static void
 
 		switch ((multiboot_tag_type_t) tag->type) {
 			case MULTIBOOT_TAG_TYPE_END:
-				debug.uts("End tag found. Parsing complete.");
+				debug.puts("End tag found. Parsing complete.");
 				return;
 
 			case MULTIBOOT_TAG_TYPE_FRAMEBUFFER: {
-				debug.uts("Framebuffer tag found");
+				debug.puts("Framebuffer tag found");
 
 				struct multiboot_tag_framebuffer *fb_tag =
 				    (struct multiboot_tag_framebuffer *) tag;
@@ -122,7 +122,7 @@ static void
 		current += (tag->size + 7) & (kuint32_t) ~7;  // align to 8 bytes
 	}
 
-	debug.uts("Reached end of multiboot info (no END tag)");
+	debug.puts("Reached end of multiboot info (no END tag)");
 }
 
 void

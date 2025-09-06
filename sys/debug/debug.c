@@ -17,7 +17,7 @@ kbool              d_enabled          = kfalse;
 static const char *debug_type_message = "[    debug] ";
 
 void
-    d_uts (const char *s) {
+    d_puts (const char *s) {
 	if (!d_enabled) {
 		return;
 	}
@@ -236,5 +236,5 @@ struct Debug debug = {.crit   = d_crit,
                       .err    = d_err,
                       .notice = d_notice,
                       .info   = d_info,
-                      .uts    = d_uts,
+                      .puts   = d_puts,
                       .printf = d_printf};
