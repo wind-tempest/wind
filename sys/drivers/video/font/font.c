@@ -6,7 +6,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "drivers/video/font/font.h"
+#include "font.h"
 
 #include <lib/kstdio/kstdint.h>
 

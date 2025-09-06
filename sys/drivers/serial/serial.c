@@ -8,8 +8,7 @@
 
 #include "serial.h"
 
-#include "arch/amd64/kasm/kio.h"
-
+#include <arch/amd64/kasm/kio.h>
 #include <lib/kstdio/kstdbool.h>
 #include <lib/kstdlib/kitoa.h>
 

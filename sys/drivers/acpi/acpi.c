@@ -8,8 +8,7 @@
 
 #include "acpi.h"
 
-#include "arch/amd64/kasm/kio.h"
-
+#include <arch/amd64/kasm/kio.h>
 #include <debug/debug.h>
 #include <lib/kstdio/kstddef.h>
 #include <lib/kunistd/ksleep.h>

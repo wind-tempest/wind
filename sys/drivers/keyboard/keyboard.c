@@ -8,9 +8,8 @@
 
 #include "drivers/keyboard/keyboard.h"
 
-#include "arch/amd64/idt.h"
-#include "arch/amd64/kasm/kio.h"
-
+#include <arch/amd64/idt.h>
+#include <arch/amd64/kasm/kio.h>
 #include <lib/kstdio/kstdio.h>
 
 #define KBD_DATA_PORT   0x60

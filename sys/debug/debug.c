@@ -6,9 +6,8 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "drivers/serial/serial.h"
-
 #include <debug/debug.h>
+#include <drivers/serial/serial.h>
 #include <lib/kstdio/kstdbool.h>
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kutoa.h>

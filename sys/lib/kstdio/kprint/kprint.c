@@ -6,8 +6,7 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
-#include "drivers/driver.h"
-
+#include <drivers/driver.h>
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kutoa.h>
 

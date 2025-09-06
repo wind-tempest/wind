@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "arch/amd64/idt.h"
+#include <arch/amd64/idt.h>
 
 extern struct Keyboard keyboard;
 
