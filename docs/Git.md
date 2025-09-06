@@ -1,4 +1,4 @@
-# Wind/Tempest - Commit Message Style Guide
+# Wind/Tempest Project - Commit Message Style Guide
 
 This document defines the commit message convention used in the Wind/Tempest project.  Following this convention keeps the Git history clean and searchable.
 

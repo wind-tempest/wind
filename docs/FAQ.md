@@ -1,4 +1,4 @@
-# Wind/Tempest - FAQ
+# Wind/Tempest Project - FAQ
 
 > [!WARNING]
 > This FAQ is not final and will probably change as the project evolves.

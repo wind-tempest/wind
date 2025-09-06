@@ -1,4 +1,4 @@
-# Wind/Tempest - Tree
+# Wind/Tempest Project - Tree
 
 > [!WARNING]
 > This tree is not final and will probably change as the project evolves.

@@ -1,4 +1,4 @@
-# Wind/Tempest - Documentation
+# Wind/Tempest Project - Documentation
 
 This is the documentation hub for Wind/Tempest. Here you will find all the text I wrote.
 

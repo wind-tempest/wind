@@ -1,4 +1,4 @@
-# Wind/Tempest - Project Root
+# Wind/Tempest Project - Project Root
 
 ## Introduction
 
