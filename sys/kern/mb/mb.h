@@ -8,6 +8,5 @@
 
 #pragma once
 
-#include <lib/kstdio/kstdbool.h>
-
-extern kbool d_enabled;
+void
+    parse_multiboot_info (void *mb_info);

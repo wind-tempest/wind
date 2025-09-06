@@ -9,6 +9,7 @@
 #include "drivers/video/video.h"
 
 #include "drivers/video/font/font.h"
+#include "kern/framebuf/framebuf.h"
 #include "kern/init/main.h"
 
 #include <debug/debug.h>

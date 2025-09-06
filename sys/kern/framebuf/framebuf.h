@@ -8,6 +8,11 @@
 
 #pragma once
 
-#include <lib/kstdio/kstdbool.h>
+#include "drivers/video/video.h"
 
-extern kbool d_enabled;
+#include <lib/kstdio/kstdint.h>
+
+extern struct framebuffer_info fb_info;
+
+void
+    map_framebuffer_address (kuint64_t phys_addr);

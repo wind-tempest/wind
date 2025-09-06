@@ -11,7 +11,7 @@
 #include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
 #include "fs/vfs/vfs.h"
-#include "kern/init/main.h"
+#include "kern/framebuf/framebuf.h"
 #include "kern/memory/memory.h"
 #include "kern/panic/panic.h"
 
