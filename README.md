@@ -1,6 +1,6 @@
-![Wind and Tempest logo](share/logo/both/wind-tempest-low.png)
+![Project logo](share/logo/both/wind-tempest-low.png)
 
-# Wind/Tempest Project
+# Wind/Tempest Project - README
 
 [![Most used language](https://img.shields.io/github/languages/top/wind-tempest/wind?logo=c&label=)](https://github.com/wind-tempest/wind/tree/main)
 [![License: LSL-1.4](https://img.shields.io/badge/license-LSL-blue.svg)](LICENSE.md)
@@ -9,19 +9,23 @@
 [![Build Status](https://github.com/tempest-foundation/wt-src/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/tempest-foundation/wt-src/actions/workflows/build.yml?branch=main)
 [![Code Quality](https://app.codacy.com/project/badge/Grade/7e4e0ee89b95461baf590c1ab5f96b20)](https://app.codacy.com/gh/wind-tempest/wt-src/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-Wind/Tempest is a barebones POSIX-like OS. Built from scratch, for amd64.
+## Table of Contents
 
-## Core Features
+- [About](#about)
+- [Documentation](#documentation)
+- [Screenshots](#screenshots)
+- [Philosophy](#philosophy)
+- [Star History](#star-history)
+- [Contributors](#contributors)
+- [License](#license)
 
-- **Boot:** Limine + Multiboot2
-- **Display:** Framebuffer text & test patterns
-- **Input:** Keyboard (US only for now)
-- **Shell:** `inish` (basic commands)
-- **FS:** Ext2
+## About
+
+Wind/Tempest Project is a operating system and kernel focused to be minimal, lightweight and extensible.
 
 ## Documentation
 
-See [`docs/`](docs/Main.md).
+You can see the documentation of the project [here](docs/Main.md)
 
 ## Screenshots
 
@@ -32,7 +36,7 @@ See [`docs/`](docs/Main.md).
 ## Philosophy
 
 - Transparency: Inspect every line.
-- Self-reliance: No hand-holding -- patches welcome.
+- Self-reliance: No hand-holding, patches welcome.
 - Simplicity: Features exist because someone coded them.
 
 ## Star History
@@ -51,4 +55,4 @@ See [`docs/`](docs/Main.md).
 
 ## License
 
-Wind/Tempest is licensed under the `Liberty Software License 1.4`. See [LICENSE](LICENSE.md) for more details.
+This project is licensed under the `Liberty Software License 1.4`. Click [here](LICENSE.md) for more details.
