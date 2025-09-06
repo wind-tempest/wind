@@ -11,5 +11,3 @@
 #include <lib/kstdio/kstdbool.h>
 
 extern kbool d_enabled;
-
-extern struct framebuffer_info fb_info;
