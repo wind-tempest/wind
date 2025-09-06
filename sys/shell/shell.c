@@ -359,10 +359,10 @@ static void
 	const char *path = (args && *args) ? args : KNULL;
 	char        buf[256];
 	if (!path) {
-		vfs_getcwd(buf, sizeof(buf));
+		vfs.getcwd(buf, sizeof(buf));
 		path = buf;
 	} else if (path[0] != '/') {
-		vfs_resolve(path, buf, sizeof(buf));
+		vfs.resolve(path, buf, sizeof(buf));
 		path = buf;
 	}
 	list_dir_path(path);
@@ -372,7 +372,7 @@ static void
 static void
     cmd_cd (const char *args) {
 	const char *path = (args && *args) ? args : "/";
-	int         rc   = vfs_chdir(path);
+	int         rc   = vfs.chdir(path);
 	if (rc != 0) {
 		kprintf("cd: cannot access %s (err %d)\n", path, rc);
 	}
@@ -387,7 +387,7 @@ static void
 	char        abs_path[256];
 	const char *path = args;
 	if (path[0] != '/') {
-		vfs_resolve(path, abs_path, sizeof(abs_path));
+		vfs.resolve(path, abs_path, sizeof(abs_path));
 		path = abs_path;
 	}
 	ext2_file_t file;
@@ -413,7 +413,7 @@ static void
 	char        abs_path[256];
 	const char *path = args;
 	if (path[0] != '/') {
-		vfs_resolve(path, abs_path, sizeof(abs_path));
+		vfs.resolve(path, abs_path, sizeof(abs_path));
 		path = abs_path;
 	}
 	ext2_file_t file;
@@ -431,7 +431,7 @@ static void
     cmd_pwd (const char *args) {
 	(void) args;
 	char buf[256];
-	vfs_getcwd(buf, sizeof(buf));
+	vfs.getcwd(buf, sizeof(buf));
 	kputs(buf);
 }
 

@@ -118,3 +118,10 @@ int
 	kstrcpy(cwd_path, resolved);
 	return 0;
 }
+
+struct Vfs vfs = {
+    .getcwd    = vfs_getcwd,
+    .normalize = vfs_normalize_path,
+    .resolve   = vfs_resolve,
+    .chdir     = vfs_chdir,
+};
