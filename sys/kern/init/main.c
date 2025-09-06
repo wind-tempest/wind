@@ -12,6 +12,8 @@
 #include "arch/amd64/idt.h"
 #include "drivers/driver.h"
 #include "fs/ext2/ext2.h"
+#include "kern/framebuf/framebuf.h"
+#include "kern/mb/mb.h"
 #include "kern/memory/memory.h"
 #include "shell/shell.h"
 

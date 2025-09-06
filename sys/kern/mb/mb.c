@@ -6,6 +6,10 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
+#include "mb.h"
+
+#include "kern/framebuf/framebuf.h"
+
 #include <debug/debug.h>
 #include <lib/kstdio/kstdio.h>
 

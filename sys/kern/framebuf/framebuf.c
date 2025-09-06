@@ -6,10 +6,12 @@
  *	Russian95 (https://github.com/Russian95CrE) <russian95@tempestfoundation.org>
  */
 
+#include "framebuf.h"
+
 #include <debug/debug.h>
 #include <lib/kstdio/kstdint.h>
 
-struct framebuffer_info *fb_info;
+struct framebuffer_info fb_info;
 
 void
     map_framebuffer_address (kuint64_t phys_addr) {
