@@ -3,7 +3,7 @@
 headers_bad=false
 
 while IFS= read -r -d '' file; do
-    relpath=$(echo "$file" | sed 's|^\./||')
+    relpath="${file#./}"
 
     header=$(head -n 25 "$file")
 
@@ -38,7 +38,6 @@ while IFS= read -r -d '' file; do
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-
 EOF
         cat "$file" >> "$tmpfile"
         mv "$tmpfile" "$file"
