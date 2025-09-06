@@ -36,4 +36,4 @@ There is none for now, but I will add it soon.
 
 ## What's the CPU architecture you are targeting?
 
-For now x86-64.  But in a future (I don't know when) I plan to support other architectures like ARM and etc.
+For now amd64.  But in a future (I don't know when) I plan to support other architectures like ARM and etc.
