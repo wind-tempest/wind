@@ -125,6 +125,9 @@ extern void
 extern void
     irq15 (void);
 
+extern void
+    syscall_int_handler (void);
+
 extern void *isr_stub_table[];
 
 // Array of C-level interrupt handlers.
@@ -318,6 +321,19 @@ void
 	idt_set_gate(46, (kuint64_t) irq14, 0x08, 0x8E);
 	idt_set_gate(47, (kuint64_t) irq15, 0x08, 0x8E);
 
+	// Set up syscalls
+	idt_setup_syscall();
+
 	// Load the IDT.
 	__asm__ volatile("lidt %0" : : "m"(idtp));
+}
+
+// Setup syscall interrupt handler
+void
+    idt_setup_syscall (void) {
+	// Register syscall interrupt handler (int 0x80)
+	// Use DPL=3 (0xEE) to allow user-mode access
+	idt_set_gate(0x80, (kuint64_t) syscall_int_handler, 0x08, 0xEE);
+
+	kprintf("[IDT] Syscall interrupt handler registered at 0x80\n");
 }

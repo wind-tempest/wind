@@ -22,6 +22,8 @@
 #include <kern/framebuf/framebuf.h>
 #include <kern/memory/memory.h>
 #include <kern/panic/panic.h>
+#include <kern/syscall/syscall.h>
+#include <kern/syscall/syscall_integration.h>
 #include <lib/kgeneral/kerrno/kerrno.h>
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kstdlib.h>

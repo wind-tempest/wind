@@ -23,6 +23,7 @@
 #include <kern/framebuf/framebuf.h>
 #include <kern/mb/mb.h>
 #include <kern/memory/memory.h>
+#include <kern/syscall/syscall_integration.h>
 #include <lib/kstdio/kprint/kprint.h>
 #include <shell/shell.h>
 
@@ -39,6 +40,9 @@ void
 
 	kmemory_init(mb_info);
 	init_memory_pools();
+
+	// Initialize syscall infrastructure
+	syscall_infrastructure_init();
 
 	ext2.set_block_device(ata.pio_read, KNULL);
 	if (ext2.mount(0) != 0)
