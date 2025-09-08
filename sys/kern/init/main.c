@@ -23,7 +23,7 @@
 #include <kern/framebuf/framebuf.h>
 #include <kern/mb/mb.h>
 #include <kern/memory/memory.h>
-#include <kern/syscall/syscall_integration.h>
+#include <kern/syscall/integration.h>
 #include <lib/kstdio/kprint/kprint.h>
 #include <shell/shell.h>
 

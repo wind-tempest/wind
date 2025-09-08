@@ -3,7 +3,7 @@
  * -- BEGIN LICENSE HEADER --
  * The Wind/Tempest Project
  *
- * File:        sys/kern/syscall/syscall_integration.c
+ * File:        sys/kern/syscall/integration.c
  * Author(s):   Russian95 <russian95@tempestfoundation.org>
  *              (https://github.com/Russian95CrE)
  * Maintainer:  Tempest Foundation <development@tempestfoundation.org>
@@ -13,7 +13,7 @@
  * Licensed under the Liberty Software License, Version 1.4
  * -- END OF LICENSE HEADER --
  */
-#include "syscall_integration.h"
+#include "integration.h"
 
 #include <lib/kstdio/kstdio.h>
 
@@ -31,7 +31,6 @@ static kuint64_t       syscall_call_count[SYSCALL_MAX_COUNT] = {0};
 void
     syscall_infrastructure_init (void) {
 	kprintf("\n[SYSCALL] Initializing Wind/Tempest Syscall Infrastructure\n");
-	kprintf("[SYSCALL] =====================================================\n");
 
 	syscall_status = SYSCALL_STATUS_INITIALIZING;
 
@@ -58,7 +57,6 @@ void
 	kprintf("[SYSCALL] Logging: %s\n", syscall_logging ? "ENABLED" : "DISABLED");
 	kprintf("[SYSCALL] Security checks: %s\n",
 	        security_checks ? "ENABLED" : "DISABLED");
-	kprintf("[SYSCALL] =====================================================\n\n");
 }
 
 // Shutdown the syscall infrastructure
@@ -90,7 +88,6 @@ syscall_status_t
 void
     syscall_print_info (void) {
 	kprintf("\n[SYSCALL] Wind/Tempest Syscall Infrastructure Information\n");
-	kprintf("[SYSCALL] =====================================================\n");
 
 	const char *status_str;
 	switch (syscall_status) {
@@ -131,7 +128,6 @@ void
 		        syscall_stats.most_used_syscall,
 		        syscall_stats.most_used_count);
 	}
-	kprintf("[SYSCALL] =====================================================\n\n");
 }
 
 // Print all registered syscalls
@@ -157,9 +153,7 @@ void
 		}
 	}
 
-	kprintf("[SYSCALL] -----|-------------------------|------|----------\n");
 	kprintf("[SYSCALL] Total registered syscalls: %u\n", registered_count);
-	kprintf("[SYSCALL] =====================================================\n\n");
 }
 
 // Validate syscall infrastructure integrity

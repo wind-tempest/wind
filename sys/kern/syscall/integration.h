@@ -3,7 +3,7 @@
  * -- BEGIN LICENSE HEADER --
  * The Wind/Tempest Project
  *
- * File:        sys/kern/syscall/syscall_integration.h
+ * File:        sys/kern/syscall/integration.h
  * Author(s):   Russian95 <russian95@tempestfoundation.org>
  *              (https://github.com/Russian95CrE)
  * Maintainer:  Tempest Foundation <development@tempestfoundation.org>
