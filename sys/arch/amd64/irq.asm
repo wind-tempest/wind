@@ -1,4 +1,4 @@
-; SPDX-License-Identifier: LSL-1.4
+; SPDX-License-Identifier: LSL-2.0
 ;
 ; -- BEGIN LICENSE HEADER --
 ; The Wind/Tempest Project
@@ -10,7 +10,7 @@
 ; Link:        https://wtsrc.tempestfoundation.org
 ;
 ; Copyright (C) 2025 Tempest Foundation
-; Licensed under the Liberty Software License, Version 1.4
+; Licensed under the Liberty Software License, Version 2.0
 ; -- END OF LICENSE HEADER --
 ;
 global irq0, irq1, irq2, irq3, irq4, irq5, irq6, irq7
