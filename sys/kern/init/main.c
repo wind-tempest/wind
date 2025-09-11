@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.4
+// SPDX-License-Identifier: LSL-2.0
 /*
  * -- BEGIN LICENSE HEADER --
  * The Wind/Tempest Project
@@ -10,7 +10,7 @@
  * Link:        https://wtsrc.tempestfoundation.org
  *
  * Copyright (C) 2025 Tempest Foundation
- * Licensed under the Liberty Software License, Version 1.4
+ * Licensed under the Liberty Software License, Version 2.0
  * -- END OF LICENSE HEADER --
  */
 #include "main.h"
@@ -23,6 +23,7 @@
 #include <kern/framebuf/framebuf.h>
 #include <kern/mb/mb.h>
 #include <kern/memory/memory.h>
+#include <kern/syscall/integration.h>
 #include <lib/kstdio/kprint/kprint.h>
 #include <shell/shell.h>
 
@@ -39,6 +40,9 @@ void
 
 	kmemory_init(mb_info);
 	init_memory_pools();
+
+	// Initialize syscall infrastructure
+	syscall_infrastructure_init();
 
 	ext2.set_block_device(ata.pio_read, KNULL);
 	if (ext2.mount(0) != 0)

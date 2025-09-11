@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LSL-1.4
+// SPDX-License-Identifier: LSL-2.0
 /*
  * -- BEGIN LICENSE HEADER --
  * The Wind/Tempest Project
@@ -10,7 +10,7 @@
  * Link:        https://wtsrc.tempestfoundation.org
  *
  * Copyright (C) 2025 Tempest Foundation
- * Licensed under the Liberty Software License, Version 1.4
+ * Licensed under the Liberty Software License, Version 2.0
  * -- END OF LICENSE HEADER --
  */
 #include "shell.h"
@@ -22,6 +22,8 @@
 #include <kern/framebuf/framebuf.h>
 #include <kern/memory/memory.h>
 #include <kern/panic/panic.h>
+#include <kern/syscall/integration.h>
+#include <kern/syscall/syscall.h>
 #include <lib/kgeneral/kerrno/kerrno.h>
 #include <lib/kstdio/kstdio.h>
 #include <lib/kstdlib/kstdlib.h>
